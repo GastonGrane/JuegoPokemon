@@ -1,0 +1,72 @@
+%% Quedó precioso, ya sé
+classDiagram
+   accTitle: Diagrama de Clases Proyecto Final
+
+   class Game {
+     +Pokemon: List~IPokemon~
+     +Player1: Player
+     +Player2: Player
+
+     +Play() void
+     +EndGame() void
+     +SelectPokemon(IPokemon) void
+     +CreatePlayer() void
+     +PrintMessage() void
+   }
+   Game "0..*" <.. "1" IPokemon
+   Game "2" <.. "1" Player
+
+   <<interface>> IPokemon
+   class IPokemon {
+     +Name: string
+     +Element: IElement
+     +Attacks: Attack[]
+     +Health: int
+     +MaxHealth: int
+
+     +Attack(IPokemon target, string attackName) void
+   }
+   IPokemon "1" <.. "0..*" Element
+   IPokemon "1..4" <.. "0..*" Attack
+   <<enumeration>> Element
+   class Element {
+     Fire
+     Water
+     Grass
+     Electric
+
+     +Ventaja(Element other) double
+   }
+
+   class Attack {
+     +Name: string
+     +Damage: int
+     +Type: Element
+   }
+   Attack "1" <.. "0..*" Element
+
+   class Player {
+     +Name: string
+     +Pokemon: List~IPokemon~
+     +ActivePokemon: int
+
+     +ChangePokemon(string pokemonName) void
+   }
+
+   class Charmander {
+     +Name: string
+     +Element: IElement
+     +Attacks: Attack[]
+     +Health: int
+     +MaxHealth: int
+   }
+   Charmander <|-- IPokemon
+
+   class Pikachu {
+     +Name: string
+     +Element: IElement
+     +Attacks: Attack[]
+     +Health: int
+     +MaxHealth: int
+   }
+   Pikachu <|-- IPokemon
