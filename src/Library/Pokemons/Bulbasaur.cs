@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DefaultNamespace
 {
-    public class Pikachu : IPokemon
+    public class Bulbasaur : IPokemon
     {
         public string Name { get; set; }
         public Element Element { get; set; }
@@ -11,16 +11,18 @@ namespace DefaultNamespace
         public double MaxHealth { get; set; }
         public List<Attack> Attacks { get; set; }
 
-        public Pikachu()
+        public Bulbasaur()
         {
-            this.Name = "Pikachu";
-            this.Element = Element.Electric;
+            this.Name = "Bulbasaur";
+            this.Element = Element.Fire;
             this.Health = 100;
             this.MaxHealth = 100;
             this.Attacks = new List<Attack>()
             {
-                new Attack("Trueno", 50)
+                new Attack("Drenadora", 50)
             };
         }
+
+
     }
 }

@@ -4,8 +4,8 @@ public enum Element
 {
     Fire,
     Water,
-    Grass, 
-    Electric
+    Grass,
+    Electric,
 }
 
 public class Calculate
@@ -16,7 +16,11 @@ public class Calculate
         {
             return 2.0;
         }
-        else if (attacker == Element.Water && defender == Element.Grass)
+        else if (attacker == Element.Water && defender == Element.Electric)
+        {
+            return 2.0;
+        }
+        else if (attacker == Element.Electric && defender == Element.Grass)
         {
             return 2.0;
         }
@@ -28,7 +32,11 @@ public class Calculate
         {
             return 0.5;
         }
-        else if (attacker == Element.Grass && defender == Element.Water)
+        else if (attacker == Element.Electric && defender == Element.Water)
+        {
+            return 0.5;
+        }
+        else if (attacker == Element.Grass && defender == Element.Electric)
         {
             return 0.5;
         }
