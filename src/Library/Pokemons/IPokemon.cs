@@ -1,12 +1,13 @@
-namespace DefaultNamespace;
-
-public interface IPokemon
+namespace DefaultNamespace
 {
-    public string Name { get; set; }
-    public IElement Element;
-    public int Health;
-    public int MaxHealth;
-    public Attacks[] attacks;
-    
-    void Attack(IPokemon target, Attacks ataq);
+    public interface IPokemon
+    {
+        string Name { get; set; }
+        Element Element { get; set; }
+        int Health { get; set; }
+        int MaxHealth { get; set; }
+        List<Attack> Attacks { get; set; }
+        
+        void Attack(IPokemon target, string attackName);
+    }
 }
