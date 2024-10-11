@@ -1,4 +1,4 @@
-namespace DefaultNamespace;
+namespace Library;
 
 public enum Element
 {
@@ -8,10 +8,12 @@ public enum Element
     Electric,
 }
 
-public class Calculate
+public static class Calculate
 {
     public static double Advantage(Element attacker, Element defender)
     {
+        // FIXME: Esto no cubre todos los casos
+        // FIXME: Esto debería ser un switch o algo más limpito
         if (attacker == Element.Fire && defender == Element.Water)
         {
             return 2.0;

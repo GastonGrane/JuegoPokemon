@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Program;
 
-namespace DefaultNamespace
+class Program
 {
-    using System;
-
-    class Program
+    public static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
 
-        }
     }
-
 }
