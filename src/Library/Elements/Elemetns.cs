@@ -4,7 +4,8 @@ public enum Element
 {
     Fire,
     Water,
-    Grass
+    Grass, 
+    Electric
 }
 
 public class Calculate
@@ -37,7 +38,7 @@ public class Calculate
         }
         else
         {
-            return null;
+            return 0;
         }
     }
 }

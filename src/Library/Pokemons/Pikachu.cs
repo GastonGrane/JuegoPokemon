@@ -7,8 +7,8 @@ namespace DefaultNamespace
     {
         public string Name { get; set; }
         public Element Element { get; set; }
-        public int Health { get; set; }
-        public int MaxHealth { get; set; }
+        public double Health { get; set; }
+        public double MaxHealth { get; set; }
         public List<Attack> Attacks { get; set; }
 
         public Pikachu()
@@ -23,25 +23,20 @@ namespace DefaultNamespace
             };
         }
 
-        public void Attack(IPokemon target, string attackName)
+        public void AttackToPokemon(Attack attackName, IPokemon target)
         {
-            attackName = attackName.ToLower();
-            if (!attacks.Countains(attack))
+            Element defender = target.Element;
+            Element attacker = this.Element;
+            
+            if (Attacks.Contains(attackName))
             {
-                return;
-            }
-
-            posicion = attacks.index(attack);
-            defender = target.Element;
-            attacker = this.Element;
-
-            double multiplier = Calculate.Advantage(attacker, defender);
-            int damage = (int)(attack[posicion].Damage * multiplier);
-
-            target.Health -= damage;
-            if (target.Health < 0)
-            {
-                target.Health = 0;
+                double multiplier = Calculate.Advantage(attacker, defender);
+                double damage = (attackName.Damage * multiplier);
+                target.Health -= damage;
+                if (target.Health < 0)
+                {
+                    target.Health = 0;
+                }
             }
         }
     }

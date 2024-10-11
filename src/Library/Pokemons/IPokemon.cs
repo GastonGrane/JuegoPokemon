@@ -4,10 +4,10 @@ namespace DefaultNamespace
     {
         string Name { get; set; }
         Element Element { get; set; }
-        int Health { get; set; }
-        int MaxHealth { get; set; }
+        double Health { get; set; }
+        double MaxHealth { get; set; }
         List<Attack> Attacks { get; set; }
         
-        void Attack(IPokemon target, string attackName);
+        void AttackToPokemon(Attack attackName, IPokemon target);
     }
 }
