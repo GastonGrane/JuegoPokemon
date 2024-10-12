@@ -57,6 +57,7 @@ classDiagram
      +Attack(Player other, string attackName) bool
      +IsDead() bool
    }
+   Player "6" *-- "0..*" IPokemon
 
    class Charmander {
      +Name: string
@@ -75,3 +76,21 @@ classDiagram
      +MaxHealth: int
    }
    Pikachu <|-- IPokemon
+
+   class Bulbasaur {
+     +Name: string
+     +Element: IElement
+     +Attacks: Attack[]
+     +Health: int
+     +MaxHealth: int
+   }
+   Bulbasaur <|-- IPokemon
+
+   class Squirtle {
+     +Name: string
+     +Element: IElement
+     +Attacks: Attack[]
+     +Health: int
+     +MaxHealth: int
+   }
+   Squirtle <|-- IPokemon
