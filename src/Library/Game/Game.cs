@@ -101,7 +101,8 @@ public class Game
             for (int i = 0; i < p.Pokemons.Count(); ++i)
             {
                 var pokemon = p.Pokemons[i];
-                Console.WriteLine($"${i + 1} - {pokemon.Name}");
+                // Console.WriteLine($"{i + 1} - {pokemon.Name}");
+                Console.WriteLine($"- {pokemon.Name}");
             }
             string input = Console.ReadLine()!;
             if (!p.ChangePokemon(input))
