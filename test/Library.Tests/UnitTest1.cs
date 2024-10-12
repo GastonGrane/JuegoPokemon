@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Library.Tests;
 
 public class Tests
@@ -5,11 +7,19 @@ public class Tests
     [SetUp]
     public void Setup()
     {
+        
     }
 
     [Test]
-    public void Test1()
+    public void CanCalculateElement()
     {
-        Assert.Pass();
+        object Advantage(object fire, object water)
+        {
+            return 2.0;
+        }
+        
+        Element Fuego = Element.Fire;
+        Element Agua = Element.Water;
+        Assert.That(2.0, Is.EqualTo(Advantage(Fuego, Agua)));
     }
 }
