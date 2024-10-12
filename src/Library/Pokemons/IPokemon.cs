@@ -1,32 +1,31 @@
-namespace DefaultNamespace
+namespace Library;
+
+public interface IPokemon
 {
-    public interface IPokemon
+    string Name { get; set; }
+    Element Element { get; set; }
+    double Health { get; set; }
+    double MaxHealth { get; set; }
+    List<Attack> Attacks { get; set; }
+
+    public void AttackToPokemon(string attackName, IPokemon target)
     {
-        string Name { get; set; }
-        Element Element { get; set; }
-        double Health { get; set; }
-        double MaxHealth { get; set; }
-        List<Attack> Attacks { get; set; }
+        Element defender = target.Element;
+        Element attacker = this.Element;
 
-        public void AttackToPokemon(string attackName, IPokemon target)
+        Attack? attack = this.Attacks.Find(attack => attack.Name == attackName);
+        if (attack == null)
         {
-            Element defender = target.Element;
-            Element attacker = this.Element;
-
-            Attack? attack = this.Attacks.Find(attack => attack.Name == attackName);
-            if (attack == null)
-            {
-                return;
-            }
+            return;
+        }
 
 
-            double multiplier = Calculate.Advantage(attacker, defender);
-            double damage = (attack.Damage * multiplier);
-            target.Health -= damage;
-            if (target.Health < 0)
-            {
-                target.Health = 0;
-            }
+        double multiplier = Calculate.Advantage(attacker, defender);
+        double damage = (attack.Damage * multiplier);
+        target.Health -= damage;
+        if (target.Health < 0)
+        {
+            target.Health = 0;
         }
     }
 }

@@ -26,8 +26,8 @@ classDiagram
 
      +Attack(IPokemon target, string attackName) void
    }
-   IPokemon "1" <.. "0..*" Element
-   IPokemon "1..4" <.. "0..*" Attack
+   IPokemon "1" *-- "0..*" Element
+   IPokemon "1..4" *-- "0..*" Attack
    <<enumeration>> Element
    class Element {
      Fire
@@ -43,7 +43,7 @@ classDiagram
      +Damage: int
      +Type: Element
    }
-   Attack "1" <.. "0..*" Element
+   Attack "1" *-- "0..*" Element
 
    class Player {
      +Name: string
