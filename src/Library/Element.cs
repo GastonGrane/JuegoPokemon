@@ -10,45 +10,66 @@ public enum Element
 
 public static class Calculate
 {
-    public static double Advantage(Element attacker, Element defender)
+    public static double Advantage(this Element attacker, Element defender)
     {
-        // FIXME: Esto no cubre todos los casos
-        // FIXME: Esto debería ser un switch o algo más limpito
-        if (attacker == Element.Fire && defender == Element.Water)
+        // FIXME: Hay manera más linda de hacer esto? Probablemente, pero ahora no quiero pensar
+        // N.B: Esto está totalmente inventado, para la próxima entrega esta tabla será prevista
+        switch (attacker)
         {
-            return 2.0;
+            case Element.Fire:
+                switch (defender)
+                {
+                    case Element.Fire:
+                        return 1.0;
+                    case Element.Water:
+                        return 0.5;
+                    case Element.Grass:
+                        return 2.0;
+                    case Element.Electric:
+                        return 1.0;
+                }
+                break;
+            case Element.Water:
+                switch (defender)
+                {
+                    case Element.Fire:
+                        return 2.0;
+                    case Element.Water:
+                        return 1.0;
+                    case Element.Grass:
+                        return 1.0;
+                    case Element.Electric:
+                        return 0.5;
+                }
+                break;
+            case Element.Grass:
+                switch (defender)
+                {
+                    case Element.Fire:
+                        return 0.5;
+                    case Element.Water:
+                        return 1.0;
+                    case Element.Grass:
+                        return 1.0;
+                    case Element.Electric:
+                        return 1.0;
+                }
+                break;
+            case Element.Electric:
+                switch (defender)
+                {
+                    case Element.Fire:
+                        return 1.0;
+                    case Element.Water:
+                        return 2.0;
+                    case Element.Grass:
+                        return 2.0;
+                    case Element.Electric:
+                        return 1.0;
+                }
+                break;
+
         }
-        else if (attacker == Element.Water && defender == Element.Electric)
-        {
-            return 2.0;
-        }
-        else if (attacker == Element.Electric && defender == Element.Grass)
-        {
-            return 2.0;
-        }
-        else if (attacker == Element.Grass && defender == Element.Fire)
-        {
-            return 2.0;
-        }
-        else if (attacker == Element.Water && defender == Element.Fire)
-        {
-            return 0.5;
-        }
-        else if (attacker == Element.Electric && defender == Element.Water)
-        {
-            return 0.5;
-        }
-        else if (attacker == Element.Grass && defender == Element.Electric)
-        {
-            return 0.5;
-        }
-        else if (attacker == Element.Fire && defender == Element.Grass)
-        {
-            return 0.5;
-        }
-        else
-        {
-            return 0;
-        }
+        return -1.0;
     }
 }

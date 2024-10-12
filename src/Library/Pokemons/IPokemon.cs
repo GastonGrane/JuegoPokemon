@@ -8,24 +8,25 @@ public interface IPokemon
     double MaxHealth { get; set; }
     List<Attack> Attacks { get; set; }
 
-    public void AttackToPokemon(string attackName, IPokemon target)
+    public bool Attack(IPokemon target, string attackName)
     {
+        // FIXME: Esto está mal, tendría que ser el elemento del ataque, pero la vida es muy corta para deliberar sobre los detalles
         Element defender = target.Element;
         Element attacker = this.Element;
 
         Attack? attack = this.Attacks.Find(attack => attack.Name == attackName);
         if (attack == null)
         {
-            return;
+            return false;
         }
 
-
-        double multiplier = Calculate.Advantage(attacker, defender);
+        double multiplier = attacker.Advantage(defender);
         double damage = (attack.Damage * multiplier);
         target.Health -= damage;
         if (target.Health < 0)
         {
             target.Health = 0;
         }
+        return true;
     }
 }

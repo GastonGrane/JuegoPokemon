@@ -2,7 +2,6 @@ namespace Library;
 
 public class Game
 {
-    public bool InGame;
     private Player PlayerOne;
     private Player PlayerTwo;
 
@@ -16,98 +15,151 @@ public class Game
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", [new Pikachu()]);
-        Player p2 = new Player("Axel", [new Bulbasaur()]);
+        Player p2 = new Player("Sharon", [new Bulbasaur()]);
         return new Game(p1, p2);
     }
 
-    public void Play()
+    private void AttackPlayer(Player active, Player other)
     {
-        this.InGame = true;
-        while (InGame == true)
+        while (true)
         {
-            Console.WriteLine("-------------------");
-            Console.WriteLine(" COMIENZA EL JUEGO ");
-            Console.WriteLine("-------------------");
-            Console.WriteLine($"{PlayerOne.Name} es tu turno de jugar\nSeleccione la opcion:\n1-ATACAR\n2-CAMBIAR DE POKEMON\n");
-            int selecPOne = int.Parse(Console.ReadLine());
-            if (selecPOne == 1)
+            Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
+            var attacks = active.ActivePokemon.Attacks;
+            for (int i = 0; i < attacks.Count(); ++i)
             {
-                PlayerOne.ActivePokemon.AttackToPokemon(PlayerOne.ActivePokemon.Attacks[0].Name, PlayerTwo.ActivePokemon);
-                if (PlayerTwo.ActivePokemon.Health == 0)
-                {
-                    Console.WriteLine($"{PlayerTwo} su pokemon ha muerto, continua el juego con otro Pokemon");
-                    PlayerOne.ChangePokemon();
-                }
+                var attack = attacks[i];
+                // Console.WriteLine($"{i + 1} - {attack.Name}");
+                Console.WriteLine($"- {attack.Name}");
             }
-            else if (selecPOne == 2)
-            {
-                Console.WriteLine("Inserte el nombre del poquemon que desea utilizar:\n");
-                string newPokemon = Console.ReadLine();
-                PlayerOne.ChangePokemon(newPokemon);
-                IPokemon? pokemon = PlayerOne.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
-                if (pokemon != null)
-                {
-                    PlayerOne.ChangePokemon(pokemon.Name);
-                }
-                else
-                {
-                    Console.WriteLine("La opcion seleccionada no es correcta, ha perdido su turno"); 
-                }
-            }
-            else
-            {
-                Console.WriteLine("La opcion seleccionada no es correcta, ha perdido su turno");
-            }
-            Console.WriteLine($"{PlayerTwo.Name} es tu turno de jugar\nSeleccione la opcion:\n1-ATACAR\n2-CAMBIAR DE POKEMON\n");
-            int selecPTwo = int.Parse(Console.ReadLine());
-            if (selecPTwo == 1)
-            {
-                PlayerTwo.ActivePokemon.AttackToPokemon(PlayerTwo.ActivePokemon.Attacks[0].Name, PlayerOne.ActivePokemon);
-            }
-            else if (selecPTwo == 2)
-            {
-                Console.WriteLine("Inserte el nombre del poquemon que desea utilizar:\n");
-                string newPokemon = Console.ReadLine();
-                IPokemon? pokemon = PlayerTwo.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
-                if (pokemon != null)
-                {
-                    PlayerTwo.ChangePokemon(pokemon.Name);
-                }
-                else
-                {
-                    Console.WriteLine("La opcion seleccionada no es correcta, ha perdido su turno"); 
-                }
-            }
-            else
-            {
-                Console.WriteLine("La opcion seleccionada no es correcta, ha perdido su turno");
-            }
+            string attackName = Console.ReadLine()!;
+            Console.WriteLine();
 
-            foreach
+            // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
+            // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
+            double oldHP = other.ActivePokemon.Health;
+            if (!active.Attack(other, attackName))
             {
-                
+                Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
+                continue;
+            }
+            double newHP = other.ActivePokemon.Health;
+            Console.WriteLine($"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+            break;
+        }
+    }
+
+    private void PlayTurn(Player active, Player other)
+    {
+        Console.WriteLine($"{active.Name} es su turno de jugar");
+        int selection;
+        while (true)
+        {
+            Console.WriteLine("Seleccione una opción:");
+            Console.WriteLine("1 - Atacar");
+            Console.WriteLine("2 - Cambiar de Pokemon");
+            Console.WriteLine();
+
+            string input = Console.ReadLine()!;
+            Console.WriteLine();
+
+            try
+            {
+                selection = int.Parse(input!);
+                break;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
+            }
+        }
+        switch (selection)
+        {
+            case 1:
+                AttackPlayer(active, other);
+                break;
+            case 2:
+                ChangePokemon(active);
+                break;
+        }
+    }
+
+    private void PlayTurnP1()
+    {
+        PlayTurn(PlayerOne, PlayerTwo);
+    }
+
+    private void PlayTurnP2()
+    {
+        PlayTurn(PlayerTwo, PlayerOne);
+    }
+
+    private void ChangePokemon(Player p)
+    {
+        while (true)
+        {
+            Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
+            for (int i = 0; i < p.Pokemons.Count(); ++i)
+            {
+                var pokemon = p.Pokemons[i];
+                Console.WriteLine($"${i + 1} - {pokemon.Name}");
+            }
+            string input = Console.ReadLine()!;
+            if (!p.ChangePokemon(input))
+            {
+                Console.WriteLine("El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
+            }
+            else
+            {
+                break;
             }
         }
     }
 
-    public void EndGame()
+    private bool CheckDead(Player p)
     {
-        
+        if (p.IsDead())
+        {
+            return true;
+        }
+
+        if (p.ActivePokemon.Health == 0)
+        {
+            Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+            ChangePokemon(p);
+            return false;
+        }
+
+        return false;
     }
 
-    public void SelecPokemon()
+    public void Play()
     {
-        
+        Console.WriteLine("-------------------");
+        Console.WriteLine(" COMIENZA EL JUEGO ");
+        Console.WriteLine("-------------------");
+
+        bool InGame = true;
+        while (InGame)
+        {
+            // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
+            PlayTurnP1();
+            if (CheckDead(PlayerTwo))
+            {
+                Console.WriteLine($"{PlayerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                break;
+            }
+            PlayTurnP2();
+            if (CheckDead(PlayerOne))
+            {
+                Console.WriteLine($"{PlayerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                break;
+            }
+        }
     }
 
     public void createPlayer(string nameOne, string nameTwo, List<IPokemon> pokemonsPlayerOne, List<IPokemon> pokemonsPlayerTwo)
     {
         PlayerOne = new Player(nameOne, pokemonsPlayerOne);
         PlayerTwo = new Player(nameTwo, pokemonsPlayerTwo);
-    }
-
-    public string PrintMenssage()
-    {
-        
     }
 }

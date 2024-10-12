@@ -13,16 +13,26 @@ public class Player
         this.ActivePokemon = pokemons[0];
     }
 
-    public void ChangePokemon(string newPokemon)
+    public bool ChangePokemon(string newPokemon)
     {
         IPokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
+
         if (pokemon != null)
         {
             ActivePokemon = pokemon;
+            return true;
         }
-        else
-        {
-            return;
-        }
+
+        return false;
+    }
+
+    public bool Attack(Player other, string attackName)
+    {
+        return this.ActivePokemon.Attack(other.ActivePokemon, attackName);
+    }
+
+    public bool IsDead()
+    {
+        return Pokemons.All(p => p.Health == 0);
     }
 }
