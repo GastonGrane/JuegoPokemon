@@ -1,15 +1,23 @@
-namespace DefaultNamespace;
-{
+namespace Library;
+
 public class Game
 {
-    public List<IPokemon> ListaPokemons;
     public bool InGame;
-    public Player PlayerOne;
-    public Player PlayerTwo;
+    private Player PlayerOne;
+    private Player PlayerTwo;
 
-    public Game(List<IPokemon> ListaPokemons)
+    private Game(Player p1, Player p2)
     {
-        this.ListaPokemons = ListaPokemons;
+        this.PlayerOne = p1;
+        this.PlayerTwo = p2;
+    }
+
+    public static Game createGame(List<IPokemon> Pokemon)
+    {
+        // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
+        Player p1 = new Player("Axel", [new Pikachu()]);
+        Player p2 = new Player("Axel", [new Bulbasaur()]);
+        return new Game(p1, p2);
     }
 
     public void Play()
