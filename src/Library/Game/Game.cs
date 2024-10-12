@@ -157,10 +157,4 @@ public class Game
             }
         }
     }
-
-    public void createPlayer(string nameOne, string nameTwo, List<IPokemon> pokemonsPlayerOne, List<IPokemon> pokemonsPlayerTwo)
-    {
-        PlayerOne = new Player(nameOne, pokemonsPlayerOne);
-        PlayerTwo = new Player(nameTwo, pokemonsPlayerTwo);
-    }
 }

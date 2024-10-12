@@ -7,11 +7,14 @@ classDiagram
      +Player1: Player
      +Player2: Player
 
+     +createGame() Game
+     -AttackPlayer(Player active, Player other) void
+     -PlayTurn(Player active, Player other) void
+     -PlayTurnP1() void
+     -PlayTurnP2() void
+     -ChangePokemon(Player p) void
+     -CheckDead(Player p) bool
      +Play() void
-     +EndGame() void
-     +SelectPokemon(IPokemon) void
-     +CreatePlayer() void
-     +PrintMessage() void
    }
    Game "0..*" <.. "1" IPokemon
    Game "2" <.. "1" Player
@@ -24,7 +27,7 @@ classDiagram
      +Health: int
      +MaxHealth: int
 
-     +Attack(IPokemon target, string attackName) void
+     +Attack(IPokemon target, string attackName) bool
    }
    IPokemon "1" *-- "0..*" Element
    IPokemon "1..4" *-- "0..*" Attack
@@ -35,7 +38,7 @@ classDiagram
      Grass
      Electric
 
-     +Ventaja(Element other) double
+     +Advantage(Element other) double
    }
 
    class Attack {
@@ -50,7 +53,9 @@ classDiagram
      +Pokemon: List~IPokemon~
      +ActivePokemon: int
 
-     +ChangePokemon(string pokemonName) void
+     +ChangePokemon(string newPokemon) bool
+     +Attack(Player other, string attackName) bool
+     +IsDead() bool
    }
 
    class Charmander {
