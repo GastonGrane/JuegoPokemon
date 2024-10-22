@@ -3,7 +3,7 @@ namespace Library;
 public class Charmander : IPokemon
 {
     public string Name { get; set; }
-    public Element Element { get; set; }
+    public PokemonType Type { get; set; }
     public double Health { get; set; }
     public double MaxHealth { get; set; }
     public List<Attack> Attacks { get; set; }
@@ -11,7 +11,7 @@ public class Charmander : IPokemon
     public Charmander()
     {
         this.Name = "Charmander";
-        this.Element = Element.Fire;
+        this.Type = PokemonType.Fire;
         this.Health = 100;
         this.MaxHealth = 100;
         this.Attacks = new List<Attack>()
