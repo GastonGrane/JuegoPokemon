@@ -14,9 +14,9 @@ public class Squirtle : IPokemon
         this.Type = PokemonType.Water;
         this.Health = 100;
         this.MaxHealth = 100;
-        this.Attacks = new List<Attack>()
+        this.Attacks = new List<Attack>
             {
-                new Attack("Chorro de Agua", 50)
+                NormalAttack.AquaJet,
             };
     }
 }

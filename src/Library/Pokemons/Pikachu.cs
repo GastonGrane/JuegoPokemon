@@ -16,7 +16,7 @@ public class Pikachu : IPokemon
         this.MaxHealth = 100;
         this.Attacks = new List<Attack>()
             {
-                new Attack("Trueno", 50)
+                NormalAttack.FusionBolt
             };
     }
 }

@@ -16,7 +16,7 @@ public class Bulbasaur : IPokemon
         this.MaxHealth = 100;
         this.Attacks = new List<Attack>()
             {
-                new Attack("Drenadora", 50)
+                NormalAttack.BulletSeed
             };
     }
 }

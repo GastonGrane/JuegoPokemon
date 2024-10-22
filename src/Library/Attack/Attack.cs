@@ -1,15 +1,15 @@
 namespace Library;
 
-// TODO: Esto es una clase o una interfaz?
-public class Attack
+public abstract class Attack
 {
-    public string Name { get; set; }
-    public int Damage { get; set; }
+    public string Name { get; }
+    public int Damage { get; }
+    public PokemonType Type { get; }
 
-    public Attack(string name, int damage)
+    public Attack(string name, int damage, PokemonType type)
     {
-        // TODO: No me termina de convencer el nombre en lower, porque no es buen UX que el nombre siempre sea en minúscula, la idea sería usar algún id o algo
-        this.Name = name.ToLower();
+        this.Name = name;
         this.Damage = damage;
+        this.Type = type;
     }
 }

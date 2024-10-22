@@ -16,7 +16,7 @@ public class Charmander : IPokemon
         this.MaxHealth = 100;
         this.Attacks = new List<Attack>()
             {
-                new Attack("Bola de fuego", 50)
+                NormalAttack.BlazeKick
             };
     }
 }
