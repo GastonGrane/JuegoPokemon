@@ -11,7 +11,7 @@ public class Game
         this.PlayerTwo = p2;
     }
 
-    public static Game createGame(List<IPokemon> Pokemon)
+    public static Game createGame(List<Pokemon> Pokemon)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", [new Pikachu()]);
@@ -37,7 +37,11 @@ public class Game
             // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
             // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
             double oldHP = other.ActivePokemon.Health;
-            if (!active.Attack(other, attackName))
+            try
+            {
+                active.Attack(other, attackName);
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
                 continue;

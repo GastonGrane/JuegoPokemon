@@ -3,10 +3,10 @@ namespace Library;
 public class Player
 {
     public string Name;
-    public List<IPokemon> Pokemons;
-    public IPokemon ActivePokemon;
+    public List<Pokemon> Pokemons;
+    public Pokemon ActivePokemon;
 
-    public Player(string name, List<IPokemon> pokemons)
+    public Player(string name, List<Pokemon> pokemons)
     {
         this.Name = name;
         this.Pokemons = pokemons;
@@ -15,7 +15,7 @@ public class Player
 
     public bool ChangePokemon(string newPokemon)
     {
-        IPokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
+        Pokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
 
         if (pokemon != null)
         {
@@ -26,9 +26,9 @@ public class Player
         return false;
     }
 
-    public bool Attack(Player other, string attackName)
+    public void Attack(Player other, string attackName)
     {
-        return this.ActivePokemon.Attack(other.ActivePokemon, attackName);
+        this.ActivePokemon.Attack(other.ActivePokemon, attackName);
     }
 
     public bool IsDead()
