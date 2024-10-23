@@ -2,12 +2,13 @@ namespace Library;
 
 public class Player
 {
-    public string Name;
-    public List<IPokemon> Pokemons;
-    public IPokemon ActivePokemon;
+    public string Name { get; }
+    public List<Pokemon> Pokemons { get; }
+    public Pokemon ActivePokemon { get; private set; }
 
-    public Player(string name, List<IPokemon> pokemons)
+    public Player(string name, List<Pokemon> pokemons)
     {
+        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         this.Name = name;
         this.Pokemons = pokemons;
         this.ActivePokemon = pokemons[0];
@@ -15,7 +16,7 @@ public class Player
 
     public bool ChangePokemon(string newPokemon)
     {
-        IPokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
+        Pokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
 
         if (pokemon != null)
         {
@@ -26,9 +27,10 @@ public class Player
         return false;
     }
 
-    public bool Attack(Player other, string attackName)
+    public void Attack(Player other, string attackName)
     {
-        return this.ActivePokemon.Attack(other.ActivePokemon, attackName);
+        ArgumentNullException.ThrowIfNull(other, "No se puede atacar un jugador que es null");
+        this.ActivePokemon.Attack(other.ActivePokemon, attackName);
     }
 
     public bool IsDead()

@@ -1,22 +1,8 @@
 namespace Library;
 
-public class Charmander : IPokemon
+public class Charmander : Pokemon
 {
-    public string Name { get; set; }
-    public Element Element { get; set; }
-    public double Health { get; set; }
-    public double MaxHealth { get; set; }
-    public List<Attack> Attacks { get; set; }
-
-    public Charmander()
+    public Charmander() : base("Charmander", PokemonType.Fire, 100, new List<Attack>() { NormalAttack.BlazeKick })
     {
-        this.Name = "Charmander";
-        this.Element = Element.Fire;
-        this.Health = 100;
-        this.MaxHealth = 100;
-        this.Attacks = new List<Attack>()
-            {
-                new Attack("Bola de fuego", 50)
-            };
     }
 }

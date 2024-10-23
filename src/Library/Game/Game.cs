@@ -4,6 +4,8 @@ public class Game
 {
     private Player PlayerOne;
     private Player PlayerTwo;
+    // FIXME: Esto es para suprimir las advertencias por no utilizar atributos de instancia en algunos métodos. Cuando se añada una "Message Gateway" esto se podría ir, porque se irían las advertencias para estos métodos.
+    private int tmp;
 
     private Game(Player p1, Player p2)
     {
@@ -11,7 +13,7 @@ public class Game
         this.PlayerTwo = p2;
     }
 
-    public static Game createGame(List<IPokemon> Pokemon)
+    public static Game createGame(List<Pokemon> Pokemon)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", [new Pikachu()]);
@@ -21,11 +23,12 @@ public class Game
 
     private void AttackPlayer(Player active, Player other)
     {
+        tmp++;
         while (true)
         {
             Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
             var attacks = active.ActivePokemon.Attacks;
-            for (int i = 0; i < attacks.Count(); ++i)
+            for (int i = 0; i < attacks.Count; ++i)
             {
                 var attack = attacks[i];
                 // Console.WriteLine($"{i + 1} - {attack.Name}");
@@ -37,7 +40,11 @@ public class Game
             // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
             // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
             double oldHP = other.ActivePokemon.Health;
-            if (!active.Attack(other, attackName))
+            try
+            {
+                active.Attack(other, attackName);
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
                 continue;
@@ -95,10 +102,11 @@ public class Game
 
     private void ChangePokemon(Player p)
     {
+        tmp++;
         while (true)
         {
             Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
-            for (int i = 0; i < p.Pokemons.Count(); ++i)
+            for (int i = 0; i < p.Pokemons.Count; ++i)
             {
                 var pokemon = p.Pokemons[i];
                 // Console.WriteLine($"{i + 1} - {pokemon.Name}");
