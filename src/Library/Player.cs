@@ -2,12 +2,13 @@ namespace Library;
 
 public class Player
 {
-    public string Name;
-    public List<Pokemon> Pokemons;
-    public Pokemon ActivePokemon;
+    public string Name { get; }
+    public List<Pokemon> Pokemons { get; }
+    public Pokemon ActivePokemon { get; private set; }
 
     public Player(string name, List<Pokemon> pokemons)
     {
+        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         this.Name = name;
         this.Pokemons = pokemons;
         this.ActivePokemon = pokemons[0];
@@ -28,6 +29,7 @@ public class Player
 
     public void Attack(Player other, string attackName)
     {
+        ArgumentNullException.ThrowIfNull(other, "No se puede atacar un jugador que es null");
         this.ActivePokemon.Attack(other.ActivePokemon, attackName);
     }
 

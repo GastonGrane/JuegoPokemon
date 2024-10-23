@@ -2,6 +2,7 @@ namespace Library;
 
 public enum SpecialType
 {
+    None,
 }
 
 public class SpecialAttack : Attack

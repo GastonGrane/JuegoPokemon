@@ -6,7 +6,7 @@ public abstract class Attack
     public int Damage { get; }
     public PokemonType Type { get; }
 
-    public Attack(string name, int damage, PokemonType type)
+    protected Attack(string name, int damage, PokemonType type)
     {
         this.Name = name;
         this.Damage = damage;

@@ -27,7 +27,7 @@ public abstract class Pokemon
     public double MaxHealth { get; }
     public List<Attack> Attacks { get; }
 
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
+    protected Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
         this.Name = name;
         this.Type = type;
@@ -68,6 +68,11 @@ public abstract class Pokemon
 
     private void Attack(Pokemon target, Attack attack)
     {
+        if (!this.Attacks.Contains(attack))
+        {
+            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
+        }
+
         PokemonType attacker = attack.Type;
         PokemonType defender = target.Type;
 
@@ -78,6 +83,7 @@ public abstract class Pokemon
 
     public void Attack(Pokemon target, int attackIdx)
     {
+        ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         Attack attack = this.GetAttack(attackIdx);
         Attack(target, attack);
     }
@@ -85,6 +91,7 @@ public abstract class Pokemon
 
     public void Attack(Pokemon target, string attackName)
     {
+        ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         Attack attack = this.GetAttack(attackName);
         Attack(target, attack);
     }
