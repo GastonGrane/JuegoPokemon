@@ -1,18 +1,16 @@
-using System.ComponentModel.Design;
-
 namespace Library.Items;
 
+/// <summary>
+/// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+/// </summary>
 public class SuperPotions : IItem
 {
-    public void Use(Pokemon pokemon, Player player)
+    /// <summary>
+    /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
+    /// </summary>
+    /// <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
+    public void Use(Pokemon pokemon)
     {
-        if(player.Pokemons.Contains(pokemon))
-        {
-            pokemon.Curar(70);
-        }
-        else
-        {
-            PrintConsole.printString("Debde de Curar un pokemon de su equipo");
-        }
+        pokemon.Curar(70);
     }
 }

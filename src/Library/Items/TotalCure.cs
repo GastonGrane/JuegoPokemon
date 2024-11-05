@@ -1,16 +1,11 @@
 namespace Library.Items;
-
+/// <summary>
+/// Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
+/// </summary>
 public class TotalCure : IItem
 {
-    public void Use(Pokemon pokemon, Player player)
+    public void Use(Pokemon pokemon)
     {
-        if(player.Pokemons.Contains(pokemon))
-        {
-            
-        }
-        else
-        {
-            PrintConsole.printString("Debde de Sanar un pokemon de su equipo");
-        }
+        //Implementacion de efectos para implementar item que repela esos efectos.
     }
 }

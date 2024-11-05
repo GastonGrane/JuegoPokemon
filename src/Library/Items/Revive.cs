@@ -1,23 +1,16 @@
 namespace Library.Items;
-
+/// <summary>
+/// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
+/// </summary>
 public class Revive : IItem
 {
-    public void Use(Pokemon pokemon, Player player)
+    /// <summary>
+    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
+    /// </summary>
+    /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
+    public void Use(Pokemon pokemon)
     {
-        if(player.Pokemons.Contains(pokemon))
-        {
-            if (pokemon.Health == 0)
-            {
-                pokemon.Curar(50);
-            }
-            else
-            {
-                PrintConsole.printString("No puede revivir un Pokemon con vida");
-            }
-        }
-        else
-        {
-            PrintConsole.printString("Debde de Curar un pokemon de su equipo");
-        }
+        pokemon.Curar(50);
     }
+    
 }
