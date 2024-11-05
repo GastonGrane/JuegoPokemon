@@ -1,6 +1,6 @@
 namespace Library;
 
-public static class PrintConsole
+public class PrintConsole : IPrint
 {
     public static void printList(List<Pokemon> list)
     {
@@ -29,5 +29,29 @@ public static class PrintConsole
 
             Console.WriteLine("ERROR: Por favor, ingresa un número válido.");
         }
+    }
+    public static void PrintListAtaque(List<Attack> ataques)
+    {
+        Console.WriteLine("Ataques disponibles:");
+        for (int i = 0; i < ataques.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {ataques[i].Name} (Daño: {ataques[i].Damage})");
+        }
+        Console.WriteLine();
+    }
+
+    public static int SelectAtaque(string str)
+    {
+   
+        int eleccion = printStringAndReceiveInt(str);
+        bool control =true;
+
+        while (control)
+        {
+            return eleccion;
+            control = false;
+        }
+
+        return eleccion - 1; // Ajustar índice para la lista
     }
 }

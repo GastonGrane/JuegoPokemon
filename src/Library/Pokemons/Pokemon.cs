@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace Library;
 
 public abstract class Pokemon
@@ -8,7 +10,7 @@ public abstract class Pokemon
     public double Health
     {
         get { return _health; }
-        private set
+        set
         {
             if (value > MaxHealth && MaxHealth != 0)
             {
@@ -94,5 +96,30 @@ public abstract class Pokemon
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         Attack attack = this.GetAttack(attackName);
         Attack(target, attack);
+    }
+
+    public void Curar(int health)
+    {
+        try
+        {
+            if (health < 0)
+            {
+                throw new NegativeHealthException("No se puede curar con un valor negativo.");
+            }
+        }
+        catch
+        {
+            
+        }
+
+        this.Health = health;
+    }
+
+    public class NegativeHealthException : Exception
+    {
+        public NegativeHealthException(string message) : base(message)
+        {
+            //
+        }
     }
 }
