@@ -60,7 +60,7 @@ public class Pokemon
         this.Attacks = attacks;
     }
 /// <summary>
-/// El método recibe un int correspondiente al indice del ataque que desea utilizar dentro de la <see cref="Attacks "/>.
+/// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
 /// </summary>
 /// <param name="attackIdx">
 /// Corresponde al valor del indice del ataque al cual se quiere acceder.
@@ -86,7 +86,7 @@ public class Pokemon
         return Attacks[attackIdx];
     }
     /// <summary>
-    /// El método recibe un string correspondiente al nombre del ataque que se encuentra dentro de la lista <see cref="Attacks"/>.
+    /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
     /// </summary>
     /// <param name="attackName">
     /// Nombre del ataque al cual se quiere acceder.
