@@ -47,7 +47,7 @@ public class Game
     }
 
     /// <summary>
-    ///Ejecuta un ataque por el por el jugador que le toca hacia el contrincante
+    ///Ejecuta un ataque por el jugador que le toca hacia el contrincante
     /// </summary>
     /// <param name="active">El <see cref="Player"/> que va a atacar</param>
     /// <param name="other">El <see cref="Player"/> que va a ser atacado</param>
