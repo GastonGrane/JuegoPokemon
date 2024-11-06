@@ -41,8 +41,8 @@ public class Game
     public static Game createGame(List<Pokemon> Pokemon)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", [new Pikachu()]);
-        Player p2 = new Player("Sharon", [new Bulbasaur()]);
+        Player p1 = new Player("Axel", new List<Pokemon>());
+        Player p2 = new Player("Sharon", new List<Pokemon>());
         return new Game(p1, p2);
     }
 

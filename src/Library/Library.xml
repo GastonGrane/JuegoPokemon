@@ -10,38 +10,30 @@
             </summary>
             <remarks>
             La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos , 
-            tal como <see cref="T:Library.NormalAttack"/>. Cada uno deellos tiene un nombre, danio y
-            <see cref="T:Library.PokemonType"/> que influencia en la efectividad del ataque conforme al tipo del contrincantre.
+            tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
         <member name="P:Library.Attack.Name">
             <summary>
-            Retorna el nombre del ataque
+            El nombre del ataque
             </summary>
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            Retorna el valor de danio del ataque
+            El valor de daño del ataque
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
             Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
             </summary>
-            <value> Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque
+            <value>
+            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque
             </value>
-        </member>
-        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
-            <summary>
-            Inicializa una nueva instancia de la clase <see cref="T:Library.Attack"/>
-            </summary>
-            <param name="name">Nombre del ataque</param>
-            <param name="damage">EL danio del ataque que puede generar</param>
-            <param name="type">El tipo de ataque, que afecta los enfrentamientos de tipos distintos</param>
         </member>
         <member name="T:Library.NormalAttack">
             <summary>
-            Representa un tipo especifico de ataque en el juego, con direfentes instancias del mismo.
+            Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos
             </summary>
             <remarks>
             Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
@@ -96,7 +88,7 @@
         </member>
         <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
              <summary>
-            Ejecuta un ataque por el por el jugador que le toca hacia el contrincante
+            Ejecuta un ataque por el jugador que le toca hacia el contrincante
              </summary>
              <param name="active">El <see cref="T:Library.Player"/> que va a atacar</param>
              <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado</param>
@@ -139,6 +131,44 @@
             siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
             De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro
             </remarks>
+        </member>
+        <member name="T:Library.Items.IItem">
+            <summary>
+            Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
+            </summary>
+        </member>
+        <member name="M:Library.Items.IItem.Use(Library.Pokemon)">
+            <summary>
+            Aplica el efecto del objeto en el Pokémon especificado.
+            </summary>
+            <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
+        </member>
+        <member name="T:Library.Items.Revive">
+            <summary>
+            Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
+            </summary>
+        </member>
+        <member name="M:Library.Items.Revive.Use(Library.Pokemon)">
+            <summary>
+            Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
+            </summary>
+            <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
+        </member>
+        <member name="T:Library.Items.SuperPotions">
+            <summary>
+            Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+            </summary>
+        </member>
+        <member name="M:Library.Items.SuperPotions.Use(Library.Pokemon)">
+            <summary>
+            Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
+            </summary>
+            <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
+        </member>
+        <member name="T:Library.Items.TotalCure">
+            <summary>
+            Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
+            </summary>
         </member>
         <member name="T:Library.Player">
             <summary>
@@ -199,6 +229,126 @@
             Devuelve el estado de si todos los pokemons del jugador han muerto
             </summary>
             <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso</returns>
+        </member>
+        <member name="T:Library.Pokemon">
+            <summary>
+            Crea instancias de los distintos pokemons. 
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.Name">
+            <summary>
+            El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.Type">
+            <summary>
+            Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
+            </summary>
+        </member>
+        <member name="F:Library.Pokemon._health">
+            <summary>
+            Se almacena el valor actual de salud del pokemon en un campo privado.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.MaxHealth">
+            <summary>
+            Propiedad de solo lectura que representa la salud máxima del pokemon.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.Health">
+            <summary>
+            Propiedad que obtiene y establece la salud actual del pokemon.
+            La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="P:Library.Pokemon.MaxHealth"/>:
+            - Si el valor excede al de <paramref name="MaxHealth"/>, se establece el valor correspondiente al de <paramref name="MaxHealth"/>.
+            - Si el valor es menor que 0, se establece en 0.
+            - De lo contrario, se asigna el valor directamente.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.Attacks">
+            <summary>
+            Lista donde se establecerán los distintos ataques con los que contará el pokemon.
+            </summary>
+        </member>
+        <member name="M:Library.Pokemon.GetAttack(System.Int32)">
+            <summary>
+            Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
+            </summary>
+            <param name="attackIdx">
+            Corresponde al valor del indice del ataque al cual se quiere acceder.
+            </param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="!:Attacks.Count"/> - 1).
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.GetAttack(System.String)">
+            <summary>
+            Esta función retorna el ataque correspondiente al string que recibe como parámetro.
+            </summary>
+            <param name="attackName">
+            Nombre del ataque al cual se quiere acceder.
+            </param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
+            <summary>
+            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+            </summary>
+            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+            <param name="attack">El ataque que se usará para realizar el daño.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.Int32)">
+            <summary>
+            Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
+            </summary>
+            <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
+            <param name="attackIdx">El índice del ataque en la lista de ataques del Pokémon.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="!:Attacks.Count"/> - 1).
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.String)">
+            <summary>
+            Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
+            </summary>
+            <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
+            <param name="attackName">El nombre del ataque que se usará para realizar el daño.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.Curar(System.Int32)">
+            <summary>
+            Suma un valor especificado a la vida que ya tiene el pokemon.
+            </summary>
+            <param name="health">La cantidad de vida que se le suma a la vida actual del Pokémon.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
+            </exception>
         </member>
         <member name="T:Library.PokemonType">
             <summary>
@@ -306,7 +456,7 @@
             <item>1.0 si no hay ventaja entre ambos tipos</item>
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanza esta excepcion si <paramref name="attacker"/> no es un tipo de Pokemon valido
+            Lanza esta excepcion si <paramref name="attacker"/> tiene un tipo de Pokemon que no esta implementada la ventaja sobre otro tipo de Pokemon
             </exception>
         </member>
     </members>
