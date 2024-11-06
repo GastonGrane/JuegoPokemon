@@ -8,17 +8,17 @@ public static class SelecPokemons
     {
         while (list.Count < 6)
         {
-            int num = print.printStringAndReceiveInt(
+            int num = print.PrintStringAndReceiveInt(
                 $"{player} digite el número del Pokemon que desea seleccionar");
             Pokemon pokSelected = Pokemons[num - 1];
             if (Pokemons.Contains(pokSelected))
             {
-                print.printString("Ya cuentas con ese Pokemons en tu lista");
+                print.PrintString("Ya cuentas con ese Pokemons en tu lista");
             }
             else
             {
                 list.Add(pokSelected);
-                print.printString($"{player} se ha agregado a {pokSelected} a su lista de pokemones");
+                print.PrintString($"{player} se ha agregado a {pokSelected} a su lista de pokemones");
             }
         }
     }

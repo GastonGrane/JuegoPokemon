@@ -2,7 +2,7 @@ namespace Library;
 
 public class PrintConsole : IPrint
 {
-    public void printList(List<Pokemon> list)
+    public void PrintList(List<Pokemon> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
@@ -10,12 +10,12 @@ public class PrintConsole : IPrint
         }
     }
 
-    public void printString(string str)
+    public void PrintString(string str)
     {
         Console.WriteLine(str);
     }
 
-    public int printStringAndReceiveInt(string str)
+    public int PrintStringAndReceiveInt(string str)
     {
         int number;
         while (true)
@@ -42,9 +42,9 @@ public class PrintConsole : IPrint
 
     public int SelectAtaque(string str)
     {
-   
-        int eleccion = printStringAndReceiveInt(str);
-        bool control =true;
+
+        int eleccion = PrintStringAndReceiveInt(str);
+        bool control = true;
 
         while (control)
         {
