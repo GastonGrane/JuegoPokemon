@@ -110,7 +110,7 @@ public static class Calculate
     /// <item>1.0 si no hay ventaja entre ambos tipos</item>
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanza esta excepcion si <paramref name="attacker"/> no es un tipo de Pokemon valido
+    /// Lanza esta excepcion si <paramref name="attacker"/> tiene un tipo de Pokemon que no esta implementada la ventaja sobre otro tipo de Pokemon
     /// </exception>
     public static double Advantage(this PokemonType attacker, PokemonType defender)
     {
