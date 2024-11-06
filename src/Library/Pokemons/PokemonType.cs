@@ -1,30 +1,117 @@
 namespace Library;
 
+/// <summary>
+/// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo
+/// </summary>
 public enum PokemonType
 {
+    /// <summary>
+    /// Sin ventajas ni desvenjatas
+    /// </summary>
     Normal,
+
+    /// <summary>
+    /// Fuerte contra **Grass**, debil contra **Water**
+    /// </summary>
     Fire,
+
+    /// <summary>
+    /// Fuerte contra **Fire**, debil contra **Electric** y **Grass**
+    /// </summary>
     Water,
+
+    /// <summary>
+    /// Fuerte contra **Water** y **Flying**, debil contra **Ground*
+    /// </summary>
     Electric,
+
+    /// <summary>
+    /// Fuerte contra **Water** y **Ground**, debil contra **Fire**, **Flying** y **Bug**
+    /// </summary>
     Grass,
+
+    /// <summary>
+    /// Fuerte contra **Dragon**, debil contra **Fire** y **Rock**
+    /// </summary>
     Ice,
+
+    /// <summary>
+    /// Fuerte contra **Normal** y **Rock**, debil contra **Psychic** y **Flying**
+    /// </summary>
     Fighting,
+
+    /// <summary>
+    /// Fuerte contra **Grass**, debil contra **Psychic**
+    /// </summary>
     Poison,
+
+    /// <summary>
+    /// Fuerte contra **Electric**, debil contra **Water** y **Grass**
+    /// </summary>
     Ground,
+
+    /// <summary>
+    /// Fuerte contra **Grass** y **Fighting**, debil contra **Electric** y **Rock**
+    /// </summary>
     Flying,
+
+    /// <summary>
+    /// Fuerte contra **Fighting** y **Poison**, debil contra **Bug** y **Ghost**
+    /// </summary>
     Psychic,
+
+    /// <summary>
+    /// Fuerte contra **Grass** y **Psychic**, debil contra **Fire**, **Flying** y **Rock**
+    /// </summary>
     Bug,
+
+    /// <summary>
+    /// Fuerte contra **Fire**, debil contra **Water** y **Grass**
+    /// </summary>
     Rock,
+
+    /// <summary>
+    /// Fuerte contra **Psychic**, inmune contra **Normal**
+    /// </summary>
     Ghost,
+
+    /// <summary>
+    /// Fuerte contra **Dragon**, debil contra **Ice**
+    /// </summary>
     Dragon,
 }
 
+/// <summary>
+/// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla
+/// </summary>
 public static class Calculate
 {
     // FIXME: Este método actualmente asume que si el elemento defensor no está
     // listado en las ventajas del atacante, el atacante debe ser normal
     // contre ese elemento, pero podría ser valioso que sea explícito cuales
     // son normales, y si no está explicitado en ninguna lista retornar -1
+    /// <summary>
+    /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado
+    /// </summary>
+    /// <remarks>
+    /// Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong", 
+    /// "weak" o "immune" en la tabla del tipo <paramref name="attacker"/>, se considera un
+    /// multiplicador de 1.0 (neutral).
+    /// Un multiplicador de -1 podría indicarse en futuras versiones si el
+    /// tipo <paramref name="defender"/> no pertenece a ninguna categoría conocida. Logrando este asi una excepcion
+    /// </remarks>
+    /// <param name="attacker">El tipo del Pokemon atacante</param>
+    /// <param name="defender">El tipo del Pokemon atacado</param>
+    /// <returns>
+    /// Un double que representa la efectividad:
+    /// <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
+    /// <item>0.5 si <paramref name="attacker"/> es debil contra <paramref name="defender"/></item>
+    /// <item>0.0 si <paramref name="attacker"/> no tiene efecto en <paramref name="defender"/></item>
+    /// <item>1.0 si no hay ventaja entre ambos tipos</item>
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanza esta excepcion si <paramref name="attacker"/> tiene un tipo de Pokemon que no esta implementada la ventaja sobre otro tipo de Pokemon
+    /// </exception>
     public static double Advantage(this PokemonType attacker, PokemonType defender)
     {
         PokemonType[] strong;
@@ -98,7 +185,10 @@ public static class Calculate
                 immune = [];
                 break;
             case PokemonType.Poison:
-                strong = [PokemonType.Bug, PokemonType.Psychic, PokemonType.Ground, PokemonType.Fighting, PokemonType.Grass];
+                strong =
+                [
+                    PokemonType.Bug, PokemonType.Psychic, PokemonType.Ground, PokemonType.Fighting, PokemonType.Grass
+                ];
                 weak = [PokemonType.Grass, PokemonType.Poison];
                 immune = [];
                 break;

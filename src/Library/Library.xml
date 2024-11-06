@@ -4,5 +4,310 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Library.Attack">
+            <summary>
+            Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque
+            </summary>
+            <remarks>
+            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos , 
+            tal como <see cref="T:Library.NormalAttack"/>. Cada uno deellos tiene un nombre, danio y
+            <see cref="T:Library.PokemonType"/> que influencia en la efectividad del ataque conforme al tipo del contrincantre.
+            </remarks>
+        </member>
+        <member name="P:Library.Attack.Name">
+            <summary>
+            Retorna el nombre del ataque
+            </summary>
+        </member>
+        <member name="P:Library.Attack.Damage">
+            <summary>
+            Retorna el valor de danio del ataque
+            </summary>
+        </member>
+        <member name="P:Library.Attack.Type">
+            <summary>
+            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
+            </summary>
+            <value> Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque
+            </value>
+        </member>
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+            Inicializa una nueva instancia de la clase <see cref="T:Library.Attack"/>
+            </summary>
+            <param name="name">Nombre del ataque</param>
+            <param name="damage">EL danio del ataque que puede generar</param>
+            <param name="type">El tipo de ataque, que afecta los enfrentamientos de tipos distintos</param>
+        </member>
+        <member name="T:Library.NormalAttack">
+            <summary>
+            Representa un tipo especifico de ataque en el juego, con direfentes instancias del mismo.
+            </summary>
+            <remarks>
+            Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
+            Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas
+            </remarks>
+        </member>
+        <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/> 
+            </summary>
+            <param name="name">El nombre del ataque</param>
+            <param name="damage">La cantidad de danio que genera</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque
+            </param>
+            <remarks>
+            Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque
+            </remarks>
+        </member>
+        <member name="T:Library.Game">
+            <summary>
+            Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones
+            </summary>
+        </member>
+        <member name="F:Library.Game.PlayerOne">
+            <summary>
+            El primer jugador en el juego
+            </summary>
+        </member>
+        <member name="F:Library.Game.PlayerTwo">
+            <summary>
+            El segundo jugador en el juego
+            </summary>
+        </member>
+        <member name="F:Library.Game.tmp">
+            <summary>
+            Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos
+            </summary>
+        </member>
+        <member name="M:Library.Game.#ctor(Library.Player,Library.Player)">
+            <summary>
+            Inicialliza el juego
+            </summary>
+            <param name="p1">El primer jugador <see cref="F:Library.Game.PlayerOne"/></param>
+            <param name="p2">El segundo jugador <see cref="F:Library.Game.PlayerTwo"/></param>
+        </member>
+        <member name="M:Library.Game.createGame(System.Collections.Generic.List{Library.Pokemon})">
+            <summary>
+            Crea un nuevo juego con jugadores predefinidos
+            </summary>
+            <param name="Pokemon">Una lista de <paramref name="Pokemon"/> para usar en el juego </param>
+            <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
+        </member>
+        <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
+             <summary>
+            Ejecuta un ataque por el por el jugador que le toca hacia el contrincante
+             </summary>
+             <param name="active">El <see cref="T:Library.Player"/> que va a atacar</param>
+             <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado</param>
+        </member>
+        <member name="M:Library.Game.PlayTurn(Library.Player,Library.Player)">
+            <summary>
+            Maneja el turno del jugador activo
+            </summary>
+            <param name="active">El <see cref="T:Library.Player"/> que toma el turno</param>
+            <param name="other">El <see cref="T:Library.Player"/> que no le toca atacar</param>
+            <remarks>
+            Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
+            Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones
+            </remarks>
+        </member>
+        <member name="M:Library.Game.ChangePokemon(Library.Player)">
+            <summary>
+            Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="T:Library.Player"/>
+            </summary>
+            <param name="p">El <see cref="T:Library.Player"/> quien es que esta haciendo el cambio</param>
+        </member>
+        <member name="M:Library.Game.CheckDead(Library.Player)">
+            <summary>
+            Comprueba si un pokemon del jugador ha muerto
+            </summary>
+            <param name="p">El <see cref="T:Library.Player"/> el cual estamos viendo el estado de su pokemon</param>
+            <returns>
+            <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>
+            </returns>
+            <remarks>
+            Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon
+            </remarks>
+        </member>
+        <member name="M:Library.Game.Play">
+            <summary>
+            Comienza el juego, va alternando el turno entre los jugadores
+            </summary>
+            <remarks>
+            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro
+            </remarks>
+        </member>
+        <member name="T:Library.Player">
+            <summary>
+            Un jugador de pokemon
+            </summary>
+        </member>
+        <member name="P:Library.Player.Name">
+            <summary>
+            El nombre del jugador. Esto es visible al usuario, y no es interno al codigo
+            </summary>
+        </member>
+        <member name="P:Library.Player.Pokemons">
+            <summary>
+            La lista de pokemon del jugador.
+            </summary>
+            <value>
+            Esta lista tiene hasta 6 pokemons
+            </value>
+        </member>
+        <member name="P:Library.Player.ActivePokemon">
+            <summary>
+            Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="M:Library.Player.ChangePokemon(System.String)"/>.
+            </summary>
+            <value>
+            Debe ser una referencia a alguno de los pokemon en la lista del jugador
+            </value>
+        </member>
+        <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
+            <summary>
+            Crea una instancia del jugador con su lista de los pokemons.
+            </summary>
+            <param name="name">El nombre del Jugador</param>
+            <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null</param>
+        </member>
+        <member name="M:Library.Player.ChangePokemon(System.String)">
+            <summary>
+            Cambia el pokemon que estaria en pantalla(<see cref="P:Library.Player.ActivePokemon"/>) del jugador
+            </summary>
+            <param name="newPokemon">El nombre del pokemon por el cual quiere cambiar, este debe estar en su lista de pokemon</param>
+            <returns>
+            <c>true</c> si se encontro <paramref name="newPokemon"/> en <see cref="T:Library.Pokemon"/>, sino <c>false</c> y no se cambia el pokemon <see cref="P:Library.Player.ActivePokemon"/>
+            </returns>
+            <remarks>Si el <paramref name="newPokemon"/> no es encontrado en este jugador, no hacer nada.</remarks>
+        </member>
+        <member name="M:Library.Player.Attack(Library.Player,System.String)">
+            <summary>
+            Ataca al <see cref="P:Library.Player.ActivePokemon"/> de <paramref name="other"/> utilizando el <see cref="P:Library.Player.ActivePokemon"/> del jugador con el ataque de <paramref name="attackName"/>
+            </summary>
+            <param name="other">El jugador a atacar. Nuevamente debe ser non-null</param>
+            <param name="attackName">Este es el nombre del ataque a utlizar. Debe ser un ataque valido de <see cref="P:Library.Player.ActivePokemon"/></param>
+            <exception cref="T:System.ArgumentNullException"> Si <paramref name="other"/> es null</exception>
+            <remarks>
+            Esto llama al metodo <see cref="M:Library.Pokemon.Attack(Library.Pokemon,System.String)"/>
+            </remarks>
+        </member>
+        <member name="M:Library.Player.IsDead">
+            <summary>
+            Devuelve el estado de si todos los pokemons del jugador han muerto
+            </summary>
+            <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso</returns>
+        </member>
+        <member name="T:Library.PokemonType">
+            <summary>
+            Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Normal">
+            <summary>
+            Sin ventajas ni desvenjatas
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Fire">
+            <summary>
+            Fuerte contra **Grass**, debil contra **Water**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Water">
+            <summary>
+            Fuerte contra **Fire**, debil contra **Electric** y **Grass**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Electric">
+            <summary>
+            Fuerte contra **Water** y **Flying**, debil contra **Ground*
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Grass">
+            <summary>
+            Fuerte contra **Water** y **Ground**, debil contra **Fire**, **Flying** y **Bug**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Ice">
+            <summary>
+            Fuerte contra **Dragon**, debil contra **Fire** y **Rock**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Fighting">
+            <summary>
+            Fuerte contra **Normal** y **Rock**, debil contra **Psychic** y **Flying**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Poison">
+            <summary>
+            Fuerte contra **Grass**, debil contra **Psychic**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Ground">
+            <summary>
+            Fuerte contra **Electric**, debil contra **Water** y **Grass**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Flying">
+            <summary>
+            Fuerte contra **Grass** y **Fighting**, debil contra **Electric** y **Rock**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Psychic">
+            <summary>
+            Fuerte contra **Fighting** y **Poison**, debil contra **Bug** y **Ghost**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Bug">
+            <summary>
+            Fuerte contra **Grass** y **Psychic**, debil contra **Fire**, **Flying** y **Rock**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Rock">
+            <summary>
+            Fuerte contra **Fire**, debil contra **Water** y **Grass**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Ghost">
+            <summary>
+            Fuerte contra **Psychic**, inmune contra **Normal**
+            </summary>
+        </member>
+        <member name="F:Library.PokemonType.Dragon">
+            <summary>
+            Fuerte contra **Dragon**, debil contra **Ice**
+            </summary>
+        </member>
+        <member name="T:Library.Calculate">
+            <summary>
+            Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla
+            </summary>
+        </member>
+        <member name="M:Library.Calculate.Advantage(Library.PokemonType,Library.PokemonType)">
+            <summary>
+            Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado
+            </summary>
+            <remarks>
+            Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong", 
+            "weak" o "immune" en la tabla del tipo <paramref name="attacker"/>, se considera un
+            multiplicador de 1.0 (neutral).
+            Un multiplicador de -1 podría indicarse en futuras versiones si el
+            tipo <paramref name="defender"/> no pertenece a ninguna categoría conocida. Logrando este asi una excepcion
+            </remarks>
+            <param name="attacker">El tipo del Pokemon atacante</param>
+            <param name="defender">El tipo del Pokemon atacado</param>
+            <returns>
+            Un double que representa la efectividad:
+            <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
+            <item>0.5 si <paramref name="attacker"/> es debil contra <paramref name="defender"/></item>
+            <item>0.0 si <paramref name="attacker"/> no tiene efecto en <paramref name="defender"/></item>
+            <item>1.0 si no hay ventaja entre ambos tipos</item>
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanza esta excepcion si <paramref name="attacker"/> no es un tipo de Pokemon valido
+            </exception>
+        </member>
     </members>
 </doc>
