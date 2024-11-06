@@ -95,4 +95,14 @@ public abstract class Pokemon
         Attack attack = this.GetAttack(attackName);
         Attack(target, attack);
     }
+
+    public void Curar(int health)
+    {
+        if (health < 0)
+        {
+            throw new ArgumentOutOfRangeException("No se puede curar con un valor negativo.");
+        }
+
+        this.Health = health;
+    }
 }
