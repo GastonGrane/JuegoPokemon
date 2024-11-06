@@ -4,21 +4,21 @@ public static class SelecPokemons
 {
     private static List<Pokemon> list = [];
 
-    public static void selecYourPokemon(Player player, List<Pokemon> Pokemons)
+    public static void selecYourPokemon(Player player, List<Pokemon> Pokemons, IPrint print)
     {
         while (list.Count < 6)
         {
-            int num = PrintConsole.printStringAndReceiveInt(
+            int num = print.printStringAndReceiveInt(
                 $"{player} digite el número del Pokemon que desea seleccionar");
             Pokemon pokSelected = Pokemons[num - 1];
             if (Pokemons.Contains(pokSelected))
             {
-                PrintConsole.printString("Ya cuentas con ese Pokemons en tu lista");
+                print.printString("Ya cuentas con ese Pokemons en tu lista");
             }
             else
             {
                 list.Add(pokSelected);
-                Console.WriteLine($"{player} se ha agregado a {pokSelected} a su lista de pokemones");
+                print.printString($"{player} se ha agregado a {pokSelected} a su lista de pokemones");
             }
         }
     }
