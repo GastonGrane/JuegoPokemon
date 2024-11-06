@@ -177,6 +177,7 @@ public class Pokemon
         Attack attack = this.GetAttack(attackName);
         Attack(target, attack);
     }
+
     /// <summary>
     /// Suma un valor especificado a la vida que ya tiene el pokemon.
     /// </summary>
@@ -184,6 +185,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
     /// </exception>
+
     public void Curar(int health)
     {
         if (health < 0)
