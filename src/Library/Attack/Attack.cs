@@ -34,7 +34,7 @@ public abstract class Attack
     public PokemonType Type { get; }
 
     /// <summary>
-    /// Crea un <see cref="Attack"/> con los parámetros provistos
+    /// Crea un <see cref="Attack"/> con los parámetros provistos.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de danio que genera.</param>
