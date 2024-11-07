@@ -15,8 +15,12 @@ public class Revive : IItem
     /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="pokemon"/> es null.
+    /// </exception>
     public void Use(Pokemon pokemon)
     {
+        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Curar(50);
     }
 }

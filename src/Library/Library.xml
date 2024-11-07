@@ -203,17 +203,23 @@
             Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
             </summary>
             <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Si <paramref name="pokemon"/> es null.
+            </exception>
         </member>
-        <member name="T:Library.Items.SuperPotions">
+        <member name="T:Library.Items.SuperPotion">
             <summary>
             Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
             </summary>
         </member>
-        <member name="M:Library.Items.SuperPotions.Use(Library.Pokemon)">
+        <member name="M:Library.Items.SuperPotion.Use(Library.Pokemon)">
             <summary>
             Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
             </summary>
             <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Si <paramref name="pokemon"/> es null.
+            </exception>
         </member>
         <member name="T:Library.Items.TotalCure">
             <summary>
