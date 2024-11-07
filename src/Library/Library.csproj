@@ -18,5 +18,6 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>All</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <NoWarn>SA1623</NoWarn>
   </PropertyGroup>
 </Project>
