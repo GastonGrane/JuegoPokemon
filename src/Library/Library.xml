@@ -15,17 +15,17 @@
         </member>
         <member name="P:Library.Attack.Name">
             <summary>
-            El nombre del ataque
+            El nombre del ataque.
             </summary>
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            El valor de daño del ataque
+            El valor de daño del ataque.
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
-            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
+            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
             </summary>
             <value>
             Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
@@ -202,7 +202,7 @@
         </member>
         <member name="P:Library.Player.Name">
             <summary>
-            El nombre del jugador. Esto es visible al usuario, y no es interno al codigo
+            El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
             </summary>
         </member>
         <member name="P:Library.Player.Pokemons">
@@ -285,7 +285,7 @@
             <summary>
             Propiedad que obtiene y establece la salud actual del pokemon.
             La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="P:Library.Pokemon.MaxHealth"/>:
-            - Si el valor excede al de <paramref name="MaxHealth"/>, se establece el valor correspondiente al de <paramref name="MaxHealth"/>.
+            - Si el valor excede al de <see cref="P:Library.Pokemon.MaxHealth"/>, se establece el valor correspondiente al de <see cref="P:Library.Pokemon.MaxHealth"/>.
             - Si el valor es menor que 0, se establece en 0.
             - De lo contrario, se asigna el valor directamente.
             </summary>
@@ -492,13 +492,13 @@
         </member>
         <member name="M:Library.IPrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Imprime la lista provista en el servicio
+            Imprime la lista provista en el servicio.
             </summary>
             <param name="list">La lista a imprimir.</param>
         </member>
         <member name="M:Library.IPrinter.PrintString(System.String)">
             <summary>
-            Imprime la string provista en el servicio
+            Imprime la string provista en el servicio.
             </summary>
             <param name="str">La string a imprimir.</param>
         </member>

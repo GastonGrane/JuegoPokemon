@@ -13,15 +13,14 @@ namespace Library;
 /// </summary>
 public interface IPrinter
 {
-
     /// <summary>
-    /// Imprime la lista provista en el servicio
+    /// Imprime la lista provista en el servicio.
     /// </summary>
     /// <param name="list">La lista a imprimir.</param>
     public void PrintList(List<Pokemon> list);
 
     /// <summary>
-    /// Imprime la string provista en el servicio
+    /// Imprime la string provista en el servicio.
     /// </summary>
     /// <param name="str">La string a imprimir.</param>
     public void PrintString(string str);

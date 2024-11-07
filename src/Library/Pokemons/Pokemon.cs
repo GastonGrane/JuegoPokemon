@@ -34,7 +34,7 @@ public class Pokemon
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
     /// La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="MaxHealth"/>:
-    /// - Si el valor excede al de <paramref name="MaxHealth"/>, se establece el valor correspondiente al de <paramref name="MaxHealth"/>.
+    /// - Si el valor excede al de <see cref="MaxHealth"/>, se establece el valor correspondiente al de <see cref="MaxHealth"/>.
     /// - Si el valor es menor que 0, se establece en 0.
     /// - De lo contrario, se asigna el valor directamente.
     /// </summary>

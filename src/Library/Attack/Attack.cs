@@ -16,17 +16,17 @@ namespace Library;
 public abstract class Attack
 {
     /// <summary>
-    /// El nombre del ataque
+    /// El nombre del ataque.
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    /// El valor de daño del ataque
+    /// El valor de daño del ataque.
     /// </summary>
     public int Damage { get; }
 
     /// <summary>
-    /// Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
+    /// Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
     /// </summary>
     /// <value>
     /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque.

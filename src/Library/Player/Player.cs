@@ -12,7 +12,7 @@ namespace Library;
 public class Player
 {
     /// <summary>
-    /// El nombre del jugador. Esto es visible al usuario, y no es interno al codigo
+    /// El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
     /// </summary>
     public string Name { get; }
 
