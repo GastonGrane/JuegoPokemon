@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Library;
 
 /// <summary>
@@ -90,6 +92,7 @@ public enum PokemonType
 /// <summary>
 /// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
 /// </summary>
+[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:FileNameMustMatchTypeName", Justification = "This is an extension class")]
 public static class Calculate
 {
     // FIXME: Este método actualmente asume que si el elemento defensor no está
