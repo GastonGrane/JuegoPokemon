@@ -133,15 +133,17 @@ public class Game
         }
     }
 
-    //Ejecuta el turno del primero jugador
+    // Ejecuta el turno del primero jugador
     private void PlayTurnP1()
     {
+        Console.WriteLine($"Turno de {PlayerOne}");
         PlayTurn(PlayerOne, PlayerTwo);
     }
 
     //Ejecuta el turno del segundo jugador
     private void PlayTurnP2()
     {
+        Console.WriteLine($"Turno de {PlayerTwo}");
         PlayTurn(PlayerTwo, PlayerOne);
     }
 
@@ -186,7 +188,7 @@ public class Game
     /// </remarks>
     private bool CheckDead(Player p)
     {
-        if (p.IsDead())
+        if (p.AllAreDead())
         {
             return true;
         }
@@ -222,14 +224,14 @@ public class Game
             PlayTurnP1();
             if (CheckDead(PlayerTwo))
             {
-                Console.WriteLine($"{PlayerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                Console.WriteLine($"{PlayerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {PlayerOne}");
                 break;
             }
 
             PlayTurnP2();
             if (CheckDead(PlayerOne))
             {
-                Console.WriteLine($"{PlayerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                Console.WriteLine($"{PlayerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {PlayerTwo}");
                 break;
             }
         }

@@ -29,21 +29,21 @@ namespace Program
 
             Pokemon pokemon2 = new Pokemon(
                 "Bulbasaur",
-                    PokemonType.Fire,
-                    100,
-                    new List<Attack> { NormalAttack.BulletSeed });
+                PokemonType.Fire,
+                100,
+                new List<Attack> { NormalAttack.BulletSeed });
 
             Pokemon pokemon3 = new Pokemon(
                 "Charmander",
-                    PokemonType.Fire,
-                    100,
-                    new List<Attack> { NormalAttack.BlazeKick });
+                PokemonType.Fire,
+                100,
+                new List<Attack> { NormalAttack.BlazeKick });
 
             Pokemon pokemon4 = new Pokemon(
                 "Squirtle",
-                    PokemonType.Water,
-                    100,
-                    new List<Attack> { NormalAttack.AquaJet });
+                PokemonType.Water,
+                100,
+                new List<Attack> { NormalAttack.AquaJet });
 
             List<Pokemon> pokemons = new List<Pokemon>
             {
