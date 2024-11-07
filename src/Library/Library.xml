@@ -15,17 +15,17 @@
         </member>
         <member name="P:Library.Attack.Name">
             <summary>
-            Gets el nombre del ataque.
+            El nombre del ataque
             </summary>
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            Gets el valor de daño del ataque.
+            El valor de daño del ataque
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
-            Gets retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
+            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
             </summary>
             <value>
             Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
@@ -42,11 +42,11 @@
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            Initializes a new instance of the <see cref="T:Library.NormalAttack"/> class.
-            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>    ///. </summary>
-            <param name="name">El nombre del ataque.</param>
-            <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.
+            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/> 
+            </summary>
+            <param name="name">El nombre del ataque</param>
+            <param name="damage">La cantidad de danio que genera</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque
             </param>
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
@@ -177,12 +177,12 @@
         </member>
         <member name="P:Library.Player.Name">
             <summary>
-            Gets el nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
+            El nombre del jugador. Esto es visible al usuario, y no es interno al codigo
             </summary>
         </member>
         <member name="P:Library.Player.Pokemons">
             <summary>
-            Gets la lista de pokemon del jugador.
+            La lista de pokemon del jugador.
             </summary>
             <value>
             Esta lista tiene hasta 6 pokemons.
@@ -190,7 +190,7 @@
         </member>
         <member name="P:Library.Player.ActivePokemon">
             <summary>
-            Gets este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="M:Library.Player.ChangePokemon(System.String)"/>.
+            Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="M:Library.Player.ChangePokemon(System.String)"/>.
             </summary>
             <value>
             Debe ser una referencia a alguno de los pokemon en la lista del jugador.
@@ -198,7 +198,6 @@
         </member>
         <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Initializes a new instance of the <see cref="T:Library.Player"/> class.
             Crea una instancia del jugador con su lista de los pokemons.
             </summary>
             <param name="name">El nombre del Jugador.</param>
@@ -239,12 +238,12 @@
         </member>
         <member name="P:Library.Pokemon.Name">
             <summary>
-            Gets or sets el nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
+            El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Type">
             <summary>
-            Gets determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
+            Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
             </summary>
         </member>
         <member name="F:Library.Pokemon.health">
@@ -254,12 +253,12 @@
         </member>
         <member name="P:Library.Pokemon.MaxHealth">
             <summary>
-            Gets propiedad de solo lectura que representa la salud máxima del pokemon.
+            Propiedad de solo lectura que representa la salud máxima del pokemon.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Health">
             <summary>
-            Gets propiedad que obtiene y establece la salud actual del pokemon.
+            Propiedad que obtiene y establece la salud actual del pokemon.
             La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="P:Library.Pokemon.MaxHealth"/>:
             - Si el valor excede al de <paramref name="MaxHealth"/>, se establece el valor correspondiente al de <paramref name="MaxHealth"/>.
             - Si el valor es menor que 0, se establece en 0.
@@ -268,7 +267,7 @@
         </member>
         <member name="P:Library.Pokemon.Attacks">
             <summary>
-            Gets lista donde se establecerán los distintos ataques con los que contará el pokemon.
+            Lista donde se establecerán los distintos ataques con los que contará el pokemon.
             </summary>
         </member>
         <member name="M:Library.Pokemon.GetAttack(System.Int32)">
@@ -359,77 +358,77 @@
         </member>
         <member name="F:Library.PokemonType.Normal">
             <summary>
-            Sin ventajas ni desvenjatas
+            El tipo normal.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Fire">
             <summary>
-            Fuerte contra **Grass**, debil contra **Water**
+            El tipo Fire.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Water">
             <summary>
-            Fuerte contra **Fire**, debil contra **Electric** y **Grass**
+            El tipo Water.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Electric">
             <summary>
-            Fuerte contra **Water** y **Flying**, debil contra **Ground*
+            El tipo Electric.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Grass">
             <summary>
-            Fuerte contra **Water** y **Ground**, debil contra **Fire**, **Flying** y **Bug**
+            El tipo Grass.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ice">
             <summary>
-            Fuerte contra **Dragon**, debil contra **Fire** y **Rock**
+            El tipo Ice.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Fighting">
             <summary>
-            Fuerte contra **Normal** y **Rock**, debil contra **Psychic** y **Flying**
+            El tipo Fighting.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Poison">
             <summary>
-            Fuerte contra **Grass**, debil contra **Psychic**
+            El tipo Poison.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ground">
             <summary>
-            Fuerte contra **Electric**, debil contra **Water** y **Grass**
+            El tipo Ground.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Flying">
             <summary>
-            Fuerte contra **Grass** y **Fighting**, debil contra **Electric** y **Rock**
+            El tipo Flying.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Psychic">
             <summary>
-            Fuerte contra **Fighting** y **Poison**, debil contra **Bug** y **Ghost**
+            El tipo Psychic.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Bug">
             <summary>
-            Fuerte contra **Grass** y **Psychic**, debil contra **Fire**, **Flying** y **Rock**
+            El tipo Bug.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Rock">
             <summary>
-            Fuerte contra **Fire**, debil contra **Water** y **Grass**
+            El tipo Rock.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ghost">
             <summary>
-            Fuerte contra **Psychic**, inmune contra **Normal**
+            El tipo Ghost.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Dragon">
             <summary>
-            Fuerte contra **Dragon**, debil contra **Ice**
+            El tipo Dragon.
             </summary>
         </member>
         <member name="T:Library.Calculate">
@@ -458,6 +457,42 @@
             <exception cref="T:System.ArgumentOutOfRangeException">
             Lanza esta excepcion si <paramref name="attacker"/> es un tipo que no tiene ventajas explicitadas.
             </exception>
+        </member>
+        <member name="T:Library.IPrinter">
+             <summary>
+             Representa la comunicación a un servicio externo.
+            
+             Permite imprimir texto, y pedirlo al usuario una selección.
+             </summary>
+        </member>
+        <member name="M:Library.IPrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
+            <summary>
+            Imprime la lista provista en el servicio
+            </summary>
+            <param name="list">La lista a imprimir.</param>
+        </member>
+        <member name="M:Library.IPrinter.PrintString(System.String)">
+            <summary>
+            Imprime la string provista en el servicio
+            </summary>
+            <param name="str">La string a imprimir.</param>
+        </member>
+        <member name="M:Library.IPrinter.PrintStringAndReceiveInt(System.String)">
+             <summary>
+             Imprime la string provista en el servicio, y luego le pide al
+             usuario que ingrese un int.
+            
+             Si el usuario no ingresa un int, esta función deberá
+             reintentar hasta que el dato ingresado sea un int.
+             </summary>
+             <param name="str">La string a imprimir.</param>
+             <returns>El número ingresado por el usuario.</returns>
+        </member>
+        <member name="M:Library.IPrinter.PrintListAtaque(System.Collections.Generic.List{Library.Attack})">
+            <summary>
+            Imprime la lista de ataques provista en el servicio.
+            </summary>
+            <param name="ataques">La lista de <see cref="T:Library.Attack"/>s a imprimir.</param>
         </member>
     </members>
 </doc>

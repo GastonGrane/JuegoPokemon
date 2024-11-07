@@ -1,12 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="printConsole.cs" company="Universidad Católica del Uruguay">
+// <copyright file="ConsolePrinter.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Library;
 
-public class PrintConsole : IPrint
+public class ConsolePrinter : IPrinter
 {
     public void PrintList(List<Pokemon> list)
     {

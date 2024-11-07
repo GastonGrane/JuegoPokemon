@@ -19,7 +19,7 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            PrintConsole printConsole = new PrintConsole();
+            ConsolePrinter consolePrinter = new ConsolePrinter();
 
             Pokemon pokemon1 = new Pokemon(
                 "Pikachu",
@@ -53,7 +53,7 @@ namespace Program
                 pokemon4,
             };
 
-            printConsole.PrintList(pokemons);
+            consolePrinter.PrintList(pokemons);
         }
     }
 }
