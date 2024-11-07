@@ -25,25 +25,25 @@ namespace Program
                 "Pikachu",
                 PokemonType.Electric,
                 100,
-                new List<Attack> { NormalAttack.FusionBolt });
+                new List<Attack> { NormalAttackLibrary.FusionBolt });
 
             Pokemon pokemon2 = new Pokemon(
                 "Bulbasaur",
                 PokemonType.Fire,
                 100,
-                new List<Attack> { NormalAttack.BulletSeed });
+                new List<Attack> { NormalAttackLibrary.BulletSeed });
 
             Pokemon pokemon3 = new Pokemon(
                 "Charmander",
                 PokemonType.Fire,
                 100,
-                new List<Attack> { NormalAttack.BlazeKick });
+                new List<Attack> { NormalAttackLibrary.BlazeKick });
 
             Pokemon pokemon4 = new Pokemon(
                 "Squirtle",
                 PokemonType.Water,
                 100,
-                new List<Attack> { NormalAttack.AquaJet });
+                new List<Attack> { NormalAttackLibrary.AquaJet });
 
             List<Pokemon> pokemons = new List<Pokemon>
             {

@@ -59,6 +59,31 @@
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
         </member>
+        <member name="T:Library.NormalAttackLibrary">
+            <summary>
+            Clase estática con una colección de ataques normales pre-definidos.
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.AquaJet">
+            <summary>
+            Aqua Jet (water).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.BulletSeed">
+            <summary>
+            Bullet Seed (Grass).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.BlazeKick">
+            <summary>
+            Blaze Kick (Fire).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.FusionBolt">
+            <summary>
+            Fusion Bolt (Electric).
+            </summary>
+        </member>
         <member name="T:Library.SpecialAttack">
              <summary>
              Un ataque especial. Este es un tipo de ataque que,
