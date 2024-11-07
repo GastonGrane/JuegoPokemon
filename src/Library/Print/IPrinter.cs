@@ -17,6 +17,9 @@ public interface IPrinter
     /// Imprime la lista provista en el servicio.
     /// </summary>
     /// <param name="list">La lista a imprimir.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="list"/> es null.
+    /// </exception>
     public void PrintList(List<Pokemon> list);
 
     /// <summary>
@@ -40,7 +43,15 @@ public interface IPrinter
     /// Imprime la lista de ataques provista en el servicio.
     /// </summary>
     /// <param name="ataques">La lista de <see cref="Attack"/>s a imprimir.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="ataques"/> es null.
+    /// </exception>
     public void PrintListAtaque(List<Attack> ataques);
 
+    /// <summary>
+    /// Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
+    /// </summary>
+    /// <param name="str">Ni idea.</param>
+    /// <returns>Tampoco sé.</returns>
     public int SelectAtaque(string str);
 }
