@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="SuperPotions.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.Items;
 
 /// <summary>

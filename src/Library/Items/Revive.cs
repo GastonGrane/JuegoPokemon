@@ -1,4 +1,11 @@
+// -----------------------------------------------------------------------
+// <copyright file="Revive.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.Items;
+
 /// <summary>
 /// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
 /// </summary>
@@ -12,5 +19,4 @@ public class Revive : IItem
     {
         pokemon.Curar(50);
     }
-    
 }

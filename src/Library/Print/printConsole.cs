@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="printConsole.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library;
 
 public class PrintConsole : IPrint
@@ -30,6 +36,7 @@ public class PrintConsole : IPrint
             Console.WriteLine("ERROR: Por favor, ingresa un número válido.");
         }
     }
+
     public void PrintListAtaque(List<Attack> ataques)
     {
         Console.WriteLine("Ataques disponibles:");
@@ -37,13 +44,13 @@ public class PrintConsole : IPrint
         {
             Console.WriteLine($"{i + 1}. {ataques[i].Name} (Daño: {ataques[i].Damage})");
         }
+
         Console.WriteLine();
     }
 
     public int SelectAtaque(string str)
     {
-
-        int eleccion = PrintStringAndReceiveInt(str);
+        int eleccion = this.PrintStringAndReceiveInt(str);
         bool control = true;
 
         while (control)

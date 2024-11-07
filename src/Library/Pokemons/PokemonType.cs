@@ -1,7 +1,13 @@
+// -----------------------------------------------------------------------
+// <copyright file="PokemonType.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library;
 
 /// <summary>
-/// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo
+/// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
 /// </summary>
 public enum PokemonType
 {
@@ -82,7 +88,7 @@ public enum PokemonType
 }
 
 /// <summary>
-/// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla
+/// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
 /// </summary>
 public static class Calculate
 {
@@ -90,18 +96,17 @@ public static class Calculate
     // listado en las ventajas del atacante, el atacante debe ser normal
     // contre ese elemento, pero podría ser valioso que sea explícito cuales
     // son normales, y si no está explicitado en ninguna lista retornar -1
+
     /// <summary>
-    /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado
+    /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado.
     /// </summary>
     /// <remarks>
-    /// Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong", 
+    /// Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong",
     /// "weak" o "immune" en la tabla del tipo <paramref name="attacker"/>, se considera un
     /// multiplicador de 1.0 (neutral).
-    /// Un multiplicador de -1 podría indicarse en futuras versiones si el
-    /// tipo <paramref name="defender"/> no pertenece a ninguna categoría conocida. Logrando este asi una excepcion
     /// </remarks>
-    /// <param name="attacker">El tipo del Pokemon atacante</param>
-    /// <param name="defender">El tipo del Pokemon atacado</param>
+    /// <param name="attacker">El tipo del ataque utilizado.</param>
+    /// <param name="defender">El tipo del Pokemon atacado.</param>
     /// <returns>
     /// Un double que representa la efectividad:
     /// <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
@@ -110,7 +115,7 @@ public static class Calculate
     /// <item>1.0 si no hay ventaja entre ambos tipos</item>
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanza esta excepcion si <paramref name="attacker"/> tiene un tipo de Pokemon que no esta implementada la ventaja sobre otro tipo de Pokemon
+    /// Lanza esta excepcion si <paramref name="attacker"/> es un tipo que no tiene ventajas explicitadas.
     /// </exception>
     public static double Advantage(this PokemonType attacker, PokemonType defender)
     {
@@ -187,7 +192,11 @@ public static class Calculate
             case PokemonType.Poison:
                 strong =
                 [
-                    PokemonType.Bug, PokemonType.Psychic, PokemonType.Ground, PokemonType.Fighting, PokemonType.Grass
+                    PokemonType.Bug,
+                    PokemonType.Psychic,
+                    PokemonType.Ground,
+                    PokemonType.Fighting,
+                    PokemonType.Grass
                 ];
                 weak = [PokemonType.Grass, PokemonType.Poison];
                 immune = [];
@@ -201,9 +210,21 @@ public static class Calculate
                 throw new ArgumentOutOfRangeException($"El Elemento {attacker} no tiene ventajas");
         }
 
-        if (strong.Contains(defender)) return 2.0;
-        if (weak.Contains(defender)) return 0.5;
-        if (immune.Contains(defender)) return 0.0;
+        if (strong.Contains(defender))
+        {
+            return 2.0;
+        }
+
+        if (weak.Contains(defender))
+        {
+            return 0.5;
+        }
+
+        if (immune.Contains(defender))
+        {
+            return 0.0;
+        }
+
         return 1.0;
     }
 }

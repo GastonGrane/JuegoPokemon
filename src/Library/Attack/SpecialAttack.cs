@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="SpecialAttack.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library;
 
 public enum SpecialType
@@ -7,9 +13,10 @@ public enum SpecialType
 
 public class SpecialAttack : Attack
 {
-    SpecialType SpecialAttackType { get; }
+    private SpecialType SpecialAttackType { get; }
 
-    public SpecialAttack(string name, int damage, PokemonType attackType, SpecialType specialType) : base(name, damage, attackType)
+    public SpecialAttack(string name, int damage, PokemonType attackType, SpecialType specialType)
+        : base(name, damage, attackType)
     {
         this.SpecialAttackType = specialType;
     }
