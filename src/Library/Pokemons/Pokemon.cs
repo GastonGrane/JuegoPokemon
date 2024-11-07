@@ -50,7 +50,15 @@ public class Pokemon
     /// Lista donde se establecerán los distintos ataques con los que contará el pokemon.
     /// </summary>
     public List<Attack> Attacks { get; }
+    public List<Attack> AvailableAttacks { get; }
+    public List<(Attack atack, int contador)> LasAttacksUsed { get; }
 
+    public void upDateAvailableAttacks()
+    {
+        foreach (var tuple in LasAttacksUsed){
+            if (tuple.contador == (tuple.contador 
+        }
+    }
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
         this.Name = name;
@@ -58,6 +66,8 @@ public class Pokemon
         this.Health = maxHealth;
         this.MaxHealth = maxHealth;
         this.Attacks = attacks;
+        this.AvailableAttacks = new List<Attack>();
+        this.LasAttacksUsed = new List<(Attack, int)>();
     }
 /// <summary>
 /// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
@@ -119,14 +129,21 @@ public class Pokemon
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
+    /// /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el ataque especificado no se encuentra disponible durante ese turno dentro de la lista <see cref="Availablettacks"/> del Pokémon que ataca.
+    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
+    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Availablettacks"/> del Pokémon que ataca.
     /// </exception>
     private void Attack(Pokemon target, Attack attack)
     {
-        if (!this.Attacks.Contains(attack))
+        if ((this.Attacks.Contains(attack)) && (!this.AvailableAttacks.Contains(attack)))
         {
-            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
+            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name} disponible en este momento");
+        }
+        if (!this.AvailableAttacks.Contains(attack))
+        {
+            throw new ArgumentOutOfRangeException($"Este pokemon no cuenta con el ataque {attack.Name}");
         }
 
         PokemonType attacker = attack.Type;

@@ -6,6 +6,7 @@ public static class SelecPokemons
 
     public static void selecYourPokemon(Player player, List<Pokemon> Pokemons, IPrint print)
     {
+        print.printList(Pokemons);
         while (list.Count < 6)
         {
             int num = print.printStringAndReceiveInt(

@@ -10,10 +10,14 @@ public class Game
     /// </summary>
     private Player PlayerOne;
 
+    private int NumTurnP1;
+    
     /// <summary>
     /// El segundo jugador en el juego
     /// </summary>
     private Player PlayerTwo;
+    private int NumTurnP2;
+    
 
     /// <summary>
     /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos
@@ -56,20 +60,50 @@ public class Game
         tmp++;
         while (true)
         {
-            Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
-            var attacks = active.ActivePokemon.Attacks;
-            for (int i = 0; i < attacks.Count; ++i)
+            int turno = 0;
+            if (active == PlayerOne)
             {
-                var attack = attacks[i];
+                NumTurnP1 += 1;
+                turno = NumTurnP1;
+            }
+            else if (active == PlayerTwo)
+
+            {
+                NumTurnP2 += 1;
+                turno = NumTurnP2;
+            }
+            Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
+            var avaiAttacks = active.ActivePokemon.AvailableAttacks;
+            var LastAttacks = active.ActivePokemon.LasAttacksUsed;
+
+            foreach (var tuple in LastAttacks)
+            {
+                int i = tuple.contador;
+                if ((i + 2) == turno)
+                {
+                    active.ActivePokemon.LasAttacksUsed.Remove(tuple);
+                }
+            }
+            for (int i = 0; i < avaiAttacks.Count; ++i)
+            {
+                var attack = avaiAttacks[i];
                 // Console.WriteLine($"{i + 1} - {attack.Name}");
                 Console.WriteLine($"- {attack.Name}");
+                
             }
-
             string attackName = Console.ReadLine()!;
+            foreach (Attack attack in avaiAttacks)
+            {
+                if ((attack.Name == attackName) && (attack is SpecialAttack))
+                {
+                    active.ActivePokemon.LasAttacksUsed.Add((attack, turno));
+                }
+            }
             Console.WriteLine();
 
             // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
             // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
+            
             double oldHP = other.ActivePokemon.Health;
             try
             {
@@ -80,13 +114,14 @@ public class Game
                 Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
                 continue;
             }
-
+            
+            }
             double newHP = other.ActivePokemon.Health;
             Console.WriteLine(
-                $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+                $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole { oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
             break;
         }
-    }
+    
 
     /// <summary>
     /// Maneja el turno del jugador activo
