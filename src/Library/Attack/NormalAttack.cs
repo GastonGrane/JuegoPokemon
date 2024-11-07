@@ -24,12 +24,11 @@ public class NormalAttack : Attack
     public static readonly NormalAttack FusionBolt = new NormalAttack("Fusion Bolt", 100, PokemonType.Electric);
 
     /// <summary>
-    /// El constructor de una nueva instancia de la clase <see cref="NormalAttack"/> 
+    /// El constructor de una nueva instancia de la clase <see cref="NormalAttack"/>.
     /// </summary>
-    /// <param name="name">El nombre del ataque</param>
-    /// <param name="damage">La cantidad de danio que genera</param>
-    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque
-    /// </param>
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de danio que genera.</param>
+    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
     /// <remarks>
     /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
     /// </remarks>

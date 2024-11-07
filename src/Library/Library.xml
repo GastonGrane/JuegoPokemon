@@ -31,6 +31,14 @@
             Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
             </value>
         </member>
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos
+            </summary>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de danio que genera.</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+        </member>
         <member name="T:Library.NormalAttack">
             <summary>
             Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
@@ -42,15 +50,32 @@
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/> 
+            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>.
             </summary>
-            <param name="name">El nombre del ataque</param>
-            <param name="damage">La cantidad de danio que genera</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque
-            </param>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de danio que genera.</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
+        </member>
+        <member name="T:Library.SpecialAttack">
+             <summary>
+             Un ataque especial. Este es un tipo de ataque que,
+             además de realizar daño, también inflige un estado sobre el Pokemon,
+             dependiendo de qué ataque fue utilizado.
+            
+             Una vez que el ataque acierta, siempre se le infligirá el estado al Pokemon,
+             es decir, la precisión de la aplicación del estado es del 100%.
+             </summary>
+        </member>
+        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+            Crea un ataque especial.
+            </summary>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de daño que realiza.</param>
+            <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
         </member>
         <member name="T:Library.Game">
             <summary>
