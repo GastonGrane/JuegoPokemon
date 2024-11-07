@@ -33,7 +33,7 @@
         </member>
         <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos
+            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
@@ -261,6 +261,31 @@
             Crea instancias de los distintos pokemons.
             </summary>
         </member>
+        <member name="F:Library.Pokemon.health">
+             <summary>
+             El valor actual de salud del pokemon.
+            
+             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health"/>.
+             </summary>
+        </member>
+        <member name="F:Library.Pokemon.attacks">
+             <summary>
+             Lista de los distintos ataques con los que cuenta el pokemon.
+            
+             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Attacks"/>.
+             </summary>
+        </member>
+        <member name="M:Library.Pokemon.#ctor(System.String,Library.PokemonType,System.Int32,System.Collections.Generic.List{Library.Attack})">
+             <summary>
+             Crea un pokemon con los valores provistos.
+            
+             El Pokemon empieza con su vida siendo su total.
+             </summary>
+             <param name="name">El nombre del Pokemon.</param>
+             <param name="type">El tipo del Pokemon.</param>
+             <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
+             <param name="attacks">La lista de sus ataques.</param>
+        </member>
         <member name="P:Library.Pokemon.Name">
             <summary>
             El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
@@ -269,11 +294,6 @@
         <member name="P:Library.Pokemon.Type">
             <summary>
             Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
-            </summary>
-        </member>
-        <member name="F:Library.Pokemon.health">
-            <summary>
-            Se almacena el valor actual de salud del pokemon en un campo privado.
             </summary>
         </member>
         <member name="P:Library.Pokemon.MaxHealth">
@@ -292,48 +312,8 @@
         </member>
         <member name="P:Library.Pokemon.Attacks">
             <summary>
-            Lista donde se establecerán los distintos ataques con los que contará el pokemon.
+            Lista de los distintos ataques con los que cuenta el pokemon.
             </summary>
-        </member>
-        <member name="M:Library.Pokemon.GetAttack(System.Int32)">
-            <summary>
-            Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
-            </summary>
-            <param name="attackIdx">
-            Corresponde al valor del indice del ataque al cual se quiere acceder.
-            </param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
-            </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="!:Attacks.Count"/> - 1).
-            </exception>
-        </member>
-        <member name="M:Library.Pokemon.GetAttack(System.String)">
-            <summary>
-            Esta función retorna el ataque correspondiente al string que recibe como parámetro.
-            </summary>
-            <param name="attackName">
-            Nombre del ataque al cual se quiere acceder.
-            </param>
-            <returns>El ataque cuyo nombre es el nombre pasado.</returns>
-            <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
-            </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
-            </exception>
-        </member>
-        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
-            <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
-            </summary>
-            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
-            <param name="attack">El ataque que se usará para realizar el daño.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
-            </exception>
         </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.Int32)">
             <summary>
@@ -348,7 +328,7 @@
             Lanzada si el Pokémon no tiene ataques disponibles.
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="!:Attacks.Count"/> - 1).
+            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido ([0,(cant. ataques - 1)]).
             </exception>
         </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.String)">
@@ -374,6 +354,46 @@
             <param name="health">La cantidad de vida que se le suma a la vida actual del Pokémon.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
             Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
+            <summary>
+            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+            </summary>
+            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+            <param name="attack">El ataque que se usará para realizar el daño.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.GetAttack(System.String)">
+            <summary>
+            Esta función retorna el ataque correspondiente al string que recibe como parámetro.
+            </summary>
+            <param name="attackName">
+            Nombre del ataque al cual se quiere acceder.
+            </param>
+            <returns>El ataque cuyo nombre es el nombre pasado.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.GetAttack(System.Int32)">
+            <summary>
+            Retorna el ataque correspondiente al valor que recibe como parámetro.
+            </summary>
+            <param name="attackIdx">
+            Corresponde al valor del indice del ataque al cual se quiere acceder.
+            </param>
+            <returns>El ataque correspondiente al índice provisto.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
             </exception>
         </member>
         <member name="T:Library.PokemonType">

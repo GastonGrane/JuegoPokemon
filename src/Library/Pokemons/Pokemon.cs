@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.ObjectModel;
+
 namespace Library;
 
 /// <summary>
@@ -11,6 +13,38 @@ namespace Library;
 /// </summary>
 public class Pokemon
 {
+    /// <summary>
+    /// El valor actual de salud del pokemon.
+    ///
+    /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
+    /// </summary>
+    private double health;
+
+    /// <summary>
+    /// Lista de los distintos ataques con los que cuenta el pokemon.
+    ///
+    /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
+    /// </summary>
+    private List<Attack> attacks;
+
+    /// <summary>
+    /// Crea un pokemon con los valores provistos.
+    ///
+    /// El Pokemon empieza con su vida siendo su total.
+    /// </summary>
+    /// <param name="name">El nombre del Pokemon.</param>
+    /// <param name="type">El tipo del Pokemon.</param>
+    /// <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
+    /// <param name="attacks">La lista de sus ataques.</param>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
+    {
+        this.Name = name;
+        this.Type = type;
+        this.Health = maxHealth;
+        this.MaxHealth = maxHealth;
+        this.attacks = attacks;
+    }
+
     /// <summary>
     /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
     /// </summary>
@@ -20,11 +54,6 @@ public class Pokemon
     /// Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
     /// </summary>
     public PokemonType Type { get; }
-
-    /// <summary>
-    /// Se almacena el valor actual de salud del pokemon en un campo privado.
-    /// </summary>
-    private double health;
 
     /// <summary>
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
@@ -63,98 +92,14 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Lista donde se establecerán los distintos ataques con los que contará el pokemon.
+    /// Lista de los distintos ataques con los que cuenta el pokemon.
     /// </summary>
-    public List<Attack> Attacks { get; }
-
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
+    public ReadOnlyCollection<Attack> Attacks
     {
-        this.Name = name;
-        this.Type = type;
-        this.Health = maxHealth;
-        this.MaxHealth = maxHealth;
-        this.Attacks = attacks;
-    }
-
-    /// <summary>
-    /// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
-    /// </summary>
-    /// <param name="attackIdx">
-    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
-    /// </param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
-    /// </exception>
-    private Attack GetAttack(int attackIdx)
-    {
-        if (this.Attacks.Count == 0)
+        get
         {
-            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
+            return this.attacks.AsReadOnly();
         }
-
-        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
-        {
-            throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
-        }
-
-        return this.Attacks[attackIdx];
-    }
-
-    /// <summary>
-    /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
-    /// </summary>
-    /// <param name="attackName">
-    /// Nombre del ataque al cual se quiere acceder.
-    /// </param>
-    /// <returns>El ataque cuyo nombre es el nombre pasado.</returns>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
-    /// </exception>
-    private Attack GetAttack(string attackName)
-    {
-        if (this.Attacks.Count == 0)
-        {
-            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
-        }
-
-        // FIXME: Esto debería comparar así nomás, o se tendría que normalizar acá, o antes?
-        Attack? attack = this.Attacks.Find(attack => attack.Name == attackName);
-        if (attack == null)
-        {
-            throw new ArgumentOutOfRangeException($"El nombre de ataque no se encuentra en la lista de ataques");
-        }
-
-        return attack;
-    }
-
-    /// <summary>
-    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
-    /// </summary>
-    /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
-    /// <param name="attack">El ataque que se usará para realizar el daño.</param>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
-    /// </exception>
-    private void Attack(Pokemon target, Attack attack)
-    {
-        if (!this.Attacks.Contains(attack))
-        {
-            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
-        }
-
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
-
-        double multiplier = attacker.Advantage(defender);
-        double damage = attack.Damage * multiplier;
-        target.Health -= damage;
     }
 
     /// <summary>
@@ -169,7 +114,7 @@ public class Pokemon
     /// Lanzada si el Pokémon no tiene ataques disponibles.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido ([0,(cant. ataques - 1)]).
     /// </exception>
     public void Attack(Pokemon target, int attackIdx)
     {
@@ -208,11 +153,93 @@ public class Pokemon
     /// </exception>
     public void Curar(int health)
     {
-        if (health < 0)
-        {
-            throw new ArgumentOutOfRangeException("No se puede curar con un valor negativo.");
-        }
+        ArgumentOutOfRangeException.ThrowIfNegative(health, nameof(health));
 
         this.Health += health;
+    }
+
+    /// <summary>
+    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+    /// </summary>
+    /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+    /// <param name="attack">El ataque que se usará para realizar el daño.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
+    /// </exception>
+    private void Attack(Pokemon target, Attack attack)
+    {
+        if (!this.Attacks.Contains(attack))
+        {
+            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
+        }
+
+        PokemonType attacker = attack.Type;
+        PokemonType defender = target.Type;
+
+        double multiplier = attacker.Advantage(defender);
+        double damage = attack.Damage * multiplier;
+        target.Health -= damage;
+    }
+
+    /// <summary>
+    /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
+    /// </summary>
+    /// <param name="attackName">
+    /// Nombre del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns>El ataque cuyo nombre es el nombre pasado.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+    /// </exception>
+    private Attack GetAttack(string attackName)
+    {
+        if (this.Attacks.Count == 0)
+        {
+            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
+        }
+
+        // FIXME: Esto debería comparar así nomás, o se tendría que normalizar acá, o antes?
+        Attack attack;
+        try
+        {
+            attack = this.Attacks.First(attack => attack.Name == attackName);
+        }
+        catch (InvalidOperationException)
+        {
+            throw new ArgumentOutOfRangeException(nameof(attackName), "El nombre de ataque no se encuentra en la lista de ataques");
+        }
+
+        return attack;
+    }
+
+    /// <summary>
+    /// Retorna el ataque correspondiente al valor que recibe como parámetro.
+    /// </summary>
+    /// <param name="attackIdx">
+    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns>El ataque correspondiente al índice provisto.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
+    /// </exception>
+    private Attack GetAttack(int attackIdx)
+    {
+        if (this.Attacks.Count == 0)
+        {
+            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
+        }
+
+        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
+        {
+            throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
+        }
+
+        return this.Attacks[attackIdx];
     }
 }
