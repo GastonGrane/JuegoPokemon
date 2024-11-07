@@ -6,12 +6,26 @@
 
 namespace Library;
 
+/// <summary>
+/// Nota de Guzmán: No sé qué es esto.
+/// </summary>
 public static class SelecPokemons
 {
     private static List<Pokemon> list = [];
 
+    /// <summary>
+    /// Nota de Guzmán: No sé qué es esto.
+    /// </summary>
+    /// <param name="player">Un jugador.</param>
+    /// <param name="pokemons">Algunos Pokemon.</param>
+    /// <param name="printer">Un printer.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si algún parámetro es <c>null</c>.
+    /// </exception>
     public static void SelecYourPokemon(Player player, List<Pokemon> pokemons, IPrinter printer)
     {
+        ArgumentNullException.ThrowIfNull(pokemons, nameof(pokemons));
+        ArgumentNullException.ThrowIfNull(printer, nameof(printer));
         while (list.Count < 6)
         {
             int num = printer.PrintStringAndReceiveInt(
