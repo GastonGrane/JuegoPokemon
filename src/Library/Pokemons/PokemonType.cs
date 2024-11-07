@@ -12,77 +12,77 @@ namespace Library;
 public enum PokemonType
 {
     /// <summary>
-    /// Sin ventajas ni desvenjatas
+    /// El tipo normal.
     /// </summary>
     Normal,
 
     /// <summary>
-    /// Fuerte contra **Grass**, debil contra **Water**
+    /// El tipo Fire.
     /// </summary>
     Fire,
 
     /// <summary>
-    /// Fuerte contra **Fire**, debil contra **Electric** y **Grass**
+    /// El tipo Water.
     /// </summary>
     Water,
 
     /// <summary>
-    /// Fuerte contra **Water** y **Flying**, debil contra **Ground*
+    /// El tipo Electric.
     /// </summary>
     Electric,
 
     /// <summary>
-    /// Fuerte contra **Water** y **Ground**, debil contra **Fire**, **Flying** y **Bug**
+    /// El tipo Grass.
     /// </summary>
     Grass,
 
     /// <summary>
-    /// Fuerte contra **Dragon**, debil contra **Fire** y **Rock**
+    /// El tipo Ice.
     /// </summary>
     Ice,
 
     /// <summary>
-    /// Fuerte contra **Normal** y **Rock**, debil contra **Psychic** y **Flying**
+    /// El tipo Fighting.
     /// </summary>
     Fighting,
 
     /// <summary>
-    /// Fuerte contra **Grass**, debil contra **Psychic**
+    /// El tipo Poison.
     /// </summary>
     Poison,
 
     /// <summary>
-    /// Fuerte contra **Electric**, debil contra **Water** y **Grass**
+    /// El tipo Ground.
     /// </summary>
     Ground,
 
     /// <summary>
-    /// Fuerte contra **Grass** y **Fighting**, debil contra **Electric** y **Rock**
+    /// El tipo Flying.
     /// </summary>
     Flying,
 
     /// <summary>
-    /// Fuerte contra **Fighting** y **Poison**, debil contra **Bug** y **Ghost**
+    /// El tipo Psychic.
     /// </summary>
     Psychic,
 
     /// <summary>
-    /// Fuerte contra **Grass** y **Psychic**, debil contra **Fire**, **Flying** y **Rock**
+    /// El tipo Bug.
     /// </summary>
     Bug,
 
     /// <summary>
-    /// Fuerte contra **Fire**, debil contra **Water** y **Grass**
+    /// El tipo Rock.
     /// </summary>
     Rock,
 
     /// <summary>
-    /// Fuerte contra **Psychic**, inmune contra **Normal**
+    /// El tipo Ghost.
     /// </summary>
     Ghost,
 
     /// <summary>
-    /// Fuerte contra **Dragon**, debil contra **Ice**
+    /// El tipo Dragon.
     /// </summary>
     Dragon,
 }
