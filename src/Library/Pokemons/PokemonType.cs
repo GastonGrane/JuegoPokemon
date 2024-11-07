@@ -1,107 +1,115 @@
+// -----------------------------------------------------------------------
+// <copyright file="PokemonType.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
+
 namespace Library;
 
 /// <summary>
-/// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo
+/// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
 /// </summary>
 public enum PokemonType
 {
     /// <summary>
-    /// Sin ventajas ni desvenjatas
+    /// El tipo normal.
     /// </summary>
     Normal,
 
     /// <summary>
-    /// Fuerte contra **Grass**, debil contra **Water**
+    /// El tipo Fire.
     /// </summary>
     Fire,
 
     /// <summary>
-    /// Fuerte contra **Fire**, debil contra **Electric** y **Grass**
+    /// El tipo Water.
     /// </summary>
     Water,
 
     /// <summary>
-    /// Fuerte contra **Water** y **Flying**, debil contra **Ground*
+    /// El tipo Electric.
     /// </summary>
     Electric,
 
     /// <summary>
-    /// Fuerte contra **Water** y **Ground**, debil contra **Fire**, **Flying** y **Bug**
+    /// El tipo Grass.
     /// </summary>
     Grass,
 
     /// <summary>
-    /// Fuerte contra **Dragon**, debil contra **Fire** y **Rock**
+    /// El tipo Ice.
     /// </summary>
     Ice,
 
     /// <summary>
-    /// Fuerte contra **Normal** y **Rock**, debil contra **Psychic** y **Flying**
+    /// El tipo Fighting.
     /// </summary>
     Fighting,
 
     /// <summary>
-    /// Fuerte contra **Grass**, debil contra **Psychic**
+    /// El tipo Poison.
     /// </summary>
     Poison,
 
     /// <summary>
-    /// Fuerte contra **Electric**, debil contra **Water** y **Grass**
+    /// El tipo Ground.
     /// </summary>
     Ground,
 
     /// <summary>
-    /// Fuerte contra **Grass** y **Fighting**, debil contra **Electric** y **Rock**
+    /// El tipo Flying.
     /// </summary>
     Flying,
 
     /// <summary>
-    /// Fuerte contra **Fighting** y **Poison**, debil contra **Bug** y **Ghost**
+    /// El tipo Psychic.
     /// </summary>
     Psychic,
 
     /// <summary>
-    /// Fuerte contra **Grass** y **Psychic**, debil contra **Fire**, **Flying** y **Rock**
+    /// El tipo Bug.
     /// </summary>
     Bug,
 
     /// <summary>
-    /// Fuerte contra **Fire**, debil contra **Water** y **Grass**
+    /// El tipo Rock.
     /// </summary>
     Rock,
 
     /// <summary>
-    /// Fuerte contra **Psychic**, inmune contra **Normal**
+    /// El tipo Ghost.
     /// </summary>
     Ghost,
 
     /// <summary>
-    /// Fuerte contra **Dragon**, debil contra **Ice**
+    /// El tipo Dragon.
     /// </summary>
     Dragon,
 }
 
 /// <summary>
-/// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla
+/// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
 /// </summary>
+[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:FileNameMustMatchTypeName", Justification = "This is an extension class")]
 public static class Calculate
 {
     // FIXME: Este método actualmente asume que si el elemento defensor no está
     // listado en las ventajas del atacante, el atacante debe ser normal
     // contre ese elemento, pero podría ser valioso que sea explícito cuales
     // son normales, y si no está explicitado en ninguna lista retornar -1
+
     /// <summary>
-    /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado
+    /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado.
     /// </summary>
     /// <remarks>
-    /// Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong", 
+    /// Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong",
     /// "weak" o "immune" en la tabla del tipo <paramref name="attacker"/>, se considera un
     /// multiplicador de 1.0 (neutral).
-    /// Un multiplicador de -1 podría indicarse en futuras versiones si el
-    /// tipo <paramref name="defender"/> no pertenece a ninguna categoría conocida. Logrando este asi una excepcion
     /// </remarks>
-    /// <param name="attacker">El tipo del Pokemon atacante</param>
-    /// <param name="defender">El tipo del Pokemon atacado</param>
+    /// <param name="attacker">El tipo del ataque utilizado.</param>
+    /// <param name="defender">El tipo del Pokemon atacado.</param>
     /// <returns>
     /// Un double que representa la efectividad:
     /// <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
@@ -110,7 +118,7 @@ public static class Calculate
     /// <item>1.0 si no hay ventaja entre ambos tipos</item>
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanza esta excepcion si <paramref name="attacker"/> tiene un tipo de Pokemon que no esta implementada la ventaja sobre otro tipo de Pokemon
+    /// Lanza esta excepcion si <paramref name="attacker"/> es un tipo que no tiene ventajas explicitadas.
     /// </exception>
     public static double Advantage(this PokemonType attacker, PokemonType defender)
     {
@@ -187,7 +195,11 @@ public static class Calculate
             case PokemonType.Poison:
                 strong =
                 [
-                    PokemonType.Bug, PokemonType.Psychic, PokemonType.Ground, PokemonType.Fighting, PokemonType.Grass
+                    PokemonType.Bug,
+                    PokemonType.Psychic,
+                    PokemonType.Ground,
+                    PokemonType.Fighting,
+                    PokemonType.Grass
                 ];
                 weak = [PokemonType.Grass, PokemonType.Poison];
                 immune = [];
@@ -201,9 +213,21 @@ public static class Calculate
                 throw new ArgumentOutOfRangeException($"El Elemento {attacker} no tiene ventajas");
         }
 
-        if (strong.Contains(defender)) return 2.0;
-        if (weak.Contains(defender)) return 0.5;
-        if (immune.Contains(defender)) return 0.0;
+        if (strong.Contains(defender))
+        {
+            return 2.0;
+        }
+
+        if (weak.Contains(defender))
+        {
+            return 0.5;
+        }
+
+        if (immune.Contains(defender))
+        {
+            return 0.0;
+        }
+
         return 1.0;
     }
 }

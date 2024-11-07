@@ -4,5 +4,17 @@
         <name>Library.Tests</name>
     </assembly>
     <members>
+        <member name="T:Library.Tests.PokemonTypeTests">
+            <summary>
+            Tests de la clase <see cref="T:Library.PokemonType"/>.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTypeTests.AllCombinationsOfElementsAreValid">
+            <summary>
+            Testea que todos los valores de <see cref="T:Library.PokemonType"/> tengan un
+            valor correcto de ventaja sobre todos los valores
+            de <see cref="T:Library.PokemonType"/>.
+            </summary>
+        </member>
     </members>
 </doc>

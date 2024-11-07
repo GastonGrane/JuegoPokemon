@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="Program.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
@@ -19,31 +19,31 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            PrintConsole printConsole = new PrintConsole();
+            ConsolePrinter consolePrinter = new ConsolePrinter();
 
             Pokemon pokemon1 = new Pokemon(
                 "Pikachu",
                 PokemonType.Electric,
                 100,
-                new List<Attack> { NormalAttack.FusionBolt });
+                new List<Attack> { NormalAttackLibrary.FusionBolt });
 
             Pokemon pokemon2 = new Pokemon(
                 "Bulbasaur",
-                    PokemonType.Fire,
-                    100,
-                    new List<Attack> { NormalAttack.BulletSeed });
+                PokemonType.Fire,
+                100,
+                new List<Attack> { NormalAttackLibrary.BulletSeed });
 
             Pokemon pokemon3 = new Pokemon(
                 "Charmander",
-                    PokemonType.Fire,
-                    100,
-                    new List<Attack> { NormalAttack.BlazeKick });
+                PokemonType.Fire,
+                100,
+                new List<Attack> { NormalAttackLibrary.BlazeKick });
 
             Pokemon pokemon4 = new Pokemon(
                 "Squirtle",
-                    PokemonType.Water,
-                    100,
-                    new List<Attack> { NormalAttack.AquaJet });
+                PokemonType.Water,
+                100,
+                new List<Attack> { NormalAttackLibrary.AquaJet });
 
             List<Pokemon> pokemons = new List<Pokemon>
             {
@@ -53,7 +53,7 @@ namespace Program
                 pokemon4,
             };
 
-            printConsole.PrintList(pokemons);
+            consolePrinter.PrintList(pokemons);
         }
     }
 }
