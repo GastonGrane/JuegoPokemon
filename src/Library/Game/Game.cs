@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
-
 using System.Globalization;
+
+namespace Library;
 
 /// <summary>
 /// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.

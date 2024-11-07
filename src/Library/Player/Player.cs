@@ -12,6 +12,19 @@ namespace Library;
 public class Player
 {
     /// <summary>
+    /// Crea una instancia del jugador con su lista de los pokemons.
+    /// </summary>
+    /// <param name="name">El nombre del Jugador.</param>
+    /// <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
+    public Player(string name, List<Pokemon> pokemons)
+    {
+        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
+        this.Name = name;
+        this.Pokemons = pokemons;
+        this.ActivePokemon = pokemons[0];
+    }
+
+    /// <summary>
     /// El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
     /// </summary>
     public string Name { get; }
@@ -31,19 +44,6 @@ public class Player
     /// Debe ser una referencia a alguno de los pokemon en la lista del jugador.
     /// </value>
     public Pokemon ActivePokemon { get; private set; }
-
-    /// <summary>
-    /// Crea una instancia del jugador con su lista de los pokemons.
-    /// </summary>
-    /// <param name="name">El nombre del Jugador.</param>
-    /// <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
-    public Player(string name, List<Pokemon> pokemons)
-    {
-        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
-        this.Name = name;
-        this.Pokemons = pokemons;
-        this.ActivePokemon = pokemons[0];
-    }
 
     /// <summary>
     /// Cambia el pokemon que estaria en pantalla(<see cref="ActivePokemon"/>) del jugador.

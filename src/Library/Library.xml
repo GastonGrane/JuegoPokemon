@@ -13,6 +13,14 @@
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
+            </summary>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de danio que genera.</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+        </member>
         <member name="P:Library.Attack.Name">
             <summary>
             El nombre del ataque.
@@ -30,14 +38,6 @@
             <value>
             Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
             </value>
-        </member>
-        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
-            <summary>
-            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
-            </summary>
-            <param name="name">El nombre del ataque.</param>
-            <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
         </member>
         <member name="T:Library.NormalAttack">
             <summary>
@@ -200,6 +200,13 @@
             Un jugador de pokemon.
             </summary>
         </member>
+        <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
+            <summary>
+            Crea una instancia del jugador con su lista de los pokemons.
+            </summary>
+            <param name="name">El nombre del Jugador.</param>
+            <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
+        </member>
         <member name="P:Library.Player.Name">
             <summary>
             El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
@@ -220,13 +227,6 @@
             <value>
             Debe ser una referencia a alguno de los pokemon en la lista del jugador.
             </value>
-        </member>
-        <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
-            <summary>
-            Crea una instancia del jugador con su lista de los pokemons.
-            </summary>
-            <param name="name">El nombre del Jugador.</param>
-            <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
         </member>
         <member name="M:Library.Player.ChangePokemon(System.String)">
             <summary>

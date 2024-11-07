@@ -16,6 +16,19 @@ namespace Library;
 public abstract class Attack
 {
     /// <summary>
+    /// Crea un <see cref="Attack"/> con los parámetros provistos.
+    /// </summary>
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de danio que genera.</param>
+    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
+    protected Attack(string name, int damage, PokemonType type)
+    {
+        this.Name = name;
+        this.Damage = damage;
+        this.Type = type;
+    }
+
+    /// <summary>
     /// El nombre del ataque.
     /// </summary>
     public string Name { get; }
@@ -32,17 +45,4 @@ public abstract class Attack
     /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque.
     /// </value>
     public PokemonType Type { get; }
-
-    /// <summary>
-    /// Crea un <see cref="Attack"/> con los parámetros provistos.
-    /// </summary>
-    /// <param name="name">El nombre del ataque.</param>
-    /// <param name="damage">La cantidad de danio que genera.</param>
-    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
-    protected Attack(string name, int damage, PokemonType type)
-    {
-        this.Name = name;
-        this.Damage = damage;
-        this.Type = type;
-    }
 }
