@@ -111,6 +111,16 @@
             <param name="pokemon">Una lista de <see cref="T:Library.Pokemon"/> para usar en el juego.</param>
             <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
         </member>
+        <member name="M:Library.Game.Play">
+            <summary>
+            Comienza el juego, va alternando el turno entre los jugadores.
+            </summary>
+            <remarks>
+            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
+            </remarks>
+        </member>
         <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
             <summary>
             Ejecuta un ataque por el jugador que le toca hacia el contrincante.
@@ -145,16 +155,6 @@
             </returns>
             <remarks>
             Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
-            </remarks>
-        </member>
-        <member name="M:Library.Game.Play">
-            <summary>
-            Comienza el juego, va alternando el turno entre los jugadores.
-            </summary>
-            <remarks>
-            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
             </remarks>
         </member>
         <member name="T:Library.Items.IItem">

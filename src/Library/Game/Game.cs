@@ -6,6 +6,8 @@
 
 namespace Library;
 
+using System.Globalization;
+
 /// <summary>
 /// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
 /// </summary>
@@ -50,6 +52,40 @@ public class Game
         Player p1 = new Player("Axel", new List<Pokemon>());
         Player p2 = new Player("Sharon", new List<Pokemon>());
         return new Game(p1, p2);
+    }
+
+    /// <summary>
+    /// Comienza el juego, va alternando el turno entre los jugadores.
+    /// </summary>
+    /// <remarks>
+    /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+    /// siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+    /// De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
+    /// </remarks>
+    public void Play()
+    {
+        Console.WriteLine("-------------------");
+        Console.WriteLine(" COMIENZA EL JUEGO ");
+        Console.WriteLine("-------------------");
+
+        bool inGame = true;
+        while (inGame)
+        {
+            // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
+            this.PlayTurnP1();
+            if (this.CheckDead(this.playerTwo))
+            {
+                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                break;
+            }
+
+            this.PlayTurnP2();
+            if (this.CheckDead(this.playerOne))
+            {
+                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                break;
+            }
+        }
     }
 
     /// <summary>
@@ -118,9 +154,10 @@ public class Game
             string input = Console.ReadLine()!;
             Console.WriteLine();
 
+            CultureInfo culture = new CultureInfo("en_US");
             try
             {
-                selection = int.Parse(input!);
+                selection = int.Parse(input, culture);
                 break;
             }
             catch (FormatException)
@@ -207,39 +244,5 @@ public class Game
         }
 
         return false;
-    }
-
-    /// <summary>
-    /// Comienza el juego, va alternando el turno entre los jugadores.
-    /// </summary>
-    /// <remarks>
-    /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-    /// siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-    /// De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
-    /// </remarks>
-    public void Play()
-    {
-        Console.WriteLine("-------------------");
-        Console.WriteLine(" COMIENZA EL JUEGO ");
-        Console.WriteLine("-------------------");
-
-        bool inGame = true;
-        while (inGame)
-        {
-            // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
-            this.PlayTurnP1();
-            if (this.CheckDead(this.playerTwo))
-            {
-                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
-                break;
-            }
-
-            this.PlayTurnP2();
-            if (this.CheckDead(this.playerOne))
-            {
-                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
-                break;
-            }
-        }
     }
 }
