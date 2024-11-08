@@ -6,6 +6,14 @@ namespace Library;
 public class Pokemon
 {
     /// <summary>
+    /// Se almacena el valor actual de salud del pokemon en un campo privado.
+    /// </summary>
+    private double _health;
+    /// <summary>
+    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+    /// </summary>
+    private static readonly Random Random = new Random();
+    /// <summary>
     /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
     /// </summary>
     public string Name { get; set; }
@@ -14,11 +22,6 @@ public class Pokemon
     /// Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
     /// </summary>
     public PokemonType Type { get; }
-
-    /// <summary>
-    /// Se almacena el valor actual de salud del pokemon en un campo privado.
-    /// </summary>
-    private double _health;
 
     /// <summary>
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
@@ -32,8 +35,6 @@ public class Pokemon
     /// - Si el valor es menor que 0, se establece en 0.
     /// - De lo contrario, se asigna el valor directamente.
     /// </summary>
-    private static readonly Random Random = new Random();
-
     public double Health
     {
         get { return _health; }
@@ -131,39 +132,37 @@ public class Pokemon
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
+    /// <returns>
+    /// `true` si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo; 
+    /// `false` si el ataque falló.
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
     private bool Attack(Pokemon target, Attack attack)
     {
-        bool boolprecision = true;
         if (!this.Attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        if ((Random.Next(100) <= attack.Precision))
+        if ((Random.Next(100) < attack.Precision))
         {
             PokemonType attacker = attack.Type;
             PokemonType defender = target.Type;
             double multiplier = attacker.Advantage(defender);
             double damage = (attack.Damage * multiplier);
-            if ((Random.Next(10) == 1))
+            target.Health -= damage;
+            return true;
+            //esto equivale al 10%
+            if ((Random.Next(10) < 1))
             {
-                target.Health -= (damage + (damage * 20) / 100);
+                target.Health -= (damage * 20) / 100;
             }
-            else
-            {
-                target.Health -= damage;
-
-            }
-            return boolprecision;
         }
         else
-            {
-                boolprecision = false;
-                return boolprecision;
-            }
+        {
+            return false;
+        }
     }
 
         /// <summary>

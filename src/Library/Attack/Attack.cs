@@ -26,6 +26,9 @@ public abstract class Attack
     /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque
     /// </value>
     public PokemonType Type { get; }
+    /// <summary>
+    /// Es el porcentaje de precision del ataque.
+    /// </summary>
     public int Precision { get; }
     
     protected Attack(string name, int damage, PokemonType type, int precision)
