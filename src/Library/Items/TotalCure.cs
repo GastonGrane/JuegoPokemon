@@ -19,6 +19,7 @@ public class TotalCure : IItem
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
     public void Use(Pokemon pokemon)
     {
+        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         if (pokemon.ActiveEffect == null)
         {
             throw new InvalidOperationException("El Pokémon no tiene ningún efecto activo.");
