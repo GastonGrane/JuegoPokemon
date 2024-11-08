@@ -53,6 +53,10 @@ public class Pokemon
 
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
+        if (attacks.Count > 4)
+        {
+            throw new ArgumentOutOfRangeException(nameof(attacks), "No se puede crear un pokemon con mas de 4 ataques");
+        }
         this.Name = name;
         this.Type = type;
         this.Health = maxHealth;
