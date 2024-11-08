@@ -7,12 +7,12 @@
 namespace Library.Tests;
 
 /// <summary>
-/// Testeamos Pokemon y sus metodos.
+/// Test de Pokemon y sus metodos.
 /// </summary>
 public class PokemonTests
 {
     /// <summary>
-    /// Testeamos que ocurra una excepcion si Pokemon se crea con demasiados ataques.
+    /// Testea que ocurra una excepcion si Pokemon se crea con demasiados ataques.
     /// </summary>
     [Test]
     public void PokemonConMuchosAtaquesFalla()
@@ -39,7 +39,7 @@ public class PokemonTests
     }
 
     /// <summary>
-    /// Testeamos que no ocurra una excepcion si Pokemon se crea con ataques menores a 4.
+    /// Testea que no ocurra una excepcion si Pokemon se crea con ataques menores a 4.
     /// </summary>
     [Test]
     public void PokemonCon3AtaquesSePuede()
@@ -59,7 +59,7 @@ public class PokemonTests
     }
 
     /// <summary>
-    /// Testeamos que ocurra una excepcion si Pokemon se crea sin ataques.
+    /// Testea que ocurra una excepcion si Pokemon se crea sin ataques.
     /// </summary>
     [Test]
     public void PokemonSinAtaquesFalla()
@@ -81,7 +81,7 @@ public class PokemonTests
     }
 
     /// <summary>
-    /// Testeamos que ocurra una excepcion si Pokemon ataca con un Ataque inexistente.
+    /// Testea que ocurra una excepcion si Pokemon ataca con un Ataque inexistente.
     /// </summary>
     [Test]
     public void PokemonAtacaConUnAtaqueInexistenteFalla()
@@ -96,7 +96,8 @@ public class PokemonTests
         try
         {
             Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-            p.GetAttack("extra");
+            Pokemon p2 = new Pokemon("pokemon", PokemonType.Fire, 100, attacks);
+            p.Attack(p2, "extra");
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -107,33 +108,7 @@ public class PokemonTests
     }
 
     /// <summary>
-    /// Testeamos que ocurre si Pokemon ataca con un daño que no es el debido a su ataque.
-    /// </summary>
-    [Test]
-    public void PokemonSiAtacaConDañoFueraDeLosLimitesFalla()
-    {
-        List<Attack> attacks = new List<Attack>
-        {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
-        };
-        bool exceptionThrown = false;
-        try
-        {
-            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-            p.GetAttack(160);
-        }
-        catch (ArgumentOutOfRangeException)
-        {
-            exceptionThrown = true;
-        }
-
-        Assert.True(exceptionThrown, "Atacar con daño fuera de los limites no tiro una excepcion");
-    }
-
-    /// <summary>
-    /// Testeamos que ocurra un error si Pokemon se Cura con numeros negativos.
+    /// Testea que ocurra un error si Pokemon se Cura con numeros negativos.
     /// </summary>
     [Test]
     public void PokemonSeCuraNegativoFalla()
@@ -159,7 +134,7 @@ public class PokemonTests
     }
 
     /// <summary>
-    /// Testeamos que el pokemon no se cura de mas de su vida maxima, una vez inicializada con el pokemon.
+    /// Testea que el pokemon no se cura de mas de su vida maxima, una vez inicializada con el pokemon.
     /// </summary>
     [Test]
     public void PokemonNoSeCuraDeMas()

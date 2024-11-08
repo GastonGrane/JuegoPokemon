@@ -19,9 +19,15 @@ public class Player
     public Player(string name, List<Pokemon> pokemons)
     {
         ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
+        ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
         if (pokemons.Count > 6)
         {
-            throw new ArgumentOutOfRangeException("Este player tiene mas de 6 pokemons");
+            throw new ArgumentException("Este player tiene mas de 6 pokemons");
+        }
+
+        if (pokemons.Count == 0)
+        {
+            throw new ArgumentException("Player no puede tener 0 pokemones");
         }
 
         this.Name = name;

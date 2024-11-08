@@ -199,9 +199,9 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
     /// </exception>
-    public Attack GetAttack(string attackName)
+    private Attack GetAttack(string attackName)
     {
-        // Gaston: Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
+        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
@@ -234,15 +234,15 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
     /// </exception>
-    public Attack GetAttack(int attackIdx)
+    private Attack GetAttack(int attackIdx)
     {
-        // Gaston: Idem, anterior GetAttack
+        // FIXME (Gaston): Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
         }
 
-        if (attackIdx > this.Attacks.Count || attackIdx < 0)
+        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
         {
             throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
         }

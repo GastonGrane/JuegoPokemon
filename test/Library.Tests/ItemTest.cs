@@ -3,12 +3,12 @@ using Library.Items;
 namespace Library.Tests;
 
 /// <summary>
-/// Testeamos los Items.
+/// Test de los Item.
 /// </summary>
-public class ItemsTest
+public class ItemTest
 {
     /// <summary>
-    /// Testeamos si el metodo Revive, lo revive con el 50 de HP.
+    /// Testea si el metodo Revive, lo revive con el 50 de HP.
     /// </summary>
     [Test]
     public void CanRevive()
@@ -24,7 +24,7 @@ public class ItemsTest
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
         pokemon.Add(p1);
 
-        // Revive no tendria que ser static??
+        // FIXME: Revive no tendria que ser static??
         Revive revive = new Revive();
         revive.Use(p1);
 
@@ -32,28 +32,12 @@ public class ItemsTest
     }
 
     /// <summary>
-    /// Testeamos que falle el hecho de que pasemos como parametro algo null.
+    /// Testea que falle el hecho de que pasemos como parametro algo null.
     /// </summary>
     [Test]
     public void PasarUnParametroNullFalla()
     {
-        List<Attack> attacks = new List<Attack>
-        {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
-        };
-        List<Pokemon> pokemon = new List<Pokemon>();
-
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
-        pokemon.Add(p1);
-
-        // Revive no tendria que ser static??
         Revive revive = new Revive();
-        revive.Use(p1);
-
-        Assert.That(p1.Health, Is.EqualTo(50));
-
         bool exceptionThrown = false;
         try
         {

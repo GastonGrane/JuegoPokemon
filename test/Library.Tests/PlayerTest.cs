@@ -7,15 +7,15 @@
 namespace Library.Tests;
 
 /// <summary>
-/// Testeamos Player.
+/// Test de Player.
 /// </summary>
 public class PlayerTest
 {
     /// <summary>
-    /// Testeamos que nos de una excepcion si creamos un player sin pokemons.
+    /// Testea Player con lista de pokemones null.
     /// </summary>
     [Test]
-    public void PlayerSinPokemonsFalla()
+    public void PlayerListaDePokemonsNullFalla()
     {
         bool exceptionThrown = false;
         try
@@ -27,11 +27,73 @@ public class PlayerTest
             exceptionThrown = true;
         }
 
+        Assert.True(exceptionThrown, "Crear el player sin lista de pokemons no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testea que de una excepcion si creamos un player sin nombre o nombre null.
+    /// </summary>
+    [Test]
+    public void PlayerSinNombreONullFalla()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+        List<Pokemon> pokemon = new List<Pokemon>();
+
+        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
+        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
+        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
+        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
+        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
+
+        pokemon.Add(p1);
+        pokemon.Add(p2);
+        pokemon.Add(p3);
+        pokemon.Add(p4);
+        pokemon.Add(p5);
+        pokemon.Add(p6);
+
+        bool exceptionThrown = false;
+        try
+        {
+            Player p = new Player(string.Empty, pokemon);
+        }
+        catch (ArgumentException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Crear el player sin nombre no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testea que de una excepcion si creamos un player sin pokemons.
+    /// </summary>
+    [Test]
+    public void PlayerSinPokemonsFalla()
+    {
+        List<Pokemon> pokemones = new List<Pokemon>();
+
+        bool exceptionThrown = false;
+        try
+        {
+            Player p = new Player("Gaston", pokemones);
+        }
+        catch (ArgumentException)
+        {
+            exceptionThrown = true;
+        }
+
         Assert.True(exceptionThrown, "Crear el player sin pokemons no tiro una excepcion");
     }
 
     /// <summary>
-    /// Testeamos que ocurra una excepcion si player ataca a ningun pokemon.
+    /// Testea que ocurra una excepcion si player ataca a null.
     /// </summary>
     [Test]
     public void PlayerAtacaANingunJugadorFalla()
@@ -73,7 +135,7 @@ public class PlayerTest
     }
 
     /// <summary>
-    /// Testeamos si se implementa correctamente si **AllAreDead** funciona correctamente.
+    /// Testea que ocurra correctamente la implementacion de **AllAreDead**.
     /// </summary>
     [Test]
     public void PlayerSeQuedaSinPokemonVivosTerminaElJuego()
