@@ -11,6 +11,6 @@ public class SuperPotions : IItem
     /// <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
     public void Use(Pokemon pokemon)
     {
-        pokemon.Curar(70);
+        pokemon.Heal(70);
     }
 }

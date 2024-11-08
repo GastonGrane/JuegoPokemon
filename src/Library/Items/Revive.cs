@@ -10,7 +10,7 @@ public class Revive : IItem
     /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
     public void Use(Pokemon pokemon)
     {
-        pokemon.Curar(50);
+        pokemon.Heal(50);
     }
     
 }
