@@ -281,7 +281,7 @@
             Esto llama al metodo <see cref="M:Library.Pokemon.Attack(Library.Pokemon,System.String)"/>.
             </remarks>
         </member>
-        <member name="M:Library.Player.IsDead">
+        <member name="M:Library.Player.AllAreDead">
             <summary>
             Devuelve el estado de si todos los pokemons del jugador han muerto.
             </summary>
@@ -630,12 +630,12 @@
             <param name="str">Ni idea.</param>
             <returns>Tampoco sé.</returns>
         </member>
-        <member name="T:Library.SelecPokemons">
+        <member name="T:Library.SelectPokemons">
             <summary>
             Nota de Guzmán: No sé qué es esto.
             </summary>
         </member>
-        <member name="M:Library.SelecPokemons.SelecYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
+        <member name="M:Library.SelectPokemons.SelectYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
             <summary>
             Nota de Guzmán: No sé qué es esto.
             </summary>

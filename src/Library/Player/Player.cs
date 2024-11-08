@@ -19,6 +19,11 @@ public class Player
     public Player(string name, List<Pokemon> pokemons)
     {
         ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
+        if (pokemons.Count > 6)
+        {
+            throw new ArgumentOutOfRangeException("Este player tiene mas de 6 pokemons");
+        }
+
         this.Name = name;
         this.Pokemons = pokemons;
         this.ActivePokemon = pokemons[0];
@@ -86,7 +91,7 @@ public class Player
     /// Devuelve el estado de si todos los pokemons del jugador han muerto.
     /// </summary>
     /// <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
-    public bool IsDead()
+    public bool AllAreDead()
     {
         return this.Pokemons.All(p => p.Health == 0);
     }

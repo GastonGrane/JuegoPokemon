@@ -9,7 +9,7 @@ namespace Library;
 /// <summary>
 /// Nota de Guzmán: No sé qué es esto.
 /// </summary>
-public static class SelecPokemons
+public static class SelectPokemons
 {
     private static List<Pokemon> list = [];
 
@@ -22,7 +22,7 @@ public static class SelecPokemons
     /// <exception cref="ArgumentNullException">
     /// Si algún parámetro es <c>null</c>.
     /// </exception>
-    public static void SelecYourPokemon(Player player, List<Pokemon> pokemons, IPrinter printer)
+    public static void SelectYourPokemon(Player player, List<Pokemon> pokemons, IPrinter printer)
     {
         ArgumentNullException.ThrowIfNull(pokemons, nameof(pokemons));
         ArgumentNullException.ThrowIfNull(printer, nameof(printer));

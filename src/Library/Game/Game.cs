@@ -231,7 +231,7 @@ public class Game
     /// </remarks>
     private bool CheckDead(Player p)
     {
-        if (p.IsDead())
+        if (p.AllAreDead())
         {
             return true;
         }

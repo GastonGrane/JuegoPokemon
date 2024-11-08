@@ -38,10 +38,11 @@ public class Pokemon
     /// <param name="attacks">La lista de sus ataques.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
-        if (attacks.Count > 4)
+        if (attacks.Count > 4 || attacks.Count == 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(attacks), "No se puede crear un pokemon con mas de 4 ataques");
+            throw new ArgumentOutOfRangeException(nameof(attacks), "Unicamente se pueden crear pokemon con de 1, 2, 3 o 4 ataques");
         }
+
         this.Name = name;
         this.Type = type;
         this.Health = maxHealth;
@@ -198,8 +199,9 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
     /// </exception>
-    private Attack GetAttack(string attackName)
+    public Attack GetAttack(string attackName)
     {
+        // Gaston: Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
@@ -232,14 +234,15 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
     /// </exception>
-    private Attack GetAttack(int attackIdx)
+    public Attack GetAttack(int attackIdx)
     {
+        // Gaston: Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
         }
 
-        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
+        if (attackIdx > this.Attacks.Count || attackIdx < 0)
         {
             throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
         }

@@ -4,6 +4,76 @@
         <name>Library.Tests</name>
     </assembly>
     <members>
+        <member name="M:Library.Tests.AttackTest.NormalAttackCanAttack">
+            <summary>
+            afadf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.ItemsTest.PasarUnParametroNullFalla">
+            <summary>
+            asfdas.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.PlayerTest">
+            <summary>
+            efewf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerSinPokemonsFalla">
+            <summary>
+            dfef.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerAtacaANingunJugadorFalla">
+            <summary>
+            dfef.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerSeQuedaSinPokemonVivosTerminaElJuego">
+            <summary>
+            dfef.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.PokemonTests">
+            <summary>
+            asd.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonConMuchosAtaquesFalla">
+            <summary>
+            asfsf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonCon3AtaquesSePuede">
+            <summary>
+            sdf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonSinAtaquesFalla">
+            <summary>
+            sadf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonAtacaConUnAtaqueInexistenteFalla">
+            <summary>
+            adqqwfd.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonSiAtacaConDañoFueraDeLosLimitesFalla">
+            <summary>
+            adqqwfd.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonSeCuraNegativoFalla">
+            <summary>
+            sdfsdf.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonNoSeCuraDeMas">
+            <summary>
+            sdfsdf.
+            </summary>
+        </member>
         <member name="T:Library.Tests.PokemonTypeTests">
             <summary>
             Tests de la clase <see cref="T:Library.PokemonType"/>.
@@ -14,6 +84,16 @@
             Testea que todos los valores de <see cref="T:Library.PokemonType"/> tengan un
             valor correcto de ventaja sobre todos los valores
             de <see cref="T:Library.PokemonType"/>.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.SelectPokemonsTest">
+            <summary>
+            adsfas.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.SelectPokemonsTest.CanSelectPokemon">
+            <summary>
+            asfasf.
             </summary>
         </member>
     </members>

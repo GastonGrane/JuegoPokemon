@@ -1,19 +1,30 @@
+// -----------------------------------------------------------------------
+// <copyright file="PokemonTests.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.Tests;
 
+/// <summary>
+/// Testeamos Pokemon y sus metodos.
+/// </summary>
 public class PokemonTests
 {
+    /// <summary>
+    /// Testeamos que ocurra una excepcion si Pokemon se crea con demasiados ataques.
+    /// </summary>
     [Test]
     public void PokemonConMuchosAtaquesFalla()
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttack.AquaJet,
-            NormalAttack.BlazeKick,
-            NormalAttack.BulletSeed,
-            NormalAttack.FusionBolt,
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+            NormalAttackLibrary.FusionBolt,
             new NormalAttack("extra", 100, PokemonType.Bug),
         };
-        
         bool exceptionThrown = false;
         try
         {
@@ -23,23 +34,148 @@ public class PokemonTests
         {
             exceptionThrown = true;
         }
+
         Assert.True(exceptionThrown, "Crear el pokemon con demasiados ataques no tiro una excepcion");
     }
 
+    /// <summary>
+    /// Testeamos que no ocurra una excepcion si Pokemon se crea con ataques menores a 4.
+    /// </summary>
     [Test]
     public void PokemonCon3AtaquesSePuede()
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttack.AquaJet,
-            NormalAttack.BlazeKick,
-            NormalAttack.BulletSeed,
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
         };
 
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         Assert.That(p.Name, Is.EqualTo("pokemon"));
         Assert.That(p.Type, Is.EqualTo(PokemonType.Bug));
-        Assert.That(p.Name, Is.EqualTo("pokemon"));
+        Assert.That(p.Health, Is.EqualTo(100));
+        Assert.That(p.Attacks.Count, Is.EqualTo(3));
+    }
 
+    /// <summary>
+    /// Testeamos que ocurra una excepcion si Pokemon se crea sin ataques.
+    /// </summary>
+    [Test]
+    public void PokemonSinAtaquesFalla()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+        };
+        bool exceptionThrown = false;
+        try
+        {
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Crear el pokemon sin clases no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testeamos que ocurra una excepcion si Pokemon ataca con un Ataque inexistente.
+    /// </summary>
+    [Test]
+    public void PokemonAtacaConUnAtaqueInexistenteFalla()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+        bool exceptionThrown = false;
+        try
+        {
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            p.GetAttack("extra");
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Atacar con el ataque inexistente de un pokemon no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testeamos que ocurre si Pokemon ataca con un daño que no es el debido a su ataque.
+    /// </summary>
+    [Test]
+    public void PokemonSiAtacaConDañoFueraDeLosLimitesFalla()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+        bool exceptionThrown = false;
+        try
+        {
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            p.GetAttack(160);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Atacar con daño fuera de los limites no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testeamos que ocurra un error si Pokemon se Cura con numeros negativos.
+    /// </summary>
+    [Test]
+    public void PokemonSeCuraNegativoFalla()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+        bool exceptionThrown = false;
+        try
+        {
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            p.Curar(-3);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Curarse negativamente no tiro una excepcion");
+    }
+
+    /// <summary>
+    /// Testeamos que el pokemon no se cura de mas de su vida maxima, una vez inicializada con el pokemon.
+    /// </summary>
+    [Test]
+    public void PokemonNoSeCuraDeMas()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+
+        Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
+        p.Attack(p2, "Aqua Jet");
+        p2.Curar(150);
+
+        Assert.That(p2.Health, Is.EqualTo(100));
     }
 }
