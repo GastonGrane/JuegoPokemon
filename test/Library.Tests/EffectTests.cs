@@ -11,8 +11,7 @@ namespace Library.Tests;
 /// <summary>
 /// Tests que prueban el correcto uncionamiento de los efectos del codigo.
 /// </summary>
-[TestFixture]
-public class PokemonEffectTests
+internal sealed class EffectTests
 {
     private Pokemon pokemon;
 

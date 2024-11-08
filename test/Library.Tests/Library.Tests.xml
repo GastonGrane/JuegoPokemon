@@ -4,32 +4,32 @@
         <name>Library.Tests</name>
     </assembly>
     <members>
-        <member name="T:Library.Tests.PokemonEffectTests">
+        <member name="T:Library.Tests.EffectTests">
             <summary>
             Tests que prueban el correcto uncionamiento de los efectos del codigo.
             </summary>
         </member>
-        <member name="M:Library.Tests.PokemonEffectTests.Setup">
+        <member name="M:Library.Tests.EffectTests.Setup">
             <summary>
             Creo poquemon que usare en los Test.
             </summary>
         </member>
-        <member name="M:Library.Tests.PokemonEffectTests.PoisonEffectShouldExpireWhenHealing">
+        <member name="M:Library.Tests.EffectTests.PoisonEffectShouldExpireWhenHealing">
             <summary>
             Verifica que el efecto de veneno disminuya la salud en un 5% cada turno.
             </summary>
         </member>
-        <member name="M:Library.Tests.PokemonEffectTests.BurnEffectShouldExpireWhenHealing">
+        <member name="M:Library.Tests.EffectTests.BurnEffectShouldExpireWhenHealing">
             <summary>
             Verifica que el efecto de quemadura disminuya la salud en un 10% cada turno.
             </summary>
         </member>
-        <member name="M:Library.Tests.PokemonEffectTests.SleepEffectShouldExpireAfterThreeTurns">
+        <member name="M:Library.Tests.EffectTests.SleepEffectShouldExpireAfterThreeTurns">
             <summary>
             Verifica que el efecto de sueño impida atacar durante 3 turnos y expire después de esos turnos.
             </summary>
         </member>
-        <member name="M:Library.Tests.PokemonEffectTests.ParalysisEffectShouldAllowAtLeastOneAttackAndOneBlock">
+        <member name="M:Library.Tests.EffectTests.ParalysisEffectShouldAllowAtLeastOneAttackAndOneBlock">
             <summary>
             Verifica que el efecto de parálisis permita atacar y no atacar al menos una vez cada uno,
             y que el efecto expire al removerlo explícitamente.

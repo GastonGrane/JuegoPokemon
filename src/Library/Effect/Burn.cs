@@ -4,55 +4,54 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Effect
+namespace Library.Effect;
+
+/// <summary>
+/// Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
+/// Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+/// </summary>
+public class Burn : IEffect
 {
     /// <summary>
-    /// Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
-    /// Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+    /// Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
     /// </summary>
-    public class Burn : IEffect
+    public Burn()
     {
-        /// <summary>
-        /// Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
-        /// </summary>
-        public Burn()
+        this.IsExpired = false;
+    }
+
+    /// <summary>
+    /// Indica si el efecto de quemadura ha expirado y ya no debe aplicarse.
+    /// </summary>
+    public bool IsExpired { get; private set; }
+
+    /// <summary>
+    /// Aplica el daño de quemadura al Pokémon objetivo, reduciendo su salud en un 10% de su salud actual.
+    /// </summary>
+    /// <param name="target">El Pokémon al que se le aplicará el daño por quemadura.</param>
+    /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+    public void UpdateEffect(Pokemon target)
+    {
+        if (target == null)
         {
-            this.IsExpired = false;
+            throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        /// <summary>
-        /// Indica si el efecto de quemadura ha expirado y ya no debe aplicarse.
-        /// </summary>
-        public bool IsExpired { get; private set; }
+        target.Damage((int)(target.Health * 0.10));
+    }
 
-        /// <summary>
-        /// Aplica el daño de quemadura al Pokémon objetivo, reduciendo su salud en un 10% de su salud actual.
-        /// </summary>
-        /// <param name="target">El Pokémon al que se le aplicará el daño por quemadura.</param>
-        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-        public void UpdateEffect(Pokemon target)
+    /// <summary>
+    /// Elimina el efecto de quemadura del Pokémon, marcándolo como expirado.
+    /// </summary>
+    /// <param name="target">El Pokémon del que se removerá el efecto.</param>
+    /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+    public void RemoveEffect(Pokemon target)
+    {
+        if (target == null)
         {
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
-            }
-
-            target.Damage((int)(target.Health * 0.10));
+            throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        /// <summary>
-        /// Elimina el efecto de quemadura del Pokémon, marcándolo como expirado.
-        /// </summary>
-        /// <param name="target">El Pokémon del que se removerá el efecto.</param>
-        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-        public void RemoveEffect(Pokemon target)
-        {
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
-            }
-
-            this.IsExpired = true;
-        }
+        this.IsExpired = true;
     }
 }
