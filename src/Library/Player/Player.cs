@@ -86,7 +86,7 @@ public class Player
     /// Devuelve el estado de si todos los pokemons del jugador han muerto.
     /// </summary>
     /// <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
-    public bool IsDead()
+    public bool AllAreDead()
     {
         return this.Pokemons.All(p => p.Health == 0);
     }
