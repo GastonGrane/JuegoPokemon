@@ -14,7 +14,7 @@ namespace Library.Tests
     /// en la eliminación de efectos activos de estado en un Pokémon.
     /// </summary>
     [TestFixture]
-    public class TotalCureTests
+    public class ItemTest
     {
         /// <summary>
         /// Instancia de Pokémon utilizada en las pruebas.
