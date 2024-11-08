@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
+using Library.Effect;
 
 namespace Library;
 
@@ -48,7 +49,13 @@ public class Pokemon
         this.Health = maxHealth;
         this.MaxHealth = maxHealth;
         this.attacks = attacks;
+        this.ActiveEffect = null;
     }
+
+    /// <summary>
+    /// Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+    /// </summary>
+    public IEffect? ActiveEffect { get; set; }
 
     /// <summary>
     /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
@@ -64,6 +71,11 @@ public class Pokemon
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
+
+    /// <summary>
+    /// Indica si el Pokémon puede atacar en su turno.
+    /// </summary>
+    public bool CanAttack { get; set; }
 
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
@@ -101,10 +113,7 @@ public class Pokemon
     /// </summary>
     public ReadOnlyCollection<Attack> Attacks
     {
-        get
-        {
-            return this.attacks.AsReadOnly();
-        }
+        get { return this.attacks.AsReadOnly(); }
     }
 
     /// <summary>
@@ -156,7 +165,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
     /// </exception>
-    public void Curar(int health)
+    public void Heal(int health)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(health, nameof(health));
 
@@ -164,7 +173,65 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+    /// Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
+    /// Si el valor de daño es menor que 5, se lanzará una excepción.
+    /// </summary>
+    /// <param name="damage">La cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Se lanza si el daño es menor que 5.</exception>
+    public void Damage(int damage)
+    {
+        if (damage < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(damage), "El daño debe ser mayor a 0.");
+        }
+
+        this.Health -= damage;
+    }
+
+    /// <summary>
+    /// Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
+    /// </summary>
+    /// <param name="effect">El efecto que se intentará aplicar al Pokémon.</param>
+    /// <exception cref="InvalidOperationException">
+    /// Se lanza si el Pokémon ya tiene un efecto activo y se intenta aplicar un nuevo efecto antes de que el actual expire.
+    /// </exception>
+    public void ApplyEffect(IEffect effect)
+    {
+        if (this.ActiveEffect != null)
+        {
+            throw new InvalidOperationException(
+                "El Pokémon ya tiene un efecto activo. No se puede aplicar otro efecto hasta que el actual expire.");
+        }
+        else
+        {
+            this.ActiveEffect = effect;
+        }
+    }
+
+    /// <summary>
+    /// Actualiza el efecto activo del Pokémon en cada turno. Si el efecto ha expirado, lo elimina.
+    /// </summary>
+    public void UpdateEffect()
+    {
+        this.ActiveEffect?.UpdateEffect(this);
+
+        if (this.ActiveEffect != null && this.ActiveEffect.IsExpired)
+        {
+            this.RemoveEffect();
+        }
+    }
+
+    /// <summary>
+    /// Elimina el efecto activo del Pokémon, si existe.
+    /// </summary>
+    public void RemoveEffect()
+    {
+        this.ActiveEffect?.RemoveEffect(this);
+        this.ActiveEffect = null;
+    }
+
+    /// <summary>
+    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado, siempre y cuando pueda atacar.
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
@@ -183,7 +250,12 @@ public class Pokemon
 
         double multiplier = attacker.Advantage(defender);
         double damage = attack.Damage * multiplier;
-        target.Health -= damage;
+        if (this.CanAttack)
+        {
+            target.Health -= damage;
+        }
+
+        this.UpdateEffect();
     }
 
     /// <summary>
@@ -215,7 +287,9 @@ public class Pokemon
         }
         catch (InvalidOperationException)
         {
-            throw new ArgumentOutOfRangeException(nameof(attackName), "El nombre de ataque no se encuentra en la lista de ataques");
+            throw new ArgumentOutOfRangeException(
+                nameof(attackName),
+                "El nombre de ataque no se encuentra en la lista de ataques");
         }
 
         return attack;

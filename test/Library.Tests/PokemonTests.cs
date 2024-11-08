@@ -123,7 +123,7 @@ public class PokemonTests
         try
         {
             Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-            p.Curar(-3);
+            p.Heal(-3);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -149,7 +149,7 @@ public class PokemonTests
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         Pokemon p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
         p.Attack(p2, "Aqua Jet");
-        p2.Curar(150);
+        p2.Heal(150);
 
         Assert.That(p2.Health, Is.EqualTo(100));
     }

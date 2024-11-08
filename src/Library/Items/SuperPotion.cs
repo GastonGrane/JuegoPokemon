@@ -21,6 +21,6 @@ public class SuperPotion : IItem
     public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-        pokemon.Curar(70);
+        pokemon.Heal(70);
     }
 }
