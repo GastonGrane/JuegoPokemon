@@ -9,7 +9,7 @@
             Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque
             </summary>
             <remarks>
-            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos , 
+            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos ,
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
@@ -42,7 +42,7 @@
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/> 
+            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>
             </summary>
             <param name="name">El nombre del ataque</param>
             <param name="damage">La cantidad de danio que genera</param>
@@ -79,7 +79,7 @@
             <param name="p1">El primer jugador <see cref="F:Library.Game.PlayerOne"/></param>
             <param name="p2">El segundo jugador <see cref="F:Library.Game.PlayerTwo"/></param>
         </member>
-        <member name="M:Library.Game.createGame(System.Collections.Generic.List{Library.Pokemon})">
+        <member name="M:Library.Game.CreateGame(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
             Crea un nuevo juego con jugadores predefinidos
             </summary>
@@ -92,45 +92,6 @@
              </summary>
              <param name="active">El <see cref="T:Library.Player"/> que va a atacar</param>
              <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado</param>
-        </member>
-        <member name="M:Library.Game.PlayTurn(Library.Player,Library.Player)">
-            <summary>
-            Maneja el turno del jugador activo
-            </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que toma el turno</param>
-            <param name="other">El <see cref="T:Library.Player"/> que no le toca atacar</param>
-            <remarks>
-            Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
-            Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones
-            </remarks>
-        </member>
-        <member name="M:Library.Game.ChangePokemon(Library.Player)">
-            <summary>
-            Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="T:Library.Player"/>
-            </summary>
-            <param name="p">El <see cref="T:Library.Player"/> quien es que esta haciendo el cambio</param>
-        </member>
-        <member name="M:Library.Game.CheckDead(Library.Player)">
-            <summary>
-            Comprueba si un pokemon del jugador ha muerto
-            </summary>
-            <param name="p">El <see cref="T:Library.Player"/> el cual estamos viendo el estado de su pokemon</param>
-            <returns>
-            <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>
-            </returns>
-            <remarks>
-            Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon
-            </remarks>
-        </member>
-        <member name="M:Library.Game.Play">
-            <summary>
-            Comienza el juego, va alternando el turno entre los jugadores
-            </summary>
-            <remarks>
-            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro
-            </remarks>
         </member>
         <member name="T:Library.Items.IItem">
             <summary>
@@ -232,7 +193,7 @@
         </member>
         <member name="T:Library.Pokemon">
             <summary>
-            Crea instancias de los distintos pokemons. 
+            Crea instancias de los distintos pokemons.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Name">
@@ -305,8 +266,11 @@
             </summary>
             <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attack">El ataque que se usará para realizar el daño.</param>
+            /// <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el ataque especificado no se encuentra disponible durante ese turno dentro de la lista <see cref="!:Availablettacks"/> del Pokémon que ataca.
+            </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
+            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="!:Availablettacks"/> del Pokémon que ataca.
             </exception>
         </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.Int32)">

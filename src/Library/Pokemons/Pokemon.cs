@@ -1,6 +1,6 @@
 namespace Library;
 /// <summary>
-/// Crea instancias de los distintos pokemons. 
+/// Crea instancias de los distintos pokemons.
 /// </summary>
 public class Pokemon
 {
@@ -57,7 +57,8 @@ public class Pokemon
 
     public void upDateAvailableAttacks()
     {
-        foreach (var tuple in LastAttacksUsed){
+        foreach (var tuple in LastAttacksUsed)
+        {
             if (AvailableAttacks.Contains(tuple.attack))
             {
                 AvailableAttacks.Remove(tuple.attack);
@@ -74,19 +75,19 @@ public class Pokemon
         this.AvailableAttacks = attacks;
         this.LastAttacksUsed = new List<(Attack, int)>();
     }
-/// <summary>
-/// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
-/// </summary>
-/// <param name="attackIdx">
-/// Corresponde al valor del indice del ataque al cual se quiere acceder.
-/// </param>
-/// <returns></returns>
-/// <exception cref="InvalidOperationException">
-/// Lanzada si el Pokémon no tiene ataques disponibles.
-/// </exception>
-/// <exception cref="ArgumentOutOfRangeException">
-/// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
-/// </exception>
+    /// <summary>
+    /// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
+    /// </summary>
+    /// <param name="attackIdx">
+    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
+    /// </exception>
     private Attack GetAttack(int attackIdx)
     {
         if (Attacks.Count == 0)
@@ -129,6 +130,7 @@ public class Pokemon
 
         return attack;
     }
+
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
@@ -151,28 +153,14 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no cuenta con el ataque {attack.Name}");
         }
 
-        if((random.Next(100) <= attack.Precision))
-        {
-            PokemonType attacker = attack.Type;
-            PokemonType defender = target.Type;
+        PokemonType attacker = attack.Type;
+        PokemonType defender = target.Type;
 
-            double multiplier = attacker.Advantage(defender);
-            double damage = (attack.Damage * multiplier);
-            if ((random.Next(10) == 1))
-            {
-                target.Health -= (damage + (damage * 20)/ 100);
-            }
-            else
-            {
-                target.Health -= (damage); 
-            }
-        }
-        else
-        {
-            Console.WriteLine("La precisión del ataque no ha sido suficiente para alcanzar al objetivo.");
-        }
-        
+        double multiplier = attacker.Advantage(defender);
+        double damage = (attack.Damage * multiplier);
+        target.Health -= damage;
     }
+
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
     /// </summary>

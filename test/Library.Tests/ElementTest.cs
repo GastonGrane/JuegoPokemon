@@ -19,11 +19,4 @@ public class Tests
             }
         }
     }
-
-    [Test]
-    public void AvailableAttack()
-    {
-        Pokemon pokemon1 = new Pokemon("Pikachu", PokemonType.Electric, 100,
-            new List<Attack> { NormalAttack.FusionBolt }); 
-    }
 }
