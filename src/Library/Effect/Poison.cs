@@ -1,6 +1,10 @@
-using System.Diagnostics;
+// -----------------------------------------------------------------------
+// <copyright file="Poison.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace Library
+namespace Library.Effect
 {
     /// <summary>
     /// Representa un efecto de veneno que puede ser aplicado a un Pokémon.
@@ -9,26 +13,30 @@ namespace Library
     public class Poison : IEffect
     {
         /// <summary>
-        /// Indica si el efecto de veneno ha expirado y ya no debe aplicarse.
+        /// Inicializa una nueva instancia del efecto de veneno y lo marca como activo.
         /// </summary>
-        public bool IsExpired { get; set; }
+        public Poison()
+        {
+            this.IsExpired = false;
+        }
 
         /// <summary>
-        /// Inicializa una nueva instancia del efecto de veneno en el Pokémon especificado y lo marca como activo.
+        /// Indica si el efecto de veneno ha expirado y ya no debe aplicarse.
         /// </summary>
-        /// <param name="pokemon">El Pokémon al cual se aplicará el efecto de veneno.</param>
-        public Poison(Pokemon pokemon)
-        {
-            IsExpired = false;
-        }
+        public bool IsExpired { get; private set; }
 
         /// <summary>
         /// Aplica el daño de veneno al Pokémon objetivo, reduciendo su salud en un 5% de su salud actual.
         /// </summary>
         /// <param name="target">El Pokémon al que se le aplicará el daño por veneno.</param>
+        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
         public void UpdateEffect(Pokemon target)
         {
-            // Aplica el daño de veneno cada turno
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
+            }
+
             target.Damage((int)(target.Health * 0.05));
         }
 
@@ -36,9 +44,15 @@ namespace Library
         /// Elimina el efecto de veneno del Pokémon.
         /// </summary>
         /// <param name="target">El Pokémon del que se removerá el efecto.</param>
+        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
         public void RemoveEffect(Pokemon target)
         {
-            IsExpired = true;
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
+            }
+
+            this.IsExpired = true;
         }
     }
 }
