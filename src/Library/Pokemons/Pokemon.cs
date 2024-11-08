@@ -247,15 +247,14 @@ public class Pokemon
         return this.Attacks[attackIdx];
     }
 
-    private void upDateAvailableAttacks()
+    private void UpDateAvailableAttacks()
     {
-        foreach (var tuple in LastAttacksUsed)
+        foreach (var tuple in this.LastAttacksUsed)
         {
-            if (AvailableAttacks.Contains(tuple.attack))
+            if (this.AvailableAttacks.Contains(tuple.attack))
             {
-                AvailableAttacks.Remove(tuple.attack);
+                this.AvailableAttacks.Remove(tuple.attack);
             }
         }
     }
-
 }
