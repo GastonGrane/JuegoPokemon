@@ -19,11 +19,7 @@ public class TotalCure : IItem
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
     public void Use(Pokemon? pokemon)
     {
-        // Implementacion de efectos para implementar item que repela esos efectos.
-        if (pokemon == null)
-        {
-            throw new ArgumentNullException(nameof(pokemon), "El Pokémon objetivo no puede ser null.");
-        }
+        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
         pokemon.RemoveEffect();
     }
