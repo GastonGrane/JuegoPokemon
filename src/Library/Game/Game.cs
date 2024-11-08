@@ -1,49 +1,50 @@
+// -----------------------------------------------------------------------
+// <copyright file="Game.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library;
 
 /// <summary>
-/// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones
+/// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
 /// </summary>
 public class Game
 {
     /// <summary>
-    /// El primer jugador en el juego
+    /// El primer jugador en el juego.
     /// </summary>
-    private Player PlayerOne;
-
-    private int NumTurnP1;
+    private Player playerOne;
 
     /// <summary>
-    /// El segundo jugador en el juego
+    /// El segundo jugador en el juego.
     /// </summary>
-    private Player PlayerTwo;
-
-    private int NumTurnP2;
-
+    private Player playerTwo;
 
     /// <summary>
-    /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos
+    /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
     /// </summary>
     // FIXME: Esto es para suprimir las advertencias por no utilizar atributos de instancia en algunos métodos.
     // Cuando se añada una "Message Gateway" esto se podría ir, porque se irían las advertencias para estos métodos.
     private int tmp;
 
     /// <summary>
-    /// Inicialliza el juego
+    /// Inicializa el juego.
     /// </summary>
-    /// <param name="p1">El primer jugador <see cref="PlayerOne"/></param>
-    /// <param name="p2">El segundo jugador <see cref="PlayerTwo"/></param>
+    /// <param name="p1">El primer jugador <see cref="playerOne"/>.</param>
+    /// <param name="p2">El segundo jugador <see cref="playerTwo"/>.</param>
     private Game(Player p1, Player p2)
     {
-        PlayerOne = p1;
-        PlayerTwo = p2;
+        this.playerOne = p1;
+        this.playerTwo = p2;
     }
 
     /// <summary>
-    /// Crea un nuevo juego con jugadores predefinidos
+    /// Crea un nuevo juego con jugadores predefinidos.
     /// </summary>
-    /// <param name="Pokemon">Una lista de <paramref name="Pokemon"/> para usar en el juego </param>
+    /// <param name="pokemon">Una lista de <see cref="Pokemon"/> para usar en el juego.</param>
     /// <returns>Una nueva instancia de <see cref="Game"/> que es hard-coded.</returns>
-    public static Game CreateGame(List<Pokemon> Pokemon)
+    public static Game CreateGame(List<Pokemon> pokemon)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", new List<Pokemon>());
@@ -52,25 +53,116 @@ public class Game
     }
 
     /// <summary>
-    ///Ejecuta un ataque por el jugador que le toca hacia el contrincante
+    /// Comienza el juego, va alternando el turno entre los jugadores.
     /// </summary>
-    /// <param name="active">El <see cref="Player"/> que va a atacar</param>
-    /// <param name="other">El <see cref="Player"/> que va a ser atacado</param>
+    /// <remarks>
+    /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+    /// siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+    /// De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
+    /// </remarks>
+    public void Play()
+    {
+        Console.WriteLine("-------------------");
+        Console.WriteLine(" COMIENZA EL JUEGO ");
+        Console.WriteLine("-------------------");
+
+        bool inGame = true;
+        while (inGame)
+        {
+            // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
+            this.PlayTurnP1();
+            if (this.CheckDead(this.playerTwo))
+            {
+                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {this.playerOne}");
+                break;
+            }
+
+            this.PlayTurnP2();
+            if (this.CheckDead(this.playerOne))
+            {
+                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {this.playerTwo}");
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Ejecuta un ataque por el jugador que le toca hacia el contrincante.
+    /// </summary>
+    /// <param name="active">El <see cref="Player"/> que va a atacar.</param>
+    /// <param name="other">El <see cref="Player"/> que va a ser atacado.</param>
     private void AttackPlayer(Player active, Player other)
     {
-        tmp++;
+        this.tmp++;
         while (true)
         {
             int turno = 0;
             if (active == PlayerOne)
             {
+<<<<<<< HEAD
                 NumTurnP1 += 1;
                 turno = NumTurnP1;
+=======
+                var attack = attacks[i];
+
+                // Console.WriteLine($"{i + 1} - {attack.Name}");
+                Console.WriteLine($"- {attack.Name}");
+>>>>>>> main
             }
             else if (active == PlayerTwo)
             {
+<<<<<<< HEAD
                 NumTurnP2 += 1;
                 turno = NumTurnP2;
+=======
+                active.Attack(other, attackName);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
+                continue;
+            }
+
+            double newHP = other.ActivePokemon.Health;
+            Console.WriteLine(
+                $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+            break;
+        }
+    }
+
+    /// <summary>
+    /// Maneja el turno del jugador activo.
+    /// </summary>
+    /// <param name="active">El <see cref="Player"/> que toma el turno.</param>
+    /// <param name="other">El <see cref="Player"/> que no le toca atacar.</param>
+    /// <remarks>
+    /// Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
+    /// Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
+    /// </remarks>
+    private void PlayTurn(Player active, Player other)
+    {
+        Console.WriteLine($"{active.Name} es su turno de jugar");
+        int selection;
+        while (true)
+        {
+            Console.WriteLine("Seleccione una opción:");
+            Console.WriteLine("1 - Atacar");
+            Console.WriteLine("2 - Cambiar de Pokemon");
+            Console.WriteLine();
+
+            string input = Console.ReadLine()!;
+            Console.WriteLine();
+
+            CultureInfo culture = new CultureInfo("en_US");
+            try
+            {
+                selection = int.Parse(input, culture);
+                break;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
+>>>>>>> main
             }
         }
 
@@ -86,6 +178,7 @@ public class Game
         /// </remarks>
         void PlayTurn(Player active, Player other)
         {
+<<<<<<< HEAD
             Console.WriteLine($"{active.Name} es su turno de jugar");
             int selection;
             while (true)
@@ -107,6 +200,47 @@ public class Game
                 {
                     Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
                 }
+=======
+            case 1:
+                this.AttackPlayer(active, other);
+                break;
+            case 2:
+                this.ChangePokemon(active);
+                break;
+        }
+    }
+
+    // Ejecuta el turno del primero jugador
+    private void PlayTurnP1()
+    {
+        Console.WriteLine($"Turno de {this.playerOne}");
+        this.PlayTurn(this.playerOne, this.playerTwo);
+    }
+
+    // Ejecuta el turno del segundo jugador
+    private void PlayTurnP2()
+    {
+        Console.WriteLine($"Turno de {this.playerTwo}");
+        this.PlayTurn(this.playerTwo, this.playerOne);
+    }
+
+    /// <summary>
+    /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>.
+    /// </summary>
+    /// <param name="p">El <see cref="Player"/> quien es que esta haciendo el cambio.</param>
+    private void ChangePokemon(Player p)
+    {
+        this.tmp++;
+        while (true)
+        {
+            Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
+            for (int i = 0; i < p.Pokemons.Count; ++i)
+            {
+                var pokemon = p.Pokemons[i];
+
+                // Console.WriteLine($"{i + 1} - {pokemon.Name}");
+                Console.WriteLine($"- {pokemon.Name}");
+>>>>>>> main
             }
 
             switch (selection)
@@ -120,107 +254,127 @@ public class Game
             }
         }
 
-        //Ejecuta el turno del primero jugador
-        void PlayTurnP1()
-        {
-            PlayTurn(PlayerOne, PlayerTwo);
-        }
-
-        //Ejecuta el turno del segundo jugador
-        void PlayTurnP2()
-        {
-            PlayTurn(PlayerTwo, PlayerOne);
-        }
-
         /// <summary>
-        /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>
+        /// Comprueba si un pokemon del jugador ha muerto.
         /// </summary>
-        /// <param name="p">El <see cref="Player"/> quien es que esta haciendo el cambio</param>
-        void ChangePokemon(Player p)
-        {
-            tmp++;
-            while (true)
-            {
-                Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
-                for (int i = 0; i < p.Pokemons.Count; ++i)
-                {
-                    var pokemon = p.Pokemons[i];
-                    // Console.WriteLine($"{i + 1} - {pokemon.Name}");
-                    Console.WriteLine($"- {pokemon.Name}");
-                }
-
-                string input = Console.ReadLine()!;
-                if (!p.ChangePokemon(input))
-                {
-                    Console.WriteLine(
-                        "El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Comprueba si un pokemon del jugador ha muerto
-        /// </summary>
-        /// <param name="p">El <see cref="Player"/> el cual estamos viendo el estado de su pokemon</param>
+        /// <param name="p">El <see cref="Player"/> el cual estamos viendo el estado de su pokemon.</param>
         /// <returns>
-        /// <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>
+        /// <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>.
         /// </returns>
         /// <remarks>
-        /// Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon
+        /// Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
         /// </remarks>
-        bool CheckDead(Player p)
+        private bool CheckDead(Player p)
         {
-            if (p.IsDead())
+            if (p.AllAreDead())
             {
-                return true;
+                PlayTurn(PlayerOne, PlayerTwo);
             }
 
-            if (p.ActivePokemon.Health == 0)
+            //Ejecuta el turno del segundo jugador
+            void PlayTurnP2()
             {
-                Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
-                ChangePokemon(p);
+<<<<<<< HEAD
+                PlayTurn(PlayerTwo, PlayerOne);
+            }
+
+            /// <summary>
+            /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>
+            /// </summary>
+            /// <param name="p">El <see cref="Player"/> quien es que esta haciendo el cambio</param>
+            void ChangePokemon(Player p)
+            {
+                tmp++;
+                while (true)
+                {
+                    Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
+                    for (int i = 0; i < p.Pokemons.Count; ++i)
+                    {
+                        var pokemon = p.Pokemons[i];
+                        // Console.WriteLine($"{i + 1} - {pokemon.Name}");
+                        Console.WriteLine($"- {pokemon.Name}");
+                    }
+
+                    string input = Console.ReadLine()!;
+                    if (!p.ChangePokemon(input))
+                    {
+                        Console.WriteLine(
+                            "El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Comprueba si un pokemon del jugador ha muerto
+            /// </summary>
+            /// <param name="p">El <see cref="Player"/> el cual estamos viendo el estado de su pokemon</param>
+            /// <returns>
+            /// <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>
+            /// </returns>
+            /// <remarks>
+            /// Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon
+            /// </remarks>
+            bool CheckDead(Player p)
+            {
+                if (p.IsDead())
+                {
+                    return true;
+                }
+
+                if (p.ActivePokemon.Health == 0)
+                {
+                    Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+                    ChangePokemon(p);
+                    return false;
+                }
+
                 return false;
             }
 
+            /// <summary>
+            /// Comienza el juego, va alternando el turno entre los jugadores
+            /// </summary>
+            /// <remarks>
+            /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+            /// siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+            /// De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro
+            /// </remarks>
+            void Play()
+            {
+                Console.WriteLine("-------------------");
+                Console.WriteLine(" COMIENZA EL JUEGO ");
+                Console.WriteLine("-------------------");
+
+                bool inGame = true;
+                while (inGame)
+                {
+                    // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
+                    PlayTurnP1();
+                    if (CheckDead(PlayerTwo))
+                    {
+                        Console.WriteLine($"{PlayerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                        break;
+                    }
+
+                    PlayTurnP2();
+                    if (CheckDead(PlayerOne))
+                    {
+                        Console.WriteLine($"{PlayerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                        break;
+                    }
+                }
+            }
+=======
+            Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+            this.ChangePokemon(p);
             return false;
         }
 
-        /// <summary>
-        /// Comienza el juego, va alternando el turno entre los jugadores
-        /// </summary>
-        /// <remarks>
-        /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-        /// siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-        /// De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro
-        /// </remarks>
-        void Play()
-        {
-            Console.WriteLine("-------------------");
-            Console.WriteLine(" COMIENZA EL JUEGO ");
-            Console.WriteLine("-------------------");
-
-            bool inGame = true;
-            while (inGame)
-            {
-                // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
-                PlayTurnP1();
-                if (CheckDead(PlayerTwo))
-                {
-                    Console.WriteLine($"{PlayerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
-                    break;
-                }
-
-                PlayTurnP2();
-                if (CheckDead(PlayerOne))
-                {
-                    Console.WriteLine($"{PlayerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
-                    break;
-                }
-            }
+        return false;
+>>>>>>> main
         }
     }
-}

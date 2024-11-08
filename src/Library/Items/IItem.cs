@@ -1,4 +1,11 @@
+// -----------------------------------------------------------------------
+// <copyright file="IItem.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.Items;
+
 /// <summary>
 /// Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
 /// </summary>
