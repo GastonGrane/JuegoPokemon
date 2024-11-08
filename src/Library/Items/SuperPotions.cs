@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="SuperPotions.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.Items;
 
 /// <summary>
@@ -6,11 +12,11 @@ namespace Library.Items;
 public class SuperPotions : IItem
 {
     /// <summary>
-    /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
+    /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de Salud.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
-    public void Use(Pokemon pokemon)
+    public void Use(Pokemon? pokemon)
     {
-        pokemon.Heal(70);
+        pokemon?.Heal(70);
     }
 }
