@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
     <AdditionalFiles Include="../../.analyzers/stylecop.json" />
   </ItemGroup>
 
@@ -18,5 +18,10 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>All</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- SA1623: Poner "Gets/Sets" al principio de los docs de todas las propiedades -->
+    <!-- SA1642: Poner "Initializes" al principio de los docs de todos los constructores -->
+    <!-- CA1002: Usar Collection<T> enves de List<T> -->
+    <!-- CA1303: Usar resource tables para localización -->
+    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303</NoWarn>
   </PropertyGroup>
 </Project>
