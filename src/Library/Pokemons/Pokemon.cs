@@ -1,4 +1,5 @@
 namespace Library;
+
 /// <summary>
 /// Crea instancias de los distintos pokemons. 
 /// </summary>
@@ -8,18 +9,22 @@ public class Pokemon
     /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
     /// </summary>
     public string Name { get; set; }
+
     /// <summary>
     /// Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
     /// </summary>
     public PokemonType Type { get; }
+
     /// <summary>
     /// Se almacena el valor actual de salud del pokemon en un campo privado.
     /// </summary>
     private double _health;
+
     /// <summary>
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
+
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
     /// La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="MaxHealth"/>:
@@ -27,6 +32,8 @@ public class Pokemon
     /// - Si el valor es menor que 0, se establece en 0.
     /// - De lo contrario, se asigna el valor directamente.
     /// </summary>
+    private static readonly Random Random = new Random();
+
     public double Health
     {
         get { return _health; }
@@ -46,6 +53,7 @@ public class Pokemon
             }
         }
     }
+
     /// <summary>
     /// Lista donde se establecerán los distintos ataques con los que contará el pokemon.
     /// </summary>
@@ -59,19 +67,20 @@ public class Pokemon
         this.MaxHealth = maxHealth;
         this.Attacks = attacks;
     }
-/// <summary>
-/// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
-/// </summary>
-/// <param name="attackIdx">
-/// Corresponde al valor del indice del ataque al cual se quiere acceder.
-/// </param>
-/// <returns></returns>
-/// <exception cref="InvalidOperationException">
-/// Lanzada si el Pokémon no tiene ataques disponibles.
-/// </exception>
-/// <exception cref="ArgumentOutOfRangeException">
-/// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
-/// </exception>
+
+    /// <summary>
+    /// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
+    /// </summary>
+    /// <param name="attackIdx">
+    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="Attacks.Count"/> - 1).
+    /// </exception>
     private Attack GetAttack(int attackIdx)
     {
         if (Attacks.Count == 0)
@@ -83,8 +92,10 @@ public class Pokemon
         {
             throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{Attacks.Count}");
         }
+
         return Attacks[attackIdx];
     }
+
     /// <summary>
     /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
     /// </summary>
@@ -114,6 +125,7 @@ public class Pokemon
 
         return attack;
     }
+
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
@@ -122,21 +134,39 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private void Attack(Pokemon target, Attack attack)
+    private bool Attack(Pokemon target, Attack attack)
     {
+        bool boolprecision = true;
         if (!this.Attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
+        if ((Random.Next(100) <= attack.Precision))
+        {
+            PokemonType attacker = attack.Type;
+            PokemonType defender = target.Type;
+            double multiplier = attacker.Advantage(defender);
+            double damage = (attack.Damage * multiplier);
+            if ((Random.Next(10) == 1))
+            {
+                target.Health -= (damage + (damage * 20) / 100);
+            }
+            else
+            {
+                target.Health -= damage;
 
-        double multiplier = attacker.Advantage(defender);
-        double damage = (attack.Damage * multiplier);
-        target.Health -= damage;
+            }
+            return boolprecision;
+        }
+        else
+            {
+                boolprecision = false;
+                return boolprecision;
+            }
     }
-    /// <summary>
+
+        /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
