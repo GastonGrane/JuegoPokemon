@@ -20,6 +20,9 @@ public class Pokemon
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
+
+    private static readonly Random randomPrecision = new Random();
+    private static readonly Random randomCritic = new Random();
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
     /// La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="MaxHealth"/>:
@@ -51,12 +54,15 @@ public class Pokemon
     /// </summary>
     public List<Attack> Attacks { get; }
     public List<Attack> AvailableAttacks { get; }
-    public List<(Attack atack, int contador)> LasAttacksUsed { get; }
+    public List<(Attack attack, int contador)> LastAttacksUsed { get; }
 
     public void upDateAvailableAttacks()
     {
-        foreach (var tuple in LasAttacksUsed){
-            if (tuple.contador == (tuple.contador 
+        foreach (var tuple in LastAttacksUsed){
+            if (AvailableAttacks.Contains(tuple.attack))
+            {
+                AvailableAttacks.Remove(tuple.attack);
+            }
         }
     }
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
@@ -66,8 +72,8 @@ public class Pokemon
         this.Health = maxHealth;
         this.MaxHealth = maxHealth;
         this.Attacks = attacks;
-        this.AvailableAttacks = new List<Attack>();
-        this.LasAttacksUsed = new List<(Attack, int)>();
+        this.AvailableAttacks = attacks;
+        this.LastAttacksUsed = new List<(Attack, int)>();
     }
 /// <summary>
 /// Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
@@ -146,12 +152,25 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no cuenta con el ataque {attack.Name}");
         }
 
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
+        if((randomPrecision.Next(100) <= attack.Precision))
+        {
+            PokemonType attacker = attack.Type;
+            PokemonType defender = target.Type;
 
-        double multiplier = attacker.Advantage(defender);
-        double damage = (attack.Damage * multiplier);
-        target.Health -= damage;
+            double multiplier = attacker.Advantage(defender);
+            double damage = (attack.Damage * multiplier);
+            if ((randomPrecision.Next(10) == 1))
+            {
+                target.Health -= (damage);  
+            }
+            target.Health -= damage + 20;  
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(nameof(attack.Precision),
+                "La precisión del ataque no ha sido suficiente para alcanzar al objetivo.");
+        }
+        
     }
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.

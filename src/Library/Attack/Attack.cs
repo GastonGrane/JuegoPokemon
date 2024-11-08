@@ -26,11 +26,13 @@ public abstract class Attack
     /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque
     /// </value>
     public PokemonType Type { get; }
+    public int Precision { get; }
     
-    protected Attack(string name, int damage, PokemonType type)
+    protected Attack(string name, int damage, PokemonType type, int precision)
     {
         this.Name = name;
         this.Damage = damage;
         this.Type = type;
+        this.Precision = precision;
     }
 }

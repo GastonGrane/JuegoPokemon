@@ -19,7 +19,7 @@ class Program
         Pokemons.Add(pokemon2);
         Pokemons.Add(pokemon3);
         Pokemons.Add(pokemon4);
-        PrintConsole.printList(Pokemons);
+        //PrintConsole.printList(Pokemons);
     }
 }
 
