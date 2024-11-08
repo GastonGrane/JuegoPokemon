@@ -377,17 +377,6 @@
             Si <paramref name="pokemon"/> es null.
             </exception>
         </member>
-        <member name="T:Library.Items.SuperPotions">
-            <summary>
-            Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
-            </summary>
-        </member>
-        <member name="M:Library.Items.SuperPotions.Use(Library.Pokemon)">
-            <summary>
-            Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de Salud.
-            </summary>
-            <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
-        </member>
         <member name="T:Library.Items.TotalCure">
             <summary>
             Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.

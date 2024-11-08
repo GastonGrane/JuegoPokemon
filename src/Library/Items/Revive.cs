@@ -18,7 +18,7 @@ public class Revive : IItem
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
-    public void Use(Pokemon? pokemon)
+    public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(50);

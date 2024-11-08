@@ -17,7 +17,7 @@ public class TotalCure : IItem
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
-    public void Use(Pokemon? pokemon)
+    public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
