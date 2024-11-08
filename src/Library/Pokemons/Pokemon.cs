@@ -21,8 +21,7 @@ public class Pokemon
     /// </summary>
     public double MaxHealth { get; }
 
-    private static readonly Random randomPrecision = new Random();
-    private static readonly Random randomCritic = new Random();
+    private static readonly Random random = new Random();
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
     /// La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="MaxHealth"/>:
@@ -152,23 +151,25 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no cuenta con el ataque {attack.Name}");
         }
 
-        if((randomPrecision.Next(100) <= attack.Precision))
+        if((random.Next(100) <= attack.Precision))
         {
             PokemonType attacker = attack.Type;
             PokemonType defender = target.Type;
 
             double multiplier = attacker.Advantage(defender);
             double damage = (attack.Damage * multiplier);
-            if ((randomPrecision.Next(10) == 1))
+            if ((random.Next(10) == 1))
             {
-                target.Health -= (damage);  
+                target.Health -= (damage + (damage * 20)/ 100);
             }
-            target.Health -= damage + 20;  
+            else
+            {
+                target.Health -= (damage); 
+            }
         }
         else
         {
-            throw new ArgumentOutOfRangeException(nameof(attack.Precision),
-                "La precisión del ataque no ha sido suficiente para alcanzar al objetivo.");
+            Console.WriteLine("La precisión del ataque no ha sido suficiente para alcanzar al objetivo.");
         }
         
     }
