@@ -9,7 +9,7 @@ namespace Library
         /// <summary>
         /// Generador de números aleatorios para determinar si el Pokémon puede atacar.
         /// </summary>
-        private static readonly Random random = new Random();
+        private readonly Random random = new Random();
 
         /// <summary>
         /// Referencia al Pokémon que tiene el efecto de parálisis aplicado.

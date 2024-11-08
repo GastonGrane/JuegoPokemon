@@ -1,27 +1,40 @@
 <?xml version="1.0"?>
+
 <doc>
     <assembly>
         <name>Library.Tests</name>
     </assembly>
     <members>
+        <member name="T:Library.Tests.PokemonTypeTests">
+            <summary>
+                Tests de la clase <see cref="T:Library.PokemonType" />.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTypeTests.AllCombinationsOfElementsAreValid">
+            <summary>
+                Testea que todos los valores de <see cref="T:Library.PokemonType" /> tengan un
+                valor correcto de ventaja sobre todos los valores
+                de <see cref="T:Library.PokemonType" />.
+            </summary>
+        </member>
         <member name="M:Library.Tests.PokemonEffectTests.PoisonEffect_ShouldExpireWhenHealing">
             <summary>
-            Verifica que el efecto de veneno disminuya la salud en un 5% cada turno y expire cuando se intente curar al Pokémon.
+                Verifica que el efecto de veneno disminuya la salud en un 5% cada turno.
             </summary>
         </member>
         <member name="M:Library.Tests.PokemonEffectTests.BurnEffect_ShouldExpireWhenHealing">
             <summary>
-            Verifica que el efecto de quemadura disminuya la salud en un 10% cada turno y expire cuando se intente curar al Pokémon.
+                Verifica que el efecto de quemadura disminuya la salud en un 10% cada turno.
             </summary>
         </member>
         <member name="M:Library.Tests.PokemonEffectTests.SleepEffect_ShouldExpireAfterThreeTurns">
             <summary>
-            Verifica que el efecto de sueño impida atacar durante 3 turnos y expire después de esos turnos.
+                Verifica que el efecto de sueño impida atacar durante 3 turnos y expire después de esos turnos.
             </summary>
         </member>
         <member name="M:Library.Tests.PokemonEffectTests.ParalysisEffect_ShouldAllowAttackApproximatelyHalfTheTime">
             <summary>
-            Verifica que el efecto de parálisis permita atacar aproximadamente el 50% de las veces y expire al removerlo explícitamente.
+                Verifica que el efecto de parálisis permita atacar aproximadamente el 50% de las veces y expire al removerlo explícitamente.
             </summary>
         </member>
     </members>

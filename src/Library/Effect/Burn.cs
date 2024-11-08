@@ -14,18 +14,12 @@ namespace Library
         public bool IsExpired { get; set; }
 
         /// <summary>
-        /// Referencia al Pokémon que tiene el efecto de quemadura aplicado.
-        /// </summary>
-        public Pokemon Pokemon { get; set; }
-
-        /// <summary>
         /// Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
         /// </summary>
         /// <param name="pokemon">El Pokémon al cual se aplicará el efecto de quemadura.</param>
         public Burn(Pokemon pokemon)
         {
             IsExpired = false;
-            Pokemon = pokemon;
         }
 
         /// <summary>
@@ -35,7 +29,7 @@ namespace Library
         public void UpdateEffect(Pokemon target)
         {
             // Aplica el daño de quemadura cada turno
-            target.Damage((int)(target.Health * 0.10)); 
+            target.Damage((int)(target.Health * 0.10));
         }
 
         /// <summary>

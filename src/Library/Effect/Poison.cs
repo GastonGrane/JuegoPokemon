@@ -14,18 +14,12 @@ namespace Library
         public bool IsExpired { get; set; }
 
         /// <summary>
-        /// Referencia al Pokémon que tiene el efecto de veneno aplicado.
-        /// </summary>
-        public Pokemon Pokemon { get; set; }
-
-        /// <summary>
         /// Inicializa una nueva instancia del efecto de veneno en el Pokémon especificado y lo marca como activo.
         /// </summary>
         /// <param name="pokemon">El Pokémon al cual se aplicará el efecto de veneno.</param>
         public Poison(Pokemon pokemon)
         {
             IsExpired = false;
-            Pokemon = pokemon;
         }
 
         /// <summary>
@@ -35,11 +29,11 @@ namespace Library
         public void UpdateEffect(Pokemon target)
         {
             // Aplica el daño de veneno cada turno
-            target.Damage((int)(target.Health * 0.05)); 
+            target.Damage((int)(target.Health * 0.05));
         }
 
         /// <summary>
-        /// Elimina el efecto de veneno del Pokémon, marcándolo como expirado.
+        /// Elimina el efecto de veneno del Pokémon.
         /// </summary>
         /// <param name="target">El Pokémon del que se removerá el efecto.</param>
         public void RemoveEffect(Pokemon target)

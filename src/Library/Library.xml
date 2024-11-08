@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <doc>
     <assembly>
         <name>Library</name>
@@ -6,842 +7,858 @@
     <members>
         <member name="T:Library.Attack">
             <summary>
-            Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
+                Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
             </summary>
             <remarks>
-            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos,
-            tal como <see cref="T:Library.NormalAttack"/>.
+                La clase <see cref="T:Library.Attack" /> sirve como base para varios tipos de ataques especificos,
+                tal como <see cref="T:Library.NormalAttack" />.
             </remarks>
         </member>
         <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
+                Crea un <see cref="T:Library.Attack" /> con los parámetros provistos.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="type">El <see cref="T:Library.PokemonType" /> que va a definir el elemento del ataque.</param>
         </member>
         <member name="P:Library.Attack.Name">
             <summary>
-            El nombre del ataque.
+                El nombre del ataque.
             </summary>
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            El valor de daño del ataque.
+                El valor de daño del ataque.
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
-            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
+                Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
             </summary>
             <value>
-            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
+                Un <see cref="T:Library.PokemonType" /> representa el tipo elemental del ataque.
             </value>
         </member>
         <member name="T:Library.NormalAttack">
             <summary>
-            Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
+                Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
             </summary>
             <remarks>
-            Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
-            Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
+                Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
+                Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
             </remarks>
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>.
+                El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack" />.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="type">El <see cref="T:Library.PokemonType" /> que va a definir el elemento del ataque.</param>
             <remarks>
-            Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
+                Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
         </member>
-<<<<<<< HEAD
+        <member name="T:Library.NormalAttackLibrary">
+            <summary>
+                Clase estática con una colección de ataques normales pre-definidos.
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.AquaJet">
+            <summary>
+                Aqua Jet (water).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.BulletSeed">
+            <summary>
+                Bullet Seed (Grass).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.BlazeKick">
+            <summary>
+                Blaze Kick (Fire).
+            </summary>
+        </member>
+        <member name="F:Library.NormalAttackLibrary.FusionBolt">
+            <summary>
+                Fusion Bolt (Electric).
+            </summary>
+        </member>
+        <member name="T:Library.SpecialAttack">
+            <summary>
+                Un ataque especial. Este es un tipo de ataque que,
+                además de realizar daño, también inflige un estado sobre el Pokemon,
+                dependiendo de qué ataque fue utilizado.
+
+                Una vez que el ataque acierta, siempre se le infligirá el estado al Pokemon,
+                es decir, la precisión de la aplicación del estado es del 100%.
+            </summary>
+        </member>
+        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+            <summary>
+                Crea un ataque especial.
+            </summary>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de daño que realiza.</param>
+            <param name="attackType">El <see cref="T:Library.PokemonType" /> del ataque.</param>
+        </member>
         <member name="T:Library.Burn">
             <summary>
-            Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
-            Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+                Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
+                Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
             </summary>
         </member>
         <member name="P:Library.Burn.IsExpired">
             <summary>
-            Indica si el efecto de quemadura ha expirado y ya no debe aplicarse.
-            </summary>
-        </member>
-        <member name="P:Library.Burn.Pokemon">
-            <summary>
-            Referencia al Pokémon que tiene el efecto de quemadura aplicado.
+                Indica si el efecto de quemadura ha expirado y ya no debe aplicarse.
             </summary>
         </member>
         <member name="M:Library.Burn.#ctor(Library.Pokemon)">
             <summary>
-            Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
+                Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
             </summary>
             <param name="pokemon">El Pokémon al cual se aplicará el efecto de quemadura.</param>
         </member>
         <member name="M:Library.Burn.UpdateEffect(Library.Pokemon)">
             <summary>
-            Aplica el daño de quemadura al Pokémon objetivo, reduciendo su salud en un 10% de su salud actual.
+                Aplica el daño de quemadura al Pokémon objetivo, reduciendo su salud en un 10% de su salud actual.
             </summary>
             <param name="target">El Pokémon al que se le aplicará el daño por quemadura.</param>
         </member>
         <member name="M:Library.Burn.RemoveEffect(Library.Pokemon)">
             <summary>
-            Elimina el efecto de quemadura del Pokémon, marcándolo como expirado.
+                Elimina el efecto de quemadura del Pokémon, marcándolo como expirado.
             </summary>
             <param name="target">El Pokémon del que se removerá el efecto.</param>
         </member>
         <member name="T:Library.Paralysis">
             <summary>
-            Representa un efecto de parálisis que puede ser aplicado a un Pokémon.
-            Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
+                Representa un efecto de parálisis que puede ser aplicado a un Pokémon.
+                Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
             </summary>
         </member>
         <member name="F:Library.Paralysis.random">
             <summary>
-            Generador de números aleatorios para determinar si el Pokémon puede atacar.
+                Generador de números aleatorios para determinar si el Pokémon puede atacar.
             </summary>
         </member>
         <member name="P:Library.Paralysis.Pokemon">
             <summary>
-            Referencia al Pokémon que tiene el efecto de parálisis aplicado.
+                Referencia al Pokémon que tiene el efecto de parálisis aplicado.
             </summary>
         </member>
         <member name="P:Library.Paralysis.IsExpired">
             <summary>
-            Indica si el efecto de parálisis ha expirado y ya no debe aplicarse.
+                Indica si el efecto de parálisis ha expirado y ya no debe aplicarse.
             </summary>
         </member>
         <member name="M:Library.Paralysis.#ctor(Library.Pokemon)">
             <summary>
-            Inicializa una nueva instancia del efecto de parálisis con el estado activo en el Pokémon especificado.
+                Inicializa una nueva instancia del efecto de parálisis con el estado activo en el Pokémon especificado.
             </summary>
             <param name="pokemon">El Pokémon al cual se aplicará el efecto de parálisis.</param>
         </member>
         <member name="M:Library.Paralysis.UpdateEffect(Library.Pokemon)">
             <summary>
-            Actualiza el efecto de parálisis en el Pokémon objetivo.
-            Determina aleatoriamente si el Pokémon puede atacar, con una probabilidad del 50%.
+                Actualiza el efecto de parálisis en el Pokémon objetivo.
+                Determina aleatoriamente si el Pokémon puede atacar, con una probabilidad del 50%.
             </summary>
             <param name="target">El Pokémon al que se le aplicará el efecto de parálisis.</param>
         </member>
         <member name="M:Library.Paralysis.RemoveEffect(Library.Pokemon)">
             <summary>
-            Elimina el efecto de parálisis del Pokémon, marcándolo como expirado y restaurando su capacidad de atacar.
+                Elimina el efecto de parálisis del Pokémon, marcándolo como expirado y restaurando su capacidad de atacar.
             </summary>
             <param name="target">El Pokémon del que se removerá el efecto.</param>
         </member>
         <member name="T:Library.Poison">
             <summary>
-            Representa un efecto de veneno que puede ser aplicado a un Pokémon.
-            Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+                Representa un efecto de veneno que puede ser aplicado a un Pokémon.
+                Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
             </summary>
         </member>
         <member name="P:Library.Poison.IsExpired">
             <summary>
-            Indica si el efecto de veneno ha expirado y ya no debe aplicarse.
-            </summary>
-        </member>
-        <member name="P:Library.Poison.Pokemon">
-            <summary>
-            Referencia al Pokémon que tiene el efecto de veneno aplicado.
+                Indica si el efecto de veneno ha expirado y ya no debe aplicarse.
             </summary>
         </member>
         <member name="M:Library.Poison.#ctor(Library.Pokemon)">
             <summary>
-            Inicializa una nueva instancia del efecto de veneno en el Pokémon especificado y lo marca como activo.
+                Inicializa una nueva instancia del efecto de veneno en el Pokémon especificado y lo marca como activo.
             </summary>
             <param name="pokemon">El Pokémon al cual se aplicará el efecto de veneno.</param>
         </member>
         <member name="M:Library.Poison.UpdateEffect(Library.Pokemon)">
             <summary>
-            Aplica el daño de veneno al Pokémon objetivo, reduciendo su salud en un 5% de su salud actual.
+                Aplica el daño de veneno al Pokémon objetivo, reduciendo su salud en un 5% de su salud actual.
             </summary>
             <param name="target">El Pokémon al que se le aplicará el daño por veneno.</param>
         </member>
         <member name="M:Library.Poison.RemoveEffect(Library.Pokemon)">
             <summary>
-            Elimina el efecto de veneno del Pokémon, marcándolo como expirado.
+                Elimina el efecto de veneno del Pokémon.
             </summary>
             <param name="target">El Pokémon del que se removerá el efecto.</param>
         </member>
         <member name="T:Library.Sleep">
             <summary>
-            Representa un efecto de sueño que puede ser aplicado a un Pokémon.
-            Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
+                Representa un efecto de sueño que puede ser aplicado a un Pokémon.
+                Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
             </summary>
         </member>
         <member name="F:Library.Sleep._turnsRemaining">
             <summary>
-            Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
+                Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
             </summary>
         </member>
         <member name="P:Library.Sleep.IsExpired">
             <summary>
-            Indica si el efecto de sueño ha expirado y ya no debe aplicarse.
+                Indica si el efecto de sueño ha expirado y ya no debe aplicarse.
             </summary>
         </member>
         <member name="P:Library.Sleep.Pokemon">
             <summary>
-            Referencia al Pokémon que tiene el efecto de sueño aplicado.
+                Referencia al Pokémon que tiene el efecto de sueño aplicado.
             </summary>
         </member>
         <member name="M:Library.Sleep.#ctor(System.Int32,Library.Pokemon)">
             <summary>
-            Inicializa una nueva instancia del efecto de sueño con la duración especificada y el Pokémon afectado.
+                Inicializa una nueva instancia del efecto de sueño con la duración especificada y el Pokémon afectado.
             </summary>
             <param name="duration">La duración del efecto de sueño en turnos.</param>
             <param name="pokemon">El Pokémon al cual se aplicará el efecto de sueño.</param>
         </member>
         <member name="M:Library.Sleep.UpdateEffect(Library.Pokemon)">
             <summary>
-            Actualiza el efecto de sueño en el Pokémon objetivo, reduciendo los turnos restantes.
-            Cuando el efecto ha durado el número especificado de turnos, se elimina.
+                Actualiza el efecto de sueño en el Pokémon objetivo, reduciendo los turnos restantes.
+                Cuando el efecto ha durado el número especificado de turnos, se elimina.
             </summary>
             <param name="target">El Pokémon al que se le aplicará el efecto de sueño.</param>
         </member>
         <member name="M:Library.Sleep.RemoveEffect(Library.Pokemon)">
             <summary>
-            Elimina el efecto de sueño del Pokémon, marcándolo como expirado.
+                Elimina el efecto de sueño del Pokémon, marcándolo como expirado.
             </summary>
             <param name="target">El Pokémon del que se removerá el efecto.</param>
-=======
-        <member name="T:Library.NormalAttackLibrary">
-            <summary>
-            Clase estática con una colección de ataques normales pre-definidos.
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.AquaJet">
-            <summary>
-            Aqua Jet (water).
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.BulletSeed">
-            <summary>
-            Bullet Seed (Grass).
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.BlazeKick">
-            <summary>
-            Blaze Kick (Fire).
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.FusionBolt">
-            <summary>
-            Fusion Bolt (Electric).
-            </summary>
-        </member>
-        <member name="T:Library.SpecialAttack">
-             <summary>
-             Un ataque especial. Este es un tipo de ataque que,
-             además de realizar daño, también inflige un estado sobre el Pokemon,
-             dependiendo de qué ataque fue utilizado.
-            
-             Una vez que el ataque acierta, siempre se le infligirá el estado al Pokemon,
-             es decir, la precisión de la aplicación del estado es del 100%.
-             </summary>
-        </member>
-        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
-            <summary>
-            Crea un ataque especial.
-            </summary>
-            <param name="name">El nombre del ataque.</param>
-            <param name="damage">La cantidad de daño que realiza.</param>
-            <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
->>>>>>> main
         </member>
         <member name="T:Library.Game">
             <summary>
-            Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
+                Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
             </summary>
         </member>
         <member name="F:Library.Game.playerOne">
             <summary>
-            El primer jugador en el juego.
+                El primer jugador en el juego.
             </summary>
         </member>
         <member name="F:Library.Game.playerTwo">
             <summary>
-            El segundo jugador en el juego.
+                El segundo jugador en el juego.
             </summary>
         </member>
         <member name="F:Library.Game.tmp">
             <summary>
-            Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
+                Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
             </summary>
         </member>
         <member name="M:Library.Game.#ctor(Library.Player,Library.Player)">
             <summary>
-            Inicializa el juego.
+                Inicializa el juego.
             </summary>
-            <param name="p1">El primer jugador <see cref="F:Library.Game.playerOne"/>.</param>
-            <param name="p2">El segundo jugador <see cref="F:Library.Game.playerTwo"/>.</param>
+            <param name="p1">El primer jugador <see cref="F:Library.Game.playerOne" />.</param>
+            <param name="p2">El segundo jugador <see cref="F:Library.Game.playerTwo" />.</param>
         </member>
         <member name="M:Library.Game.CreateGame(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Crea un nuevo juego con jugadores predefinidos.
+                Crea un nuevo juego con jugadores predefinidos.
             </summary>
-            <param name="pokemon">Una lista de <see cref="T:Library.Pokemon"/> para usar en el juego.</param>
-            <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
+            <param name="pokemon">Una lista de <see cref="T:Library.Pokemon" /> para usar en el juego.</param>
+            <returns>Una nueva instancia de <see cref="T:Library.Game" /> que es hard-coded.</returns>
         </member>
         <member name="M:Library.Game.Play">
             <summary>
-            Comienza el juego, va alternando el turno entre los jugadores.
+                Comienza el juego, va alternando el turno entre los jugadores.
             </summary>
             <remarks>
-            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
+                El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+                siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+                De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
             </remarks>
         </member>
         <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
             <summary>
-            Ejecuta un ataque por el jugador que le toca hacia el contrincante.
+                Ejecuta un ataque por el jugador que le toca hacia el contrincante.
             </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que va a atacar.</param>
-            <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado.</param>
+            <param name="active">El <see cref="T:Library.Player" /> que va a atacar.</param>
+            <param name="other">El <see cref="T:Library.Player" /> que va a ser atacado.</param>
         </member>
         <member name="M:Library.Game.PlayTurn(Library.Player,Library.Player)">
             <summary>
-            Maneja el turno del jugador activo.
+                Maneja el turno del jugador activo.
             </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que toma el turno.</param>
-            <param name="other">El <see cref="T:Library.Player"/> que no le toca atacar.</param>
+            <param name="active">El <see cref="T:Library.Player" /> que toma el turno.</param>
+            <param name="other">El <see cref="T:Library.Player" /> que no le toca atacar.</param>
             <remarks>
-            Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
-            Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
+                Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
+                Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
             </remarks>
         </member>
         <member name="M:Library.Game.ChangePokemon(Library.Player)">
             <summary>
-            Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="T:Library.Player"/>.
+                Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en
+                <see cref="T:Library.Player" />.
             </summary>
-            <param name="p">El <see cref="T:Library.Player"/> quien es que esta haciendo el cambio.</param>
+            <param name="p">El <see cref="T:Library.Player" /> quien es que esta haciendo el cambio.</param>
         </member>
         <member name="M:Library.Game.CheckDead(Library.Player)">
             <summary>
-            Comprueba si un pokemon del jugador ha muerto.
+                Comprueba si un pokemon del jugador ha muerto.
             </summary>
-            <param name="p">El <see cref="T:Library.Player"/> el cual estamos viendo el estado de su pokemon.</param>
+            <param name="p">El <see cref="T:Library.Player" /> el cual estamos viendo el estado de su pokemon.</param>
             <returns>
-            <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>.
+                <c>true</c> Si el <paramref name="p" /> no tiene ningun Pokemon restante, sino <c>false</c>.
             </returns>
             <remarks>
-            Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
+                Si el ha muerto el pokemon activo de <paramref name="p" /> esta obligado a hacer un cambio de pokemon.
             </remarks>
         </member>
         <member name="T:Library.Items.IItem">
             <summary>
-            Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
+                Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
             </summary>
         </member>
         <member name="M:Library.Items.IItem.Use(Library.Pokemon)">
             <summary>
-            Aplica el efecto del objeto en el Pokémon especificado.
+                Aplica el efecto del objeto en el Pokémon especificado.
             </summary>
             <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
         </member>
         <member name="T:Library.Items.Revive">
             <summary>
-            Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
+                Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
             </summary>
         </member>
         <member name="M:Library.Items.Revive.Use(Library.Pokemon)">
             <summary>
-            Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
+                Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
             </summary>
             <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="pokemon"/> es null.
+                Si <paramref name="pokemon" /> es null.
             </exception>
         </member>
         <member name="T:Library.Items.SuperPotion">
             <summary>
-            Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+                Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
             </summary>
         </member>
         <member name="M:Library.Items.SuperPotion.Use(Library.Pokemon)">
             <summary>
-            Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
+                Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
             </summary>
             <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="pokemon"/> es null.
+                Si <paramref name="pokemon" /> es null.
             </exception>
+        </member>
+        <member name="T:Library.Items.SuperPotions">
+            <summary>
+                Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+            </summary>
+        </member>
+        <member name="M:Library.Items.SuperPotions.Use(Library.Pokemon)">
+            <summary>
+                Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
+            </summary>
+            <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
         </member>
         <member name="T:Library.Items.TotalCure">
             <summary>
-            Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
+                Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
             </summary>
         </member>
         <member name="T:Library.Player">
             <summary>
-            Un jugador de pokemon.
+                Un jugador de pokemon.
             </summary>
         </member>
         <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Crea una instancia del jugador con su lista de los pokemons.
+                Crea una instancia del jugador con su lista de los pokemons.
             </summary>
             <param name="name">El nombre del Jugador.</param>
             <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
         </member>
         <member name="P:Library.Player.Name">
             <summary>
-            El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
+                El nombre del jugador. Esto es visible al usuario, y no es interno al codigo.
             </summary>
         </member>
         <member name="P:Library.Player.Pokemons">
             <summary>
-            La lista de pokemon del jugador.
+                La lista de pokemon del jugador.
             </summary>
             <value>
-            Esta lista tiene hasta 6 pokemons.
+                Esta lista tiene hasta 6 pokemons.
             </value>
         </member>
         <member name="P:Library.Player.ActivePokemon">
             <summary>
-            Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="M:Library.Player.ChangePokemon(System.String)"/>.
+                Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con
+                <see cref="M:Library.Player.ChangePokemon(System.String)" />.
             </summary>
             <value>
-            Debe ser una referencia a alguno de los pokemon en la lista del jugador.
+                Debe ser una referencia a alguno de los pokemon en la lista del jugador.
             </value>
         </member>
         <member name="M:Library.Player.ChangePokemon(System.String)">
             <summary>
-            Cambia el pokemon que estaria en pantalla(<see cref="P:Library.Player.ActivePokemon"/>) del jugador.
+                Cambia el pokemon que estaria en pantalla(<see cref="P:Library.Player.ActivePokemon" />) del jugador.
             </summary>
             <param name="newPokemon">El nombre del pokemon por el cual quiere cambiar, este debe estar en su lista de pokemon.</param>
             <returns>
-            <c>true</c> si se encontro <paramref name="newPokemon"/> en <see cref="T:Library.Pokemon"/>, sino <c>false</c> y no se cambia el pokemon <see cref="P:Library.Player.ActivePokemon"/>.
+                <c>true</c> si se encontro <paramref name="newPokemon" /> en <see cref="T:Library.Pokemon" />, sino
+                <c>false</c> y no se cambia el pokemon <see cref="P:Library.Player.ActivePokemon" />.
             </returns>
-            <remarks>Si el <paramref name="newPokemon"/> no es encontrado en este jugador, no hacer nada.</remarks>
+            <remarks>Si el <paramref name="newPokemon" /> no es encontrado en este jugador, no hacer nada.</remarks>
         </member>
         <member name="M:Library.Player.Attack(Library.Player,System.String)">
             <summary>
-            Ataca al <see cref="P:Library.Player.ActivePokemon"/> de <paramref name="other"/> utilizando el
-            <see cref="P:Library.Player.ActivePokemon"/> del jugador con el ataque <paramref name="attackName"/>.
+                Ataca al <see cref="P:Library.Player.ActivePokemon" /> de <paramref name="other" /> utilizando el
+                <see cref="P:Library.Player.ActivePokemon" /> del jugador con el ataque <paramref name="attackName" />.
             </summary>
             <param name="other">El jugador a atacar. Debe ser non-null.</param>
-            <param name="attackName">El nombre del ataque a utlizar. Debe ser un ataque válido de <see cref="P:Library.Player.ActivePokemon"/>.</param>
-            <exception cref="T:System.ArgumentNullException">Si <paramref name="other"/> es null.</exception>
+            <param name="attackName">
+                El nombre del ataque a utlizar. Debe ser un ataque válido de
+                <see cref="P:Library.Player.ActivePokemon" />.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Si <paramref name="other" /> es null.</exception>
             <remarks>
-            Esto llama al metodo <see cref="M:Library.Pokemon.Attack(Library.Pokemon,System.String)"/>.
+                Esto llama al metodo <see cref="M:Library.Pokemon.Attack(Library.Pokemon,System.String)" />.
             </remarks>
         </member>
         <member name="M:Library.Player.IsDead">
             <summary>
-            Devuelve el estado de si todos los pokemons del jugador han muerto.
+                Devuelve el estado de si todos los pokemons del jugador han muerto.
             </summary>
             <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
         </member>
         <member name="T:Library.Pokemon">
             <summary>
-            Crea instancias de los distintos pokemons.
+                Crea instancias de los distintos pokemons.
             </summary>
         </member>
-        <member name="F:Library.Pokemon.health">
-             <summary>
-             El valor actual de salud del pokemon.
-            
-             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health"/>.
-             </summary>
-        </member>
-        <member name="F:Library.Pokemon.attacks">
-             <summary>
-             Lista de los distintos ataques con los que cuenta el pokemon.
-            
-             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Attacks"/>.
-             </summary>
-        </member>
-        <member name="M:Library.Pokemon.#ctor(System.String,Library.PokemonType,System.Int32,System.Collections.Generic.List{Library.Attack})">
-             <summary>
-             Crea un pokemon con los valores provistos.
-            
-             El Pokemon empieza con su vida siendo su total.
-             </summary>
-             <param name="name">El nombre del Pokemon.</param>
-             <param name="type">El tipo del Pokemon.</param>
-             <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
-             <param name="attacks">La lista de sus ataques.</param>
-        </member>
-        <member name="P:Library.Pokemon.Name">
-            <summary>
-            El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
-            </summary>
-        </member>
-        <member name="P:Library.Pokemon.Type">
-            <summary>
-            Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
-            </summary>
-        </member>
-<<<<<<< HEAD
         <member name="F:Library.Pokemon._health">
             <summary>
-            Se almacena el valor actual de salud del pokemon en un campo privado.
+                El valor actual de salud del pokemon.
+
+                El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health" />.
+            </summary>
+        </member>
+        <member name="F:Library.Pokemon.attacks">
+            <summary>
+                Lista de los distintos ataques con los que cuenta el pokemon.
+
+                El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Attacks" />.
             </summary>
         </member>
         <member name="F:Library.Pokemon.ActiveEffect">
             <summary>
-            Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+                Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
             </summary>
         </member>
         <member name="P:Library.Pokemon.CanAttack">
             <summary>
-            Indica si el Pokémon puede atacar en su turno.
+                Indica si el Pokémon puede atacar en su turno.
             </summary>
         </member>
-=======
->>>>>>> main
+        <member
+            name="M:Library.Pokemon.#ctor(System.String,Library.PokemonType,System.Int32,System.Collections.Generic.List{Library.Attack})">
+            <summary>
+                Crea un pokemon con los valores provistos.
+
+                El Pokemon empieza con su vida siendo su total.
+            </summary>
+            <param name="name">El nombre del Pokemon.</param>
+            <param name="type">El tipo del Pokemon.</param>
+            <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
+            <param name="attacks">La lista de sus ataques.</param>
+        </member>
+        <member name="P:Library.Pokemon.Name">
+            <summary>
+                El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.Type">
+            <summary>
+                Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
+            </summary>
+        </member>
         <member name="P:Library.Pokemon.MaxHealth">
             <summary>
-            Propiedad de solo lectura que representa la salud máxima del pokemon.
+                Propiedad de solo lectura que representa la salud máxima del pokemon.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Health">
             <summary>
-            Propiedad que obtiene y establece la salud actual del pokemon.
-            La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="P:Library.Pokemon.MaxHealth"/>:
-            - Si el valor excede al de <see cref="P:Library.Pokemon.MaxHealth"/>, se establece el valor correspondiente al de <see cref="P:Library.Pokemon.MaxHealth"/>.
-            - Si el valor es menor que 0, se establece en 0.
-            - De lo contrario, se asigna el valor directamente.
+                Propiedad que obtiene y establece la salud actual del pokemon.
+                La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a
+                <see cref="P:Library.Pokemon.MaxHealth" />:
+                - Si el valor excede al de <see cref="P:Library.Pokemon.MaxHealth" />, se establece el valor correspondiente al de
+                <see cref="P:Library.Pokemon.MaxHealth" />.
+                - Si el valor es menor que 0, se establece en 0.
+                - De lo contrario, se asigna el valor directamente.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Attacks">
             <summary>
-            Lista de los distintos ataques con los que cuenta el pokemon.
+                Lista de los distintos ataques con los que cuenta el pokemon.
             </summary>
         </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.Int32)">
             <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
+                Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
             </summary>
             <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attackIdx">El índice del ataque en la lista de ataques del Pokémon.</param>
             <exception cref="T:System.ArgumentNullException">
-            Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
+                Lanzada si el Pokémon objetivo <paramref name="target" /> es <c>null</c>.
             </exception>
             <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
+                Lanzada si el Pokémon no tiene ataques disponibles.
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido ([0,(cant. ataques - 1)]).
+                Lanzada si el índice <paramref name="attackIdx" /> está fuera del rango permitido ([0,(cant. ataques - 1)]).
             </exception>
         </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.String)">
             <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
+                Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
             </summary>
             <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attackName">El nombre del ataque que se usará para realizar el daño.</param>
             <exception cref="T:System.ArgumentNullException">
-            Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
+                Lanzada si el Pokémon objetivo <paramref name="target" /> es <c>null</c>.
             </exception>
             <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
+                Lanzada si el Pokémon no tiene ataques disponibles.
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+                Lanzada si el nombre <paramref name="attackName" /> no se encuentra en la lista de ataques.
             </exception>
         </member>
         <member name="M:Library.Pokemon.Heal(System.Int32)">
             <summary>
-            Suma un valor especificado a la vida que ya tiene el pokemon.
+                Suma un valor especificado a la vida que ya tiene el pokemon.
             </summary>
             <param name="health">La cantidad de vida que se le suma a la vida actual del Pokémon.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
+                Lanzada si el valor recibido <paramref name="health" /> es menor que 0.
             </exception>
         </member>
-<<<<<<< HEAD
-        <member name="M:Library.Pokemon.Damage(System.Int32)">
-            <summary>
-            Inflige daño al Pokémon, reduciendo su salud en la cantidad especificada.
-            </summary>
-            <param name="health">Cantidad de salud a restar al Pokémon.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">Lanzada si el valor recibido <paramref name="health"/> es negativo.</exception>
-        </member>
-        <member name="M:Library.Pokemon.ApplyEffect(IEffect)">
-            <summary>
-            Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
-            </summary>
-            <param name="effect">El efecto que se intentará aplicar al Pokémon.</param>
-            <exception cref="T:System.InvalidOperationException">
-            Se lanza si el Pokémon ya tiene un efecto activo y se intenta aplicar un nuevo efecto antes de que el actual expire.
-            </exception>
-        </member>
-        <member name="M:Library.Pokemon.UpdateEffect">
-            <summary>
-            Actualiza el efecto activo del Pokémon en cada turno. Si el efecto ha expirado, lo elimina.
-            </summary>
-        </member>
-        <member name="M:Library.Pokemon.RemoveEffect">
-            <summary>
-            Elimina el efecto activo del Pokémon, si existe.
-            </summary>
-=======
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
             <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+                Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
             </summary>
             <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attack">El ataque que se usará para realizar el daño.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
+                Lanzada si el ataque especificado no se encuentra dentro de la lista
+                <see cref="P:Library.Pokemon.Attacks" /> del Pokémon que ataca.
             </exception>
         </member>
         <member name="M:Library.Pokemon.GetAttack(System.String)">
             <summary>
-            Esta función retorna el ataque correspondiente al string que recibe como parámetro.
+                Esta función retorna el ataque correspondiente al string que recibe como parámetro.
             </summary>
-            <param name="attackName">
-            Nombre del ataque al cual se quiere acceder.
-            </param>
+            <param name="attackName">Nombre del ataque al cual se quiere acceder.</param>
             <returns>El ataque cuyo nombre es el nombre pasado.</returns>
             <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
+                Lanzada si el Pokémon no tiene ataques disponibles.
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
+                Lanzada si el nombre <paramref name="attackName" /> no se encuentra en la lista de ataques.
             </exception>
         </member>
         <member name="M:Library.Pokemon.GetAttack(System.Int32)">
             <summary>
-            Retorna el ataque correspondiente al valor que recibe como parámetro.
+                Retorna el ataque correspondiente al valor que recibe como parámetro.
             </summary>
-            <param name="attackIdx">
-            Corresponde al valor del indice del ataque al cual se quiere acceder.
-            </param>
+            <param name="attackIdx">Corresponde al valor del índice del ataque al cual se quiere acceder.</param>
             <returns>El ataque correspondiente al índice provisto.</returns>
             <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
+                Lanzada si el Pokémon no tiene ataques disponibles.
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
+                Lanzada si el índice <paramref name="attackIdx" /> está fuera del rango permitido (0-(cant. ataques - 1)).
             </exception>
->>>>>>> main
+        </member>
+        <member name="M:Library.Pokemon.Damage(System.Int32)">
+            <summary>
+                Inflige daño al Pokémon, reduciendo su salud en la cantidad especificada.
+            </summary>
+            <param name="health">Cantidad de salud a restar al Pokémon.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Lanzada si el valor recibido
+                <paramref name="health" /> es negativo.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.ApplyEffect(IEffect)">
+            <summary>
+                Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
+            </summary>
+            <param name="effect">El efecto que se intentará aplicar al Pokémon.</param>
+            <exception cref="T:System.InvalidOperationException">
+                Se lanza si el Pokémon ya tiene un efecto activo y se intenta aplicar un nuevo efecto antes de que el actual expire.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.UpdateEffect">
+            <summary>
+                Actualiza el efecto activo del Pokémon en cada turno. Si el efecto ha expirado, lo elimina.
+            </summary>
+        </member>
+        <member name="M:Library.Pokemon.RemoveEffect">
+            <summary>
+                Elimina el efecto activo del Pokémon, si existe.
+            </summary>
         </member>
         <member name="T:Library.PokemonType">
             <summary>
-            Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
+                Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Normal">
             <summary>
-            El tipo normal.
+                El tipo normal.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Fire">
             <summary>
-            El tipo Fire.
+                El tipo Fire.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Water">
             <summary>
-            El tipo Water.
+                El tipo Water.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Electric">
             <summary>
-            El tipo Electric.
+                El tipo Electric.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Grass">
             <summary>
-            El tipo Grass.
+                El tipo Grass.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ice">
             <summary>
-            El tipo Ice.
+                El tipo Ice.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Fighting">
             <summary>
-            El tipo Fighting.
+                El tipo Fighting.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Poison">
             <summary>
-            El tipo Poison.
+                El tipo Poison.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ground">
             <summary>
-            El tipo Ground.
+                El tipo Ground.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Flying">
             <summary>
-            El tipo Flying.
+                El tipo Flying.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Psychic">
             <summary>
-            El tipo Psychic.
+                El tipo Psychic.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Bug">
             <summary>
-            El tipo Bug.
+                El tipo Bug.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Rock">
             <summary>
-            El tipo Rock.
+                El tipo Rock.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Ghost">
             <summary>
-            El tipo Ghost.
+                El tipo Ghost.
             </summary>
         </member>
         <member name="F:Library.PokemonType.Dragon">
             <summary>
-            El tipo Dragon.
+                El tipo Dragon.
             </summary>
         </member>
         <member name="T:Library.Calculate">
             <summary>
-            Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
+                Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
             </summary>
         </member>
         <member name="M:Library.Calculate.Advantage(Library.PokemonType,Library.PokemonType)">
             <summary>
-            Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado.
+                Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado.
             </summary>
             <remarks>
-            Si el tipo <paramref name="defender"/> no está explícitamente mencionado como "strong",
-            "weak" o "immune" en la tabla del tipo <paramref name="attacker"/>, se considera un
-            multiplicador de 1.0 (neutral).
+                Si el tipo <paramref name="defender" /> no está explícitamente mencionado como "strong",
+                "weak" o "immune" en la tabla del tipo <paramref name="attacker" />, se considera un
+                multiplicador de 1.0 (neutral).
             </remarks>
             <param name="attacker">El tipo del ataque utilizado.</param>
             <param name="defender">El tipo del Pokemon atacado.</param>
             <returns>
-            Un double que representa la efectividad:
-            <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
-            <item>0.5 si <paramref name="attacker"/> es debil contra <paramref name="defender"/></item>
-            <item>0.0 si <paramref name="attacker"/> no tiene efecto en <paramref name="defender"/></item>
-            <item>1.0 si no hay ventaja entre ambos tipos</item>
+                Un double que representa la efectividad:
+                <item>2.0 si <paramref name="attacker" /> es fuerte contra <paramref name="defender" /></item>
+                <item>0.5 si <paramref name="attacker" /> es debil contra <paramref name="defender" /></item>
+                <item>0.0 si <paramref name="attacker" /> no tiene efecto en <paramref name="defender" /></item>
+                <item>1.0 si no hay ventaja entre ambos tipos</item>
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanza esta excepcion si <paramref name="attacker"/> es un tipo que no tiene ventajas explicitadas.
+                Lanza esta excepcion si <paramref name="attacker" /> es un tipo que no tiene ventajas explicitadas.
             </exception>
         </member>
         <member name="T:Library.ConsolePrinter">
             <summary>
-            Un IPrinter que imprime/toma entrada de la consola.
+                Un IPrinter que imprime/toma entrada de la consola.
             </summary>
         </member>
         <member name="M:Library.ConsolePrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Imprime la lista provista en la consola.
+                Imprime la lista provista en la consola.
             </summary>
             <param name="list">La lista a imprimir.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="list"/> es null.
+                Si <paramref name="list" /> es null.
             </exception>
         </member>
         <member name="M:Library.ConsolePrinter.PrintString(System.String)">
             <summary>
-            Imprime la string provista en la consola.
+                Imprime la string provista en la consola.
             </summary>
             <param name="str">La string a imprimir.</param>
         </member>
         <member name="M:Library.ConsolePrinter.PrintStringAndReceiveInt(System.String)">
-             <summary>
-             Imprime la string provista en la consola, y luego le pide al
-             usuario que ingrese un int.
-            
-             Si el usuario no ingresa un int, esta función deberá
-             reintentar hasta que el dato ingresado sea un int.
-             </summary>
-             <param name="str">La string a imprimir.</param>
-             <returns>El número ingresado por el usuario.</returns>
+            <summary>
+                Imprime la string provista en la consola, y luego le pide al
+                usuario que ingrese un int.
+
+                Si el usuario no ingresa un int, esta función deberá
+                reintentar hasta que el dato ingresado sea un int.
+            </summary>
+            <param name="str">La string a imprimir.</param>
+            <returns>El número ingresado por el usuario.</returns>
         </member>
         <member name="M:Library.ConsolePrinter.PrintListAtaque(System.Collections.Generic.List{Library.Attack})">
             <summary>
-            Imprime la lista de ataques provista en la consola.
+                Imprime la lista de ataques provista en la consola.
             </summary>
-            <param name="ataques">La lista de <see cref="T:Library.Attack"/>s a imprimir.</param>
+            <param name="ataques">La lista de <see cref="T:Library.Attack" />s a imprimir.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="ataques"/> es null.
+                Si <paramref name="ataques" /> es null.
             </exception>
         </member>
         <member name="M:Library.ConsolePrinter.SelectAtaque(System.String)">
             <summary>
-            Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
+                Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
             </summary>
             <param name="str">Ni idea.</param>
             <returns>Tampoco sé.</returns>
         </member>
         <member name="T:Library.IPrinter">
-             <summary>
-             Representa la comunicación a un servicio externo.
-            
-             Permite imprimir texto, y pedirlo al usuario una selección.
-             </summary>
+            <summary>
+                Representa la comunicación a un servicio externo.
+
+                Permite imprimir texto, y pedirlo al usuario una selección.
+            </summary>
         </member>
         <member name="M:Library.IPrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
-            Imprime la lista provista en el servicio.
+                Imprime la lista provista en el servicio.
             </summary>
             <param name="list">La lista a imprimir.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="list"/> es null.
+                Si <paramref name="list" /> es null.
             </exception>
         </member>
         <member name="M:Library.IPrinter.PrintString(System.String)">
             <summary>
-            Imprime la string provista en el servicio.
+                Imprime la string provista en el servicio.
             </summary>
             <param name="str">La string a imprimir.</param>
         </member>
         <member name="M:Library.IPrinter.PrintStringAndReceiveInt(System.String)">
-             <summary>
-             Imprime la string provista en el servicio, y luego le pide al
-             usuario que ingrese un int.
-            
-             Si el usuario no ingresa un int, esta función deberá
-             reintentar hasta que el dato ingresado sea un int.
-             </summary>
-             <param name="str">La string a imprimir.</param>
-             <returns>El número ingresado por el usuario.</returns>
+            <summary>
+                Imprime la string provista en el servicio, y luego le pide al
+                usuario que ingrese un int.
+
+                Si el usuario no ingresa un int, esta función deberá
+                reintentar hasta que el dato ingresado sea un int.
+            </summary>
+            <param name="str">La string a imprimir.</param>
+            <returns>El número ingresado por el usuario.</returns>
         </member>
         <member name="M:Library.IPrinter.PrintListAtaque(System.Collections.Generic.List{Library.Attack})">
             <summary>
-            Imprime la lista de ataques provista en el servicio.
+                Imprime la lista de ataques provista en el servicio.
             </summary>
-            <param name="ataques">La lista de <see cref="T:Library.Attack"/>s a imprimir.</param>
+            <param name="ataques">La lista de <see cref="T:Library.Attack" />s a imprimir.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si <paramref name="ataques"/> es null.
+                Si <paramref name="ataques" /> es null.
             </exception>
         </member>
         <member name="M:Library.IPrinter.SelectAtaque(System.String)">
             <summary>
-            Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
+                Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
             </summary>
             <param name="str">Ni idea.</param>
             <returns>Tampoco sé.</returns>
         </member>
         <member name="T:Library.SelecPokemons">
             <summary>
-            Nota de Guzmán: No sé qué es esto.
+                Nota de Guzmán: No sé qué es esto.
             </summary>
         </member>
-        <member name="M:Library.SelecPokemons.SelecYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
+        <member
+            name="M:Library.SelecPokemons.SelecYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
             <summary>
-            Nota de Guzmán: No sé qué es esto.
+                Nota de Guzmán: No sé qué es esto.
             </summary>
             <param name="player">Un jugador.</param>
             <param name="pokemons">Algunos Pokemon.</param>
             <param name="printer">Un printer.</param>
             <exception cref="T:System.ArgumentNullException">
-            Si algún parámetro es <c>null</c>.
+                Si algún parámetro es <c>null</c>.
             </exception>
+        </member>
+        <member name="M:IEffect.UpdateEffect(Library.Pokemon)">
+            <summary>
+                Actualiza el estado del efecto en cada turno.
+            </summary>
+            <param name="target">El Pokémon al que se aplica el efecto.</param>
+        </member>
+        <member name="M:IEffect.RemoveEffect(Library.Pokemon)">
+            <summary>
+                Elimina el efecto del Pokémon, restaurando cualquier cambio aplicado por el efecto.
+            </summary>
+            <param name="target">El Pokémon del que se elimina el efecto.</param>
+        </member>
+        <member name="P:IEffect.IsExpired">
+            <summary>
+                Indica si el efecto ha expirado y debería ser eliminado del Pokémon.
+            </summary>
         </member>
     </members>
 </doc>

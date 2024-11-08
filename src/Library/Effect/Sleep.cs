@@ -30,7 +30,6 @@ namespace Library
         {
             _turnsRemaining = duration;
             IsExpired = false;
-            Pokemon = pokemon;
         }
 
         /// <summary>
