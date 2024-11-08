@@ -44,7 +44,13 @@ public class Pokemon
         this.Health = maxHealth;
         this.MaxHealth = maxHealth;
         this.attacks = attacks;
+        this.ActiveEffect = null;
     }
+
+    /// <summary>
+    /// Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+    /// </summary>
+    public IEffect? ActiveEffect { get; set; }
 
     /// <summary>
     /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
@@ -60,11 +66,6 @@ public class Pokemon
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
-
-    /// <summary>
-    /// Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
-    /// </summary>
-    public IEffect ActiveEffect;
 
     /// <summary>
     /// Indica si el Pokémon puede atacar en su turno.
@@ -179,7 +180,6 @@ public class Pokemon
         this.Health -= damage;
     }
 
-
     /// <summary>
     /// Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
     /// </summary>
@@ -189,14 +189,14 @@ public class Pokemon
     /// </exception>
     public void ApplyEffect(IEffect effect)
     {
-        if (ActiveEffect != null)
+        if (this.ActiveEffect != null)
         {
             throw new InvalidOperationException(
                 "El Pokémon ya tiene un efecto activo. No se puede aplicar otro efecto hasta que el actual expire.");
         }
         else
         {
-            ActiveEffect = effect;
+            this.ActiveEffect = effect; 
         }
     }
 
@@ -205,11 +205,11 @@ public class Pokemon
     /// </summary>
     public void UpdateEffect()
     {
-        ActiveEffect?.UpdateEffect(this);
+        this.ActiveEffect?.UpdateEffect(this);
 
-        if (ActiveEffect != null && ActiveEffect.IsExpired)
+        if (this.ActiveEffect != null && this.ActiveEffect.IsExpired)
         {
-            RemoveEffect();
+            this.RemoveEffect(); 
         }
     }
 
@@ -218,12 +218,7 @@ public class Pokemon
     /// </summary>
     public void RemoveEffect()
     {
-        if (this.ActiveEffect == null)
-        {
-            throw new InvalidOperationException("No se puede eliminar el efecto porque no hay un efecto activo.");
-        }
-
-        this.ActiveEffect.RemoveEffect(this);
+        this.ActiveEffect?.RemoveEffect(this);
         this.ActiveEffect = null;
     }
 
@@ -247,12 +242,11 @@ public class Pokemon
 
         double multiplier = attacker.Advantage(defender);
         double damage = attack.Damage * multiplier;
-        if (CanAttack)
+        if (this.CanAttack)
         {
             target.Health -= damage;
         }
-
-        UpdateEffect();
+        this.UpdateEffect();
     }
 
     /// <summary>
@@ -283,7 +277,8 @@ public class Pokemon
         }
         catch (InvalidOperationException)
         {
-            throw new ArgumentOutOfRangeException(nameof(attackName),
+            throw new ArgumentOutOfRangeException(
+                nameof(attackName),
                 "El nombre de ataque no se encuentra en la lista de ataques");
         }
 

@@ -161,14 +161,14 @@
             Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
             </summary>
         </member>
+        <member name="F:Library.Effect.Paralysis.random">
+            <summary>
+            Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+            </summary>
+        </member>
         <member name="M:Library.Effect.Paralysis.#ctor">
             <summary>
             Inicializa una nueva instancia del efecto de parálisis con el estado activo.
-            </summary>
-        </member>
-        <member name="F:Library.Effect.Paralysis.Random">
-            <summary>
-            Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
             </summary>
         </member>
         <member name="P:Library.Effect.Paralysis.IsExpired">
@@ -227,7 +227,7 @@
             Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
             </summary>
         </member>
-        <member name="F:Library.Effect.Sleep._turnsRemaining">
+        <member name="F:Library.Effect.Sleep.turnsRemaining">
             <summary>
             Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
             </summary>
@@ -456,7 +456,7 @@
             Esto llama al metodo <see cref="M:Library.Pokemon.Attack(Library.Pokemon,System.String)"/>.
             </remarks>
         </member>
-        <member name="M:Library.Player.IsDead">
+        <member name="M:Library.Player.AllAreDead">
             <summary>
             Devuelve el estado de si todos los pokemons del jugador han muerto.
             </summary>
@@ -492,6 +492,11 @@
              <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
              <param name="attacks">La lista de sus ataques.</param>
         </member>
+        <member name="P:Library.Pokemon.ActiveEffect">
+            <summary>
+            Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+            </summary>
+        </member>
         <member name="P:Library.Pokemon.Name">
             <summary>
             El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
@@ -505,11 +510,6 @@
         <member name="P:Library.Pokemon.MaxHealth">
             <summary>
             Propiedad de solo lectura que representa la salud máxima del pokemon.
-            </summary>
-        </member>
-        <member name="F:Library.Pokemon.ActiveEffect">
-            <summary>
-            Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
             </summary>
         </member>
         <member name="P:Library.Pokemon.CanAttack">

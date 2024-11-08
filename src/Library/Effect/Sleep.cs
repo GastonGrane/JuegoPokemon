@@ -4,72 +4,71 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Effect
+namespace Library.Effect;
+
+/// <summary>
+/// Representa un efecto de sueño que puede ser aplicado a un Pokémon.
+/// Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
+/// </summary>
+public class Sleep : IEffect
 {
     /// <summary>
-    /// Representa un efecto de sueño que puede ser aplicado a un Pokémon.
-    /// Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
+    /// Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
     /// </summary>
-    public class Sleep : IEffect
+    private int turnsRemaining;
+
+    /// <summary>
+    /// Inicializa una nueva instancia del efecto de sueño con la duración especificada.
+    /// </summary>
+    /// <param name="duration">La duración del efecto de sueño en turnos.</param>
+    public Sleep(int duration)
     {
-        /// <summary>
-        /// Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
-        /// </summary>
-        private int _turnsRemaining;
+        this.turnsRemaining = duration;
+        this.IsExpired = false;
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia del efecto de sueño con la duración especificada.
-        /// </summary>
-        /// <param name="duration">La duración del efecto de sueño en turnos.</param>
-        public Sleep(int duration)
+    /// <summary>
+    /// Indica si el efecto de sueño ha expirado y ya no debe aplicarse.
+    /// </summary>
+    public bool IsExpired { get; private set; }
+
+    /// <summary>
+    /// Actualiza el efecto de sueño en el Pokémon objetivo, reduciendo los turnos restantes.
+    /// Cuando el efecto ha durado el número especificado de turnos, se elimina.
+    /// </summary>
+    /// <param name="target">El Pokémon al que se le aplicará el efecto de sueño.</param>
+    /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+    public void UpdateEffect(Pokemon target)
+    {
+        if (target == null)
         {
-            this._turnsRemaining = duration;
-            this.IsExpired = false;
+            throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        /// <summary>
-        /// Indica si el efecto de sueño ha expirado y ya no debe aplicarse.
-        /// </summary>
-        public bool IsExpired { get; private set; }
-
-        /// <summary>
-        /// Actualiza el efecto de sueño en el Pokémon objetivo, reduciendo los turnos restantes.
-        /// Cuando el efecto ha durado el número especificado de turnos, se elimina.
-        /// </summary>
-        /// <param name="target">El Pokémon al que se le aplicará el efecto de sueño.</param>
-        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-        public void UpdateEffect(Pokemon target)
+        if (this.turnsRemaining > 0)
         {
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
-            }
+            this.turnsRemaining--;
+            target.CanAttack = false; // El Pokémon no puede atacar mientras está dormido
+        }
+        else
+        {
+            this.RemoveEffect(target);
+        }
+    }
 
-            if (this._turnsRemaining > 0)
-            {
-                this._turnsRemaining--;
-                target.CanAttack = false; // El Pokémon no puede atacar mientras está dormido
-            }
-            else
-            {
-                this.RemoveEffect(target);
-            }
+    /// <summary>
+    /// Elimina el efecto de sueño del Pokémon, marcándolo como expirado.
+    /// </summary>
+    /// <param name="target">El Pokémon del que se removerá el efecto.</param>
+    /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+    public void RemoveEffect(Pokemon target)
+    {
+        if (target == null)
+        {
+            throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        /// <summary>
-        /// Elimina el efecto de sueño del Pokémon, marcándolo como expirado.
-        /// </summary>
-        /// <param name="target">El Pokémon del que se removerá el efecto.</param>
-        /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-        public void RemoveEffect(Pokemon target)
-        {
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
-            }
-
-            this.IsExpired = true;
-            target.CanAttack = true; // Restaura la capacidad de atacar
-        }
+        this.IsExpired = true;
+        target.CanAttack = true; // Restaura la capacidad de atacar
     }
 }
