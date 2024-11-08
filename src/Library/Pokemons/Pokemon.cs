@@ -1,4 +1,4 @@
-// -----------------------------------------------------------------------
+ // -----------------------------------------------------------------------
 // <copyright file="Pokemon.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
@@ -218,8 +218,13 @@ public class Pokemon
     /// </summary>
     public void RemoveEffect()
     {
-        ActiveEffect?.RemoveEffect(this);
-        ActiveEffect = null;
+        if (this.ActiveEffect == null)
+        {
+            throw new InvalidOperationException("No se puede eliminar el efecto porque no hay un efecto activo.");
+        }
+
+        this.ActiveEffect.RemoveEffect(this);
+        this.ActiveEffect = null;
     }
 
     /// <summary>
