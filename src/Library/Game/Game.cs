@@ -5,8 +5,6 @@ namespace Library;
 /// </summary>
 public class Game
 {
-    ExternalConsole _console = new ExternalConsole();
-
     /// <summary>
     /// El primer jugador en el juego
     /// </summary>
@@ -29,6 +27,8 @@ public class Game
     // Cuando se añada una "Message Gateway" esto se podría ir, porque se irían las advertencias para estos métodos.
     private int tmp;
 
+    private IExternalConection EConection;
+
     /// <summary>
     /// Inicialliza el juego
     /// </summary>
@@ -45,11 +45,12 @@ public class Game
     /// </summary>
     /// <param name="Pokemon">Una lista de <paramref name="Pokemon"/> para usar en el juego </param>
     /// <returns>Una nueva instancia de <see cref="Game"/> que es hard-coded.</returns>
-    public static Game CreateGame(List<Pokemon> Pokemon)
+    public static Game CreateGame(List<Pokemon> Pokemon, IExternalConection conection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", new List<Pokemon>());
         Player p2 = new Player("Sharon", new List<Pokemon>());
+        IExternalConection EConection = conection;
         return new Game(p1, p2);
     }
 
@@ -75,7 +76,7 @@ public class Game
                 turno = NumTurnP2;
             }
 
-            _console.availableAttack(active, other, turno);
+            EConection.availableAttack(active, other, turno);
         }
 
 
