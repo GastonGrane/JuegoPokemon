@@ -13,19 +13,11 @@ namespace Library;
 /// </summary>
 public class Pokemon
 {
-    public List<Attack> AvailableAttacks { get; }
-    public List<(Attack attack, int contador)> LastAttacksUsed { get; }
-
-    public void upDateAvailableAttacks()
-    {
-        foreach (var tuple in LastAttacksUsed)
-        {
-            if (AvailableAttacks.Contains(tuple.attack))
-            {
-                AvailableAttacks.Remove(tuple.attack);
-            }
-        }
-    }
+    /// <summary>
+    /// El valor actual de salud del pokemon.
+    ///
+    /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
+    /// </summary>
     private double health;
 
     /// <summary>
@@ -69,6 +61,8 @@ public class Pokemon
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
+    public List<Attack> AvailableAttacks { get; }
+    public List<(Attack attack, int contador)> LastAttacksUsed { get; }
 
     /// <summary>
     /// Propiedad que obtiene y establece la salud actual del pokemon.
@@ -252,4 +246,16 @@ public class Pokemon
 
         return this.Attacks[attackIdx];
     }
+
+    private void upDateAvailableAttacks()
+    {
+        foreach (var tuple in LastAttacksUsed)
+        {
+            if (AvailableAttacks.Contains(tuple.attack))
+            {
+                AvailableAttacks.Remove(tuple.attack);
+            }
+        }
+    }
+
 }
