@@ -15,17 +15,17 @@ namespace Library.Effect
     public class Paralysis : IEffect
     {
         /// <summary>
+        /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+        /// </summary>
+        private readonly RandomNumberGenerator random = RandomNumberGenerator.Create();
+
+        /// <summary>
         /// Inicializa una nueva instancia del efecto de parálisis con el estado activo.
         /// </summary>
         public Paralysis()
         {
             this.IsExpired = false;
         }
-
-        /// <summary>
-        /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
-        /// </summary>
-        private static readonly RandomNumberGenerator Random = RandomNumberGenerator.Create();
 
         /// <summary>
         /// Indica si el efecto de parálisis ha expirado y ya no debe aplicarse.
@@ -46,7 +46,7 @@ namespace Library.Effect
             }
 
             byte[] randomByte = new byte[1];
-            Random.GetBytes(randomByte);
+            this.random.GetBytes(randomByte);
             target.CanAttack = (randomByte[0] % 2) == 1; // 50% probabilidad de atacar o no
         }
 

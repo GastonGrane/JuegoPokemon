@@ -15,7 +15,7 @@ namespace Library.Effect
         /// <summary>
         /// Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
         /// </summary>
-        private int _turnsRemaining;
+        private int turnsRemaining;
 
         /// <summary>
         /// Inicializa una nueva instancia del efecto de sueño con la duración especificada.
@@ -23,7 +23,7 @@ namespace Library.Effect
         /// <param name="duration">La duración del efecto de sueño en turnos.</param>
         public Sleep(int duration)
         {
-            this._turnsRemaining = duration;
+            this.turnsRemaining = duration;
             this.IsExpired = false;
         }
 
@@ -45,9 +45,9 @@ namespace Library.Effect
                 throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
             }
 
-            if (this._turnsRemaining > 0)
+            if (this.turnsRemaining > 0)
             {
-                this._turnsRemaining--;
+                this.turnsRemaining--;
                 target.CanAttack = false; // El Pokémon no puede atacar mientras está dormido
             }
             else

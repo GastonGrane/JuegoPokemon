@@ -15,5 +15,5 @@ public interface IItem
     /// Aplica el efecto del objeto en el Pokémon especificado.
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
-    public void Use(Pokemon pokemon);
+    public void Use(Pokemon? pokemon);
 }

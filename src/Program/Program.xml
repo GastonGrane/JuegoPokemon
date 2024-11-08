@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <doc>
     <assembly>
         <name>Program</name>
@@ -7,12 +6,12 @@
     <members>
         <member name="T:Program.Program">
             <summary>
-                Clase principal que ejecuta el programa para crear y mostrar una lista de Pokémon en la consola.
+            Clase principal que ejecuta el programa para crear y mostrar una lista de Pokémon en la consola.
             </summary>
         </member>
         <member name="M:Program.Program.Main(System.String[])">
             <summary>
-                Punto de entrada principal del programa.
+            Punto de entrada principal del programa.
             </summary>
             <param name="args">Argumentos de la línea de comandos.</param>
         </member>
