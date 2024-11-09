@@ -249,7 +249,7 @@ public class Pokemon
     /// </exception>
     private bool Attack(Pokemon target, Attack attack)
     {
-        if (!this.attacks.Contains(attack))
+        if (!this.Attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
