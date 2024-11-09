@@ -40,9 +40,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 
@@ -102,9 +102,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 
@@ -146,9 +146,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 

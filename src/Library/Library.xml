@@ -59,30 +59,25 @@
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
         </member>
-        <member name="T:Library.NormalAttackLibrary">
+        <member name="T:Library.NormalAttackRegistry">
             <summary>
             Clase estática con una colección de ataques normales pre-definidos.
             </summary>
+            <remarks>
+            Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>.
+            </remarks>
         </member>
-        <member name="F:Library.NormalAttackLibrary.AquaJet">
+        <member name="M:Library.NormalAttackRegistry.GetNormalAttack(System.String)">
             <summary>
-            Aqua Jet (water).
+            Retorna una copia del <see cref="T:Library.NormalAttack"/> cuyo nombre es <paramref name="name"/>, si se encuentra en el registro.
             </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.BulletSeed">
-            <summary>
-            Bullet Seed (Grass).
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.BlazeKick">
-            <summary>
-            Blaze Kick (Fire).
-            </summary>
-        </member>
-        <member name="F:Library.NormalAttackLibrary.FusionBolt">
-            <summary>
-            Fusion Bolt (Electric).
-            </summary>
+            <param name="name">El nombre del <see cref="T:Library.NormalAttack"/>.</param>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Si el <see cref="T:Library.NormalAttack"/> no está en el registro.
+            </exception>
+            <returns>
+            Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
+            </returns>
         </member>
         <member name="T:Library.SpecialAttack">
              <summary>

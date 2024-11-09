@@ -23,7 +23,7 @@ internal sealed class EffectTests
     {
         List<Attack> ataque = new List<Attack>()
         {
-            NormalAttackLibrary.BlazeKick,
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
         };
         this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
     }

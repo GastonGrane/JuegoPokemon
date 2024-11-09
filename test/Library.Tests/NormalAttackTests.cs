@@ -72,9 +72,9 @@ public class NormalAttackTests
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
