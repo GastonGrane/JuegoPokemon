@@ -17,6 +17,7 @@ public class Pokemon
     /// <summary>
     /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
     /// </summary>
+    // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
     private static readonly Random Random = new Random();
 
     /// <summary>
@@ -24,7 +25,7 @@ public class Pokemon
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
     /// </summary>
-    private double health;
+    private int health;
 
     /// <summary>
     /// Lista de los distintos ataques con los que cuenta el pokemon.
@@ -99,7 +100,7 @@ public class Pokemon
     /// <summary>
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
-    public double MaxHealth { get; }
+    public int MaxHealth { get; }
 
     /// <summary>
     /// Indica si el Pokémon puede atacar en su turno.
@@ -113,7 +114,7 @@ public class Pokemon
     /// - Si el valor es menor que 0, se establece en 0.
     /// - De lo contrario, se asigna el valor directamente.
     /// </summary>
-    public double Health
+    public int Health
     {
         get
         {
@@ -283,7 +284,7 @@ public class Pokemon
             PokemonType attacker = attack.Type;
             PokemonType defender = target.Type;
             double multiplier = attacker.Advantage(defender);
-            double damage = attack.Damage * multiplier;
+            int damage = (int)(attack.Damage * multiplier);
             if (!this.CanAttack)
             {
                 target.Health -= damage;

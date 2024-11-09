@@ -28,7 +28,7 @@ public static class PokemonRegistry
                 NormalAttackRegistry.GetNormalAttack("Thunder Shock"),
                 NormalAttackRegistry.GetNormalAttack("Quick Attack"),
                 SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
-                NormalAttackRegistry.GetNormalAttack("Thunderbolt"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunderbolt"),
             })
         },
         {
@@ -142,7 +142,7 @@ public static class PokemonRegistry
         {
             "Weedle", new Pokemon("Weedle", PokemonType.Bug, 40, new List<Attack>
             {
-                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Sting"),
                 NormalAttackRegistry.GetNormalAttack("Bug Bite"),
                 SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
                 NormalAttackRegistry.GetNormalAttack("String Shot"),
@@ -151,7 +151,7 @@ public static class PokemonRegistry
         {
             "Kakuna", new Pokemon("Kakuna", PokemonType.Bug, 45, new List<Attack>
             {
-                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Sting"),
                 NormalAttackRegistry.GetNormalAttack("Bug Bite"),
                 SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
                 NormalAttackRegistry.GetNormalAttack("Harden"),
@@ -233,7 +233,7 @@ public static class PokemonRegistry
             "Ekans", new Pokemon("Ekans", PokemonType.Poison, 35, new List<Attack>
             {
                 NormalAttackRegistry.GetNormalAttack("Wrap"),
-                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Sting"),
                 SpecialAttackRegistry.GetSpecialAttack("Toxic"),
                 NormalAttackRegistry.GetNormalAttack("Bite"),
             })
@@ -250,7 +250,7 @@ public static class PokemonRegistry
         {
             "Raichu", new Pokemon("Raichu", PokemonType.Electric, 60, new List<Attack>
             {
-                NormalAttackRegistry.GetNormalAttack("Thunderbolt"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunderbolt"),
                 NormalAttackRegistry.GetNormalAttack("Thunder"),
                 SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
                 NormalAttackRegistry.GetNormalAttack("Iron Tail"),
