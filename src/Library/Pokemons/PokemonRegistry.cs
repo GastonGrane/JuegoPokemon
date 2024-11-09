@@ -14,154 +14,112 @@ namespace Library;
 /// </remarks>
 public static class PokemonRegistry
 {
+    /// <summary>
+    /// El diccionario entre nombre de Pokemon y Pokemon. Lo devuelto al usuario será una copia de un elemento de este diccionario.
+    /// </summary>
+    /// <remarks>
+    /// Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
+    /// </remarks>
+    // FIXME: Faltan los ataques
     private static readonly Dictionary<string, Pokemon> PokemonTemplates = new()
     {
-        // href="/pokedex/pikachu"
-        { "Pikachu", new Pokemon("Pikachu", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Pikachu", new Pokemon("Pikachu", PokemonType.Electric, 35, new List<Attack> { }) },
 
-            // href="/pokedex/bulbasaur"
-        { "Bulbasaur", new Pokemon("Bulbasaur", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Bulbasaur", new Pokemon("Bulbasaur", PokemonType.Grass, 45, new List<Attack> { }) },
 
-            // href="/pokedex/ivysaur"
-        { "Ivysaur", new Pokemon("Ivysaur", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Ivysaur", new Pokemon("Ivysaur", PokemonType.Grass, 60, new List<Attack> { }) },
 
-            // href="/pokedex/venusaur"
-        { "Venusaur", new Pokemon("Venusaur", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Venusaur", new Pokemon("Venusaur", PokemonType.Grass, 80, new List<Attack> { }) },
 
-            // href="/pokedex/charmander"
-        { "Charmander", new Pokemon("Charmander", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Charmander", new Pokemon("Charmander", PokemonType.Fire, 39, new List<Attack> { }) },
 
-            // href="/pokedex/charmeleon"
-        { "Charmeleon", new Pokemon("Charmeleon", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Charmeleon", new Pokemon("Charmeleon", PokemonType.Fire, 58, new List<Attack> { }) },
 
-            // href="/pokedex/charizard"
-        { "Charizard", new Pokemon("Charizard", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Charizard", new Pokemon("Charizard", PokemonType.Fire, 78, new List<Attack> { }) },
 
-            // href="/pokedex/squirtle"
-        { "Squirtle", new Pokemon("Squirtle", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Squirtle", new Pokemon("Squirtle", PokemonType.Water, 44, new List<Attack> { }) },
 
-            // href="/pokedex/wartortle"
-        { "Wartortle", new Pokemon("Wartortle", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Wartortle", new Pokemon("Wartortle", PokemonType.Water, 59, new List<Attack> { }) },
 
-            // href="/pokedex/blastoise"
-        { "Blastoise", new Pokemon("Blastoise", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Blastoise", new Pokemon("Blastoise", PokemonType.Water, 79, new List<Attack> { }) },
 
-            // href="/pokedex/caterpie"
-        { "Caterpie", new Pokemon("Caterpie", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Caterpie", new Pokemon("Caterpie", PokemonType.Bug, 45, new List<Attack> { }) },
 
-            // href="/pokedex/metapod"
-        { "Metapod", new Pokemon("Metapod", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Metapod", new Pokemon("Metapod", PokemonType.Bug, 50, new List<Attack> { }) },
 
-            // href="/pokedex/butterfree"
-        { "Butterfree", new Pokemon("Butterfree", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Butterfree", new Pokemon("Butterfree", PokemonType.Bug, 60, new List<Attack> { }) },
 
-            // href="/pokedex/weedle"
-        { "Weedle", new Pokemon("Weedle", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Weedle", new Pokemon("Weedle", PokemonType.Bug, 40, new List<Attack> { }) },
 
-            // href="/pokedex/kakuna"
-        { "Kakuna", new Pokemon("Kakuna", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Kakuna", new Pokemon("Kakuna", PokemonType.Bug, 45, new List<Attack> { }) },
 
-            // href="/pokedex/beedrill"
-        { "Beedrill", new Pokemon("Beedrill", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Beedrill", new Pokemon("Beedrill", PokemonType.Bug, 65, new List<Attack> { }) },
 
-            // href="/pokedex/pidgey"
-        { "Pidgey", new Pokemon("Pidgey", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Pidgey", new Pokemon("Pidgey", PokemonType.Bug, 40, new List<Attack> { }) },
 
-            // href="/pokedex/pidgeotto"
-        { "Pidgeotto", new Pokemon("Pidgeotto", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Pidgeotto", new Pokemon("Pidgeotto", PokemonType.Bug, 63, new List<Attack> { }) },
 
-            // href="/pokedex/pidgeot"
-        { "Pidgeot", new Pokemon("Pidgeot", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Pidgeot", new Pokemon("Pidgeot", PokemonType.Bug, 83, new List<Attack> { }) },
 
-            // href="/pokedex/rattata"
-        { "Rattata", new Pokemon("Rattata", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Rattata", new Pokemon("Rattata", PokemonType.Normal, 30, new List<Attack> { }) },
 
-            // href="/pokedex/raticate"
-        { "Raticate", new Pokemon("Raticate", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Raticate", new Pokemon("Raticate", PokemonType.Normal, 55, new List<Attack> { }) },
 
-            // href="/pokedex/spearow"
-        { "Spearow", new Pokemon("Spearow", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Spearow", new Pokemon("Spearow", PokemonType.Flying, 40, new List<Attack> { }) },
 
-            // href="/pokedex/fearow"
-        { "Fearow", new Pokemon("Fearow", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Fearow", new Pokemon("Fearow", PokemonType.Flying, 65, new List<Attack> { }) },
 
-            // href="/pokedex/ekans"
-        { "Ekans", new Pokemon("Ekans", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Ekans", new Pokemon("Ekans", PokemonType.Poison, 35, new List<Attack> { }) },
 
-            // href="/pokedex/arbok"
-        { "Arbok", new Pokemon("Arbok", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Arbok", new Pokemon("Arbok", PokemonType.Poison, 60, new List<Attack> { }) },
 
-            // href="/pokedex/raichu"
-        { "Raichu", new Pokemon("Raichu", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Raichu", new Pokemon("Raichu", PokemonType.Electric, 60, new List<Attack> { }) },
 
-            // href="/pokedex/jigglypuff"
-        { "Jigglypuff", new Pokemon("Jigglypuff", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Jigglypuff", new Pokemon("Jigglypuff", PokemonType.Normal, 115, new List<Attack> { }) },
 
-            // href="/pokedex/wigglytuff"
-        { "Wigglytuff", new Pokemon("Wigglytuff", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Wigglytuff", new Pokemon("Wigglytuff", PokemonType.Normal, 140, new List<Attack> { }) },
 
-            // href="/pokedex/zubat"
-        { "Zubat", new Pokemon("Zubat", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Zubat", new Pokemon("Zubat", PokemonType.Poison, 40, new List<Attack> { }) },
 
-            // href="/pokedex/golbat"
-        { "Golbat", new Pokemon("Golbat", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Golbat", new Pokemon("Golbat", PokemonType.Poison, 75, new List<Attack> { }) },
 
-            // href="/pokedex/oddish"
-        { "Oddish", new Pokemon("Oddish", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Oddish", new Pokemon("Oddish", PokemonType.Grass, 45, new List<Attack> { }) },
 
-            // href="/pokedex/gloom"
-        { "Gloom", new Pokemon("Gloom", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Gloom", new Pokemon("Gloom", PokemonType.Poison, 60, new List<Attack> { }) },
 
-            // href="/pokedex/vileplume"
-        { "Vileplume", new Pokemon("Vileplume", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Vileplume", new Pokemon("Vileplume", PokemonType.Poison, 75, new List<Attack> { }) },
 
-            // href="/pokedex/paras"
-        { "Paras", new Pokemon("Paras", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Paras", new Pokemon("Paras", PokemonType.Bug, 35, new List<Attack> { }) },
 
-            // href="/pokedex/parasect"
-        { "Parasect", new Pokemon("Parasect", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Parasect", new Pokemon("Parasect", PokemonType.Bug, 60, new List<Attack> { }) },
 
-            // href="/pokedex/venonat"
-        { "Venonat", new Pokemon("Venonat", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Venonat", new Pokemon("Venonat", PokemonType.Bug, 60, new List<Attack> { }) },
 
-            // href="/pokedex/venomoth"
-        { "Venomoth", new Pokemon("Venomoth", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Venomoth", new Pokemon("Venomoth", PokemonType.Bug, 70, new List<Attack> { }) },
 
-            // href="/pokedex/diglett"
-        { "Diglett", new Pokemon("Diglett", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Diglett", new Pokemon("Diglett", PokemonType.Ground, 10, new List<Attack> { }) },
 
-            // href="/pokedex/dugtrio"
-        { "Dugtrio", new Pokemon("Dugtrio", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Dugtrio", new Pokemon("Dugtrio", PokemonType.Ground, 35, new List<Attack> { }) },
 
-            // href="/pokedex/meowth"
-        { "Meowth", new Pokemon("Meowth", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Meowth", new Pokemon("Meowth", PokemonType.Normal, 40, new List<Attack> { }) },
 
-            // href="/pokedex/snorlax"
-        { "Snorlax", new Pokemon("Snorlax", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Snorlax", new Pokemon("Snorlax", PokemonType.Normal, 160, new List<Attack> { }) },
 
-            // href="/pokedex/articuno"
-        { "Articuno", new Pokemon("Articuno", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Articuno", new Pokemon("Articuno", PokemonType.Ice, 90, new List<Attack> { }) },
 
-            // href="/pokedex/zapdos"
-        { "Zapdos", new Pokemon("Zapdos", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Zapdos", new Pokemon("Zapdos", PokemonType.Electric, 90, new List<Attack> { }) },
 
-            // href="/pokedex/moltres"
-        { "Moltres", new Pokemon("Moltres", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Moltres", new Pokemon("Moltres", PokemonType.Fire, 90, new List<Attack> { }) },
 
-            // href="/pokedex/mewtwo"
-        { "Mewtwo", new Pokemon("Mewtwo", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Mewtwo", new Pokemon("Mewtwo", PokemonType.Psychic, 106, new List<Attack> { }) },
 
-            // href="/pokedex/mew"
-        { "Mew", new Pokemon("Mew", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Mew", new Pokemon("Mew", PokemonType.Bug, 100, new List<Attack> { }) },
 
-            // href="/pokedex/dragonair"
-        { "Dragonair", new Pokemon("Dragonair", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Dragonair", new Pokemon("Dragonair", PokemonType.Dragon, 61, new List<Attack> { }) },
 
-            // href="/pokedex/dragonite"
-        { "Dragonite", new Pokemon("Dragonite", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Dragonite", new Pokemon("Dragonite", PokemonType.Dragon, 91, new List<Attack> { }) },
 
-            // href="/pokedex/geodude"
-        { "Geodude", new Pokemon("Geodude", PokemonType.Bug, 0, new List<Attack> { }) },
+        { "Geodude", new Pokemon("Geodude", PokemonType.Rock, 40, new List<Attack> { }) },
     };
 
     /// <summary>
