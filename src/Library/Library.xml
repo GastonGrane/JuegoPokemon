@@ -501,6 +501,16 @@
             Propiedad de solo lectura que representa la salud máxima del pokemon.
             </summary>
         </member>
+        <member name="P:Library.Pokemon.AvailableAttacks">
+            <summary>
+            La lista de ataques disponibles para utilizar.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.LastAttacksUsed">
+            <summary>
+            La lista de los últimos ataques realizados.
+            </summary>
+        </member>
         <member name="P:Library.Pokemon.CanAttack">
             <summary>
             Indica si el Pokémon puede atacar en su turno.

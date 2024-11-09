@@ -73,8 +73,16 @@ public class Pokemon
     /// Propiedad de solo lectura que representa la salud máxima del pokemon.
     /// </summary>
     public double MaxHealth { get; }
+
+    /// <summary>
+    /// La lista de ataques disponibles para utilizar.
+    /// </summary>
     public List<Attack> AvailableAttacks { get; }
-    public List<(Attack attack, int contador)> LastAttacksUsed { get; }
+
+    /// <summary>
+    /// La lista de los últimos ataques realizados.
+    /// </summary>
+    public List<(Attack Attack, int Contador)> LastAttacksUsed { get; }
 
     /// <summary>
     /// Indica si el Pokémon puede atacar en su turno.
@@ -332,10 +340,7 @@ public class Pokemon
     {
         foreach (var tuple in this.LastAttacksUsed)
         {
-            if (this.AvailableAttacks.Contains(tuple.attack))
-            {
-                this.AvailableAttacks.Remove(tuple.attack);
-            }
+            this.AvailableAttacks.Remove(tuple.Attack);
         }
     }
 }
