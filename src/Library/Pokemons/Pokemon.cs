@@ -1,7 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="Pokemon.cs" company="Universidad Católica del Uruguay">
-// Copyright (c) Programación II. Derechos reservados.
-// </copyright>
+// Universidad Católica del Uruguay. Programación II. Todos los derechos reservados.
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
@@ -10,35 +8,27 @@ using Library.Effect;
 namespace Library;
 
 /// <summary>
-/// Crea instancias de los distintos pokemons.
+/// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.
 /// </summary>
 public class Pokemon
 {
-    /// <summary>
-    /// El valor actual de salud del pokemon.
-    ///
-    /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
-    /// </summary>
+    private static readonly Random Random = new Random();
     private double health;
-
-    /// <summary>
-    /// Lista de los distintos ataques con los que cuenta el pokemon.
-    ///
-    /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
-    /// </summary>
     private List<Attack> attacks;
 
     /// <summary>
-    /// Crea un pokemon con los valores provistos.
-    ///
-    /// El Pokemon empieza con su vida siendo su total.
+    /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados.
     /// </summary>
-    /// <param name="name">El nombre del Pokemon.</param>
-    /// <param name="type">El tipo del Pokemon.</param>
-    /// <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
-    /// <param name="attacks">La lista de sus ataques.</param>
+    /// <param name="name">El nombre del Pokémon.</param>
+    /// <param name="type">El tipo del Pokémon.</param>
+    /// <param name="maxHealth">La salud máxima del Pokémon.</param>
+    /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
+
         this.Name = name;
         this.Type = type;
         this.Health = maxHealth;
@@ -48,24 +38,39 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+    /// Crea una copia del Pokémon, conservando sus atributos pero sin copiar su estado actual.
+    /// </summary>
+    /// <param name="pokemon">El Pokémon a copiar.</param>
+    public Pokemon(Pokemon pokemon)
+    {
+        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
+        this.Name = pokemon.Name;
+        this.Type = pokemon.Type;
+        this.Health = pokemon.Health;
+        this.MaxHealth = (int)pokemon.Health;
+        this.attacks = pokemon.attacks;
+        this.ActiveEffect = null;
+    }
+
+    /// <summary>
+    /// Efecto activo que afecta al Pokémon, como veneno o parálisis.
     /// </summary>
     public IEffect? ActiveEffect { get; set; }
 
     /// <summary>
-    /// El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
+    /// Nombre del Pokémon.
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// Determina de qué tipo será este pokemon. Esto afecta las ventajas al momento de recibir ataques.
+    /// Tipo del Pokémon, que afecta la efectividad de los ataques.
     /// </summary>
     public PokemonType Type { get; }
 
     /// <summary>
-    /// Propiedad de solo lectura que representa la salud máxima del pokemon.
+    /// Salud máxima del Pokémon.
     /// </summary>
-    public double MaxHealth { get; }
+    public int MaxHealth { get; }
 
     /// <summary>
     /// Indica si el Pokémon puede atacar en su turno.
@@ -73,58 +78,32 @@ public class Pokemon
     public bool CanAttack { get; set; }
 
     /// <summary>
-    /// Propiedad que obtiene y establece la salud actual del pokemon.
-    /// La settear la vida se ajusta automáticamente para que esté dentro del rango de 0 a <see cref="MaxHealth"/>:
-    /// - Si el valor excede al de <see cref="MaxHealth"/>, se establece el valor correspondiente al de <see cref="MaxHealth"/>.
-    /// - Si el valor es menor que 0, se establece en 0.
-    /// - De lo contrario, se asigna el valor directamente.
+    /// Salud actual del Pokémon.
     /// </summary>
     public double Health
     {
-        get
-        {
-            return this.health;
-        }
-
+        get { return (int)this.health; }
         private set
         {
             if (value > this.MaxHealth && this.MaxHealth != 0)
-            {
                 this.health = this.MaxHealth;
-            }
             else if (value < 0)
-            {
                 this.health = 0;
-            }
             else
-            {
                 this.health = value;
-            }
         }
     }
 
     /// <summary>
-    /// Lista de los distintos ataques con los que cuenta el pokemon.
+    /// Lista de ataques disponibles para el Pokémon.
     /// </summary>
-    public ReadOnlyCollection<Attack> Attacks
-    {
-        get { return this.attacks.AsReadOnly(); }
-    }
+    public ReadOnlyCollection<Attack> Attacks => this.attacks.AsReadOnly();
 
     /// <summary>
-    /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
+    /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado.
     /// </summary>
-    /// <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
-    /// <param name="attackIdx">El índice del ataque en la lista de ataques del Pokémon.</param>
-    /// <exception cref="ArgumentNullException">
-    /// Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
-    /// </exception>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido ([0,(cant. ataques - 1)]).
-    /// </exception>
+    /// <param name="target">Pokémon objetivo del ataque.</param>
+    /// <param name="attackIdx">Índice del ataque en la lista de ataques del Pokémon.</param>
     public void Attack(Pokemon target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
@@ -135,17 +114,8 @@ public class Pokemon
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
     /// </summary>
-    /// <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
-    /// <param name="attackName">El nombre del ataque que se usará para realizar el daño.</param>
-    /// <exception cref="ArgumentNullException">
-    /// Lanzada si el Pokémon objetivo <paramref name="target"/> es <c>null</c>.
-    /// </exception>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
-    /// </exception>
+    /// <param name="target">Pokémon objetivo del ataque.</param>
+    /// <param name="attackName">Nombre del ataque a utilizar.</param>
     public void Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
@@ -154,42 +124,33 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Suma un valor especificado a la vida que ya tiene el pokemon.
+    /// Suma un valor a la salud actual del Pokémon.
     /// </summary>
-    /// <param name="health">La cantidad de vida que se le suma a la vida actual del Pokémon.</param>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
-    /// </exception>
+    /// <param name="health">Cantidad de salud a añadir.</param>
     public void Heal(int health)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(health, nameof(health));
-
         this.Health += health;
     }
 
     /// <summary>
     /// Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
-    /// Si el valor de daño es menor que 5, se lanzará una excepción.
     /// </summary>
-    /// <param name="damage">La cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Se lanza si el daño es menor que 5.</exception>
-    public void Damage(int damage)
+    /// <param name="damage">Cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
+    public void Damage(double damage)
     {
-        if (damage < 0)
+        if (damage < 5)
         {
-            throw new ArgumentOutOfRangeException(nameof(damage), "El daño debe ser mayor a 0.");
+            throw new ArgumentOutOfRangeException(nameof(damage), "El daño debe ser mayor a 5.");
         }
 
         this.Health -= damage;
     }
 
     /// <summary>
-    /// Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
+    /// Aplica un efecto al Pokémon si no tiene un efecto activo.
     /// </summary>
-    /// <param name="effect">El efecto que se intentará aplicar al Pokémon.</param>
-    /// <exception cref="InvalidOperationException">
-    /// Se lanza si el Pokémon ya tiene un efecto activo y se intenta aplicar un nuevo efecto antes de que el actual expire.
-    /// </exception>
+    /// <param name="effect">Efecto a aplicar.</param>
     public void ApplyEffect(IEffect effect)
     {
         if (this.ActiveEffect != null)
@@ -204,12 +165,11 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Actualiza el efecto activo del Pokémon en cada turno. Si el efecto ha expirado, lo elimina.
+    /// Actualiza el efecto activo del Pokémon en cada turno y lo elimina si ha expirado.
     /// </summary>
     public void UpdateEffect()
     {
         this.ActiveEffect?.UpdateEffect(this);
-
         if (this.ActiveEffect != null && this.ActiveEffect.IsExpired)
         {
             this.RemoveEffect();
@@ -226,55 +186,30 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado,
-    /// siempre y cuando el Pokémon atacante esté en condiciones de atacar.
-    /// Aplica el daño correspondiente y, si es un ataque especial, también aplica el efecto especial.
+    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
-    /// <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
-    /// <param name="attack">El ataque que se usará para realizar el daño.</param>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Se lanza si el ataque especificado no se encuentra en la lista de ataques del Pokémon atacante.
-    /// </exception>
-    /// <remarks>
-    /// Si el ataque es de tipo <see cref="SpecialAttack"/>, se aplicará el efecto especial al Pokémon objetivo,
-    /// siempre que no tenga un efecto activo.
-    /// El daño causado se ajusta según la ventaja de tipo entre el atacante y el objetivo.
-    /// </remarks>
-    private void Attack(Pokemon target, Attack attack)
+    /// <param name="target">Pokémon objetivo del ataque.</param>
+    /// <param name="attack">Ataque a utilizar.</param>
+    private bool Attack(Pokemon target, Attack attack)
     {
         if (!this.Attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        if (this.CanAttack)
+        if (Random.Next(100) < attack.Precision)
         {
-            if (attack is SpecialAttack specialAttack)
-            {
-                specialAttack.Do(target);
-            }
-
-            double multiplier = attack.Type.Advantage(target.Type);
-            double damage = attack.Damage * multiplier;
-            target.Damage((int)damage);
+            attack.Use(this);
+            return true;
         }
 
-        this.UpdateEffect(); // Actualiza el efecto actual del atacante
+        return false;
     }
 
     /// <summary>
-    /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
+    /// Retorna el ataque correspondiente al nombre especificado.
     /// </summary>
-    /// <param name="attackName">
-    /// Nombre del ataque al cual se quiere acceder.
-    /// </param>
-    /// <returns>El ataque cuyo nombre es el nombre pasado.</returns>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
-    /// </exception>
+    /// <param name="attackName">Nombre del ataque.</param>
     private Attack GetAttack(string attackName)
     {
         if (this.Attacks.Count == 0)
@@ -282,7 +217,6 @@ public class Pokemon
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
         }
 
-        // FIXME: Esto debería comparar así nomás, o se tendría que normalizar acá, o antes?
         Attack attack;
         try
         {
@@ -299,18 +233,9 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Retorna el ataque correspondiente al valor que recibe como parámetro.
+    /// Retorna el ataque correspondiente al índice especificado.
     /// </summary>
-    /// <param name="attackIdx">
-    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
-    /// </param>
-    /// <returns>El ataque correspondiente al índice provisto.</returns>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
-    /// </exception>
+    /// <param name="attackIdx">Índice del ataque.</param>
     private Attack GetAttack(int attackIdx)
     {
         if (this.Attacks.Count == 0)

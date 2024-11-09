@@ -1,49 +1,67 @@
 // -----------------------------------------------------------------------
 // <copyright file="SpecialAttack.cs" company="Universidad Católica del Uruguay">
-// Copyright (c) Programación II. Derechos reservados.
-// </copyright>
+// Copyright (c) Programación II. Todos los derechos reservados.
 // -----------------------------------------------------------------------
 
 using Library.Effect;
 
-namespace Library
+namespace Library;
+
+// FIXME: Por ahora, este código no implementa ataques especiales ni define los efectos aplicados
+
+/// <summary>
+/// Representa un ataque especial que, además de causar daño, también inflige un estado en el Pokémon objetivo,
+/// dependiendo del tipo de ataque que se utilice. Una vez que el ataque acierta, el estado se aplica
+/// con un 100% de precisión.
+/// </summary>
+public class SpecialAttack : Attack
 {
+    private PokemonType attackType;
+    private IEffect Effect;
+
     /// <summary>
-    /// Representa un ataque especial que, además de causar daño,
-    /// aplica un efecto en el Pokémon objetivo. El efecto depende del tipo de ataque.
-    /// Una vez que el ataque impacta, el efecto se aplica al Pokémon objetivo,
-    /// con una precisión del 100% para la aplicación del efecto.
-    /// </summary>
-    /// <remarks>
     /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>.
-    /// </remarks>
-    /// <param name="name">El nombre del ataque especial.</param>
-    /// <param name="damage">La cantidad de daño que realiza el ataque.</param>
-    /// <param name="attackType">El tipo del ataque (<see cref="PokemonType"/>).</param>
-    /// <param name="effect">El efecto especial que se aplicará al Pokémon objetivo.</param>
-    public class SpecialAttack(string name, int damage, PokemonType attackType, IEffect effect) : Attack(name, damage, attackType)
+    /// </summary>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision)
+        : base(name, damage, attackType, precision)
     {
-        /// <summary>
-        /// Obtiene el efecto especial que se aplica al Pokémon objetivo.
-        /// </summary>
-        private IEffect Effect { get; set; } = effect;
+        this.attackType = attackType;
+        this.Effect = Effect;
+    }
 
-        /// <summary>
-        /// Aplica el efecto especial al Pokémon objetivo si no tiene un efecto activo.
-        /// </summary>
-        /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
-        /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
-        public void Do(Pokemon target)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>, copiando los valores
+    /// de otra instancia de <see cref="SpecialAttack"/>.
+    /// </summary>
+    /// <param name="attack">Instancia de ataque especial a copiar.</param>
+    /// <exception cref="ArgumentNullException">Se lanza si el parámetro <paramref name="attack"/> es <c>null</c>.</exception>
+    public SpecialAttack(SpecialAttack attack)
+        : base(attack)
+    {
+    }
+
+    private static readonly Random Random = new Random();
+
+    /// <summary>
+    /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
+    /// activo, se le aplica el efecto de este ataque.
+    /// </summary>
+    /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
+    /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
+    public override void Use(Pokemon target)
+    {
+        if (target == null)
         {
-            if (target == null)
-            {
-                throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
-            }
+            throw new ArgumentNullException(nameof(target));
+        }
 
-            if (target.ActiveEffect == null)
-            {
-                target.ApplyEffect(this.Effect);
-            }
+        double multiplier = attackType.Advantage(target.Type);
+        double damage = this.Damage * multiplier;
+        target.Damage((int)damage);
+
+        if (target.ActiveEffect == null)
+        {
+            target.ApplyEffect(this.Effect);
         }
     }
 }
