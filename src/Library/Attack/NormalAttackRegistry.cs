@@ -30,7 +30,7 @@ public static class NormalAttackRegistry
     /// Si el <see cref="NormalAttack"/> no está en el registro.
     /// </exception>
     /// <returns>
-    /// Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
+    /// Una copia del <see cref="NormalAttack"/> cuyo nombre es <paramref name="name"/>.
     /// </returns>
     public static NormalAttack GetNormalAttack(string name)
     {

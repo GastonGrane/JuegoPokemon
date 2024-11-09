@@ -28,4 +28,16 @@ public class SpecialAttack : Attack
         : base(name, damage, attackType)
     {
     }
+
+    /// <summary>
+    /// Constructor que copia los valores de una instancia de la clase <see cref="SpecialAttack"/>.
+    /// </summary>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
+    public SpecialAttack(SpecialAttack attack)
+        : base(attack)
+    {
+    }
 }
