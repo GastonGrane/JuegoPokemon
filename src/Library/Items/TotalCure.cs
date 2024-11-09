@@ -10,6 +10,11 @@ namespace Library.Items;
 /// Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
 /// Al usar este objeto en un Pokémon, se eliminan todos los efectos de estado aplicados a él.
 /// </summary>
+/// <remarks>
+/// La clase <see cref="TotalCure"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
+/// de un ítem que elimina todos los efectos de estado negativos de un Pokémon.
+/// Esta implementación también muestra el uso de excepciones para asegurar que el objeto se utilice correctamente.
+/// </remarks>
 public class TotalCure : IItem
 {
     /// <summary>
@@ -17,6 +22,11 @@ public class TotalCure : IItem
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
+    /// <remarks>
+    /// Este método primero verifica si el parámetro <paramref name="pokemon"/> es nulo. Si el Pokémon tiene un efecto activo,
+    /// se elimina llamando a su método <see cref="Pokemon.RemoveEffect"/>. Si no hay efecto activo, se lanza una excepción
+    /// <see cref="InvalidOperationException"/>.
+    /// </remarks>
     public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));

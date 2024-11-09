@@ -8,9 +8,19 @@ namespace Library;
 
 /// <summary>
 /// Representa la comunicación a un servicio externo.
-///
 /// Permite imprimir texto, y pedirlo al usuario una selección.
 /// </summary>
+/// <remarks>
+/// Esta interfaz cumple con OCP "Open-Closed Principle" si se neccesita cambiar como se imprime la informcacio, se puede
+/// crear nuevas implementacion sin modificar la interzas original.
+/// Tambien cumple con DIP "Dependency Inversion Principle" al abstraer la funcionalidad de la impresion y permitir que
+/// las clases de alto nivel (como toda la logica del juego) dependan de la interfaz en lugar de depender de una
+/// implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
+/// La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
+/// mantiene una alta cohesion en la misma.
+/// LA interfaz cumple tambien con ISP "Interface Segregation Principle" ya que la misma proporciona varios metodos, pero muy especificos y coherentes
+/// relacionados con la impresion y la entrada de usuario.
+/// </remarks>
 public interface IPrinter
 {
     /// <summary>
@@ -47,11 +57,4 @@ public interface IPrinter
     /// Si <paramref name="ataques"/> es null.
     /// </exception>
     public void PrintListAtaque(List<Attack> ataques);
-
-    /// <summary>
-    /// Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
-    /// </summary>
-    /// <param name="str">Ni idea.</param>
-    /// <returns>Tampoco sé.</returns>
-    public int SelectAtaque(string str);
 }

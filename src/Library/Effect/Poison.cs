@@ -10,6 +10,11 @@ namespace Library.Effect;
 /// Representa un efecto de veneno que puede ser aplicado a un Pokémon.
 /// Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
 /// </summary>
+/// /// <remarks>
+/// Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+/// logica del efecto Burn, e implementa la interfaz <see cref="IEffect"/>, respetando el "Open-Closed Principle" al
+/// facilitar la adición de nuevos efectos sin modificar la lógica de la interfaz base.
+/// </remarks>
 public class Poison : IEffect
 {
     /// <summary>

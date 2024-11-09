@@ -9,6 +9,10 @@ namespace Library.Items;
 /// <summary>
 /// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
 /// </summary>
+/// <remarks>
+/// La clase <see cref="Revive"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
+/// del ítem "Revive".
+/// </remarks>
 public class Revive : IItem
 {
     /// <summary>

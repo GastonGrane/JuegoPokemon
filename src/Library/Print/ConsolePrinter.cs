@@ -9,6 +9,9 @@ namespace Library;
 /// <summary>
 /// Un IPrinter que imprime/toma entrada de la consola.
 /// </summary>
+/// <remarks>
+/// Cumple con SRP "Single Responsability Principle", ya que su unica responsabilidad es manejar la interaccion con la consola.
+/// </remarks>
 public class ConsolePrinter : IPrinter
 {
     /// <summary>

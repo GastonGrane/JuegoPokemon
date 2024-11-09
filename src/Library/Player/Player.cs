@@ -7,8 +7,13 @@
 namespace Library;
 
 /// <summary>
-/// Un jugador de pokemon.
+/// Este un jugador en el juego, el cual tiene un nombre, y una lista con sus pokemons.
+/// El jugador puede cambiar de pokemon activo, atacar a aotro jugador y verificar si todos sus pokemons estan muertos.
 /// </summary>
+/// <remarks>
+/// La clase <see cref="Player"/> esta encargada de gestionar las interacciones basicas que puede tener un jugador con
+/// sus pokemon a lo largo de la batalla de pokemon.
+/// </remarks>
 public class Player
 {
     /// <summary>

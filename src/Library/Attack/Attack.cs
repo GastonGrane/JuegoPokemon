@@ -10,8 +10,13 @@ namespace Library;
 /// Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
 /// </summary>
 /// <remarks>
-/// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos,
-/// tal como <see cref="NormalAttack"/>.
+/// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos.
+/// ESta clase utiliza SRP "Single Responsibility Principle" al encapsular exclusivamente los atributos de un ataque
+/// sin la logica correspondiente. Cumple también con el principio de OCP "Open-Closed Principle", ya que permite
+/// la extensión a través de subclases como <see cref="NormalAttack"/> o <see cref="SpecialAttack"/> sin necesidad de
+/// modificar el código base.
+/// E implementa el patrón GRASP de "Polimorfismo", ya que se espera que las subclases concreten comportamientos específicos.
+/// Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
 /// </remarks>
 public abstract class Attack
 {
