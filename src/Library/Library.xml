@@ -9,11 +9,7 @@
             Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
             </summary>
             <remarks>
-<<<<<<< HEAD
-            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos ,
-=======
             La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos,
->>>>>>> main
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
@@ -54,11 +50,7 @@
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
             <summary>
-<<<<<<< HEAD
-            El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>
-=======
             El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>.
->>>>>>> main
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
@@ -300,14 +292,6 @@
             <param name="pokemon">Una lista de <see cref="T:Library.Pokemon"/> para usar en el juego.</param>
             <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
         </member>
-<<<<<<< HEAD
-        <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
-             <summary>
-            Ejecuta un ataque por el jugador que le toca hacia el contrincante
-             </summary>
-             <param name="active">El <see cref="T:Library.Player"/> que va a atacar</param>
-             <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado</param>
-=======
         <member name="M:Library.Game.Play">
             <summary>
             Comienza el juego, va alternando el turno entre los jugadores.
@@ -353,7 +337,6 @@
             <remarks>
             Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
             </remarks>
->>>>>>> main
         </member>
         <member name="T:Library.Items.IItem">
             <summary>
@@ -537,52 +520,6 @@
             Lista de los distintos ataques con los que cuenta el pokemon.
             </summary>
         </member>
-<<<<<<< HEAD
-        <member name="M:Library.Pokemon.GetAttack(System.Int32)">
-            <summary>
-            Esta funcion retorna el ataque correspondiente al valor que recibe como parámetro.
-            </summary>
-            <param name="attackIdx">
-            Corresponde al valor del indice del ataque al cual se quiere acceder.
-            </param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
-            </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0 a <see cref="!:Attacks.Count"/> - 1).
-            </exception>
-        </member>
-        <member name="M:Library.Pokemon.GetAttack(System.String)">
-            <summary>
-            Esta función retorna el ataque correspondiente al string que recibe como parámetro.
-            </summary>
-            <param name="attackName">
-            Nombre del ataque al cual se quiere acceder.
-            </param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException">
-            Lanzada si el Pokémon no tiene ataques disponibles.
-            </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
-            </exception>
-        </member>
-        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
-            <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
-            </summary>
-            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
-            <param name="attack">El ataque que se usará para realizar el daño.</param>
-            /// <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra disponible durante ese turno dentro de la lista <see cref="!:Availablettacks"/> del Pokémon que ataca.
-            </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="!:Availablettacks"/> del Pokémon que ataca.
-            </exception>
-        </member>
-=======
->>>>>>> main
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,System.Int32)">
             <summary>
             Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado para acceder al ataque.
