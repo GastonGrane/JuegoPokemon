@@ -12,7 +12,7 @@ namespace Library.Tests;
 /// <summary>
 /// Test de los Item.
 /// </summary>
-public class ItemTest
+internal sealed class ItemTest
 {
     /// <summary>
     /// Instancia de Pokémon utilizada en las pruebas.
