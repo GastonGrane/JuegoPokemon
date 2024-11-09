@@ -91,7 +91,7 @@ public static class PokemonRegistry
     }
 
     /// <summary>
-    /// Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon.
+    /// Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon del registro.
     /// </summary>
     /// <returns>
     /// Lista de (Nombre, Tipo).
