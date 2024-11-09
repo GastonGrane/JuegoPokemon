@@ -131,35 +131,6 @@ public class Pokemon
         Attack attack = GetAttack(attackIdx);
         this.Attack(target, attack);
     }
-
-    /// <summary>
-    /// Retorna el ataque correspondiente al valor que recibe como parámetro.
-    /// </summary>
-    /// <param name="attackIdx">
-    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
-    /// </param>
-    /// <returns>El ataque correspondiente al índice provisto.</returns>
-    /// <exception cref="InvalidOperationException">
-    /// Lanzada si el Pokémon no tiene ataques disponibles.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
-    /// </exception>
-    private Attack GetAttack(int attackIdx)
-    {
-        if (this.Attacks.Count == 0)
-        {
-            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
-        }
-
-        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
-        {
-            throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
-        }
-
-        return this.Attacks[attackIdx];
-    }
-
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
     /// </summary>
@@ -180,7 +151,7 @@ public class Pokemon
         Attack attack = GetAttack(attackName);
         this.Attack(target, attack);
     }
-
+    
     /// <summary>
     /// Suma un valor especificado a la vida que ya tiene el pokemon.
     /// </summary>
@@ -300,7 +271,7 @@ public class Pokemon
             return false;
         }
     }
-
+    
     /// <summary>
     /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
     /// </summary>
@@ -335,5 +306,32 @@ public class Pokemon
         }
 
         return attack;
+    }
+    /// <summary>
+    /// Retorna el ataque correspondiente al valor que recibe como parámetro.
+    /// </summary>
+    /// <param name="attackIdx">
+    /// Corresponde al valor del indice del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns>El ataque correspondiente al índice provisto.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
+    /// </exception>
+    private Attack GetAttack(int attackIdx)
+    {
+        if (this.Attacks.Count == 0)
+        {
+            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
+        }
+
+        if (attackIdx >= this.Attacks.Count || attackIdx < 0)
+        {
+            throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");
+        }
+
+        return this.Attacks[attackIdx];
     }
 }
