@@ -53,6 +53,30 @@ public class Pokemon
     }
 
     /// <summary>
+    /// Crea un pokemon copiando los valores del pokemon provisto.
+    ///
+    /// La idea de este constructor es copiar los datos del Pokémon, pero no su estado actual.
+    /// </summary>
+    /// <param name="pokemon">El Pokémon a clonar.</param>
+    /// <remarks>
+    /// No copia el efecto, porque la idea es no copiar su estado actual.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="pokemon"/> es <c>null</c>.
+    /// </exception>
+    public Pokemon(Pokemon pokemon)
+    {
+        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
+
+        this.Name = pokemon.Name;
+        this.Type = pokemon.Type;
+        this.Health = pokemon.Health;
+        this.MaxHealth = pokemon.Health;
+        this.attacks = pokemon.attacks;
+        this.ActiveEffect = null;
+    }
+
+    /// <summary>
     /// Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
     /// </summary>
     public IEffect? ActiveEffect { get; set; }

@@ -481,6 +481,20 @@
              <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
              <param name="attacks">La lista de sus ataques.</param>
         </member>
+        <member name="M:Library.Pokemon.#ctor(Library.Pokemon)">
+             <summary>
+             Crea un pokemon copiando los valores del pokemon provisto.
+            
+             La idea de este constructor es copiar los datos del Pokémon, pero no su estado actual.
+             </summary>
+             <param name="pokemon">El Pokémon a clonar.</param>
+             <remarks>
+             No copia el efecto, porque la idea es no copiar su estado actual.
+             </remarks>
+             <exception cref="T:System.ArgumentNullException">
+             Si <paramref name="pokemon"/> es <c>null</c>.
+             </exception>
+        </member>
         <member name="P:Library.Pokemon.ActiveEffect">
             <summary>
             Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
@@ -633,8 +647,28 @@
             Colección de Pokémon pre-definidos.
             </summary>
             <remarks>
-            Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>
+            Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>.
             </remarks>
+        </member>
+        <member name="F:Library.PokemonRegistry.PokemonTemplates">
+            <summary>
+            El diccionario entre nombre de Pokemon y Pokemon. Lo devuelto al usuario será una copia de un elemento de este diccionario.
+            </summary>
+            <remarks>
+            Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
+            </remarks>
+        </member>
+        <member name="M:Library.PokemonRegistry.GetPokemon(System.String)">
+            <summary>
+            Retorna una copia del Pokémon cuyo nombre es <paramref name="name"/>, si se encuentra en el registro.
+            </summary>
+            <param name="name">El nombre del <see cref="T:Library.Pokemon"/>.</param>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Si el Pokémon no está en el registro.
+            </exception>
+            <returns>
+            Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
+            </returns>
         </member>
         <member name="T:Library.PokemonType">
             <summary>
