@@ -91,7 +91,11 @@ public class Pokemon
     /// </summary>
     public double Health
     {
-        get { return this.health; }
+        get
+        {
+            return this.health;
+        }
+
         private set
         {
             if (value > this.MaxHealth && this.MaxHealth != 0)
@@ -114,7 +118,7 @@ public class Pokemon
     /// </summary>
     public ReadOnlyCollection<Attack> Attacks
     {
-        get { return attacks.AsReadOnly(); }
+        get { return this.attacks.AsReadOnly(); }
     }
 
     /// <summary>
@@ -134,7 +138,7 @@ public class Pokemon
     public void Attack(Pokemon target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = GetAttack(attackIdx);
+        Attack attack = this.GetAttack(attackIdx);
         this.Attack(target, attack);
     }
     /// <summary>
@@ -154,7 +158,7 @@ public class Pokemon
     public void Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = GetAttack(attackName);
+        Attack attack = this.GetAttack(attackName);
         this.Attack(target, attack);
     }
 
