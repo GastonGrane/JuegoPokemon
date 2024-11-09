@@ -24,8 +24,21 @@ public class SpecialAttack : Attack
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de daño que realiza.</param>
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
-    public SpecialAttack(string name, int damage, PokemonType attackType)
-        : base(name, damage, attackType)
+    /// <param name="precision">La precisión del ataque (1-100).</param>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision)
+        : base(name, damage, attackType, precision)
+    {
+    }
+
+    /// <summary>
+    /// Constructor que copia los valores de una instancia de la clase <see cref="SpecialAttack"/>.
+    /// </summary>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
+    public SpecialAttack(SpecialAttack attack)
+        : base(attack)
     {
     }
 }

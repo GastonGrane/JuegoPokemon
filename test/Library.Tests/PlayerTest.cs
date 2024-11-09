@@ -20,7 +20,9 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
+#pragma warning disable CS8625 // se le pasa null a propósito
             Player p = new Player("Gaston", null);
+#pragma warning restore CS8625
         }
         catch (ArgumentNullException)
         {
@@ -38,9 +40,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 
@@ -100,9 +102,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 
@@ -124,7 +126,9 @@ public class PlayerTest
         try
         {
             Player p = new Player("Gaston", pokemon);
+#pragma warning disable CS8625 // se le pasa null a propósito
             p.Attack(null, "Blaze Kick");
+#pragma warning restore CS8625
         }
         catch (ArgumentNullException)
         {
@@ -142,9 +146,9 @@ public class PlayerTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         List<Pokemon> pokemon = new List<Pokemon>();
 

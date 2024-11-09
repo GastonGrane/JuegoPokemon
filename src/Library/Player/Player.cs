@@ -7,13 +7,8 @@
 namespace Library;
 
 /// <summary>
-/// Este un jugador en el juego, el cual tiene un nombre, y una lista con sus pokemons.
-/// El jugador puede cambiar de pokemon activo, atacar a aotro jugador y verificar si todos sus pokemons estan muertos.
+/// Un jugador de pokemon.
 /// </summary>
-/// <remarks>
-/// La clase <see cref="Player"/> esta encargada de gestionar las interacciones basicas que puede tener un jugador con
-/// sus pokemon a lo largo de la batalla de pokemon.
-/// </remarks>
 public class Player
 {
     /// <summary>
@@ -23,16 +18,15 @@ public class Player
     /// <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
     public Player(string name, List<Pokemon> pokemons)
     {
-        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
         if (pokemons.Count > 6)
         {
-            throw new ArgumentException("Este player tiene mas de 6 pokemons");
+            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener más de 6 pokemons");
         }
 
         if (pokemons.Count == 0)
         {
-            throw new ArgumentException("Player no puede tener 0 pokemones");
+            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener 0 pokemones");
         }
 
         this.Name = name;

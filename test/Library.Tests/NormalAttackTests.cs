@@ -17,7 +17,7 @@ public class NormalAttackTests
     [Test]
     public void CanNormalAttack()
     {
-        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon);
+        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon, 100);
 
         Assert.That(colaDragon.Name, Is.EqualTo("Cola Dragon"), "El nombre no se inicio correctoamente");
         Assert.That(colaDragon.Damage, Is.EqualTo(15), "El daño no se incio correctamente");
@@ -33,7 +33,9 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug);
+#pragma warning disable CS8625 // se le pasa null a propósito
+            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug, 100);
+#pragma warning restore CS8625
         }
         catch (ArgumentNullException)
         {
@@ -52,7 +54,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug);
+            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -68,18 +70,11 @@ public class NormalAttackTests
     [Test]
     public void NormalAttackCanAttack()
     {
-        List<Attack> attacks = new List<Attack>
-        {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
-        };
+        var p1 = PokemonRegistry.GetPokemon("Squirtle");
+        var p2 = PokemonRegistry.GetPokemon("Bulbasaur");
 
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-
-        Pokemon p11 = new Pokemon("pokemon", PokemonType.Water, 100, attacks);
-
-        p1.Attack(p11, "Aqua Jet");
-        Assert.That(p11.Health, Is.EqualTo(80));
+        p1.Attack(p2, "Water Gun");
+        Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
+        Assert.That(p2.Health, Is.EqualTo(45));
     }
 }

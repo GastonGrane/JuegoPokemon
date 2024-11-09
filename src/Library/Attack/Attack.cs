@@ -26,11 +26,28 @@ public abstract class Attack
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de danio que genera.</param>
     /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
-    protected Attack(string name, int damage, PokemonType type)
+    /// <param name="precision">La precision del ataque (1-100).</param>
+    protected Attack(string name, int damage, PokemonType type, int precision)
     {
         this.Name = name;
         this.Damage = damage;
         this.Type = type;
+        this.Precision = precision;
+    }
+
+    /// <summary>
+    /// Crea un <see cref="Attack"/> copiando los valores del ataque provisto.
+    /// </summary>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
+    protected Attack(Attack attack)
+    {
+        ArgumentNullException.ThrowIfNull(attack, nameof(attack));
+        this.Name = attack.Name;
+        this.Damage = attack.Damage;
+        this.Type = attack.Type;
     }
 
     /// <summary>
@@ -50,4 +67,9 @@ public abstract class Attack
     /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque.
     /// </value>
     public PokemonType Type { get; }
+
+    /// <summary>
+    /// El porcentaje de precisión del ataque.
+    /// </summary>
+    public int Precision { get; }
 }

@@ -18,6 +18,12 @@ namespace Library;
 public class Pokemon
 {
     /// <summary>
+    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+    /// </summary>
+    // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
+    private static readonly Random Random = new Random();
+
+    /// <summary>
     /// El valor actual de salud del pokemon.
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
@@ -42,10 +48,10 @@ public class Pokemon
     /// <param name="attacks">La lista de sus ataques.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
-        if (attacks.Count > 4 || attacks.Count == 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(attacks), "Unicamente se pueden crear pokemon con de 1, 2, 3 o 4 ataques");
-        }
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
 
         this.Name = name;
         this.Type = type;
@@ -248,17 +254,25 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
-
-        double multiplier = attacker.Advantage(defender);
-        double damage = attack.Damage * multiplier;
-        if (!this.CanAttack)
+        if (Random.Next(100) < attack.Precision)
         {
-            target.Health -= damage;
-        }
+            PokemonType attacker = attack.Type;
+            PokemonType defender = target.Type;
+            double multiplier = attacker.Advantage(defender);
+            int damage = (int)(attack.Damage * multiplier);
+            if (!this.CanAttack)
+            {
+                target.Health -= damage;
 
-        this.UpdateEffect();
+                // esto equivale al 10%
+                if (Random.Next(10) < 1)
+                {
+                    target.Health -= (damage * 20) / 100;
+                }
+
+                this.UpdateEffect();
+            }
+        }
     }
 
     /// <summary>
@@ -313,7 +327,6 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(int attackIdx)
     {
-        // FIXME (Gaston): Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

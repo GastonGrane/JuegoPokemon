@@ -42,7 +42,7 @@ public class Burn : IEffect
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        target.Damage((int)(target.Health * 0.10));
+        target.Damage((int)(target.MaxHealth * 0.10));
     }
 
     /// <summary>
