@@ -23,7 +23,9 @@ public class PokemonTests
             NormalAttackLibrary.BlazeKick,
             NormalAttackLibrary.BulletSeed,
             NormalAttackLibrary.FusionBolt,
-            new NormalAttack("extra", 100, PokemonType.Bug),
+
+            // FIXME: Usar otro ataque predefinido
+            new NormalAttack("extra", 100, PokemonType.Bug, 100),
         };
         bool exceptionThrown = false;
         try

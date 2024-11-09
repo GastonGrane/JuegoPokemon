@@ -13,14 +13,6 @@
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
-        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
-            <summary>
-            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
-            </summary>
-            <param name="name">El nombre del ataque.</param>
-            <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
-        </member>
         <member name="P:Library.Attack.Name">
             <summary>
             El nombre del ataque.
@@ -28,16 +20,26 @@
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            El valor de daño del ataque.
+            El valor de daño del ataque
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
-            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
+            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
             </summary>
             <value>
-            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
+            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque
             </value>
+        </member>
+        <member name="P:Library.Attack.Precision">
+            <summary>
+            Es el porcentaje de precision del ataque.
+            </summary>
+        </member>
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de danio que genera.</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
         </member>
         <member name="T:Library.NormalAttack">
             <summary>
@@ -48,13 +50,14 @@
             Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
             </remarks>
         </member>
-        <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+        <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
             <summary>
             El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
             <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="precision">La precision del ataque.</param>
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
@@ -94,13 +97,14 @@
              es decir, la precisión de la aplicación del estado es del 100%.
              </summary>
         </member>
-        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
             <summary>
             Crea un ataque especial.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de daño que realiza.</param>
             <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
+            <param name="precision">La precisión del ataque (1-100).</param>
         </member>
         <member name="T:Library.Effect.Burn">
             <summary>
@@ -456,18 +460,17 @@
             Crea instancias de los distintos pokemons.
             </summary>
         </member>
-        <member name="F:Library.Pokemon.health">
-             <summary>
-             El valor actual de salud del pokemon.
-            
-             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health"/>.
-             </summary>
+        <!-- Badly formed XML comment ignored for member "F:Library.Pokemon._health" -->
+        <member name="F:Library.Pokemon.Random">
+            <summary>
+            Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+            </summary>
         </member>
-        <member name="F:Library.Pokemon.attacks">
+        <member name="F:Library.Pokemon._attacks">
              <summary>
              Lista de los distintos ataques con los que cuenta el pokemon.
             
-             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Attacks"/>.
+             El acceso a este valor será controlado por la propiedad <see cref="F:Library.Pokemon._attacks"/>.
              </summary>
         </member>
         <member name="M:Library.Pokemon.#ctor(System.String,Library.PokemonType,System.Int32,System.Collections.Generic.List{Library.Attack})">
@@ -588,16 +591,7 @@
             Elimina el efecto activo del Pokémon, si existe.
             </summary>
         </member>
-        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
-            <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado, siempre y cuando pueda atacar.
-            </summary>
-            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
-            <param name="attack">El ataque que se usará para realizar el daño.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
-            </exception>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)" -->
         <member name="M:Library.Pokemon.GetAttack(System.String)">
             <summary>
             Esta función retorna el ataque correspondiente al string que recibe como parámetro.

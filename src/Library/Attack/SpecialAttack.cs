@@ -18,15 +18,12 @@ namespace Library;
 /// </summary>
 public class SpecialAttack : Attack
 {
-    SpecialType SpecialAttackType { get; }
     /// <summary>
     /// Crea un ataque especial.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de daño que realiza.</param>
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
-    public SpecialAttack(string name, int damage, PokemonType attackType, SpecialType specialType, int precision) : base(name, damage, attackType, precision)
-    
-    public SpecialAttack(string name, int damage, PokemonType attackType)
-        : base(name, damage, attackType)
+    /// <param name="precision">La precisión del ataque (1-100).</param>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision) : base(name, damage, attackType, precision) { }
 }
