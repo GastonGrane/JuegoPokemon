@@ -665,6 +665,14 @@
             Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
             </returns>
         </member>
+        <member name="M:Library.PokemonRegistry.GetPokemonNamesAndTypes">
+            <summary>
+            Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon.
+            </summary>
+            <returns>
+            Lista de (Nombre, Tipo).
+            </returns>
+        </member>
         <member name="T:Library.PokemonType">
             <summary>
             Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.

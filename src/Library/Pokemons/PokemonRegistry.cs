@@ -89,4 +89,15 @@ public static class PokemonRegistry
         Pokemon p = PokemonTemplates[name];
         return new Pokemon(p);
     }
+
+    /// <summary>
+    /// Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon.
+    /// </summary>
+    /// <returns>
+    /// Lista de (Nombre, Tipo).
+    /// </returns>
+    public static List<(string Name, PokemonType Type)> GetPokemonNamesAndTypes()
+    {
+        return PokemonTemplates.Values.Select(p => (p.Name, p.Type)).ToList();
+    }
 }
