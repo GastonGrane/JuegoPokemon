@@ -21,11 +21,12 @@ public class NormalAttack : Attack
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de danio que genera.</param>
     /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
+    /// <param name="precision">La precision del ataque (1-100).</param>
     /// <remarks>
     /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
     /// </remarks>
-    public NormalAttack(string name, int damage, PokemonType type)
-        : base(name, damage, type)
+    public NormalAttack(string name, int damage, PokemonType type, int precision)
+        : base(name, damage, type, precision)
     {
         ArgumentNullException.ThrowIfNull(name, "Un Ataque no se puede inicializar con nombre null");
         ArgumentOutOfRangeException.ThrowIfNegative(damage, "El daño no puede ser negativo");

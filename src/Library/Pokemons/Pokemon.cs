@@ -15,6 +15,11 @@ namespace Library;
 public class Pokemon
 {
     /// <summary>
+    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+    /// </summary>
+    private static readonly Random Random = new Random();
+
+    /// <summary>
     /// El valor actual de salud del pokemon.
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
@@ -235,27 +240,49 @@ public class Pokemon
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
+    /// <returns>
+    /// <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
+    /// <c>false</c> si el ataque falló.
+    /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private void Attack(Pokemon target, Attack attack)
+    private bool Attack(Pokemon target, Attack attack)
     {
         if (!this.Attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
-
-        double multiplier = attacker.Advantage(defender);
-        double damage = attack.Damage * multiplier;
-        if (!this.CanAttack)
+        if (Random.Next(100) < attack.Precision)
         {
-            target.Health -= damage;
-        }
+            PokemonType attacker = attack.Type;
+            PokemonType defender = target.Type;
+            double multiplier = attacker.Advantage(defender);
+            double damage = attack.Damage * multiplier;
+            if (!this.CanAttack)
+            {
+                target.Health -= damage;
 
-        this.UpdateEffect();
+                // esto equivale al 10%
+                if (Random.Next(10) < 1)
+                {
+                    target.Health -= (damage * 20) / 100;
+                }
+
+                this.UpdateEffect();
+                return true;
+            }
+            else
+            {
+                this.UpdateEffect();
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>

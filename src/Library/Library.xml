@@ -13,13 +13,14 @@
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
-        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType)">
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
             <summary>
             Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
             <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="precision">La precision del ataque (1-100).</param>
         </member>
         <member name="P:Library.Attack.Name">
             <summary>
@@ -39,6 +40,11 @@
             Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
             </value>
         </member>
+        <member name="P:Library.Attack.Precision">
+            <summary>
+            El porcentaje de precisión del ataque.
+            </summary>
+        </member>
         <member name="T:Library.NormalAttack">
             <summary>
             Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
@@ -48,13 +54,14 @@
             Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
             </remarks>
         </member>
-        <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+        <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
             <summary>
             El constructor de una nueva instancia de la clase <see cref="T:Library.NormalAttack"/>.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
             <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="precision">La precision del ataque (1-100).</param>
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
@@ -94,13 +101,14 @@
              es decir, la precisión de la aplicación del estado es del 100%.
              </summary>
         </member>
-        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType)">
+        <member name="M:Library.SpecialAttack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
             <summary>
             Crea un ataque especial.
             </summary>
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de daño que realiza.</param>
             <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
+            <param name="precision">La precisión del ataque (1-100).</param>
         </member>
         <member name="T:Library.Effect.Burn">
             <summary>
@@ -456,6 +464,11 @@
             Crea instancias de los distintos pokemons.
             </summary>
         </member>
+        <member name="F:Library.Pokemon.Random">
+            <summary>
+            Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+            </summary>
+        </member>
         <member name="F:Library.Pokemon.health">
              <summary>
              El valor actual de salud del pokemon.
@@ -594,6 +607,10 @@
             </summary>
             <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attack">El ataque que se usará para realizar el daño.</param>
+            <returns>
+            <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
+            <c>false</c> si el ataque falló.
+            </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
             </exception>
