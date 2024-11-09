@@ -39,10 +39,10 @@ public class Pokemon
     /// <param name="attacks">La lista de sus ataques.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
-        if (attacks.Count > 4 || attacks.Count == 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(attacks), "Unicamente se pueden crear pokemon con de 1, 2, 3 o 4 ataques");
-        }
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
 
         this.Name = name;
         this.Type = type;
