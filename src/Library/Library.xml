@@ -628,6 +628,14 @@
             Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
             </exception>
         </member>
+        <member name="T:Library.PokemonRegistry">
+            <summary>
+            Colección de Pokémon pre-definidos.
+            </summary>
+            <remarks>
+            Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>
+            </remarks>
+        </member>
         <member name="T:Library.PokemonType">
             <summary>
             Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
