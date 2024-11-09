@@ -39,6 +39,11 @@ public class Pokemon
     /// <param name="attacks">La lista de sus ataques.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
+
         this.Name = name;
         this.Type = type;
         this.Health = maxHealth;
@@ -245,7 +250,7 @@ public class Pokemon
 
         double multiplier = attacker.Advantage(defender);
         double damage = attack.Damage * multiplier;
-        if (this.CanAttack)
+        if (!this.CanAttack)
         {
             target.Health -= damage;
         }
@@ -268,6 +273,7 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(string attackName)
     {
+        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
@@ -304,6 +310,7 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(int attackIdx)
     {
+        // FIXME (Gaston): Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

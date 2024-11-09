@@ -37,8 +37,7 @@
         </member>
         <member name="T:Library.Tests.ItemTest">
             <summary>
-            Contiene pruebas para la clase <see cref="T:Library.Items.TotalCure"/> que verifica su funcionalidad
-            en la eliminación de efectos activos de estado en un Pokémon.
+            Test de los Item.
             </summary>
         </member>
         <member name="F:Library.Tests.ItemTest.pokemon">
@@ -57,6 +56,16 @@
             antes de cada prueba individual.
             </summary>
         </member>
+        <member name="M:Library.Tests.ItemTest.CanRevive">
+            <summary>
+            Testea si el metodo Revive, lo revive con el 50 de HP.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.ItemTest.PasarUnParametroNullFalla">
+            <summary>
+            Testea que falle el hecho de que pasemos como parametro algo null.
+            </summary>
+        </member>
         <member name="M:Library.Tests.ItemTest.UseRemovesActiveEffectSuccessfully">
             <summary>
             Verifica que <see cref="M:Library.Items.TotalCure.Use(Library.Pokemon)"/> elimine correctamente un efecto activo
@@ -68,6 +77,96 @@
             Verifica que <see cref="M:Library.Items.TotalCure.Use(Library.Pokemon)"/> lance una excepción
             <see cref="T:System.InvalidOperationException"/> si se intenta utilizar cuando el Pokémon
             no tiene efectos activos de estado.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.NormalAttackTests">
+            <summary>
+            Test de los metodos de NormalAttack.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.NormalAttackTests.CanNormalAttack">
+            <summary>
+            Testea el constructor de NormalAttack.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.NormalAttackTests.NormalAttackDevuelveExcepcionSiNombreEsEsNull">
+            <summary>
+            Testea que ocurra una excepcion si el parametro nombre es null.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.NormalAttackTests.NormalAttackDevuelveExcepcionSiElDamageEsNegativo">
+            <summary>
+            Testea que ocurra una excepcion si el damage es negativo.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.NormalAttackTests.NormalAttackCanAttack">
+            <summary>
+            Testea si NormalAttack realmente hace el daño que tendria que hacer.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.PlayerTest">
+            <summary>
+            Test de Player.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerListaDePokemonsNullFalla">
+            <summary>
+            Testea Player con lista de pokemones null.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerSinNombreONullFalla">
+            <summary>
+            Testea que de una excepcion si creamos un player sin nombre o nombre null.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerSinPokemonsFalla">
+            <summary>
+            Testea que de una excepcion si creamos un player sin pokemons.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerAtacaANingunJugadorFalla">
+            <summary>
+            Testea que ocurra una excepcion si player ataca a null.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PlayerTest.PlayerSeQuedaSinPokemonVivosTerminaElJuego">
+            <summary>
+            Testea que ocurra correctamente la implementacion de **AllAreDead**.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.PokemonTests">
+            <summary>
+            Test de Pokemon y sus metodos.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonConMuchosAtaquesFalla">
+            <summary>
+            Testea que ocurra una excepcion si Pokemon se crea con demasiados ataques.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonCon3AtaquesSePuede">
+            <summary>
+            Testea que no ocurra una excepcion si Pokemon se crea con ataques menores a 4.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonSinAtaquesFalla">
+            <summary>
+            Testea que ocurra una excepcion si Pokemon se crea sin ataques.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonAtacaConUnAtaqueInexistenteFalla">
+            <summary>
+            Testea que ocurra una excepcion si Pokemon ataca con un Ataque inexistente.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonSeCuraNegativoFalla">
+            <summary>
+            Testea que ocurra un error si Pokemon se Cura con numeros negativos.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.PokemonTests.PokemonNoSeCuraDeMas">
+            <summary>
+            Testea que el pokemon no se cura de mas de su vida maxima, una vez inicializada con el pokemon.
             </summary>
         </member>
         <member name="T:Library.Tests.PokemonTypeTests">
