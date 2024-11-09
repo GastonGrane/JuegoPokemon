@@ -18,16 +18,17 @@ public class Player
     /// <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
     public Player(string name, List<Pokemon> pokemons)
     {
-        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
+
+        ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         if (pokemons.Count > 6)
         {
-            throw new ArgumentException("Este player tiene mas de 6 pokemons");
+            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener más de 6 pokemons");
         }
 
         if (pokemons.Count == 0)
         {
-            throw new ArgumentException("Player no puede tener 0 pokemones");
+            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener 0 pokemones");
         }
 
         this.Name = name;
