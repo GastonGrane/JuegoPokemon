@@ -267,30 +267,202 @@ public static class PokemonRegistry
         },
         {
             "Wigglytuff", new Pokemon("Wigglytuff", PokemonType.Normal, 140, new List<Attack>
-        {
-        })
+            {
+                NormalAttackRegistry.GetNormalAttack("Double Slap"),
+                NormalAttackRegistry.GetNormalAttack("Body Slam"),
+                SpecialAttackRegistry.GetSpecialAttack("Sing"),
+                SpecialAttackRegistry.GetSpecialAttack("Hyper Voice"),
+            })
         },
-        { "Zubat", new Pokemon("Zubat", PokemonType.Poison, 40, new List<Attack> { }) },
-        { "Golbat", new Pokemon("Golbat", PokemonType.Poison, 75, new List<Attack> { }) },
-        { "Oddish", new Pokemon("Oddish", PokemonType.Grass, 45, new List<Attack> { }) },
-        { "Gloom", new Pokemon("Gloom", PokemonType.Poison, 60, new List<Attack> { }) },
-        { "Vileplume", new Pokemon("Vileplume", PokemonType.Poison, 75, new List<Attack> { }) },
-        { "Paras", new Pokemon("Paras", PokemonType.Bug, 35, new List<Attack> { }) },
-        { "Parasect", new Pokemon("Parasect", PokemonType.Bug, 60, new List<Attack> { }) },
-        { "Venonat", new Pokemon("Venonat", PokemonType.Bug, 60, new List<Attack> { }) },
-        { "Venomoth", new Pokemon("Venomoth", PokemonType.Bug, 70, new List<Attack> { }) },
-        { "Diglett", new Pokemon("Diglett", PokemonType.Ground, 10, new List<Attack> { }) },
-        { "Dugtrio", new Pokemon("Dugtrio", PokemonType.Ground, 35, new List<Attack> { }) },
-        { "Meowth", new Pokemon("Meowth", PokemonType.Normal, 40, new List<Attack> { }) },
-        { "Snorlax", new Pokemon("Snorlax", PokemonType.Normal, 160, new List<Attack> { }) },
-        { "Articuno", new Pokemon("Articuno", PokemonType.Ice, 90, new List<Attack> { }) },
-        { "Zapdos", new Pokemon("Zapdos", PokemonType.Electric, 90, new List<Attack> { }) },
-        { "Moltres", new Pokemon("Moltres", PokemonType.Fire, 90, new List<Attack> { }) },
-        { "Mewtwo", new Pokemon("Mewtwo", PokemonType.Psychic, 106, new List<Attack> { }) },
-        { "Mew", new Pokemon("Mew", PokemonType.Bug, 100, new List<Attack> { }) },
-        { "Dragonair", new Pokemon("Dragonair", PokemonType.Dragon, 61, new List<Attack> { }) },
-        { "Dragonite", new Pokemon("Dragonite", PokemonType.Dragon, 91, new List<Attack> { }) },
-        { "Geodude", new Pokemon("Geodude", PokemonType.Rock, 40, new List<Attack> { }) },
+        {
+            "Zubat", new Pokemon("Zubat", PokemonType.Poison, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Wing Attack"),
+                SpecialAttackRegistry.GetSpecialAttack("Supersonic"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Fang"),
+                NormalAttackRegistry.GetNormalAttack("Air Cutter"),
+            })
+        },
+        {
+            "Golbat", new Pokemon("Golbat", PokemonType.Poison, 75, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Air Slash"),
+                SpecialAttackRegistry.GetSpecialAttack("Toxic"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Fang"),
+                NormalAttackRegistry.GetNormalAttack("Cross Poison"),
+            })
+        },
+        {
+            "Oddish", new Pokemon("Oddish", PokemonType.Grass, 45, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Absorb"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("Razor Leaf"),
+            })
+        },
+        {
+            "Gloom", new Pokemon("Gloom", PokemonType.Poison, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Petal Dance"),
+                SpecialAttackRegistry.GetSpecialAttack("Stun Spore"),
+                SpecialAttackRegistry.GetSpecialAttack("Acid"),
+                NormalAttackRegistry.GetNormalAttack("Mega Drain"),
+            })
+        },
+        {
+            "Vileplume", new Pokemon("Vileplume", PokemonType.Poison, 75, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Petal Blizzard"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Sludge Bomb"),
+                NormalAttackRegistry.GetNormalAttack("Solar Beam"),
+            })
+        },
+        {
+            "Paras", new Pokemon("Paras", PokemonType.Bug, 35, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Scratch"),
+                SpecialAttackRegistry.GetSpecialAttack("Spore"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("Fury Cutter"),
+            })
+        },
+        {
+            "Parasect", new Pokemon("Parasect", PokemonType.Bug, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("X-Scissor"),
+                SpecialAttackRegistry.GetSpecialAttack("Spore"),
+                SpecialAttackRegistry.GetSpecialAttack("Cross Poison"),
+                NormalAttackRegistry.GetNormalAttack("Giga Drain"),
+            })
+        },
+        {
+            "Venonat", new Pokemon("Venonat", PokemonType.Bug, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Confusion"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Fang"),
+                NormalAttackRegistry.GetNormalAttack("Signal Beam"),
+            })
+        },
+        {
+            "Venomoth", new Pokemon("Venomoth", PokemonType.Bug, 70, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Bug Buzz"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("Psychic"),
+            })
+        },
+        {
+            "Diglett", new Pokemon("Diglett", PokemonType.Ground, 10, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Dig"),
+                NormalAttackRegistry.GetNormalAttack("Scratch"),
+                SpecialAttackRegistry.GetSpecialAttack("Sand Attack"),
+                NormalAttackRegistry.GetNormalAttack("Mud Slap"),
+            })
+        },
+        {
+            "Dugtrio", new Pokemon("Dugtrio", PokemonType.Ground, 35, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Earthquake"),
+                NormalAttackRegistry.GetNormalAttack("Earth Power"),
+                SpecialAttackRegistry.GetSpecialAttack("Sand Tomb"),
+                NormalAttackRegistry.GetNormalAttack("Slash"),
+            })
+        },
+        {
+            "Meowth", new Pokemon("Meowth", PokemonType.Normal, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Scratch"),
+                NormalAttackRegistry.GetNormalAttack("Pay Day"),
+                SpecialAttackRegistry.GetSpecialAttack("Screech"),
+                NormalAttackRegistry.GetNormalAttack("Fury Swipes"),
+            })
+        },
+        {
+            "Snorlax", new Pokemon("Snorlax", PokemonType.Normal, 160, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Body Slam"),
+                SpecialAttackRegistry.GetSpecialAttack("Yawn"),
+                NormalAttackRegistry.GetNormalAttack("Giga Impact"),
+                NormalAttackRegistry.GetNormalAttack("Crunch"),
+            })
+        },
+        {
+            "Articuno", new Pokemon("Articuno", PokemonType.Ice, 90, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Ice Beam"),
+                SpecialAttackRegistry.GetSpecialAttack("Freeze-Dry"),
+                NormalAttackRegistry.GetNormalAttack("Hurricane"),
+                SpecialAttackRegistry.GetSpecialAttack("Blizzard"),
+            })
+        },
+        {
+            "Zapdos", new Pokemon("Zapdos", PokemonType.Electric, 90, new List<Attack>
+            {
+                SpecialAttackRegistry.GetSpecialAttack("Thunder"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                NormalAttackRegistry.GetNormalAttack("Drill Peck"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunderbolt"),
+            })
+        },
+        {
+            "Moltres", new Pokemon("Moltres", PokemonType.Fire, 90, new List<Attack>
+            {
+                SpecialAttackRegistry.GetSpecialAttack("Fire Blast"),
+                SpecialAttackRegistry.GetSpecialAttack("Heat Wave"),
+                NormalAttackRegistry.GetNormalAttack("Hurricane"),
+                NormalAttackRegistry.GetNormalAttack("Sky Attack"),
+            })
+        },
+        {
+            "Mewtwo", new Pokemon("Mewtwo", PokemonType.Psychic, 106, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Psychic"),
+                SpecialAttackRegistry.GetSpecialAttack("Hypnosis"),
+                NormalAttackRegistry.GetNormalAttack("Aura Sphere"),
+                SpecialAttackRegistry.GetSpecialAttack("Psystrike"),
+            })
+        },
+        {
+            "Mew", new Pokemon("Mew", PokemonType.Bug, 100, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Psychic"),
+                SpecialAttackRegistry.GetSpecialAttack("Hypnosis"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                NormalAttackRegistry.GetNormalAttack("Ancient Power"),
+            })
+        },
+        {
+            "Dragonair", new Pokemon("Dragonair", PokemonType.Dragon, 61, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Dragon Rage"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                NormalAttackRegistry.GetNormalAttack("Aqua Tail"),
+                NormalAttackRegistry.GetNormalAttack("Slam"),
+            })
+        },
+        {
+            "Dragonite", new Pokemon("Dragonite", PokemonType.Dragon, 91, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Dragon Rush"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                SpecialAttackRegistry.GetSpecialAttack("Fire Punch"),
+                NormalAttackRegistry.GetNormalAttack("Hurricane"),
+            })
+        },
+        {
+            "Geodude", new Pokemon("Geodude", PokemonType.Rock, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Rock Throw"),
+                NormalAttackRegistry.GetNormalAttack("Magnitude"),
+                SpecialAttackRegistry.GetSpecialAttack("Sand Attack"),
+                NormalAttackRegistry.GetNormalAttack("Rock Blast"),
+            })
+        },
     };
 
     /// <summary>
