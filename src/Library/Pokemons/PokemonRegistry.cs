@@ -20,37 +20,256 @@ public static class PokemonRegistry
     /// <remarks>
     /// Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
     /// </remarks>
-    // FIXME: Faltan los ataques
     private static readonly Dictionary<string, Pokemon> PokemonTemplates = new()
     {
-        { "Pikachu", new Pokemon("Pikachu", PokemonType.Electric, 35, new List<Attack> { }) },
-        { "Bulbasaur", new Pokemon("Bulbasaur", PokemonType.Grass, 45, new List<Attack> { }) },
-        { "Ivysaur", new Pokemon("Ivysaur", PokemonType.Grass, 60, new List<Attack> { }) },
-        { "Venusaur", new Pokemon("Venusaur", PokemonType.Grass, 80, new List<Attack> { }) },
-        { "Charmander", new Pokemon("Charmander", PokemonType.Fire, 39, new List<Attack> { }) },
-        { "Charmeleon", new Pokemon("Charmeleon", PokemonType.Fire, 58, new List<Attack> { }) },
-        { "Charizard", new Pokemon("Charizard", PokemonType.Fire, 78, new List<Attack> { }) },
-        { "Squirtle", new Pokemon("Squirtle", PokemonType.Water, 44, new List<Attack> { }) },
-        { "Wartortle", new Pokemon("Wartortle", PokemonType.Water, 59, new List<Attack> { }) },
-        { "Blastoise", new Pokemon("Blastoise", PokemonType.Water, 79, new List<Attack> { }) },
-        { "Caterpie", new Pokemon("Caterpie", PokemonType.Bug, 45, new List<Attack> { }) },
-        { "Metapod", new Pokemon("Metapod", PokemonType.Bug, 50, new List<Attack> { }) },
-        { "Butterfree", new Pokemon("Butterfree", PokemonType.Bug, 60, new List<Attack> { }) },
-        { "Weedle", new Pokemon("Weedle", PokemonType.Bug, 40, new List<Attack> { }) },
-        { "Kakuna", new Pokemon("Kakuna", PokemonType.Bug, 45, new List<Attack> { }) },
-        { "Beedrill", new Pokemon("Beedrill", PokemonType.Bug, 65, new List<Attack> { }) },
-        { "Pidgey", new Pokemon("Pidgey", PokemonType.Bug, 40, new List<Attack> { }) },
-        { "Pidgeotto", new Pokemon("Pidgeotto", PokemonType.Bug, 63, new List<Attack> { }) },
-        { "Pidgeot", new Pokemon("Pidgeot", PokemonType.Bug, 83, new List<Attack> { }) },
-        { "Rattata", new Pokemon("Rattata", PokemonType.Normal, 30, new List<Attack> { }) },
-        { "Raticate", new Pokemon("Raticate", PokemonType.Normal, 55, new List<Attack> { }) },
-        { "Spearow", new Pokemon("Spearow", PokemonType.Flying, 40, new List<Attack> { }) },
-        { "Fearow", new Pokemon("Fearow", PokemonType.Flying, 65, new List<Attack> { }) },
-        { "Ekans", new Pokemon("Ekans", PokemonType.Poison, 35, new List<Attack> { }) },
-        { "Arbok", new Pokemon("Arbok", PokemonType.Poison, 60, new List<Attack> { }) },
-        { "Raichu", new Pokemon("Raichu", PokemonType.Electric, 60, new List<Attack> { }) },
-        { "Jigglypuff", new Pokemon("Jigglypuff", PokemonType.Normal, 115, new List<Attack> { }) },
-        { "Wigglytuff", new Pokemon("Wigglytuff", PokemonType.Normal, 140, new List<Attack> { }) },
+        {
+            "Pikachu", new Pokemon("Pikachu", PokemonType.Electric, 35, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Thunder Shock"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                NormalAttackRegistry.GetNormalAttack("Thunderbolt"),
+            })
+        },
+        {
+            "Bulbasaur", new Pokemon("Bulbasaur", PokemonType.Grass, 45, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Tackle"),
+                NormalAttackRegistry.GetNormalAttack("Vine Whip"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+            })
+        },
+        {
+            "Ivysaur", new Pokemon("Ivysaur", PokemonType.Grass, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Vine Whip"),
+                NormalAttackRegistry.GetNormalAttack("Razor Leaf"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+            })
+        },
+        {
+            "Venusaur", new Pokemon("Venusaur", PokemonType.Grass, 80, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Razor Leaf"),
+                NormalAttackRegistry.GetNormalAttack("Solar Beam"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                NormalAttackRegistry.GetNormalAttack("Petal Dance"),
+            })
+        },
+        {
+            "Charmander", new Pokemon("Charmander", PokemonType.Fire, 39, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Scratch"),
+                NormalAttackRegistry.GetNormalAttack("Ember"),
+                SpecialAttackRegistry.GetSpecialAttack("Fire Spin"),
+                NormalAttackRegistry.GetNormalAttack("Slash"),
+            })
+        },
+        {
+            "Charmeleon", new Pokemon("Charmeleon", PokemonType.Fire, 58, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Slash"),
+                NormalAttackRegistry.GetNormalAttack("Flamethrower"),
+                SpecialAttackRegistry.GetSpecialAttack("Fire Spin"),
+                NormalAttackRegistry.GetNormalAttack("Dragon Rage"),
+            })
+        },
+        {
+            "Charizard", new Pokemon("Charizard", PokemonType.Fire, 78, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Air Slash"),
+                NormalAttackRegistry.GetNormalAttack("Flamethrower"),
+                SpecialAttackRegistry.GetSpecialAttack("Fire Spin"),
+                NormalAttackRegistry.GetNormalAttack("Fire Blast"),
+            })
+        },
+        {
+            "Squirtle", new Pokemon("Squirtle", PokemonType.Water, 44, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Tackle"),
+                NormalAttackRegistry.GetNormalAttack("Water Gun"),
+                NormalAttackRegistry.GetNormalAttack("Bubble"),
+                NormalAttackRegistry.GetNormalAttack("Bite"),
+            })
+        },
+        {
+            "Wartortle", new Pokemon("Wartortle", PokemonType.Water, 59, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Water Gun"),
+                NormalAttackRegistry.GetNormalAttack("Bite"),
+                NormalAttackRegistry.GetNormalAttack("Water Pulse"),
+                NormalAttackRegistry.GetNormalAttack("Aqua Tail"),
+            })
+        },
+        {
+            "Blastoise", new Pokemon("Blastoise", PokemonType.Water, 79, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Water Gun"),
+                NormalAttackRegistry.GetNormalAttack("Hydro Pump"),
+                NormalAttackRegistry.GetNormalAttack("Ice Beam"),
+                NormalAttackRegistry.GetNormalAttack("Flash Cannon"),
+            })
+        },
+        {
+            "Caterpie", new Pokemon("Caterpie", PokemonType.Bug, 45, new List<Attack>
+            {
+            NormalAttackRegistry.GetNormalAttack("Tackle"),
+            NormalAttackRegistry.GetNormalAttack("Bug Bite"),
+            NormalAttackRegistry.GetNormalAttack("String Shot"),
+            SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+            })
+        },
+        {
+            "Metapod", new Pokemon("Metapod", PokemonType.Bug, 50, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Tackle"),
+                NormalAttackRegistry.GetNormalAttack("Bug Bite"),
+                NormalAttackRegistry.GetNormalAttack("Harden"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+            })
+        },
+        {
+            "Butterfree", new Pokemon("Butterfree", PokemonType.Bug, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Air Slash"),
+                SpecialAttackRegistry.GetSpecialAttack("Sleep Powder"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("Bug Buzz"),
+            })
+        },
+        {
+            "Weedle", new Pokemon("Weedle", PokemonType.Bug, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                NormalAttackRegistry.GetNormalAttack("Bug Bite"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("String Shot"),
+            })
+        },
+        {
+            "Kakuna", new Pokemon("Kakuna", PokemonType.Bug, 45, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                NormalAttackRegistry.GetNormalAttack("Bug Bite"),
+                SpecialAttackRegistry.GetSpecialAttack("Poison Powder"),
+                NormalAttackRegistry.GetNormalAttack("Harden"),
+            })
+        },
+        {
+            "Beedrill", new Pokemon("Beedrill", PokemonType.Bug, 65, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Twineedle"),
+                NormalAttackRegistry.GetNormalAttack("Poison Jab"),
+                SpecialAttackRegistry.GetSpecialAttack("Toxic"),
+                NormalAttackRegistry.GetNormalAttack("Pin Missile"),
+            })
+        },
+        {
+            "Pidgey", new Pokemon("Pidgey", PokemonType.Bug, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Tackle"),
+                NormalAttackRegistry.GetNormalAttack("Gust"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                NormalAttackRegistry.GetNormalAttack("Wing Attack"),
+            })
+        },
+        {
+            "Pidgeotto", new Pokemon("Pidgeotto", PokemonType.Bug, 63, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Wing Attack"),
+                NormalAttackRegistry.GetNormalAttack("Air Slash"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                NormalAttackRegistry.GetNormalAttack("Aerial Ace"),
+            })
+        },
+        {
+            "Pidgeot", new Pokemon("Pidgeot", PokemonType.Bug, 83, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Air Slash"),
+                NormalAttackRegistry.GetNormalAttack("Hurricane"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                NormalAttackRegistry.GetNormalAttack("Sky Attack"),
+            })
+        },
+        {
+            "Rattata", new Pokemon("Rattata", PokemonType.Normal, 30, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Tackle"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                NormalAttackRegistry.GetNormalAttack("Bite"),
+                NormalAttackRegistry.GetNormalAttack("Hyper Fang"),
+            })
+        },
+        {
+            "Raticate", new Pokemon("Raticate", PokemonType.Normal, 55, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+                NormalAttackRegistry.GetNormalAttack("Hyper Fang"),
+                NormalAttackRegistry.GetNormalAttack("Super Fang"),
+                NormalAttackRegistry.GetNormalAttack("Double-Edge"),
+            })
+        },
+        {
+            "Spearow", new Pokemon("Spearow", PokemonType.Flying, 40, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Peck"),
+                NormalAttackRegistry.GetNormalAttack("Fury Attack"),
+                NormalAttackRegistry.GetNormalAttack("Aerial Ace"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+            })
+        },
+        {
+            "Fearow", new Pokemon("Fearow", PokemonType.Flying, 65, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Drill Peck"),
+                NormalAttackRegistry.GetNormalAttack("Aerial Ace"),
+                NormalAttackRegistry.GetNormalAttack("Sky Attack"),
+                NormalAttackRegistry.GetNormalAttack("Quick Attack"),
+            })
+        },
+        {
+            "Ekans", new Pokemon("Ekans", PokemonType.Poison, 35, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Wrap"),
+                NormalAttackRegistry.GetNormalAttack("Poison Sting"),
+                SpecialAttackRegistry.GetSpecialAttack("Toxic"),
+                NormalAttackRegistry.GetNormalAttack("Bite"),
+            })
+        },
+        {
+            "Arbok", new Pokemon("Arbok", PokemonType.Poison, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Poison Fang"),
+                NormalAttackRegistry.GetNormalAttack("Crunch"),
+                SpecialAttackRegistry.GetSpecialAttack("Toxic"),
+                NormalAttackRegistry.GetNormalAttack("Gunk Shot"),
+            })
+        },
+        {
+            "Raichu", new Pokemon("Raichu", PokemonType.Electric, 60, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Thunderbolt"),
+                NormalAttackRegistry.GetNormalAttack("Thunder"),
+                SpecialAttackRegistry.GetSpecialAttack("Thunder Wave"),
+                NormalAttackRegistry.GetNormalAttack("Iron Tail"),
+            })
+        },
+        {
+            "Jigglypuff", new Pokemon("Jigglypuff", PokemonType.Normal, 115, new List<Attack>
+            {
+                NormalAttackRegistry.GetNormalAttack("Pound"),
+                SpecialAttackRegistry.GetSpecialAttack("Sing"),
+                NormalAttackRegistry.GetNormalAttack("Body Slam"),
+                NormalAttackRegistry.GetNormalAttack("Double Slap"),
+            })
+        },
+        {
+            "Wigglytuff", new Pokemon("Wigglytuff", PokemonType.Normal, 140, new List<Attack>
+        {
+        })
+        },
         { "Zubat", new Pokemon("Zubat", PokemonType.Poison, 40, new List<Attack> { }) },
         { "Golbat", new Pokemon("Golbat", PokemonType.Poison, 75, new List<Attack> { }) },
         { "Oddish", new Pokemon("Oddish", PokemonType.Grass, 45, new List<Attack> { }) },

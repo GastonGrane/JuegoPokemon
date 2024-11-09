@@ -16,6 +16,12 @@ public static class SpecialAttackRegistry
 {
     private static readonly Dictionary<string, SpecialAttack> SpecialAttacks = new()
     {
+        { "Fire Spin", new SpecialAttack("Fire Spin", 35, PokemonType.Fire) },
+        { "Poison Powder", new SpecialAttack("Poison Powder", 0, PokemonType.Poison) },
+        { "Sing", new SpecialAttack("Sing", 0, PokemonType.Normal) },
+        { "Sleep Powder", new SpecialAttack("Sleep Powder", 0, PokemonType.Grass) },
+        { "Thunder Wave", new SpecialAttack("Thunder Wave", 0, PokemonType.Electric) },
+        { "Toxic", new SpecialAttack("Toxic", 0, PokemonType.Poison) },
     };
 
     /// <summary>

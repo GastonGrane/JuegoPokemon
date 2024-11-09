@@ -94,7 +94,15 @@
             Si el <see cref="T:Library.NormalAttack"/> no está en el registro.
             </exception>
             <returns>
-            Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
+            Una copia del <see cref="T:Library.NormalAttack"/> cuyo nombre es <paramref name="name"/>.
+            </returns>
+        </member>
+        <member name="M:Library.NormalAttackRegistry.GetAttackNamesAndTypes">
+            <summary>
+            Retorna una lista de tuplas donde cada una es el nombre y tipo de un ataque del registro.
+            </summary>
+            <returns>
+            Lista de (Nombre, Tipo).
             </returns>
         </member>
         <member name="T:Library.SpecialAttack">
@@ -114,6 +122,43 @@
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de daño que realiza.</param>
             <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
+        </member>
+        <member name="M:Library.SpecialAttack.#ctor(Library.SpecialAttack)">
+            <summary>
+            Constructor que copia los valores de una instancia de la clase <see cref="T:Library.SpecialAttack"/>.
+            </summary>
+            <param name="attack">El ataque a copiar.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Si <paramref name="attack"/> es <c>null</c>.
+            </exception>
+        </member>
+        <member name="T:Library.SpecialAttackRegistry">
+            <summary>
+            Clase estática con una colección de ataques especiales pre-definidos.
+            </summary>
+            <remarks>
+            Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>.
+            </remarks>
+        </member>
+        <member name="M:Library.SpecialAttackRegistry.GetSpecialAttack(System.String)">
+            <summary>
+            Retorna una copia del <see cref="T:Library.SpecialAttack"/> cuyo nombre es <paramref name="name"/>, si se encuentra en el registro.
+            </summary>
+            <param name="name">El nombre del <see cref="T:Library.SpecialAttack"/>.</param>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Si el <see cref="T:Library.SpecialAttack"/> no está en el registro.
+            </exception>
+            <returns>
+            Una copia del <see cref="T:Library.SpecialAttack"/> cuyo nombre es <paramref name="name"/>.
+            </returns>
+        </member>
+        <member name="M:Library.SpecialAttackRegistry.GetAttackNamesAndTypes">
+            <summary>
+            Retorna una lista de tuplas donde cada una es el nombre y tipo de un ataque del registro.
+            </summary>
+            <returns>
+            Lista de (Nombre, Tipo).
+            </returns>
         </member>
         <member name="T:Library.Effect.Burn">
             <summary>
@@ -685,7 +730,7 @@
         </member>
         <member name="M:Library.PokemonRegistry.GetPokemonNamesAndTypes">
             <summary>
-            Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon.
+            Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon del registro.
             </summary>
             <returns>
             Lista de (Nombre, Tipo).
