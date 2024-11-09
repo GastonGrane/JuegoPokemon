@@ -21,6 +21,15 @@
             <param name="damage">La cantidad de danio que genera.</param>
             <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
         </member>
+        <member name="M:Library.Attack.#ctor(Library.Attack)">
+            <summary>
+            Crea un <see cref="T:Library.Attack"/> copiando los valores del ataque provisto.
+            </summary>
+            <param name="attack">El ataque a copiar.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Si <paramref name="attack"/> es <c>null</c>.
+            </exception>
+        </member>
         <member name="P:Library.Attack.Name">
             <summary>
             El nombre del ataque.
@@ -58,6 +67,15 @@
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
+        </member>
+        <member name="M:Library.NormalAttack.#ctor(Library.NormalAttack)">
+            <summary>
+            Constructor que copia los valores de una instancia de la clase <see cref="T:Library.NormalAttack"/>.
+            </summary>
+            <param name="attack">El ataque a copiar.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Si <paramref name="attack"/> es <c>null</c>.
+            </exception>
         </member>
         <member name="T:Library.NormalAttackRegistry">
             <summary>

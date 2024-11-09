@@ -30,4 +30,16 @@ public class NormalAttack : Attack
         ArgumentNullException.ThrowIfNull(name, "Un Ataque no se puede inicializar con nombre null");
         ArgumentOutOfRangeException.ThrowIfNegative(damage, "El daño no puede ser negativo");
     }
+
+    /// <summary>
+    /// Constructor que copia los valores de una instancia de la clase <see cref="NormalAttack"/>.
+    /// </summary>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
+    public NormalAttack(NormalAttack attack)
+        : base(attack)
+    {
+    }
 }

@@ -35,6 +35,17 @@ public static class NormalAttackRegistry
     public static NormalAttack GetNormalAttack(string name)
     {
         NormalAttack a = NormalAttacks[name];
-        return a;
+        return new(a);
+    }
+
+    /// <summary>
+    /// Retorna una lista de tuplas donde cada una es el nombre y tipo de un ataque del registro.
+    /// </summary>
+    /// <returns>
+    /// Lista de (Nombre, Tipo).
+    /// </returns>
+    public static List<(string Name, PokemonType Type)> GetAttackNamesAndTypes()
+    {
+        return NormalAttacks.Values.Select(p => (p.Name, p.Type)).ToList();
     }
 }
