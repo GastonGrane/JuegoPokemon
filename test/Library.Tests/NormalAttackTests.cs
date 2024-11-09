@@ -77,11 +77,11 @@ public class NormalAttackTests
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        var p1 = PokemonRegistry.GetPokemon("Squirtle");
+        var p2 = PokemonRegistry.GetPokemon("Bulbasaur");
 
-        Pokemon p11 = new Pokemon("pokemon", PokemonType.Water, 100, attacks);
-
-        p1.Attack(p11, "Aqua Jet");
-        Assert.That(p11.Health, Is.EqualTo(80));
+        p1.Attack(p2, "Aqua Jet");
+        Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
+        Assert.That(p2.Health, Is.EqualTo(80));
     }
 }
