@@ -33,7 +33,7 @@ internal sealed class ItemTest
     {
         List<Attack> ataque = new List<Attack>()
         {
-            NormalAttackLibrary.BlazeKick,
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
         };
         this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
         this.totalCure = new TotalCure();
@@ -47,9 +47,9 @@ internal sealed class ItemTest
     {
         List<Attack> attacks = new List<Attack>
         {
-            NormalAttackLibrary.AquaJet,
-            NormalAttackLibrary.BlazeKick,
-            NormalAttackLibrary.BulletSeed,
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);

@@ -31,6 +31,21 @@ public abstract class Attack
     }
 
     /// <summary>
+    /// Crea un <see cref="Attack"/> copiando los valores del ataque provisto.
+    /// </summary>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
+    protected Attack(Attack attack)
+    {
+        ArgumentNullException.ThrowIfNull(attack, nameof(attack));
+        this.Name = attack.Name;
+        this.Damage = attack.Damage;
+        this.Type = attack.Type;
+    }
+
+    /// <summary>
     /// El nombre del ataque.
     /// </summary>
     public string Name { get; }
