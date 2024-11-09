@@ -55,6 +55,22 @@ public interface IExternalConection
     /// <returns>Tampoco sé.</returns>
     public int SelectAtaque(string str);
     
-    public void selecYourPokemon(Player player, List<Pokemon> Pokemons);
+    /// <summary>
+    /// El jugador selecciona los Pokemons que integraran su lista de Pokemons.
+    /// </summary>
+    /// <param name="player"></param>Jugador que seleccionara los Pokemons.
+    /// <param name="Pokemons"></param>Lista de las opciones de Pokemons con los que cuenta el juego.
+    public void SelecYourPokemon(Player player, List<Pokemon> Pokemons);
+    /// <summary>
+    /// Retorna la vida actual del pokemon activo.
+    /// </summary>
+    /// <param name="active"></param>Pokemon con el que se encuentra juagndo el PLayer en ese turno.
+    /// <returns></returns>
     public double AvailableLifePokemon(Pokemon active);
+    /// <summary>
+    /// Muestra las vidas de los POkemones activos de ambos jugadores.
+    /// </summary>
+    /// <param name="active"></param>Pokemon activo del jugador correspondiente al turno actual.
+    /// <param name="otherActive"></param>Pokemon activo del otro jugador.
+    public void showLifeActivePokemons(Pokemon active, Pokemon otherActive);
 }
