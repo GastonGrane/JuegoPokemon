@@ -14,11 +14,12 @@ namespace Library;
 /// </summary>
 public class Pokemon
 {
+    /// <summary>
     /// El valor actual de salud del pokemon.
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
     /// </summary>
-    private double _health;
+    private double health;
 
     /// <summary>
     /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
@@ -28,9 +29,9 @@ public class Pokemon
     /// <summary>
     /// Lista de los distintos ataques con los que cuenta el pokemon.
     ///
-    /// El acceso a este valor será controlado por la propiedad <see cref="_attacks"/>.
+    /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
-    private List<Attack> _attacks;
+    private List<Attack> attacks;
 
     /// <summary>
     /// Crea un pokemon con los valores provistos.
@@ -52,7 +53,7 @@ public class Pokemon
         this.Type = type;
         this.Health = maxHealth;
         this.MaxHealth = maxHealth;
-        this._attacks = attacks;
+        this.attacks = attacks;
         this.ActiveEffect = null;
     }
 
@@ -90,20 +91,20 @@ public class Pokemon
     /// </summary>
     public double Health
     {
-        get { return this._health; }
+        get { return this.health; }
         private set
         {
             if (value > this.MaxHealth && this.MaxHealth != 0)
             {
-                this._health = this.MaxHealth;
+                this.health = this.MaxHealth;
             }
             else if (value < 0)
             {
-                this._health = 0;
+                this.health = 0;
             }
             else
             {
-                this._health = value;
+                this.health = value;
             }
         }
     }
@@ -113,7 +114,7 @@ public class Pokemon
     /// </summary>
     public ReadOnlyCollection<Attack> Attacks
     {
-        get { return _attacks.AsReadOnly(); }
+        get { return attacks.AsReadOnly(); }
     }
 
     /// <summary>
@@ -235,14 +236,15 @@ public class Pokemon
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
     /// <returns>
-    /// `true` si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
-    /// `false` si el ataque falló.
+    /// <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
+    /// <c>false</c> si el ataque falló.
+    /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
     private bool Attack(Pokemon target, Attack attack)
     {
-        if (!this._attacks.Contains(attack))
+        if (!this.attacks.Contains(attack))
         {
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
@@ -256,14 +258,14 @@ public class Pokemon
             if (!this.CanAttack)
             {
                 target.Health -= damage;
-                return true;
                 //esto equivale al 10%
-                if ((Random.Next(10) < 1))
+                if (Random.Next(10) < 1)
                 {
                     target.Health -= (damage * 20) / 100;
                 }
 
                 this.UpdateEffect();
+                return true;
             }
             else
             {
