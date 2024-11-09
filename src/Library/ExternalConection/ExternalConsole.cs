@@ -98,4 +98,37 @@ public class ExternalConsole : IExternalConection
 
         return eleccion - 1; // Ajustar índice para la lista
     }
+    public void selecYourPokemon(Player player, List<Pokemon> Pokemons)
+    {
+        List<Pokemon> list = new List<Pokemon>();
+        PrintList(Pokemons);
+        while (list.Count < 6)
+        {
+            int num = PrintStringAndReceiveInt(
+                $"{player} digite el número del Pokemon que desea seleccionar");
+            Pokemon pokSelected = Pokemons[num - 1];
+            if (list.Contains(pokSelected))
+            {
+                PrintString("Ya cuentas con ese Pokemon en tu lista");
+            }
+            else
+            {
+                list.Add(pokSelected);
+                PrintString($"{pokSelected.Name} se ha agregado a la lista de {player}");
+            }
+        }
+    }
+    public double AvailableLifePokemon(Pokemon active)
+    {
+        double life = active.Health;
+        return life;
+    }
+
+    public void showLifeActivePokemons(Pokemon active, Pokemon otherActive)
+    {
+        double lifeActive = AvailableLifePokemon(active);
+        double lifeOtherActive = AvailableLifePokemon(active);
+        PrintString($"Tu Pokemon:{active.Name} tine una vida de {lifeActive}/100.");
+        PrintString($"Tu adversario:{otherActive.Name} tine una vida de {lifeOtherActive}/100.");
+    }
 }

@@ -54,4 +54,7 @@ public interface IExternalConection
     /// <param name="str">Ni idea.</param>
     /// <returns>Tampoco sé.</returns>
     public int SelectAtaque(string str);
+    
+    public void selecYourPokemon(Player player, List<Pokemon> Pokemons);
+    public double AvailableLifePokemon(Pokemon active);
 }
