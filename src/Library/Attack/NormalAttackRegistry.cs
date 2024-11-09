@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="NormalAttackLibrary.cs" company="Universidad Católica del Uruguay">
+// <copyright file="NormalAttackRegistry.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -16,11 +16,11 @@ public static class NormalAttackRegistry
 {
     private static readonly Dictionary<string, NormalAttack> NormalAttacks = new()
     {
-        {"Aqua Jet", new NormalAttack("Aqua Jet", 40, PokemonType.Water)},
-            {"Bullet Seed", new NormalAttack("Bullet Seed", 25, PokemonType.Grass)},
-            {"Blaze Kick", new NormalAttack("Blaze Kick", 85, PokemonType.Fire)},
-            {"Fusion Bolt", new NormalAttack("Fusion Bolt", 100, PokemonType.Electric)},
-};
+        { "Aqua Jet", new NormalAttack("Aqua Jet", 40, PokemonType.Water) },
+        { "Bullet Seed", new NormalAttack("Bullet Seed", 25, PokemonType.Grass) },
+        { "Blaze Kick", new NormalAttack("Blaze Kick", 85, PokemonType.Fire) },
+        { "Fusion Bolt", new NormalAttack("Fusion Bolt", 100, PokemonType.Electric) },
+    };
 
     /// <summary>
     /// Retorna una copia del <see cref="NormalAttack"/> cuyo nombre es <paramref name="name"/>, si se encuentra en el registro.
