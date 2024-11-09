@@ -1,16 +1,22 @@
+// -----------------------------------------------------------------------
+// <copyright file="Attack.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library;
 
 /// <summary>
-/// Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque
+/// Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
 /// </summary>
 /// <remarks>
-/// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos , 
+/// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos,
 /// tal como <see cref="NormalAttack"/>.
 /// </remarks>
 public abstract class Attack
 {
     /// <summary>
-    /// El nombre del ataque
+    /// El nombre del ataque.
     /// </summary>
     public string Name { get; }
 
@@ -30,7 +36,9 @@ public abstract class Attack
     /// Es el porcentaje de precision del ataque.
     /// </summary>
     public int Precision { get; }
-    
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de danio que genera.</param>
+    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
     protected Attack(string name, int damage, PokemonType type, int precision)
     {
         this.Name = name;
@@ -38,4 +46,5 @@ public abstract class Attack
         this.Type = type;
         this.Precision = precision;
     }
+
 }
