@@ -33,7 +33,9 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
+#pragma warning disable CS8625 // se le pasa null a propósito
             NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug);
+#pragma warning restore CS8625
         }
         catch (ArgumentNullException)
         {

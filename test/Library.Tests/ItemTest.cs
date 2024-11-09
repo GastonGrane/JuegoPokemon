@@ -15,6 +15,31 @@ namespace Library.Tests;
 public class ItemTest
 {
     /// <summary>
+    /// Instancia de Pokémon utilizada en las pruebas.
+    /// </summary>
+    private Pokemon pokemon;
+
+    /// <summary>
+    /// Instancia de <see cref="TotalCure"/> utilizada en las pruebas.
+    /// </summary>
+    private TotalCure totalCure;
+
+    /// <summary>
+    /// Configura el entorno de prueba inicializando un Pokémon y el objeto <see cref="TotalCure"/>
+    /// antes de cada prueba individual.
+    /// </summary>
+    [SetUp]
+    public void SetUp()
+    {
+        List<Attack> ataque = new List<Attack>()
+        {
+            NormalAttackLibrary.BlazeKick,
+        };
+        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
+        this.totalCure = new TotalCure();
+    }
+
+    /// <summary>
     /// Testea si el metodo Revive, lo revive con el 50 de HP.
     /// </summary>
     [Test]
@@ -46,7 +71,9 @@ public class ItemTest
         bool exceptionThrown = false;
         try
         {
+#pragma warning disable CS8625 // se le pasa null a propósito
             revive.Use(null);
+#pragma warning restore CS8625
         }
         catch (ArgumentNullException)
         {
@@ -54,31 +81,6 @@ public class ItemTest
         }
 
         Assert.True(exceptionThrown, "Curar a un pokemon inexistente no tiro una excepcion");
-    }
-
-    /// <summary>
-    /// Instancia de Pokémon utilizada en las pruebas.
-    /// </summary>
-    private Pokemon pokemon;
-
-    /// <summary>
-    /// Instancia de <see cref="TotalCure"/> utilizada en las pruebas.
-    /// </summary>
-    private TotalCure totalCure;
-
-    /// <summary>
-    /// Configura el entorno de prueba inicializando un Pokémon y el objeto <see cref="TotalCure"/>
-    /// antes de cada prueba individual.
-    /// </summary>
-    [SetUp]
-    public void SetUp()
-    {
-        List<Attack> ataque = new List<Attack>()
-        {
-            NormalAttackLibrary.BlazeKick,
-        };
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
-        this.totalCure = new TotalCure();
     }
 
     /// <summary>
