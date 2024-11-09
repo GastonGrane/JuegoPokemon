@@ -13,6 +13,15 @@
             tal como <see cref="T:Library.NormalAttack"/>.
             </remarks>
         </member>
+        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
+            <summary>
+            Crea un <see cref="T:Library.Attack"/> con los parámetros provistos.
+            </summary>
+            <param name="name">El nombre del ataque.</param>
+            <param name="damage">La cantidad de danio que genera.</param>
+            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
+            <param name="precision">La precision del ataque (1-100).</param>
+        </member>
         <member name="P:Library.Attack.Name">
             <summary>
             El nombre del ataque.
@@ -33,13 +42,8 @@
         </member>
         <member name="P:Library.Attack.Precision">
             <summary>
-            Es el porcentaje de precision del ataque.
+            El porcentaje de precisión del ataque.
             </summary>
-        </member>
-        <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
-            <param name="name">El nombre del ataque.</param>
-            <param name="damage">La cantidad de danio que genera.</param>
-            <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
         </member>
         <member name="T:Library.NormalAttack">
             <summary>
@@ -57,7 +61,7 @@
             <param name="name">El nombre del ataque.</param>
             <param name="damage">La cantidad de danio que genera.</param>
             <param name="type">El <see cref="T:Library.PokemonType"/> que va a definir el elemento del ataque.</param>
-            <param name="precision">La precision del ataque.</param>
+            <param name="precision">La precision del ataque (1-100).</param>
             <remarks>
             Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
             </remarks>
