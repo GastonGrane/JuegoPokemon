@@ -70,18 +70,11 @@ public class NormalAttackTests
     [Test]
     public void NormalAttackCanAttack()
     {
-        List<Attack> attacks = new List<Attack>
-        {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
-        };
-
         var p1 = PokemonRegistry.GetPokemon("Squirtle");
         var p2 = PokemonRegistry.GetPokemon("Bulbasaur");
 
-        p1.Attack(p2, "Aqua Jet");
+        p1.Attack(p2, "Water Gun");
         Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
-        Assert.That(p2.Health, Is.EqualTo(80));
+        Assert.That(p2.Health, Is.EqualTo(45));
     }
 }

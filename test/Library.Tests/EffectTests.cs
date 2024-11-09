@@ -28,8 +28,11 @@ internal sealed class EffectTests
             pokemon.UpdateEffect();
         }
 
+        // MaxHealth = 35
+        // 35*0.05 = 1.75 ~ 1
+        // 35 - 1 - 1 - 1 = 32
         pokemon.RemoveEffect();
-        Assert.That(pokemon.Health, Is.EqualTo(86.74).Within(1));
+        Assert.That(pokemon.Health, Is.EqualTo(32));
         Assert.IsTrue(poisonEffect.IsExpired);
         Assert.IsNull(pokemon.ActiveEffect);
     }
@@ -50,7 +53,11 @@ internal sealed class EffectTests
         }
 
         pokemon.RemoveEffect();
-        Assert.That(pokemon.Health, Is.EqualTo(72.9).Within(1));
+
+        // MaxHealth = 35
+        // 35*0.1 = 3.5 ~ 3
+        // 35 - 3 - 3 - 3 = 24
+        Assert.That(pokemon.Health, Is.EqualTo(26));
         Assert.IsTrue(burnEffect.IsExpired);
         Assert.IsNull(pokemon.ActiveEffect);
     }

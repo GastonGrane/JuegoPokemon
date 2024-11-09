@@ -20,7 +20,8 @@ internal sealed class ItemTest
     [Test]
     public void CanRevive()
     {
-        Pokemon p = PokemonRegistry.GetPokemon("Pikachu");
+        // MaxHealth > 50
+        Pokemon p = PokemonRegistry.GetPokemon("Dragonite");
         p.Damage(1000);
 
         Revive revive = new Revive();
