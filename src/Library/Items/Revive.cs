@@ -21,6 +21,6 @@ public class Revive : IItem
     public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-        pokemon.Curar(50);
+        pokemon.Heal(50);
     }
 }

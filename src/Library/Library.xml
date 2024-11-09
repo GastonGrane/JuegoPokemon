@@ -110,6 +110,162 @@
             <param name="damage">La cantidad de daño que realiza.</param>
             <param name="attackType">El <see cref="T:Library.PokemonType"/> del ataque.</param>
         </member>
+        <member name="T:Library.Effect.Burn">
+            <summary>
+            Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
+            Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Burn.#ctor">
+            <summary>
+            Inicializa una nueva instancia del efecto de quemadura en el Pokémon especificado y lo marca como activo.
+            </summary>
+        </member>
+        <member name="P:Library.Effect.Burn.IsExpired">
+            <summary>
+            Indica si el efecto de quemadura ha expirado y ya no debe aplicarse.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Burn.UpdateEffect(Library.Pokemon)">
+            <summary>
+            Aplica el daño de quemadura al Pokémon objetivo, reduciendo su salud en un 10% de su salud actual.
+            </summary>
+            <param name="target">El Pokémon al que se le aplicará el daño por quemadura.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="M:Library.Effect.Burn.RemoveEffect(Library.Pokemon)">
+            <summary>
+            Elimina el efecto de quemadura del Pokémon, marcándolo como expirado.
+            </summary>
+            <param name="target">El Pokémon del que se removerá el efecto.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="T:Library.Effect.IEffect">
+            <summary>
+            Define una interfaz para los efectos que se pueden aplicar a un Pokémon.
+            Los efectos pueden actualizarse en cada turno, eliminarse y expirar.
+            </summary>
+        </member>
+        <member name="P:Library.Effect.IEffect.IsExpired">
+            <summary>
+            Indica si el efecto ha expirado y debería ser eliminado del Pokémon.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.IEffect.UpdateEffect(Library.Pokemon)">
+            <summary>
+            Actualiza el estado del efecto en cada turno.
+            </summary>
+            <param name="target">El Pokémon al que se aplica el efecto.</param>
+        </member>
+        <member name="M:Library.Effect.IEffect.RemoveEffect(Library.Pokemon)">
+            <summary>
+            Elimina el efecto del Pokémon, restaurando cualquier cambio aplicado por el efecto.
+            </summary>
+            <param name="target">El Pokémon del que se elimina el efecto.</param>
+        </member>
+        <member name="T:Library.Effect.Paralysis">
+            <summary>
+            Representa un efecto de parálisis que puede ser aplicado a un Pokémon.
+            Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
+            </summary>
+        </member>
+        <member name="F:Library.Effect.Paralysis.random">
+            <summary>
+            Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Paralysis.#ctor">
+            <summary>
+            Inicializa una nueva instancia del efecto de parálisis con el estado activo.
+            </summary>
+        </member>
+        <member name="P:Library.Effect.Paralysis.IsExpired">
+            <summary>
+            Indica si el efecto de parálisis ha expirado y ya no debe aplicarse.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Paralysis.UpdateEffect(Library.Pokemon)">
+            <summary>
+            Actualiza el efecto de parálisis en el Pokémon objetivo.
+            Determina aleatoriamente si el Pokémon puede atacar, con una probabilidad del 50%.
+            </summary>
+            <param name="target">El Pokémon al que se le aplicará el efecto de parálisis.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="M:Library.Effect.Paralysis.RemoveEffect(Library.Pokemon)">
+            <summary>
+            Elimina el efecto de parálisis del Pokémon, marcándolo como expirado y restaurando su capacidad de atacar.
+            </summary>
+            <param name="target">El Pokémon del que se removerá el efecto.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="T:Library.Effect.Poison">
+            <summary>
+            Representa un efecto de veneno que puede ser aplicado a un Pokémon.
+            Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Poison.#ctor">
+            <summary>
+            Inicializa una nueva instancia del efecto de veneno y lo marca como activo.
+            </summary>
+        </member>
+        <member name="P:Library.Effect.Poison.IsExpired">
+            <summary>
+            Indica si el efecto de veneno ha expirado y ya no debe aplicarse.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Poison.UpdateEffect(Library.Pokemon)">
+            <summary>
+            Aplica el daño de veneno al Pokémon objetivo, reduciendo su salud en un 5% de su salud actual.
+            </summary>
+            <param name="target">El Pokémon al que se le aplicará el daño por veneno.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="M:Library.Effect.Poison.RemoveEffect(Library.Pokemon)">
+            <summary>
+            Elimina el efecto de veneno del Pokémon.
+            </summary>
+            <param name="target">El Pokémon del que se removerá el efecto.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="T:Library.Effect.Sleep">
+            <summary>
+            Representa un efecto de sueño que puede ser aplicado a un Pokémon.
+            Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
+            </summary>
+        </member>
+        <member name="F:Library.Effect.Sleep.turnsRemaining">
+            <summary>
+            Cantidad de turnos restantes durante los cuales el efecto de sueño estará activo.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Sleep.#ctor(System.Int32)">
+            <summary>
+            Inicializa una nueva instancia del efecto de sueño con la duración especificada.
+            </summary>
+            <param name="duration">La duración del efecto de sueño en turnos.</param>
+        </member>
+        <member name="P:Library.Effect.Sleep.IsExpired">
+            <summary>
+            Indica si el efecto de sueño ha expirado y ya no debe aplicarse.
+            </summary>
+        </member>
+        <member name="M:Library.Effect.Sleep.UpdateEffect(Library.Pokemon)">
+            <summary>
+            Actualiza el efecto de sueño en el Pokémon objetivo, reduciendo los turnos restantes.
+            Cuando el efecto ha durado el número especificado de turnos, se elimina.
+            </summary>
+            <param name="target">El Pokémon al que se le aplicará el efecto de sueño.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
+        <member name="M:Library.Effect.Sleep.RemoveEffect(Library.Pokemon)">
+            <summary>
+            Elimina el efecto de sueño del Pokémon, marcándolo como expirado.
+            </summary>
+            <param name="target">El Pokémon del que se removerá el efecto.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
+        </member>
         <member name="T:Library.Game">
             <summary>
             Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
@@ -241,7 +397,15 @@
         <member name="T:Library.Items.TotalCure">
             <summary>
             Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
+            Al usar este objeto en un Pokémon, se eliminan todos los efectos de estado aplicados a él.
             </summary>
+        </member>
+        <member name="M:Library.Items.TotalCure.Use(Library.Pokemon)">
+            <summary>
+            Usa el objeto de cura total en el Pokémon especificado, eliminando cualquier efecto de estado activo.
+            </summary>
+            <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
+            <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
         </member>
         <member name="T:Library.Player">
             <summary>
@@ -334,6 +498,11 @@
              <param name="maxHealth">La vida máxima del Pokemon. Esta también será su vida inicial.</param>
              <param name="attacks">La lista de sus ataques.</param>
         </member>
+        <member name="P:Library.Pokemon.ActiveEffect">
+            <summary>
+            Representa un efecto activo que afecta al Pokémon, como veneno, paralización, etc.
+            </summary>
+        </member>
         <member name="P:Library.Pokemon.Name">
             <summary>
             El nombre del Pokemon. Esto es visible al usuario y sirve para diferenciar a los distintos pokemones en su lista.
@@ -347,6 +516,11 @@
         <member name="P:Library.Pokemon.MaxHealth">
             <summary>
             Propiedad de solo lectura que representa la salud máxima del pokemon.
+            </summary>
+        </member>
+        <member name="P:Library.Pokemon.CanAttack">
+            <summary>
+            Indica si el Pokémon puede atacar en su turno.
             </summary>
         </member>
         <member name="P:Library.Pokemon.Health">
@@ -441,7 +615,7 @@
             Lanzada si el nombre <paramref name="attackName"/> no se encuentra en la lista de ataques.
             </exception>
         </member>
-        <member name="M:Library.Pokemon.Curar(System.Int32)">
+        <member name="M:Library.Pokemon.Heal(System.Int32)">
             <summary>
             Suma un valor especificado a la vida que ya tiene el pokemon.
             </summary>
@@ -450,9 +624,36 @@
             Lanzada si el valor recibido <paramref name="health"/> es menor que 0.
             </exception>
         </member>
+        <member name="M:Library.Pokemon.Damage(System.Int32)">
+            <summary>
+            Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
+            Si el valor de daño es menor que 5, se lanzará una excepción.
+            </summary>
+            <param name="damage">La cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Se lanza si el daño es menor que 5.</exception>
+        </member>
+        <member name="M:Library.Pokemon.ApplyEffect(Library.Effect.IEffect)">
+            <summary>
+            Aplica un efecto al Pokémon. Si ya existe un efecto activo, lanza una excepción y no se aplica el nuevo efecto.
+            </summary>
+            <param name="effect">El efecto que se intentará aplicar al Pokémon.</param>
+            <exception cref="T:System.InvalidOperationException">
+            Se lanza si el Pokémon ya tiene un efecto activo y se intenta aplicar un nuevo efecto antes de que el actual expire.
+            </exception>
+        </member>
+        <member name="M:Library.Pokemon.UpdateEffect">
+            <summary>
+            Actualiza el efecto activo del Pokémon en cada turno. Si el efecto ha expirado, lo elimina.
+            </summary>
+        </member>
+        <member name="M:Library.Pokemon.RemoveEffect">
+            <summary>
+            Elimina el efecto activo del Pokémon, si existe.
+            </summary>
+        </member>
         <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
             <summary>
-            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
+            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado, siempre y cuando pueda atacar.
             </summary>
             <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
             <param name="attack">El ataque que se usará para realizar el daño.</param>
@@ -692,22 +893,6 @@
             </summary>
             <param name="str">Ni idea.</param>
             <returns>Tampoco sé.</returns>
-        </member>
-        <member name="T:Library.SelecPokemons">
-            <summary>
-            Nota de Guzmán: No sé qué es esto.
-            </summary>
-        </member>
-        <member name="M:Library.SelecPokemons.SelecYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
-            <summary>
-            Nota de Guzmán: No sé qué es esto.
-            </summary>
-            <param name="player">Un jugador.</param>
-            <param name="pokemons">Algunos Pokemon.</param>
-            <param name="printer">Un printer.</param>
-            <exception cref="T:System.ArgumentNullException">
-            Si algún parámetro es <c>null</c>.
-            </exception>
         </member>
     </members>
 </doc>
