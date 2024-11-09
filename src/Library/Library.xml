@@ -831,21 +831,5 @@
             <param name="str">Ni idea.</param>
             <returns>Tampoco sé.</returns>
         </member>
-        <member name="T:Library.SelecPokemons">
-            <summary>
-            Nota de Guzmán: No sé qué es esto.
-            </summary>
-        </member>
-        <member name="M:Library.SelecPokemons.SelecYourPokemon(Library.Player,System.Collections.Generic.List{Library.Pokemon},Library.IPrinter)">
-            <summary>
-            Nota de Guzmán: No sé qué es esto.
-            </summary>
-            <param name="player">Un jugador.</param>
-            <param name="pokemons">Algunos Pokemon.</param>
-            <param name="printer">Un printer.</param>
-            <exception cref="T:System.ArgumentNullException">
-            Si algún parámetro es <c>null</c>.
-            </exception>
-        </member>
     </members>
 </doc>

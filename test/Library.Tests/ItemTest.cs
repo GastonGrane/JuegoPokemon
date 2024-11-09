@@ -4,16 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 using Library.Effect;
 using Library.Items;
 
 namespace Library.Tests;
 
 /// <summary>
-/// Contiene pruebas para la clase <see cref="TotalCure"/> que verifica su funcionalidad
-/// en la eliminación de efectos activos de estado en un Pokémon.
+/// Test de los Item.
 /// </summary>
 internal sealed class ItemTest
 {
@@ -34,8 +31,56 @@ internal sealed class ItemTest
     [SetUp]
     public void SetUp()
     {
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, new List<Attack>());
+        List<Attack> ataque = new List<Attack>()
+        {
+            NormalAttackLibrary.BlazeKick,
+        };
+        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
         this.totalCure = new TotalCure();
+    }
+
+    /// <summary>
+    /// Testea si el metodo Revive, lo revive con el 50 de HP.
+    /// </summary>
+    [Test]
+    public void CanRevive()
+    {
+        List<Attack> attacks = new List<Attack>
+        {
+            NormalAttackLibrary.AquaJet,
+            NormalAttackLibrary.BlazeKick,
+            NormalAttackLibrary.BulletSeed,
+        };
+
+        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
+
+        // FIXME: Revive no tendria que ser static??
+        Revive revive = new Revive();
+        revive.Use(p1);
+
+        Assert.That(p1.Health, Is.EqualTo(50));
+    }
+
+    /// <summary>
+    /// Testea que falle el hecho de que pasemos como parametro algo null.
+    /// </summary>
+    [Test]
+    public void PasarUnParametroNullFalla()
+    {
+        Revive revive = new Revive();
+        bool exceptionThrown = false;
+        try
+        {
+#pragma warning disable CS8625 // se le pasa null a propósito
+            revive.Use(null);
+#pragma warning restore CS8625
+        }
+        catch (ArgumentNullException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Curar a un pokemon inexistente no tiro una excepcion");
     }
 
     /// <summary>

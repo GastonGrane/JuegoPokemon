@@ -43,6 +43,11 @@ public class Pokemon
     /// <param name="attacks">La lista de sus ataques.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
+
         this.Name = name;
         this.Type = type;
         this.Health = maxHealth;
@@ -151,7 +156,7 @@ public class Pokemon
         Attack attack = GetAttack(attackName);
         this.Attack(target, attack);
     }
-    
+
     /// <summary>
     /// Suma un valor especificado a la vida que ya tiene el pokemon.
     /// </summary>
@@ -230,7 +235,7 @@ public class Pokemon
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
     /// <returns>
-    /// `true` si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo; 
+    /// `true` si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
     /// `false` si el ataque falló.
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
@@ -271,7 +276,7 @@ public class Pokemon
             return false;
         }
     }
-    
+
     /// <summary>
     /// Esta función retorna el ataque correspondiente al string que recibe como parámetro.
     /// </summary>
@@ -287,6 +292,7 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(string attackName)
     {
+        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
@@ -322,6 +328,7 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(int attackIdx)
     {
+        // FIXME (Gaston): Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

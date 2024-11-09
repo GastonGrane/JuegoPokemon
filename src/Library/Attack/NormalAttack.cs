@@ -35,5 +35,7 @@ public class NormalAttack : Attack
     /// </remarks>
     public NormalAttack(string name, int damage, PokemonType type, int precision) : base(name, damage, type, precision)
     {
+        ArgumentNullException.ThrowIfNull(name, "Un Ataque no se puede inicializar con nombre null");
+        ArgumentOutOfRangeException.ThrowIfNegative(damage, "El daño no puede ser negativo");
     }
 }
