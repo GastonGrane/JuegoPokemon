@@ -29,15 +29,15 @@
         </member>
         <member name="P:Library.Attack.Damage">
             <summary>
-            El valor de daño del ataque
+            El valor de daño del ataque.
             </summary>
         </member>
         <member name="P:Library.Attack.Type">
             <summary>
-            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque
+            Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
             </summary>
             <value>
-            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque
+            Un <see cref="T:Library.PokemonType"/> representa el tipo elemental del ataque.
             </value>
         </member>
         <member name="P:Library.Attack.Precision">
@@ -464,17 +464,23 @@
             Crea instancias de los distintos pokemons.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Library.Pokemon._health" -->
+        <member name="F:Library.Pokemon.health">
+             <summary>
+             El valor actual de salud del pokemon.
+            
+             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health"/>.
+             </summary>
+        </member>
         <member name="F:Library.Pokemon.Random">
             <summary>
             Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
             </summary>
         </member>
-        <member name="F:Library.Pokemon._attacks">
+        <member name="F:Library.Pokemon.attacks">
              <summary>
              Lista de los distintos ataques con los que cuenta el pokemon.
             
-             El acceso a este valor será controlado por la propiedad <see cref="F:Library.Pokemon._attacks"/>.
+             El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Attacks"/>.
              </summary>
         </member>
         <member name="M:Library.Pokemon.#ctor(System.String,Library.PokemonType,System.Int32,System.Collections.Generic.List{Library.Attack})">
@@ -595,7 +601,20 @@
             Elimina el efecto activo del Pokémon, si existe.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)" -->
+        <member name="M:Library.Pokemon.Attack(Library.Pokemon,Library.Attack)">
+            <summary>
+            Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado, siempre y cuando pueda atacar.
+            </summary>
+            <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+            <param name="attack">El ataque que se usará para realizar el daño.</param>
+            <returns>
+            <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
+            <c>false</c> si el ataque falló.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="P:Library.Pokemon.Attacks"/> del Pokémon que ataca.
+            </exception>
+        </member>
         <member name="M:Library.Pokemon.GetAttack(System.String)">
             <summary>
             Esta función retorna el ataque correspondiente al string que recibe como parámetro.
