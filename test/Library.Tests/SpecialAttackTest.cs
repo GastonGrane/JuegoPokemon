@@ -1,6 +1,1 @@
-namespace Library.Tests;
-
-public class SpecialAttackTest
-{
-    
-}
+// Mañana Hago los test...

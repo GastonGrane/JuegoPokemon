@@ -226,13 +226,20 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado, siempre y cuando pueda atacar.
+    /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado,
+    /// siempre y cuando el Pokémon atacante esté en condiciones de atacar.
+    /// Aplica el daño correspondiente y, si es un ataque especial, también aplica el efecto especial.
     /// </summary>
-    /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+    /// <param name="target">El Pokémon objetivo al que se le aplicará el ataque.</param>
     /// <param name="attack">El ataque que se usará para realizar el daño.</param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
+    /// Se lanza si el ataque especificado no se encuentra en la lista de ataques del Pokémon atacante.
     /// </exception>
+    /// <remarks>
+    /// Si el ataque es de tipo <see cref="SpecialAttack"/>, se aplicará el efecto especial al Pokémon objetivo,
+    /// siempre que no tenga un efecto activo.
+    /// El daño causado se ajusta según la ventaja de tipo entre el atacante y el objetivo.
+    /// </remarks>
     private void Attack(Pokemon target, Attack attack)
     {
         if (!this.Attacks.Contains(attack))
@@ -240,17 +247,19 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        PokemonType attacker = attack.Type;
-        PokemonType defender = target.Type;
-
-        double multiplier = attacker.Advantage(defender);
-        double damage = attack.Damage * multiplier;
         if (this.CanAttack)
         {
-            target.Health -= damage;
+            if (attack is SpecialAttack specialAttack)
+            {
+                specialAttack.Do(target);
+            }
+
+            double multiplier = attack.Type.Advantage(target.Type);
+            double damage = attack.Damage * multiplier;
+            target.Damage((int)damage);
         }
 
-        this.UpdateEffect();
+        this.UpdateEffect(); // Actualiza el efecto actual del atacante
     }
 
     /// <summary>
