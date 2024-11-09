@@ -23,8 +23,6 @@ public abstract class Attack
     /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
     protected Attack(string name, int damage, PokemonType type)
     {
-        ArgumentNullException.ThrowIfNull(name, "Un Ataque no se puede inicializar con nombre null");
-        ArgumentOutOfRangeException.ThrowIfNegative(damage, "El daño no puede ser negativo");
         this.Name = name;
         this.Damage = damage;
         this.Type = type;

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="AttackTest.cs" company="Universidad Católica del Uruguay">
+// <copyright file="NormalAttackTests.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,7 +7,7 @@
 namespace Library.Tests;
 
 /// <summary>
-/// Test de los metodos de NormalAttack
+/// Test de los metodos de NormalAttack.
 /// </summary>
 public class NormalAttackTests
 {
@@ -17,11 +17,11 @@ public class NormalAttackTests
     [Test]
     public void CanNormalAttack()
     {
-        Attack ColaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon);
+        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon);
 
-        Assert.That(ColaDragon.Name, Is.EqualTo("Cola Dragon"), "El nombre no se inicio correctoamente");
-        Assert.That(ColaDragon.Damage, Is.EqualTo(15), "El daño no se incio correctamente");
-        Assert.That(ColaDragon.Type, Is.EqualTo(PokemonType.Dragon), "El tipo del ataque no se inicio bien");
+        Assert.That(colaDragon.Name, Is.EqualTo("Cola Dragon"), "El nombre no se inicio correctoamente");
+        Assert.That(colaDragon.Damage, Is.EqualTo(15), "El daño no se incio correctamente");
+        Assert.That(colaDragon.Type, Is.EqualTo(PokemonType.Dragon), "El tipo del ataque no se inicio bien");
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            Attack LanzaRoca = new NormalAttack(null, 13, PokemonType.Bug);
+            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug);
         }
         catch (ArgumentNullException)
         {
@@ -52,7 +52,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            Attack LanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug);
+            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug);
         }
         catch (ArgumentOutOfRangeException)
         {

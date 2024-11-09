@@ -64,9 +64,8 @@ public class PokemonTests
     [Test]
     public void PokemonSinAtaquesFalla()
     {
-        List<Attack> attacks = new List<Attack>
-        {
-        };
+        List<Attack> attacks = new List<Attack>();
+
         bool exceptionThrown = false;
         try
         {

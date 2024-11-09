@@ -4,8 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 using Library.Effect;
 using Library.Items;
 
@@ -28,10 +26,8 @@ public class ItemTest
             NormalAttackLibrary.BlazeKick,
             NormalAttackLibrary.BulletSeed,
         };
-        List<Pokemon> pokemon = new List<Pokemon>();
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
-        pokemon.Add(p1);
 
         // FIXME: Revive no tendria que ser static??
         Revive revive = new Revive();
@@ -59,7 +55,7 @@ public class ItemTest
 
         Assert.True(exceptionThrown, "Curar a un pokemon inexistente no tiro una excepcion");
     }
-    
+
     /// <summary>
     /// Instancia de Pokémon utilizada en las pruebas.
     /// </summary>
@@ -77,7 +73,11 @@ public class ItemTest
     [SetUp]
     public void SetUp()
     {
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, new List<Attack>());
+        List<Attack> ataque = new List<Attack>()
+        {
+            NormalAttackLibrary.BlazeKick,
+        };
+        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
         this.totalCure = new TotalCure();
     }
 

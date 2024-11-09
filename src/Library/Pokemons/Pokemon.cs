@@ -250,7 +250,7 @@ public class Pokemon
 
         double multiplier = attacker.Advantage(defender);
         double damage = attack.Damage * multiplier;
-        if (this.CanAttack)
+        if (!this.CanAttack)
         {
             target.Health -= damage;
         }

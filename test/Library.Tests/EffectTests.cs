@@ -21,7 +21,11 @@ internal sealed class EffectTests
     [SetUp]
     public void Setup()
     {
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, new List<Attack>());
+        List<Attack> ataque = new List<Attack>()
+        {
+            NormalAttackLibrary.BlazeKick,
+        };
+        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, ataque);
     }
 
     /// <summary>
