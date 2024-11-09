@@ -25,5 +25,8 @@ public class SpecialAttack : Attack
     /// <param name="damage">La cantidad de daño que realiza.</param>
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
     /// <param name="precision">La precisión del ataque (1-100).</param>
-    public SpecialAttack(string name, int damage, PokemonType attackType, int precision) : base(name, damage, attackType, precision) { }
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision)
+        : base(name, damage, attackType, precision)
+    {
+    }
 }

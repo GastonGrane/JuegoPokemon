@@ -15,16 +15,16 @@ namespace Library;
 public class Pokemon
 {
     /// <summary>
+    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+    /// </summary>
+    private static readonly Random Random = new Random();
+
+    /// <summary>
     /// El valor actual de salud del pokemon.
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
     /// </summary>
     private double health;
-
-    /// <summary>
-    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
-    /// </summary>
-    private static readonly Random Random = new Random();
 
     /// <summary>
     /// Lista de los distintos ataques con los que cuenta el pokemon.
@@ -141,6 +141,7 @@ public class Pokemon
         Attack attack = this.GetAttack(attackIdx);
         this.Attack(target, attack);
     }
+
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el nombre del ataque especificado.
     /// </summary>
@@ -253,16 +254,17 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
-        if ((Random.Next(100) < attack.Precision))
+        if (Random.Next(100) < attack.Precision)
         {
             PokemonType attacker = attack.Type;
             PokemonType defender = target.Type;
             double multiplier = attacker.Advantage(defender);
-            double damage = (attack.Damage * multiplier);
+            double damage = attack.Damage * multiplier;
             if (!this.CanAttack)
             {
                 target.Health -= damage;
-                //esto equivale al 10%
+
+                // esto equivale al 10%
                 if (Random.Next(10) < 1)
                 {
                     target.Health -= (damage * 20) / 100;
@@ -319,6 +321,7 @@ public class Pokemon
 
         return attack;
     }
+
     /// <summary>
     /// Retorna el ataque correspondiente al valor que recibe como parámetro.
     /// </summary>

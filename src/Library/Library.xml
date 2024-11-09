@@ -464,17 +464,17 @@
             Crea instancias de los distintos pokemons.
             </summary>
         </member>
+        <member name="F:Library.Pokemon.Random">
+            <summary>
+            Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+            </summary>
+        </member>
         <member name="F:Library.Pokemon.health">
              <summary>
              El valor actual de salud del pokemon.
             
              El acceso a este valor será controlado por la propiedad <see cref="P:Library.Pokemon.Health"/>.
              </summary>
-        </member>
-        <member name="F:Library.Pokemon.Random">
-            <summary>
-            Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
-            </summary>
         </member>
         <member name="F:Library.Pokemon.attacks">
              <summary>
