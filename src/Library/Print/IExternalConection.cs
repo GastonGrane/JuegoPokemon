@@ -11,7 +11,7 @@ namespace Library;
 ///
 /// Permite imprimir texto, y pedirlo al usuario una selección.
 /// </summary>
-public interface IPrinter
+public interface IExternalConection
 {
     /// <summary>
     /// Imprime la lista provista en el servicio.

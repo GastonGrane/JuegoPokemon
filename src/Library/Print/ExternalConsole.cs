@@ -9,7 +9,7 @@ namespace Library;
 /// <summary>
 /// Un IPrinter que imprime/toma entrada de la consola.
 /// </summary>
-public class ConsolePrinter : IPrinter
+public class ExternalConsole : IExternalConection
 {
     /// <summary>
     /// Imprime la lista provista en la consola.
