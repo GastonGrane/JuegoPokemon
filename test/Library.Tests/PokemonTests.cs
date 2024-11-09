@@ -23,7 +23,7 @@ public class PokemonTests
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
             NormalAttackRegistry.GetNormalAttack("Fusion Bolt"),
-            new NormalAttack("extra", 100, PokemonType.Bug),
+            NormalAttackRegistry.GetNormalAttack("Sky Attack"),
         };
         bool exceptionThrown = false;
         try
