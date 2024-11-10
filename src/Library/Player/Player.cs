@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Items;
+
 namespace Library;
 
 /// <summary>
@@ -33,6 +35,10 @@ public class Player
 
         this.Name = name;
         this.Pokemons = pokemons;
+        Items = new List<IItem>();
+        Items.Add(new Revive());
+        Items.Add(new SuperPotion());
+        Items.Add(new TotalCure());
         this.ActivePokemon = pokemons[0];
     }
 
@@ -48,6 +54,12 @@ public class Player
     /// Esta lista tiene hasta 6 pokemons.
     /// </value>
     public List<Pokemon> Pokemons { get; }
+
+    /// <summary>
+    /// Lista de items disponibles para el jugador.
+    /// </summary>
+    public List<IItem> Items { get; }
+
 
     /// <summary>
     /// Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="ChangePokemon(string)"/>.
@@ -101,5 +113,27 @@ public class Player
     public bool AllAreDead()
     {
         return this.Pokemons.All(p => p.Health == 0);
+    }
+
+    /// <summary>
+    /// Aplica los Items disponibles del jugador.
+    /// </summary>
+    public void ApplyItem(Pokemon target, int item)
+    {
+        if (this.Pokemons.Contains(target))
+        {
+            if (this.Items.Count <= item)
+            {
+                this.Items[item].Use(target);
+            }
+            else
+            {
+                throw new KeyNotFoundException("Player no tiene este item disponible.");
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("Player no tiene este pokemon en su equipo.");
+        }
     }
 }
