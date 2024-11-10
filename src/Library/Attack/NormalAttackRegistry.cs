@@ -111,7 +111,7 @@ public static class NormalAttackRegistry
     public static NormalAttack GetNormalAttack(string name)
     {
         NormalAttack a = NormalAttacks[name];
-        return a;
+        return new (a);
     }
 
     /// <summary>

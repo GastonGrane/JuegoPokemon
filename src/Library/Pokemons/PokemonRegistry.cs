@@ -478,7 +478,7 @@ public static class PokemonRegistry
     public static Pokemon GetPokemon(string name)
     {
         Pokemon p = PokemonTemplates[name];
-        return p;
+        return new Pokemon(p);
     }
 
     /// <summary>

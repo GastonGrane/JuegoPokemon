@@ -10,7 +10,7 @@ using Library.Items;
 namespace Library.Tests;
 
 /// <summary>
-/// Test de los Item.
+/// Testea si el metodo Revive, lo revive con el 50 de HP.
 /// </summary>
 public class ItemTest
 {

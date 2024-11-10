@@ -13,16 +13,6 @@ namespace Library.Tests;
 /// </summary>
 internal sealed class EffectTests
 {
-    private Pokemon pokemon;
-
-    /// <summary>
-    /// Creo poquemon que usare en los Test.
-    /// </summary>
-    [SetUp]
-    public void Setup()
-    {
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, new List<Attack>());
-    }
 
     /// <summary>
     /// Verifica que el efecto de veneno disminuya la salud en un 5% cada turno.
@@ -30,18 +20,19 @@ internal sealed class EffectTests
     [Test]
     public void PoisonEffectShouldExpireWhenHealing()
     {
+        var pokemon = PokemonRegistry.GetPokemon("Pikachu");
         var poisonEffect = new Poison();
-        this.pokemon.ApplyEffect(poisonEffect);
+        pokemon.ApplyEffect(poisonEffect);
 
         for (int i = 0; i < 3; i++)
         {
-            this.pokemon.UpdateEffect();
+            pokemon.UpdateEffect();
         }
 
-        this.pokemon.RemoveEffect();
-        Assert.That(this.pokemon.Health, Is.EqualTo(86.74).Within(1));
+        pokemon.RemoveEffect();
+        Assert.That(pokemon.Health, Is.EqualTo(86.74).Within(1));
         Assert.IsTrue(poisonEffect.IsExpired);
-        Assert.IsNull(this.pokemon.ActiveEffect);
+        Assert.IsNull(pokemon.ActiveEffect);
     }
 
     /// <summary>
