@@ -1,5 +1,7 @@
 // -----------------------------------------------------------------------
-// Universidad Católica del Uruguay. Programación II. Todos los derechos reservados.
+// <copyright file="Pokemon.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
@@ -105,15 +107,25 @@ public class Pokemon
     /// </summary>
     public int Health
     {
-        get { return (int)this.health; }
+        get
+        {
+            return (int)this.health;
+        }
+
         private set
         {
             if (value > this.MaxHealth && this.MaxHealth != 0)
+            {
                 this.health = this.MaxHealth;
+            }
             else if (value < 0)
+            {
                 this.health = 0;
+            }
             else
+            {
                 this.health = value;
+            }
         }
     }
 

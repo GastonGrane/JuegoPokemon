@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------
 // <copyright file="SpecialAttack.cs" company="Universidad Católica del Uruguay">
-// Copyright (c) Programación II. Todos los derechos reservados.
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
 // -----------------------------------------------------------------------
 
 using Library.Effect;
@@ -43,8 +44,6 @@ public class SpecialAttack : Attack
         this.effect = attack.effect;
     }
 
-    private static readonly Random Random = new Random();
-
     /// <summary>
     /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
     /// activo, se le aplica el efecto de este ataque.
@@ -53,10 +52,7 @@ public class SpecialAttack : Attack
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(target, nameof(target));
 
         double multiplier = this.Type.Advantage(target.Type);
         int damage = (int)(this.Damage * multiplier);

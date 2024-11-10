@@ -645,9 +645,12 @@
         </member>
         <member name="M:Library.Pokemon.Damage(System.Int32)">
             <summary>
-            Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
+            Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 0.
             </summary>
-            <param name="damage">Cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
+            <param name="damage">Cantidad de daño a aplicar. Debe ser mayor a 0.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Si <paramref name="damage"/> es menor a 0.
+            </exception>
         </member>
         <member name="M:Library.Pokemon.ApplyEffect(Library.Effect.IEffect)">
             <summary>
