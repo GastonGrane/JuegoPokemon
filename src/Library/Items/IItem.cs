@@ -11,7 +11,10 @@ namespace Library.Items;
 /// </summary>
 /// /// <remarks>
 /// La interfaz <see cref="IItem"/> permite que distintos ítems, puedan ser aplicados a un Pokémon de manera polimórfica
-/// y utilizamos bajo acomplamiento al crear varios items pero que todos dependan de esta interfaz.
+/// y utilizando un bajo acomplamiento al crear varios items pero que todos dependan de esta interfaz. Esto nos ayuda al dia
+/// de mañana no generear un error, o no uno tan grande, gracias a que si ocurre un cambio sabemos que es este el lugar
+/// donde se origina, o en el caso que sea dependiente el problema seria unicamente en su implementacion del item, esto haciendolo
+/// mas felxible a la hora de añadir o modificar algo.
 /// Este diseño sigue DIP el "Dependency Inversion Principle", ya que permite que
 /// otras clases interactúen con objetos de tipo <see cref="IItem"/> sin depender de
 /// implementaciones específicas. También sigue OCP el "Open-Close Principle", permitiendo

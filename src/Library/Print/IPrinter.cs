@@ -18,8 +18,9 @@ namespace Library;
 /// implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
 /// La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
 /// mantiene una alta cohesion en la misma.
-/// La interfaz cumple tambien con ISP "Interface Segregation Principle" ya que la misma proporciona varios metodos, pero muy especificos y coherentes
-/// relacionados con la impresion y la entrada de usuario.
+/// La interfaz cumple tambien con SRP "Single Responsability Principle" ya que encapsula el tema de "Comunicarse con el
+/// usuario", y esta al tener solo un unico proposito tambien tiene solo una razon de cambio, que querramos cambiar como
+/// se habla con el usuario, y gracias a esto generamos un bajo acomplamiento.
 /// </remarks>
 public interface IPrinter
 {
