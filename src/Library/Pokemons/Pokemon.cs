@@ -60,6 +60,7 @@ public class Pokemon
         this.MaxHealth = maxHealth;
         this.attacks = attacks;
         this.ActiveEffect = null;
+        this.CanAttack = true;
     }
 
     /// <summary>
@@ -82,6 +83,7 @@ public class Pokemon
         this.MaxHealth = pokemon.Health;
         this.attacks = pokemon.attacks;
         this.ActiveEffect = null;
+        this.CanAttack = true;
     }
 
     /// <summary>

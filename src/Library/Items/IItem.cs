@@ -25,7 +25,7 @@ public interface IItem
     /// <summary>
     /// El nombre del item.
     /// </summary>
-    public static string Name { get; } = "Item";
+    public string Name { get; }
 
     /// <summary>
     /// Aplica el efecto del objeto en el Pokémon especificado.

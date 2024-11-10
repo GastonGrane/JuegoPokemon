@@ -51,6 +51,7 @@ public abstract class Attack
         this.Name = attack.Name;
         this.Damage = attack.Damage;
         this.Type = attack.Type;
+        this.Precision = attack.Precision;
     }
 
     /// <summary>

@@ -104,6 +104,29 @@ public class Player
     }
 
     /// <summary>
+    /// Cambia el pokemon que estaria en pantalla(<see cref="ActivePokemon"/>) del jugador.
+    /// </summary>
+    /// <param name="pokeIdx">El índice del pokemon por el cual quiere cambiar, este debe ser válido para su lista de pokemon.</param>
+    /// <returns>
+    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Si <paramref name="pokeIdx"/> no es un índice en la lista.
+    /// </exception>
+    public bool ChangePokemon(int pokeIdx)
+    {
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(pokeIdx, this.Pokemons.Count, nameof(pokeIdx));
+        ArgumentOutOfRangeException.ThrowIfLessThan(pokeIdx, 0, nameof(pokeIdx));
+        if (this.Pokemons[pokeIdx] == this.ActivePokemon)
+        {
+            return false;
+        }
+
+        this.ActivePokemon = this.Pokemons[pokeIdx];
+        return true;
+    }
+
+    /// <summary>
     /// Ataca al <see cref="ActivePokemon"/> de <paramref name="other"/> utilizando el
     /// <see cref="ActivePokemon"/> del jugador con el ataque <paramref name="attackName"/>.
     /// </summary>
@@ -132,17 +155,30 @@ public class Player
     /// Aplica los Items disponibles del jugador.
     /// </summary>
     /// <param name="target">El pokémon sobre el cual usar el item.</param>
-    /// <param name="item">El índice del item para utilizar.</param>
-    public void ApplyItem(Pokemon target, int item)
+    /// <param name="name">El nombre del item para utilizar.</param>
+    public void ApplyItem(Pokemon target, string name)
     {
         if (!this.Pokemons.Contains(target))
         {
             throw new InvalidOperationException("Player no tiene este pokemon en su equipo.");
         }
 
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(item, this.Items.Count, nameof(item));
+        int idx = -1;
+        for (int i = 0; i < this.Items.Count; ++i)
+        {
+            IItem item = this.Items[i];
+            if (item.Name == name)
+            {
+                idx = i;
+            }
+        }
 
-        this.Items[item].Use(target);
-        this.Items.Remove(this.Items[item]); // Retiro el item utilizado.
+        if (idx == -1)
+        {
+            throw new ArgumentOutOfRangeException(name, "No existe un item con ese nombre en la lista de items");
+        }
+
+        this.Items[idx].Use(target);
+        this.Items.RemoveAt(idx); // Retiro el item utilizado.
     }
 }
