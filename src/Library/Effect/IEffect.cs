@@ -11,8 +11,8 @@ namespace Library.Effect;
 /// Los efectos pueden actualizarse en cada turno, eliminarse y expirar.
 /// </summary>
 /// <remarks>
-/// Implementa el principio SOLID de "Interface Segregation Principle" (ISP) al implementar
-/// una interfaz específica y desacoplada para los efectos que se pueden aplicar.
+/// Implementa el principio SOLID ISP "Interface Segregation Principle" al proporcionar una interfaz específica
+/// para los efectos.
 /// Aplica el patrón GRASP de "Polimorfismo" al permitir que cada tipo de efecto defina su propio
 /// comportamiento, cumpliendo así con el el principio "Open-Closed Principle" al facilitar la extensión.
 /// </remarks>

@@ -11,8 +11,8 @@ namespace Library;
 
 /// <summary>
 /// Crea instancias de los distintos pokemons.
-/// En esta clase tambien podemos notar el encapsulamiento, donde **Health** y las lista de ataques **Attacks** estan
-/// protegidas. LAs clases proporcionan un acceso a estos solo a traves de propiedas o metodos, esto ayuda a controlar
+/// En esta clase podemos notar el encapsulamiento, donde **Health** y las lista de ataques **Attacks** estan
+/// protegidas. Las clases proporcionan un acceso a estos solo a traves de propiedas o metodos, esto ayuda a controlar
 /// la validacion de los mismos.
 /// </summary>
 public class Pokemon

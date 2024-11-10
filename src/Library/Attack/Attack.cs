@@ -11,8 +11,10 @@ namespace Library;
 /// </summary>
 /// <remarks>
 /// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos.
-/// ESta clase utiliza SRP "Single Responsibility Principle" al encapsular exclusivamente los atributos de un ataque
-/// sin la logica correspondiente. Cumple también con el principio de OCP "Open-Closed Principle", ya que permite
+/// Esta clase cumple con LSP "Liskov Subsititution Principle" debido a que en los objetos de las subclases creadas a partir
+/// de estas ban a generar el mismo comportamiento que los objetos de la superclase, estos pudiendo asi ser reemplazados
+/// por los objetos de las superclases y no generar ningun tipo de implementacion nurar o erronea.
+/// Cumple también con el principio de OCP "Open-Closed Principle", ya que permite
 /// la extensión a través de subclases como <see cref="NormalAttack"/> o <see cref="SpecialAttack"/> sin necesidad de
 /// modificar el código base.
 /// E implementa el patrón GRASP de "Polimorfismo", ya que se espera que las subclases concreten comportamientos específicos.

@@ -12,10 +12,8 @@ namespace Library;
 /// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
 /// </summary>
 /// <remarks>
-/// Esta clase cumple con SRP "Single Responsability Principiple" ya tiene una unica responsabilidad, esta define los
+/// Esta enum cumple con SRP "Single Responsability Principiple" ya tiene una unica responsabilidad, esta define los
 /// tipos de los pokemons.
-/// Cumpliendo tambien asi OCP "Open-Closed Principle", ya que esta abierto para la extension pero cerrado para la
-/// moddificacion.
 /// </remarks>
 public enum PokemonType
 {
@@ -99,8 +97,7 @@ public enum PokemonType
 /// Provee los metodos para calcular la efectividad de los tipos de los Pokemons en la batalla.
 /// </summary>
 /// <remarks>
-/// Esta clase cumple con SRP ya proporciona unicamente la logica para calcular las ventajas entre los tipos de Pokemon.
-/// Cumple tambien con OCP ya que podemos extender la logica para calcular la ventaja afectar el resto del sistema.
+/// Esta clase cumple con SRP ya que proporciona unicamente la logica para calcular las ventajas entre los tipos de Pokemon.
 /// </remarks>
 [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:FileNameMustMatchTypeName", Justification = "This is an extension class")]
 public static class Calculate

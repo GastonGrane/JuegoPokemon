@@ -22,11 +22,6 @@ public class TotalCure : IItem
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
-    /// <remarks>
-    /// Este método primero verifica si el parámetro <paramref name="pokemon"/> es nulo. Si el Pokémon tiene un efecto activo,
-    /// se elimina llamando a su método <see cref="Pokemon.RemoveEffect"/>. Si no hay efecto activo, se lanza una excepción
-    /// <see cref="InvalidOperationException"/>.
-    /// </remarks>
     public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));

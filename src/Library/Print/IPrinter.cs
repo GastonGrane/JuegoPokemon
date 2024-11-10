@@ -14,11 +14,11 @@ namespace Library;
 /// Esta interfaz cumple con OCP "Open-Closed Principle" si se neccesita cambiar como se imprime la informcacio, se puede
 /// crear nuevas implementacion sin modificar la interzas original.
 /// Tambien cumple con DIP "Dependency Inversion Principle" al abstraer la funcionalidad de la impresion y permitir que
-/// las clases de alto nivel (como toda la logica del juego) dependan de la interfaz en lugar de depender de una
+/// las clases de alto nivel (como la interaccion con el usuario) dependan de la interfaz en lugar de depender de una
 /// implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
 /// La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
 /// mantiene una alta cohesion en la misma.
-/// LA interfaz cumple tambien con ISP "Interface Segregation Principle" ya que la misma proporciona varios metodos, pero muy especificos y coherentes
+/// La interfaz cumple tambien con ISP "Interface Segregation Principle" ya que la misma proporciona varios metodos, pero muy especificos y coherentes
 /// relacionados con la impresion y la entrada de usuario.
 /// </remarks>
 public interface IPrinter
