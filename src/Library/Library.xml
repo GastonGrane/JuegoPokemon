@@ -686,13 +686,31 @@
             <summary>
             Retorna el ataque correspondiente al nombre especificado.
             </summary>
-            <param name="attackName">Nombre del ataque.</param>
+            <param name="attackName">
+            El nombre del ataque al cual se quiere acceder.
+            </param>
+            <returns>El ataque correspondiente al nombre provisto.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si <paramref name="attackName"/> no es el nombre de ningún ataque.
+            </exception>
         </member>
         <member name="M:Library.Pokemon.GetAttack(System.Int32)">
             <summary>
             Retorna el ataque correspondiente al índice especificado.
             </summary>
-            <param name="attackIdx">Índice del ataque.</param>
+            <param name="attackIdx">
+            Índice del ataque en la lista de ataques.
+            </param>
+            <returns>El ataque correspondiente al índice provisto.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            Lanzada si el Pokémon no tiene ataques disponibles.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
+            </exception>
         </member>
         <member name="T:Library.PokemonRegistry">
             <summary>
