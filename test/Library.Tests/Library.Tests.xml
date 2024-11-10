@@ -160,12 +160,17 @@
             de <see cref="T:Library.PokemonType"/>.
             </summary>
         </member>
-        <member name="M:Library.Tests.SpecialAttackTest.SpecialAttack_AppliesEffect_AfterSuccessfulHit">
+        <member name="T:Library.Tests.SpecialAttackTest">
+            <summary>
+            Tests para la clase SpecialAttack.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.SpecialAttackTest.SpecialAttackAppliesEffectAfterSuccessfulHit">
             <summary>
             Verifica que el ataque especial golpee al objetivo y aplique el efecto, repitiendo hasta que tenga éxito.
             </summary>
         </member>
-        <member name="M:Library.Tests.SpecialAttackTest.SpecialAttack_DoesNotOverrideEffect_AfterSuccessfulHit">
+        <member name="M:Library.Tests.SpecialAttackTest.SpecialAttackDoesNotOverrideEffectAfterSuccessfulHit">
             <summary>
             Verifica que un ataque especial no reemplace el efecto activo si el Pokémon objetivo ya tiene uno.
             </summary>
