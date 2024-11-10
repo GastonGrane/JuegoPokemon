@@ -409,6 +409,11 @@
             Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
             </summary>
         </member>
+        <member name="P:Library.Items.IItem.Name">
+            <summary>
+            El nombre del item.
+            </summary>
+        </member>
         <member name="M:Library.Items.IItem.Use(Library.Pokemon)">
             <summary>
             Aplica el efecto del objeto en el Pokémon especificado.

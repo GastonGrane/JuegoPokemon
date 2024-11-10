@@ -21,7 +21,10 @@ public class Revive : IItem
     /// <summary>
     /// Nombre de el efecto.
     /// </summary>
-    public string Name { get { return "Revive"; } }
+    public static string Name
+    {
+        get { return "Revive"; }
+    }
 
     /// <summary>
     /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.

@@ -66,7 +66,6 @@ public class Player
     /// </summary>
     public List<IItem> Items { get; }
 
-
     /// <summary>
     /// Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="ChangePokemon(string)"/>.
     /// </summary>

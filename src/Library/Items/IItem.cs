@@ -12,6 +12,11 @@ namespace Library.Items;
 public interface IItem
 {
     /// <summary>
+    /// El nombre del item.
+    /// </summary>
+    public static string Name { get; }
+
+    /// <summary>
     /// Aplica el efecto del objeto en el Pokémon especificado.
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
