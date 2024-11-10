@@ -25,7 +25,7 @@ public class Revive : IItem
     /// <summary>
     /// Nombre de el efecto.
     /// </summary>
-    public static string Name
+    public string Name
     {
         get { return "Revive"; }
     }

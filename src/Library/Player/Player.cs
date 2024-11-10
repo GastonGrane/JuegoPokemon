@@ -155,17 +155,30 @@ public class Player
     /// Aplica los Items disponibles del jugador.
     /// </summary>
     /// <param name="target">El pokémon sobre el cual usar el item.</param>
-    /// <param name="item">El índice del item para utilizar.</param>
-    public void ApplyItem(Pokemon target, int item)
+    /// <param name="name">El nombre del item para utilizar.</param>
+    public void ApplyItem(Pokemon target, string name)
     {
         if (!this.Pokemons.Contains(target))
         {
             throw new InvalidOperationException("Player no tiene este pokemon en su equipo.");
         }
 
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(item, this.Items.Count, nameof(item));
+        int idx = -1;
+        for (int i = 0; i < this.Items.Count; ++i)
+        {
+            IItem item = this.Items[i];
+            if (item.Name == name)
+            {
+                idx = i;
+            }
+        }
 
-        this.Items[item].Use(target);
-        this.Items.Remove(this.Items[item]); // Retiro el item utilizado.
+        if (idx == -1)
+        {
+            throw new ArgumentOutOfRangeException(name, "No existe un item con ese nombre en la lista de items");
+        }
+
+        this.Items[idx].Use(target);
+        this.Items.RemoveAt(idx); // Retiro el item utilizado.
     }
 }

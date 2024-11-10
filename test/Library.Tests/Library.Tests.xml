@@ -175,5 +175,50 @@
             Verifica que un ataque especial no reemplace el efecto activo si el Pokémon objetivo ya tiene uno.
             </summary>
         </member>
+        <member name="T:Library.Tests.UserStoryTests">
+            <summary>
+            Tests de las historias de usuario.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory1">
+            <summary>
+            Test de la primera historia de usuario: se pueden elegir 6 Pokémon.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory2">
+            <summary>
+            Test de la segunda historia de usuario: se pueden ver los ataques disponibles.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory3">
+            <summary>
+            Test de la tercera historia de usuario: se puede ver la HP de mis Pokemon y los de mi oponente.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory4">
+            <summary>
+            Test de la cuarta historia de usuario: atacar y hacer daño basado en tipos.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory5">
+            <summary>
+            Test de la quinta historia de usuario: quiero saber que es mi turno.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory6">
+            <summary>
+            Test de la sexta historia de usuario: se gana cuando todos los pokemon de mi oponente mueren.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory7">
+            <summary>
+            Test de la séptima historia de usuario: se puede cambiar de Pokémon.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory8">
+            <summary>
+            Test de la octava historia de usuario: se pueden usar items.
+            </summary>
+        </member>
     </members>
 </doc>

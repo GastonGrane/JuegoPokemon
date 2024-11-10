@@ -386,6 +386,10 @@
             <summary>
             Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
             </summary>
+            <remarks>
+            Esta clase se podría considerar como una fachada sobre el juego de Pokemon, ya que al pasarle la conexión externa, esta
+            clase se encarga de la lógica de cómo funciona el juego, escondiendo los detalles de las clases que lo implementan.
+            </remarks>
         </member>
         <member name="F:Library.Game.externalConnection">
             <summary>
@@ -670,12 +674,12 @@
             </summary>
             <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
         </member>
-        <member name="M:Library.Player.ApplyItem(Library.Pokemon,System.Int32)">
+        <member name="M:Library.Player.ApplyItem(Library.Pokemon,System.String)">
             <summary>
             Aplica los Items disponibles del jugador.
             </summary>
             <param name="target">El pokémon sobre el cual usar el item.</param>
-            <param name="item">El índice del item para utilizar.</param>
+            <param name="name">El nombre del item para utilizar.</param>
         </member>
         <member name="T:Library.Pokemon">
             <summary>
