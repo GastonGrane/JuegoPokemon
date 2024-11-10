@@ -151,7 +151,7 @@ classDiagram
       +ChangePokemon(string newPokemon) bool
       +Attack(Player other, string attackName) bool
       +AllAreDead() bool
-      +ApplyItem(Pokemon target, int item) void
+      +ApplyItem(Pokemon target, string name) void
     }
     Player "6" o-- "0..1" Pokemon
     Player "0..*" o-- "0..1" IItem
@@ -210,3 +210,48 @@ classDiagram
       +GetAttackNamesAndTypes() List~string, PokemonType~$
     }
     Pokemon "0..*" --o "1" SpecialAttackRegistry
+
+    class Game {
+      -IExternalConnection externalConnection
+      -Player playerOne
+      -Player playerTwo
+
+      -Game(Player p1, Player p2, IExternalConnection externalConnection)
+      +CreateGame(List~Pokemon~, IExternalConnection externalConnection) Game$
+      +Play() void
+      +PlayGameTurn() void
+      -AttackPlayer(Player active, Player other) bool
+      -UseItem(Player active) bool
+      -PlayTurn(Player active, Player other) void
+      -PlayTurnP1() void
+      -PlayTurnP2() void
+      -ChngePokemon(Player p) bool
+      -CheckDead(Player p) bool
+    }
+
+    Game "1" *-- "1" IExternalConnection
+    Game "2" *-- "1" Player
+
+    <<interface>> IExternalConnection
+    class IExternalConnection {
+      +PrintString(string str) void
+      +PrintWelcome(Player p1, Player p2) void
+      +PrintPlayerWon(Player p1, Player p2) void
+      +PrintTurnHeading(Player player) void
+      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection~string` options) int
+      +ShowAttacksAndRecieveInput(Pokemon pokemon) string?
+      +ShowChangePokemonMenu(Player player) int
+      +ReportAttackResult(int oldHP, Player attacker, Player defender) void
+    }
+
+    class ConsoleConnection {
+      +PrintString(string str) void
+      +PrintWelcome(Player p1, Player p2) void
+      +PrintPlayerWon(Player p1, Player p2) void
+      +PrintTurnHeading(Player player) void
+      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection~string` options) int
+      +ShowAttacksAndRecieveInput(Pokemon pokemon) string?
+      +ShowChangePokemonMenu(Player player) int
+      +ReportAttackResult(int oldHP, Player attacker, Player defender) void
+    }
+    ConsoleConnection ..|> IExternalConnection
