@@ -37,7 +37,13 @@ public class Player
         this.Pokemons = pokemons;
         this.Items = new List<IItem>();
         this.Items.Add(new Revive());
+
         this.Items.Add(new SuperPotion());
+        this.Items.Add(new SuperPotion());
+        this.Items.Add(new SuperPotion());
+        this.Items.Add(new SuperPotion());
+
+        this.Items.Add(new TotalCure());
         this.Items.Add(new TotalCure());
         this.ActivePokemon = pokemons[0];
     }
