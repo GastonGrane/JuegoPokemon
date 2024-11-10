@@ -22,6 +22,15 @@ public class Sleep : IEffect
     private int turnsRemaining;
 
     /// <summary>
+    /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
+    /// </summary>
+    public Sleep()
+    {
+        this.turnsRemaining = new Random().Next(1, 5);
+        this.IsExpired = false;
+    }
+
+    /// <summary>
     /// Inicializa una nueva instancia del efecto de sueño con la duración especificada.
     /// </summary>
     /// <param name="duration">La duración del efecto de sueño en turnos.</param>

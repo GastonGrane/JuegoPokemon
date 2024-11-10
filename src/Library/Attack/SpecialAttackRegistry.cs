@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Effect;
+
 namespace Library;
 
 /// <summary>
@@ -17,34 +19,31 @@ public static class SpecialAttackRegistry
 {
     private static readonly Dictionary<string, SpecialAttack> SpecialAttacks = new()
     {
-        { "Acid", new SpecialAttack("Acid",  55, PokemonType.Poison, 100) },
-        { "Blizzard", new SpecialAttack("Blizzard",  110, PokemonType.Ice, 70) },
-        { "Cross Poison", new SpecialAttack("Cross Poison",  70, PokemonType.Poison, 100) },
-        { "Fire Blast", new SpecialAttack("Fire Blast",  110, PokemonType.Fire, 85) },
-        { "Fire Punch", new SpecialAttack("Fire Punch",  75, PokemonType.Fire, 100) },
-        { "Fire Spin", new SpecialAttack("Fire Spin", 35, PokemonType.Fire, 85) },
-        { "Freeze-Dry", new SpecialAttack("Freeze-Dry",  70, PokemonType.Ice, 100) },
-        { "Heat Wave", new SpecialAttack("Heat Wave",  95, PokemonType.Fire, 90) },
-        { "Hyper Voice", new SpecialAttack("Hyper Voice",  90, PokemonType.Normal, 100) },
-        { "Hypnosis", new SpecialAttack("Hypnosis",  0, PokemonType.Psychic, 60) },
-        { "Poison Fang", new SpecialAttack("Poison Fang",  50, PokemonType.Poison, 100) },
-        { "Poison Powder", new SpecialAttack("Poison Powder",  0, PokemonType.Poison, 75) },
-        { "Poison Sting", new SpecialAttack("Poison Sting", 15, PokemonType.Poison, 100) },
-        { "Psystrike", new SpecialAttack("Psystrike",  100, PokemonType.Psychic, 100) },
-        { "Sand Attack", new SpecialAttack("Sand Attack",  0, PokemonType.Ground, 100) },
-        { "Sand Tomb", new SpecialAttack("Sand Tomb",  65, PokemonType.Ground, 85) },
-        { "Screech", new SpecialAttack("Screech",  0, PokemonType.Normal, 85) },
-        { "Sing", new SpecialAttack("Sing",  0, PokemonType.Normal, 55) },
-        { "Sleep Powder", new SpecialAttack("Sleep Powder",  0, PokemonType.Grass, 75) },
-        { "Sludge Bomb", new SpecialAttack("Sludge Bomb",  85, PokemonType.Poison, 100) },
-        { "Spore", new SpecialAttack("Spore",  0, PokemonType.Grass, 100) },
-        { "Stun Spore", new SpecialAttack("Stun Spore",  0, PokemonType.Grass, 75) },
-        { "Supersonic", new SpecialAttack("Supersonic",  0, PokemonType.Normal, 55) },
-        { "Thunderbolt", new SpecialAttack("Thunderbolt",  90, PokemonType.Electric, 100) },
-        { "Thunder", new SpecialAttack("Thunder",  110, PokemonType.Electric, 70) },
-        { "Thunder Wave", new SpecialAttack("Thunder Wave",  0, PokemonType.Electric, 90) },
-        { "Toxic", new SpecialAttack("Toxic", 0, PokemonType.Poison, 90) },
-        { "Yawn", new SpecialAttack("Yawn",  0, PokemonType.Normal, 100) },
+        { "Acid", new SpecialAttack("Acid",  55, PokemonType.Poison, 100, new Poison()) },
+        { "Blizzard", new SpecialAttack("Blizzard",  110, PokemonType.Ice, 70, new Paralysis()) },
+        { "Cross Poison", new SpecialAttack("Cross Poison",  70, PokemonType.Poison, 100, new Poison()) },
+        { "Fire Blast", new SpecialAttack("Fire Blast",  110, PokemonType.Fire, 85, new Burn()) },
+        { "Fire Punch", new SpecialAttack("Fire Punch",  75, PokemonType.Fire, 100, new Burn()) },
+        { "Fire Spin", new SpecialAttack("Fire Spin", 35, PokemonType.Fire, 85, new Burn()) },
+        { "Freeze-Dry", new SpecialAttack("Freeze-Dry",  70, PokemonType.Ice, 100, new Burn()) },
+        { "Heat Wave", new SpecialAttack("Heat Wave",  95, PokemonType.Fire, 90, new Burn()) },
+        { "Hypnosis", new SpecialAttack("Hypnosis",  0, PokemonType.Psychic, 60, new Sleep()) },
+        { "Poison Fang", new SpecialAttack("Poison Fang",  50, PokemonType.Poison, 100, new Poison()) },
+        { "Poison Powder", new SpecialAttack("Poison Powder",  0, PokemonType.Poison, 75, new Poison()) },
+        { "Poison Sting", new SpecialAttack("Poison Sting", 15, PokemonType.Poison, 100, new Poison()) },
+        { "Psystrike", new SpecialAttack("Psystrike",  100, PokemonType.Psychic, 100, new Sleep()) },
+        { "Screech", new SpecialAttack("Screech",  0, PokemonType.Normal, 85, new Paralysis()) },
+        { "Sing", new SpecialAttack("Sing",  0, PokemonType.Normal, 55, new Sleep()) },
+        { "Sleep Powder", new SpecialAttack("Sleep Powder",  0, PokemonType.Grass, 75, new Sleep()) },
+        { "Sludge Bomb", new SpecialAttack("Sludge Bomb",  85, PokemonType.Poison, 100, new Poison()) },
+        { "Spore", new SpecialAttack("Spore",  0, PokemonType.Grass, 100, new Sleep()) },
+        { "Stun Spore", new SpecialAttack("Stun Spore",  0, PokemonType.Grass, 75, new Paralysis()) },
+        { "Supersonic", new SpecialAttack("Supersonic",  0, PokemonType.Normal, 55, new Paralysis()) },
+        { "Thunderbolt", new SpecialAttack("Thunderbolt",  90, PokemonType.Electric, 100, new Paralysis()) },
+        { "Thunder", new SpecialAttack("Thunder",  110, PokemonType.Electric, 70, new Paralysis()) },
+        { "Thunder Wave", new SpecialAttack("Thunder Wave",  0, PokemonType.Electric, 90, new Paralysis()) },
+        { "Toxic", new SpecialAttack("Toxic", 0, PokemonType.Poison, 90, new Poison()) },
+        { "Yawn", new SpecialAttack("Yawn",  0, PokemonType.Normal, 100, new Sleep()) },
     };
 
     /// <summary>

@@ -7,7 +7,8 @@
 namespace Library;
 
 /// <summary>
-/// Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
+/// Clase base abstracta que representa un ataque en el juego, proporcionando propiedades esenciales
+/// que definen las características de cada ataque.
 /// </summary>
 /// <remarks>
 /// La clase <see cref="Attack"/> sirve como base para varios tipos de ataques especificos.
@@ -23,11 +24,11 @@ namespace Library;
 public abstract class Attack
 {
     /// <summary>
-    /// Crea un <see cref="Attack"/> con los parámetros provistos.
+    /// Inicializa una nueva instancia de la clase <see cref="Attack"/> con los parámetros especificados.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
-    /// <param name="damage">La cantidad de danio que genera.</param>
-    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
+    /// <param name="damage">La cantidad de daño que causa el ataque.</param>
+    /// <param name="type">El tipo de ataque (<see cref="PokemonType"/>), que determina su efectividad.</param>
     /// <param name="precision">La precision del ataque (1-100).</param>
     protected Attack(string name, int damage, PokemonType type, int precision)
     {
@@ -53,25 +54,28 @@ public abstract class Attack
     }
 
     /// <summary>
-    /// El nombre del ataque.
+    /// Obtiene el nombre del ataque.
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    /// El valor de daño del ataque.
+    /// Obtiene el valor de daño del ataque.
     /// </summary>
     public int Damage { get; }
 
     /// <summary>
-    /// Retorna el tipo de ataque, que va a determinar si es eficaz el ataque.
+    /// Obtiene el tipo de ataque, que determina la efectividad del ataque contra diferentes tipos de Pokémon.
     /// </summary>
-    /// <value>
-    /// Un <see cref="PokemonType"/> representa el tipo elemental del ataque.
-    /// </value>
     public PokemonType Type { get; }
 
     /// <summary>
-    /// El porcentaje de precisión del ataque.
+    /// Obtiene la precisión del ataque, representada como un porcentaje entre 1 y 100.
     /// </summary>
     public int Precision { get; }
+
+    /// <summary>
+    /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
+    /// </summary>
+    /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
+    public abstract void Use(Pokemon target);
 }

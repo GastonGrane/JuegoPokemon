@@ -4,30 +4,31 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Effect;
+
 namespace Library;
 
-// FIXME: Por ahora esto no hace nada, ni hay ataques especiales, ni los efectos están definidos
-
 /// <summary>
-/// Un ataque especial. Este es un tipo de ataque que,
-/// además de realizar daño, también inflige un estado sobre el Pokemon,
-/// dependiendo de qué ataque fue utilizado.
-///
-/// Una vez que el ataque acierta, siempre se le infligirá el estado al Pokemon,
-/// es decir, la precisión de la aplicación del estado es del 100%.
+/// Representa un ataque especial que, además de causar daño, también inflige un estado en el Pokémon objetivo,
+/// dependiendo del tipo de ataque que se utilice. Una vez que el ataque acierta, el estado se aplica
+/// con un 100% de precisión.
 /// </summary>
 public class SpecialAttack : Attack
 {
+    private IEffect effect;
+
     /// <summary>
-    /// Crea un ataque especial.
+    /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de daño que realiza.</param>
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
     /// <param name="precision">La precisión del ataque (1-100).</param>
-    public SpecialAttack(string name, int damage, PokemonType attackType, int precision)
+    /// <param name="effect">El efecto del ataque.</param>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect)
         : base(name, damage, attackType, precision)
     {
+        this.effect = effect;
     }
 
     /// <summary>
@@ -40,5 +41,26 @@ public class SpecialAttack : Attack
     public SpecialAttack(SpecialAttack attack)
         : base(attack)
     {
+        this.effect = attack.effect;
+    }
+
+    /// <summary>
+    /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
+    /// activo, se le aplica el efecto de este ataque.
+    /// </summary>
+    /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
+    /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
+    public override void Use(Pokemon target)
+    {
+        ArgumentNullException.ThrowIfNull(target, nameof(target));
+
+        double multiplier = this.Type.Advantage(target.Type);
+        int damage = (int)(this.Damage * multiplier);
+        target.Damage(damage);
+
+        if (target.ActiveEffect == null)
+        {
+            target.ApplyEffect(this.effect);
+        }
     }
 }

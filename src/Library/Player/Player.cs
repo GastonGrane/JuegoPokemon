@@ -39,6 +39,7 @@ public class Player
 
         this.Name = name;
         this.Pokemons = pokemons;
+
         // Nota de Guzmán: Esto es _una_ solución al problema. Lo ideal, creo yo, sería utilizar cantidades del item que vayan disminuyendo. Esto no lo implementé yo, entonces queda así.
         this.Items = new List<IItem>
         {
