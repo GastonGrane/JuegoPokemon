@@ -2,51 +2,121 @@
 classDiagram
    accTitle: Diagrama de Clases Proyecto Final
 
-   class Game {
-     +Pokemon: List~IPokemon~
-     +Player1: Player
-     +Player2: Player
+   class Pokemon {
+     -health: int
+     -attacks: List~Attack~
 
-     +createGame() Game
-     -AttackPlayer(Player active, Player other) void
-     -PlayTurn(Player active, Player other) void
-     -PlayTurnP1() void
-     -PlayTurnP2() void
-     -ChangePokemon(Player p) void
-     -CheckDead(Player p) bool
-     +Play() void
-   }
-   Game "0..*" <.. "1" IPokemon
-   Game "2" <.. "1" Player
-
-   <<interface>> IPokemon
-   class IPokemon {
+     +ActiveEffect: IEffect?
      +Name: string
-     +Element: IElement
-     +Attacks: Attack[]
-     +Health: int
+     +Type: PokemonType
      +MaxHealth: int
+     +Health: int
+     +CanAttack: bool
+     +Attacks: ReadOnlyCollection~Attack~
 
-     +Attack(IPokemon target, string attackName) bool
+     +Pokemon(string name, PokemonType type, int maxHealth, List~Attack~ attacks)
+     +Pokemon(Pokemon pokemon)
+     +Attack(Pokemon target, int attackIdx): void
+     +Attack(Pokemon target, string attackName): void
+     +Heal(int health): void
+     +Damage(int health): void
+     +ApplyEffect(IEffect effect): void
+     +UpdateEffect(IEffect effect): void
+     +RemoveEffect(IEffect effect): void
+     -Attack(Pokemon target, Attack attack): bool
+     -GetAttack(string attackName): Attack
+     -GetAttack(int attackIdx): Attack
    }
-   IPokemon "1" *-- "0..*" Element
-   IPokemon "1..4" *-- "0..*" Attack
-   <<enumeration>> Element
-   class Element {
+
+   Pokemon "1" *-- "0..*" PokemonType
+   Pokemon "1" *-- "1" IEffect
+   Pokemon "1..4" o-- "1" Attack
+
+   <<enumeration>> PokemonType
+   class PokemonType {
+     Normal
      Fire
      Water
-     Grass
      Electric
+     Grass
+     Ice
+     Fighting
+     Poison
+     Ground
+     Flying
+     Psychic
+     Bug
+     Rock
+     Ghost
+     Dragon
 
      +Advantage(Element other) double
    }
 
+   <<interface>> IEffect
+   class IEffect {
+     +IsExpired: bool
+
+     +UpdateEffect(Pokemon target)
+     +RemoveEffect(Pokemon target)
+   }
+
+   class Burn {
+     +IsExpired: bool
+
+     +UpdateEffect(Pokemon target)
+     +RemoveEffect(Pokemon target)
+   }
+   Burn ..|> IEffect
+
+   class Poison {
+     +IsExpired: bool
+
+     +UpdateEffect(Pokemon target)
+     +RemoveEffect(Pokemon target)
+   }
+   Poison ..|> IEffect
+
+   class Sleep {
+     +IsExpired: bool
+
+     +UpdateEffect(Pokemon target)
+     +RemoveEffect(Pokemon target)
+   }
+   Sleep ..|> IEffect
+
+   class Paralysis {
+     +IsExpired: bool
+
+     +UpdateEffect(Pokemon target)
+     +RemoveEffect(Pokemon target)
+   }
+   Paralysis ..|> IEffect
+
+   <<abstract>> Attack
    class Attack {
      +Name: string
      +Damage: int
-     +Type: Element
+     +Type: PokemonType
+     +Precision: int
+
+     #Attack(string name, int damage, PokemonType type, int precision)
+     #Attack(Attack attack)
    }
-   Attack "1" *-- "0..*" Element
+   Attack "1" *-- "0..*" PokemonType
+
+   class NormalAttack {
+     +Name: string
+     +Damage: int
+     +Type: PokemonType
+     +Precision: int
+
+     #NormalAttack(string name, int damage, PokemonType type, int precision)
+     #NormalAttack(NormalAttack normalAttack)
+   }
+   NormalAttack "1" *-- "0..*" PokemonType
+   NormalAttack
+
 
    class Player {
      +Name: string
@@ -58,39 +128,3 @@ classDiagram
      +IsDead() bool
    }
    Player "6" *-- "0..*" IPokemon
-
-   class Charmander {
-     +Name: string
-     +Element: IElement
-     +Attacks: Attack[]
-     +Health: int
-     +MaxHealth: int
-   }
-   Charmander <|-- IPokemon
-
-   class Pikachu {
-     +Name: string
-     +Element: IElement
-     +Attacks: Attack[]
-     +Health: int
-     +MaxHealth: int
-   }
-   Pikachu <|-- IPokemon
-
-   class Bulbasaur {
-     +Name: string
-     +Element: IElement
-     +Attacks: Attack[]
-     +Health: int
-     +MaxHealth: int
-   }
-   Bulbasaur <|-- IPokemon
-
-   class Squirtle {
-     +Name: string
-     +Element: IElement
-     +Attacks: Attack[]
-     +Health: int
-     +MaxHealth: int
-   }
-   Squirtle <|-- IPokemon
