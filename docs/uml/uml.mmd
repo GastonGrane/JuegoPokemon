@@ -1,130 +1,212 @@
 %% Quedó precioso, ya sé
 classDiagram
-   accTitle: Diagrama de Clases Proyecto Final
+    accTitle: Diagrama de Clases Proyecto Final
 
-   class Pokemon {
-     -health: int
-     -attacks: List~Attack~
+    class Pokemon {
+      -int health
+      -List~Attack~ attacks
 
-     +ActiveEffect: IEffect?
-     +Name: string
-     +Type: PokemonType
-     +MaxHealth: int
-     +Health: int
-     +CanAttack: bool
-     +Attacks: ReadOnlyCollection~Attack~
+      +IEffect? ActiveEffect
+      +string Name
+      +Type: PokemonType
+      +int MaxHealth
+      +int Health
+      +bool CanAttack
+      +ReadOnlyCollection~Attack~ Attacks
 
-     +Pokemon(string name, PokemonType type, int maxHealth, List~Attack~ attacks)
-     +Pokemon(Pokemon pokemon)
-     +Attack(Pokemon target, int attackIdx): void
-     +Attack(Pokemon target, string attackName): void
-     +Heal(int health): void
-     +Damage(int health): void
-     +ApplyEffect(IEffect effect): void
-     +UpdateEffect(IEffect effect): void
-     +RemoveEffect(IEffect effect): void
-     -Attack(Pokemon target, Attack attack): bool
-     -GetAttack(string attackName): Attack
-     -GetAttack(int attackIdx): Attack
-   }
+      +Pokemon(string name, PokemonType type, int maxHealth, List~Attack~ attacks)
+      +Pokemon(Pokemon pokemon)
+      +Attack(Pokemon target, int attackIdx) void
+      +Attack(Pokemon target, string attackName) void
+      +Heal(int health) void
+      +Damage(int health) void
+      +ApplyEffect(IEffect effect) void
+      +UpdateEffect(IEffect effect) void
+      +RemoveEffect(IEffect effect) void
+      -Attack(Pokemon target, Attack attack) bool
+      -GetAttack(string attackName) Attack
+      -GetAttack(int attackIdx) Attack
+    }
 
-   Pokemon "1" *-- "0..*" PokemonType
-   Pokemon "1" *-- "1" IEffect
-   Pokemon "1..4" o-- "1" Attack
+    Pokemon "1" *-- "0..*" PokemonType
+    Pokemon "1" *-- "1" IEffect
+    Pokemon "1..4" o-- "1" Attack
 
-   <<enumeration>> PokemonType
-   class PokemonType {
-     Normal
-     Fire
-     Water
-     Electric
-     Grass
-     Ice
-     Fighting
-     Poison
-     Ground
-     Flying
-     Psychic
-     Bug
-     Rock
-     Ghost
-     Dragon
+    <<enumeration>> PokemonType
+    class PokemonType {
+      Normal
+      Fire
+      Water
+      Electric
+      Grass
+      Ice
+      Fighting
+      Poison
+      Ground
+      Flying
+      Psychic
+      Bug
+      Rock
+      Ghost
+      Dragon
 
-     +Advantage(Element other) double
-   }
+      +Advantage(Element other) double
+    }
 
-   <<interface>> IEffect
-   class IEffect {
-     +IsExpired: bool
+    <<interface>> IEffect
+    class IEffect {
+      +bool IsExpired
 
-     +UpdateEffect(Pokemon target)
-     +RemoveEffect(Pokemon target)
-   }
+      +UpdateEffect(Pokemon target) void
+      +RemoveEffect(Pokemon target) void
+    }
 
-   class Burn {
-     +IsExpired: bool
+    class Burn {
+      +bool IsExpired
 
-     +UpdateEffect(Pokemon target)
-     +RemoveEffect(Pokemon target)
-   }
-   Burn ..|> IEffect
+      +Burn()
+      +UpdateEffect(Pokemon target) void
+      +RemoveEffect(Pokemon target) void
+    }
+    Burn ..|> IEffect
 
-   class Poison {
-     +IsExpired: bool
+    class Poison {
+      +bool IsExpired
 
-     +UpdateEffect(Pokemon target)
-     +RemoveEffect(Pokemon target)
-   }
-   Poison ..|> IEffect
+      +Poison()
+      +UpdateEffect(Pokemon target) void
+      +RemoveEffect(Pokemon target) void
+    }
+    Poison ..|> IEffect
 
-   class Sleep {
-     +IsExpired: bool
+    class Sleep {
+      -int turnsRemaining
+      +bool IsExpired
 
-     +UpdateEffect(Pokemon target)
-     +RemoveEffect(Pokemon target)
-   }
-   Sleep ..|> IEffect
+      +Sleep()
+      +UpdateEffect(Pokemon target) void
+      +RemoveEffect(Pokemon target) void
+    }
+    Sleep ..|> IEffect
 
-   class Paralysis {
-     +IsExpired: bool
+    class Paralysis {
+      +bool IsExpired
 
-     +UpdateEffect(Pokemon target)
-     +RemoveEffect(Pokemon target)
-   }
-   Paralysis ..|> IEffect
+      +Paralysis()
+      +UpdateEffect(Pokemon target) void
+      +RemoveEffect(Pokemon target) void
+    }
+    Paralysis ..|> IEffect
 
-   <<abstract>> Attack
-   class Attack {
-     +Name: string
-     +Damage: int
-     +Type: PokemonType
-     +Precision: int
+    <<abstract>> Attack
+    class Attack {
+      +string Name
+      +int Damage
+      +PokemonType Type
+      +int Precision
 
-     #Attack(string name, int damage, PokemonType type, int precision)
-     #Attack(Attack attack)
-   }
-   Attack "1" *-- "0..*" PokemonType
+      #Attack(string name, int damage, PokemonType type, int precision)
+      #Attack(Attack attack)
+      +Use(Pokemon target)* void
+    }
+    Attack "1" *-- "0..*" PokemonType
 
-   class NormalAttack {
-     +Name: string
-     +Damage: int
-     +Type: PokemonType
-     +Precision: int
+    class NormalAttack {
+      +string Name
+      +int Damage
+      +PokemonType Type
+      +int Precision
 
-     #NormalAttack(string name, int damage, PokemonType type, int precision)
-     #NormalAttack(NormalAttack normalAttack)
-   }
-   NormalAttack "1" *-- "0..*" PokemonType
-   NormalAttack
+      #NormalAttack(string name, int damage, PokemonType type, int precision)
+      #NormalAttack(NormalAttack normalAttack)
+      +Use(Pokemon target)* void
+    }
+    NormalAttack "1" *-- "0..*" PokemonType
+    NormalAttack ..|> Attack
+
+    class SpecialAttack {
+      -IEffect effect
+      +string Name
+      +int Damage
+      +PokemonType Type
+      +int Precision
+
+      #NormalAttack(string name, int damage, PokemonType type, int precision)
+      #NormalAttack(NormalAttack normalAttack)
+      +Use(Pokemon target)* void
+    }
+    SpecialAttack "1" *-- "0..*" PokemonType
+    SpecialAttack "1" *-- "1" IEffect
+    SpecialAttack ..|> Attack
 
 
-   class Player {
-     +Name: string
-     +Pokemon: List~IPokemon~
-     +ActivePokemon: int
+    class Player {
+      +string Name
+      +List~Pokemon~ Pokemon
+      +List~IItem~ Pokemon
+      +Pokemon ActivePokemon
 
-     +ChangePokemon(string newPokemon) bool
-     +Attack(Player other, string attackName) bool
-     +IsDead() bool
-   }
-   Player "6" *-- "0..*" IPokemon
+      +Player(string name, List~Pokemon~ pokemon)
+      +Attack(Player other, string attackName) void
+      +ChangePokemon(string newPokemon) bool
+      +Attack(Player other, string attackName) bool
+      +AllAreDead() bool
+      +ApplyItem(Pokemon target, int item) void
+    }
+    Player "6" o-- "0..1" Pokemon
+    Player "0..*" o-- "0..1" IItem
+
+    <<interface>> IItem
+    class IItem {
+      +string Name$
+
+      +Use(Pokemon pokemon) void
+    }
+
+    class TotalCure {
+      +string Name$
+
+      +TotalCure()
+      +Use(Pokemon pokemon) void
+    }
+    TotalCure ..|> IItem
+
+    class SuperPotion {
+      +string Name$
+
+      +SuperPotion()
+      +Use(Pokemon pokemon) void
+    }
+    SuperPotion ..|> IItem
+
+    class Revive {
+      +string Name$
+
+      +Revive()
+      +Use(Pokemon pokemon) void
+    }
+    Revive ..|> IItem
+
+    class PokemonRegistry {
+      -Dictionary~string, Pokemon~ PokemonTemplates
+
+      +GetPokemon(string name) Pokemon$
+      +GetPokemonNamesAndTypes() List~string, PokemonType~$
+    }
+    Pokemon "0..*" --o "1" PokemonRegistry
+
+    class NormalAttackRegistry {
+      -Dictionary~string, NormalAttack~ NormalAttacks
+
+      +GetNormalAttack(string name) NormalAttack$
+      +GetAttackNamesAndTypes() List~string, PokemonType~$
+    }
+    Pokemon "0..*" --o "1" NormalAttackRegistry
+
+    class SpecialAttackRegistry {
+      -Dictionary~string, SpecialAttack~ SpecialAttacks
+
+      +GetPokemon(string name) SpecialAttack$
+      +GetAttackNamesAndTypes() List~string, PokemonType~$
+    }
+    Pokemon "0..*" --o "1" SpecialAttackRegistry
