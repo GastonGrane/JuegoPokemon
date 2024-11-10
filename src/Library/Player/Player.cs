@@ -6,7 +6,7 @@
 
 using Library.Items;
 
-namespace Library.Player;
+namespace Library;
 
 /// <summary>
 /// Un jugador de pokemon.

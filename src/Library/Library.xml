@@ -420,6 +420,16 @@
             Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
             </summary>
         </member>
+        <member name="M:Library.Items.Revive.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.Revive.Name">
+            <summary>
+            Nombre de el efecto.
+            </summary>
+        </member>
         <member name="M:Library.Items.Revive.Use(Library.Pokemon)">
             <summary>
             Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
@@ -432,6 +442,16 @@
         <member name="T:Library.Items.SuperPotion">
             <summary>
             Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+            </summary>
+        </member>
+        <member name="M:Library.Items.SuperPotion.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.SuperPotion.Name">
+            <summary>
+            Nombre de el efecto.
             </summary>
         </member>
         <member name="M:Library.Items.SuperPotion.Use(Library.Pokemon)">
@@ -447,6 +467,16 @@
             <summary>
             Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
             Al usar este objeto en un Pokémon, se eliminan todos los efectos de estado aplicados a él.
+            </summary>
+        </member>
+        <member name="M:Library.Items.TotalCure.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.TotalCure.Name">
+            <summary>
+            Nombre de el efecto.
             </summary>
         </member>
         <member name="M:Library.Items.TotalCure.Use(Library.Pokemon)">
@@ -480,6 +510,11 @@
             <value>
             Esta lista tiene hasta 6 pokemons.
             </value>
+        </member>
+        <member name="P:Library.Player.Items">
+            <summary>
+            Lista de items disponibles para el jugador.
+            </summary>
         </member>
         <member name="P:Library.Player.ActivePokemon">
             <summary>
@@ -516,6 +551,11 @@
             Devuelve el estado de si todos los pokemons del jugador han muerto.
             </summary>
             <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
+        </member>
+        <member name="M:Library.Player.ApplyItem(Library.Pokemon,System.Int32)">
+            <summary>
+            Aplica los Items disponibles del jugador.
+            </summary>
         </member>
         <member name="T:Library.Pokemon">
             <summary>
