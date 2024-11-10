@@ -16,6 +16,21 @@ namespace Library.Items;
 public class Revive : IItem
 {
     /// <summary>
+    /// Constructor establece nombre para ser imprimido al Player.
+    /// </summary>
+    public Revive()
+    {
+    }
+
+    /// <summary>
+    /// Nombre de el efecto.
+    /// </summary>
+    public static string Name
+    {
+        get { return "Revive"; }
+    }
+
+    /// <summary>
     /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>

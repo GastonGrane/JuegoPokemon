@@ -19,6 +19,21 @@ namespace Library.Items;
 public class TotalCure : IItem
 {
     /// <summary>
+    /// Constructor establece nombre para ser imprimido al Player.
+    /// </summary>
+    public TotalCure()
+    {
+    }
+
+    /// <summary>
+    /// Nombre de el efecto.
+    /// </summary>
+    public static string Name
+    {
+        get { return "Total Cure"; }
+    }
+
+    /// <summary>
     /// Usa el objeto de cura total en el Pokémon especificado, eliminando cualquier efecto de estado activo.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>

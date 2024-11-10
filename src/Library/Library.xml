@@ -452,6 +452,11 @@
             que nuevos ítems se añadan sin modificar el código existente de otras clases o la interfaz.
             </remarks>
         </member>
+        <member name="P:Library.Items.IItem.Name">
+            <summary>
+            El nombre del item.
+            </summary>
+        </member>
         <member name="M:Library.Items.IItem.Use(Library.Pokemon)">
             <summary>
             Aplica el efecto del objeto en el Pokémon especificado.
@@ -467,6 +472,16 @@
             del ítem "Revive", cumpliendo con LSP.
             </remarks>
         </member>
+        <member name="M:Library.Items.Revive.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.Revive.Name">
+            <summary>
+            Nombre de el efecto.
+            </summary>
+        </member>
         <member name="M:Library.Items.Revive.Use(Library.Pokemon)">
             <summary>
             Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
@@ -479,6 +494,16 @@
         <member name="T:Library.Items.SuperPotion">
             <summary>
             Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
+            </summary>
+        </member>
+        <member name="M:Library.Items.SuperPotion.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.SuperPotion.Name">
+            <summary>
+            Nombre de el efecto.
             </summary>
         </member>
         <member name="M:Library.Items.SuperPotion.Use(Library.Pokemon)">
@@ -501,6 +526,16 @@
             Esta clase también cumple con LSP, al cumplir con el contrato de la interfaz, al únicamente aplicar el efecto necesario en el Pokémon.
             Esta implementación también muestra el uso de excepciones para asegurar que el objeto se utilice correctamente.
             </remarks>
+        </member>
+        <member name="M:Library.Items.TotalCure.#ctor">
+            <summary>
+            Constructor establece nombre para ser imprimido al Player.
+            </summary>
+        </member>
+        <member name="P:Library.Items.TotalCure.Name">
+            <summary>
+            Nombre de el efecto.
+            </summary>
         </member>
         <member name="M:Library.Items.TotalCure.Use(Library.Pokemon)">
             <summary>
@@ -539,6 +574,11 @@
             Esta lista tiene hasta 6 pokemons.
             </value>
         </member>
+        <member name="P:Library.Player.Items">
+            <summary>
+            Lista de items disponibles para el jugador.
+            </summary>
+        </member>
         <member name="P:Library.Player.ActivePokemon">
             <summary>
             Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="M:Library.Player.ChangePokemon(System.String)"/>.
@@ -574,6 +614,13 @@
             Devuelve el estado de si todos los pokemons del jugador han muerto.
             </summary>
             <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
+        </member>
+        <member name="M:Library.Player.ApplyItem(Library.Pokemon,System.Int32)">
+            <summary>
+            Aplica los Items disponibles del jugador.
+            </summary>
+            <param name="target">El pokémon sobre el cual usar el item.</param>
+            <param name="item">El índice del item para utilizar.</param>
         </member>
         <member name="T:Library.Pokemon">
             <summary>
