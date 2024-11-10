@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Items;
+
 namespace Library;
 
 /// <summary>
@@ -68,7 +70,7 @@ public class ExternalConsole : IExternalConection
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="ataques"/> es null.
     /// </exception>
-    public void PrintListAttack(List<Attack> ataques)
+    public string PrintListAttack(List<Attack> ataques)
     {
         ArgumentNullException.ThrowIfNull(ataques, nameof(ataques));
         Console.WriteLine("Ataques disponibles:");
@@ -76,25 +78,9 @@ public class ExternalConsole : IExternalConection
         {
             Console.WriteLine($"{i + 1}. {ataques[i].Name} (Daño: {ataques[i].Damage})");
         }
-    }
-
-    /// <summary>
-    /// Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
-    /// </summary>
-    /// <param name="str">Ni idea.</param>
-    /// <returns>Tampoco sé.</returns>
-    public int SelectAtaque(string str)
-    {
-        int eleccion = this.PrintStringAndReceiveInt(str);
-        bool control = true;
-
-        while (control)
-        {
-            control = false;
-            return eleccion;
-        }
-
-        return eleccion - 1; // Ajustar índice para la lista
+        Console.WriteLine("Ingrese el nombre del ataque que desea utilizar:");
+        string eleccion = Console.ReadLine();
+        return eleccion;
     }
 
     /// <summary>
@@ -151,5 +137,30 @@ public class ExternalConsole : IExternalConection
     {
         string input = Console.ReadLine()!;
         return input;
+    }
+
+    public string DisplayMenu()
+    {
+        Console.WriteLine("Seleccione una opción:");
+        Console.WriteLine("1 - Atacar");
+        Console.WriteLine("2 - Cambiar de Pokemon");
+        Console.WriteLine("3 - Usar Item");
+
+        string input = Console.ReadLine()!;
+        return input;
+    }
+
+    public string selectPokemonToUse(Player player)
+    {
+        Console.WriteLine("Pokemon para utilizar:");
+        for (int i = 0; i < player.Pokemons.Count; ++i)
+        {
+            var pokemon = player.Pokemons[i];
+                
+            Console.WriteLine($"- {pokemon.Name}");
+        }
+        Console.WriteLine("Ingrese el nombre del Pokemon que desea utilizar:");
+        string eleccion = Console.ReadLine();
+        return eleccion;
     }
 }

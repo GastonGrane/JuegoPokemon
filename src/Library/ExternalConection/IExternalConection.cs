@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Items;
+
 namespace Library;
 
 /// <summary>
@@ -46,14 +48,7 @@ public interface IExternalConection
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="ataques"/> es null.
     /// </exception>
-    public void PrintListAttack(List<Attack> ataques);
-
-    /// <summary>
-    /// Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
-    /// </summary>
-    /// <param name="str">Ni idea.</param>
-    /// <returns>Tampoco sé.</returns>
-    public int SelectAtaque(string str);
+    public string PrintListAttack(List<Attack> ataques);
     
     /// <summary>
     /// El jugador selecciona los Pokemons que integraran su lista de Pokemons.
@@ -75,4 +70,7 @@ public interface IExternalConection
     public void showLifeActivePokemons(Pokemon active, Pokemon otherActive);
 
     public string RecepString(string msj);
+    public string DisplayMenu();
+    public string selectPokemonToUse(Player player);
+    
 }

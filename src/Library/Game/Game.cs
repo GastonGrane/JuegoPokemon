@@ -117,8 +117,7 @@ public class Game
         while (true)
         {
             List<Attack> attacks = new List<Attack>(active.ActivePokemon.Attacks);
-            exConect.PrintListAttack(attacks);
-            string attackName = exConect.RecepString("Ingrese el nombre del ataque que desea utilizar:");
+            string attackName = exConect.PrintListAttack(attacks);
 
             // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
             // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
@@ -155,13 +154,7 @@ public class Game
         int selection;
         while (true)
         {
-            exConect.PrintString("Seleccione una opción:");
-            exConect.PrintString("1 - Atacar");
-            exConect.PrintString("2 - Cambiar de Pokemon");
-            exConect.PrintString("");
-
-            string input = Console.ReadLine()!;
-            Console.WriteLine();
+            string input = exConect.DisplayMenu();
 
             CultureInfo culture = new CultureInfo("en_US");
             try
@@ -171,7 +164,7 @@ public class Game
             }
             catch (FormatException)
             {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
+                exConect.PrintString("Opción inválida, se esperaba un número entre 1 y 2");
             }
         }
 
@@ -183,20 +176,23 @@ public class Game
             case 2:
                 this.ChangePokemon(active);
                 break;
+            case 3:
+                this.UseItem(active);
+                break;
         }
     }
 
     // Ejecuta el turno del primero jugador
     private void PlayTurnP1()
     {
-        Console.WriteLine($"Turno de {this.playerOne}");
+        exConect.PrintString($"Turno de {this.playerOne}");
         this.PlayTurn(this.playerOne, this.playerTwo);
     }
 
     // Ejecuta el turno del segundo jugador
     private void PlayTurnP2()
     {
-        Console.WriteLine($"Turno de {this.playerTwo}");
+        exConect.PrintString($"Turno de {this.playerTwo}");
         this.PlayTurn(this.playerTwo, this.playerOne);
     }
 
@@ -209,15 +205,7 @@ public class Game
         this.tmp++;
         while (true)
         {
-            exConect.PrintString("Ingrese el nombre del Pokemon para utilizar");
-            for (int i = 0; i < p.Pokemons.Count; ++i)
-            {
-                var pokemon = p.Pokemons[i];
-                
-                exConect.PrintString($"- {pokemon.Name}");
-            }
-
-            string input = exConect.RecepString("Nombre:");
+            string input = exConect.selectPokemonToUse(p);
             if (!p.ChangePokemon(input))
             {
                 exConect.PrintString("El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
@@ -248,11 +236,16 @@ public class Game
 
         if (p.ActivePokemon.Health == 0)
         {
-            Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+            exConect.PrintString($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
             this.ChangePokemon(p);
             return false;
         }
 
         return false;
+    }
+
+    private void UseItem(Player p)
+    {
+        //HACERLO
     }
 }
