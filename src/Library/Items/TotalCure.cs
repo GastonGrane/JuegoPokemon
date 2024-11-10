@@ -17,13 +17,12 @@ public class TotalCure : IItem
     /// </summary>
     public TotalCure()
     {
-        this.Name = "Total Cure";
     }
 
     /// <summary>
     /// Nombre de el efecto.
     /// </summary>
-    public string Name { get; }
+    public string Name { get { return "Total Cure"; } }
 
     /// <summary>
     /// Usa el objeto de cura total en el Pokémon especificado, eliminando cualquier efecto de estado activo.

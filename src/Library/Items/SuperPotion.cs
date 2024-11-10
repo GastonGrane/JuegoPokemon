@@ -16,13 +16,12 @@ public class SuperPotion : IItem
     /// </summary>
     public SuperPotion()
     {
-        this.Name = "Super Potion";
     }
 
     /// <summary>
     /// Nombre de el efecto.
     /// </summary>
-    public string Name { get; }
+    public string Name { get { return "Super Potion"; } }
 
     /// <summary>
     /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
