@@ -60,6 +60,7 @@ public class ExternalConsole : IExternalConection
             Console.WriteLine("ERROR: Por favor, ingresa un número válido.");
         }
     }
+
     /// <summary>
     /// Imprime la lista de ataques provista en la consola.
     /// </summary>
@@ -67,7 +68,7 @@ public class ExternalConsole : IExternalConection
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="ataques"/> es null.
     /// </exception>
-    public void PrintListAtaque(List<Attack> ataques)
+    public void PrintListAttack(List<Attack> ataques)
     {
         ArgumentNullException.ThrowIfNull(ataques, nameof(ataques));
         Console.WriteLine("Ataques disponibles:");
@@ -75,8 +76,6 @@ public class ExternalConsole : IExternalConection
         {
             Console.WriteLine($"{i + 1}. {ataques[i].Name} (Daño: {ataques[i].Damage})");
         }
-
-        Console.WriteLine();
     }
 
     /// <summary>
@@ -97,20 +96,21 @@ public class ExternalConsole : IExternalConection
 
         return eleccion - 1; // Ajustar índice para la lista
     }
+
     /// <summary>
     /// El jugador selecciona los Pokemons que integraran su lista de Pokemons.
     /// </summary>
     /// <param name="player"></param>Jugador que seleccionara los Pokemons.
-    /// <param name="Pokemons"></param>Lista de las opciones de Pokemons con los que cuenta el juego.
-    public void SelecYourPokemon(Player player, List<Pokemon> Pokemons)
+    /// <param name="PokemonsOption"></param>Lista de las opciones de Pokemons con los que cuenta el juego.
+    public void SelecYourPokemon(Player player, List<Pokemon> PokemonsOption)
     {
-        List<Pokemon> list = new List<Pokemon>();
-        PrintList(Pokemons);
+        List<Pokemon> list = player.Pokemons;
+        PrintList(PokemonsOption);
         while (list.Count < 6)
         {
             int num = PrintStringAndReceiveInt(
                 $"{player} digite el número del Pokemon que desea seleccionar");
-            Pokemon pokSelected = Pokemons[num - 1];
+            Pokemon pokSelected = PokemonsOption[num - 1];
             if (list.Contains(pokSelected))
             {
                 PrintString("Ya cuentas con ese Pokemon en tu lista");
@@ -122,16 +122,18 @@ public class ExternalConsole : IExternalConection
             }
         }
     }
+
     /// <summary>
     /// Retorna la vida actual del pokemon activo.
     /// </summary>
     /// <param name="active"></param>Pokemon con el que se encuentra juagndo el PLayer en ese turno.
     /// <returns></returns>
-    public double AvailableLifePokemon(Pokemon active)
+    public double LifePokemon(Pokemon active)
     {
         double life = active.Health;
         return life;
     }
+
     /// <summary>
     /// Muestra las vidas de los POkemones activos de ambos jugadores.
     /// </summary>
@@ -139,9 +141,15 @@ public class ExternalConsole : IExternalConection
     /// <param name="otherActive"></param>Pokemon activo del otro jugador.
     public void showLifeActivePokemons(Pokemon active, Pokemon otherActive)
     {
-        double lifeActive = AvailableLifePokemon(active);
-        double lifeOtherActive = AvailableLifePokemon(active);
+        double lifeActive = LifePokemon(active);
+        double lifeOtherActive = LifePokemon(active);
         PrintString($"Tu Pokemon:{active.Name} tine una vida de {lifeActive}/100.");
         PrintString($"Tu adversario:{otherActive.Name} tine una vida de {lifeOtherActive}/100.");
+    }
+
+    public string RecepString(string msj)
+    {
+        string input = Console.ReadLine()!;
+        return input;
     }
 }

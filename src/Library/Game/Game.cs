@@ -23,6 +23,8 @@ public class Game
     /// </summary>
     private Player playerTwo;
 
+    private List<Pokemon> PokemonsOption;
+
     /// <summary>
     /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
     /// </summary>
@@ -41,17 +43,29 @@ public class Game
         this.playerTwo = p2;
     }
 
+    private IExternalConection exConect;
+    static Random random = new Random();
+    
     /// <summary>
     /// Crea un nuevo juego con jugadores predefinidos.
     /// </summary>
     /// <param name="pokemon">Una lista de <see cref="Pokemon"/> para usar en el juego.</param>
     /// <returns>Una nueva instancia de <see cref="Game"/> que es hard-coded.</returns>
-    public static Game CreateGame(List<Pokemon> pokemon)
+    public static Game CreateGame(Player player1, Player player2)      //deberiamos de hacerlo con una clase jugador en espera op algo asi
     {
-        // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon>());
-        Player p2 = new Player("Sharon", new List<Pokemon>());
-        return new Game(p1, p2);
+        if (random.Next(2) == 0)
+        {
+            Player p1 = new Player(player1.Name, new List<Pokemon>());
+            Player p2 = new Player(player2.Name, new List<Pokemon>());
+            return new Game(p1, p2);
+        }
+        else
+        {
+            Player p1 = new Player(player2.Name, new List<Pokemon>());
+            Player p2 = new Player(player1.Name, new List<Pokemon>());
+            return new Game(p1, p2);
+        }
+        IExternalConection exConect = new ExternalConsole();
     }
 
     /// <summary>
@@ -64,9 +78,13 @@ public class Game
     /// </remarks>
     public void Play()
     {
-        Console.WriteLine("-------------------");
-        Console.WriteLine(" COMIENZA EL JUEGO ");
-        Console.WriteLine("-------------------");
+        exConect.PrintString("¡Genial! Has encontrado un oponente. Prepárate para la batalla.");
+        
+        exConect.SelecYourPokemon(playerOne, PokemonsOption);
+        exConect.SelecYourPokemon(playerTwo, PokemonsOption);
+        exConect.PrintString("-------------------");
+        exConect.PrintString(" COMIENZA EL JUEGO ");
+        exConect.PrintString("-------------------");
 
         bool inGame = true;
         while (inGame)
@@ -75,14 +93,14 @@ public class Game
             this.PlayTurnP1();
             if (this.CheckDead(this.playerTwo))
             {
-                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {this.playerOne}");
+                exConect.PrintString($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {this.playerOne}");
                 break;
             }
 
             this.PlayTurnP2();
             if (this.CheckDead(this.playerOne))
             {
-                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {this.playerTwo}");
+                exConect.PrintString($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {this.playerTwo}");
                 break;
             }
         }
@@ -98,18 +116,9 @@ public class Game
         this.tmp++;
         while (true)
         {
-            Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
-            var attacks = active.ActivePokemon.Attacks;
-            for (int i = 0; i < attacks.Count; ++i)
-            {
-                var attack = attacks[i];
-
-                // Console.WriteLine($"{i + 1} - {attack.Name}");
-                Console.WriteLine($"- {attack.Name}");
-            }
-
-            string attackName = Console.ReadLine()!;
-            Console.WriteLine();
+            List<Attack> attacks = new List<Attack>(active.ActivePokemon.Attacks);
+            exConect.PrintListAttack(attacks);
+            string attackName = exConect.RecepString("Ingrese el nombre del ataque que desea utilizar:");
 
             // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
             // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
@@ -120,13 +129,12 @@ public class Game
             }
             catch (ArgumentOutOfRangeException)
             {
-                Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
+                exConect.PrintString("El nombre de ataque fue inválido, intente de nuevo");
                 continue;
             }
 
             double newHP = other.ActivePokemon.Health;
-            Console.WriteLine(
-                $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+            exConect.PrintString($"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
             break;
         }
     }
@@ -142,14 +150,15 @@ public class Game
     /// </remarks>
     private void PlayTurn(Player active, Player other)
     {
-        Console.WriteLine($"{active.Name} es su turno de jugar");
+        exConect.PrintString($"{active.Name} es su turno de jugar");
+        exConect.showLifeActivePokemons(active.ActivePokemon, other.ActivePokemon);
         int selection;
         while (true)
         {
-            Console.WriteLine("Seleccione una opción:");
-            Console.WriteLine("1 - Atacar");
-            Console.WriteLine("2 - Cambiar de Pokemon");
-            Console.WriteLine();
+            exConect.PrintString("Seleccione una opción:");
+            exConect.PrintString("1 - Atacar");
+            exConect.PrintString("2 - Cambiar de Pokemon");
+            exConect.PrintString("");
 
             string input = Console.ReadLine()!;
             Console.WriteLine();
@@ -200,19 +209,18 @@ public class Game
         this.tmp++;
         while (true)
         {
-            Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
+            exConect.PrintString("Ingrese el nombre del Pokemon para utilizar");
             for (int i = 0; i < p.Pokemons.Count; ++i)
             {
                 var pokemon = p.Pokemons[i];
-
-                // Console.WriteLine($"{i + 1} - {pokemon.Name}");
-                Console.WriteLine($"- {pokemon.Name}");
+                
+                exConect.PrintString($"- {pokemon.Name}");
             }
 
-            string input = Console.ReadLine()!;
+            string input = exConect.RecepString("Nombre:");
             if (!p.ChangePokemon(input))
             {
-                Console.WriteLine("El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
+                exConect.PrintString("El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
             }
             else
             {
