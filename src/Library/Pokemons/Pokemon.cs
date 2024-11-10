@@ -12,8 +12,24 @@ namespace Library;
 /// </summary>
 public class Pokemon
 {
+    /// <summary>
+    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
+    /// </summary>
+    // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
     private static readonly Random Random = new Random();
-    private double health;
+
+    /// <summary>
+    /// El valor actual de salud del pokemon.
+    ///
+    /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
+    /// </summary>
+    private int health;
+
+    /// <summary>
+    /// Lista de los distintos ataques con los que cuenta el pokemon.
+    ///
+    /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
+    /// </summary>
     private List<Attack> attacks;
 
     /// <summary>
@@ -40,22 +56,29 @@ public class Pokemon
     /// <summary>
     /// Crea una copia del Pokémon, conservando sus atributos pero sin copiar su estado actual.
     /// </summary>
-    /// <param name="pokemon">El Pokémon a copiar.</param>
+    /// <param name="pokemon">El Pokémon a clonar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="pokemon"/> es <c>null</c>.
+    /// </exception>
+    /// <remarks>
+    /// No copia el efecto, porque la idea es no copiar su estado actual.
+    /// </remarks>
     public Pokemon(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
+
         this.Name = pokemon.Name;
         this.Type = pokemon.Type;
         this.Health = pokemon.Health;
-        this.MaxHealth = (int)pokemon.Health;
+        this.MaxHealth = pokemon.Health;
         this.attacks = pokemon.attacks;
         this.ActiveEffect = null;
     }
 
     /// <summary>
-    /// Efecto activo que afecta al Pokémon, como veneno o parálisis.
+    /// Efecto activo que afecta al Pokémon, como veneno, parálisis, etc.
     /// </summary>
-    public IEffect? ActiveEffect { get; set; }
+    public IEffect? ActiveEffect { get; private set; }
 
     /// <summary>
     /// Nombre del Pokémon.
@@ -80,7 +103,7 @@ public class Pokemon
     /// <summary>
     /// Salud actual del Pokémon.
     /// </summary>
-    public double Health
+    public int Health
     {
         get { return (int)this.health; }
         private set
@@ -137,7 +160,7 @@ public class Pokemon
     /// Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
     /// </summary>
     /// <param name="damage">Cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
-    public void Damage(double damage)
+    public void Damage(int damage)
     {
         if (damage < 5)
         {
@@ -188,8 +211,15 @@ public class Pokemon
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
-    /// <param name="target">Pokémon objetivo del ataque.</param>
-    /// <param name="attack">Ataque a utilizar.</param>
+    /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
+    /// <param name="attack">El ataque que se usará para realizar el daño.</param>
+    /// <returns>
+    /// <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
+    /// <c>false</c> si el ataque falló.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
+    /// </exception>
     private bool Attack(Pokemon target, Attack attack)
     {
         if (!this.Attacks.Contains(attack))
@@ -197,12 +227,18 @@ public class Pokemon
             throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
         }
 
+        if (!this.CanAttack)
+        {
+            return false;
+        }
+
         if (Random.Next(100) < attack.Precision)
         {
-            attack.Use(this);
+            attack.Use(target);
             return true;
         }
 
+        this.UpdateEffect();
         return false;
     }
 
@@ -212,6 +248,7 @@ public class Pokemon
     /// <param name="attackName">Nombre del ataque.</param>
     private Attack GetAttack(string attackName)
     {
+        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
@@ -238,6 +275,7 @@ public class Pokemon
     /// <param name="attackIdx">Índice del ataque.</param>
     private Attack GetAttack(int attackIdx)
     {
+        // FIXME (Gaston): Idem, anterior GetAttack
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

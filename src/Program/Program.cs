@@ -21,36 +21,12 @@ namespace Program
         {
             ConsolePrinter consolePrinter = new ConsolePrinter();
 
-            Pokemon pokemon1 = new Pokemon(
-                "Pikachu",
-                PokemonType.Electric,
-                100,
-                new List<Attack> { NormalAttackLibrary.FusionBolt });
-
-            Pokemon pokemon2 = new Pokemon(
-                "Bulbasaur",
-                PokemonType.Fire,
-                100,
-                new List<Attack> { NormalAttackLibrary.BulletSeed });
-
-            Pokemon pokemon3 = new Pokemon(
-                "Charmander",
-                PokemonType.Fire,
-                100,
-                new List<Attack> { NormalAttackLibrary.BlazeKick });
-
-            Pokemon pokemon4 = new Pokemon(
-                "Squirtle",
-                PokemonType.Water,
-                100,
-                new List<Attack> { NormalAttackLibrary.AquaJet });
-
             List<Pokemon> pokemons = new List<Pokemon>
             {
-                pokemon1,
-                pokemon2,
-                pokemon3,
-                pokemon4,
+                PokemonRegistry.GetPokemon("Pikachu"),
+                PokemonRegistry.GetPokemon("Bulbasaur"),
+                PokemonRegistry.GetPokemon("Charmander"),
+                PokemonRegistry.GetPokemon("Squirtle"),
             };
 
             consolePrinter.PrintList(pokemons);

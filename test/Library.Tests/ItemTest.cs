@@ -4,38 +4,54 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 using Library.Effect;
 using Library.Items;
 
 namespace Library.Tests;
 
 /// <summary>
-/// Contiene pruebas para la clase <see cref="TotalCure"/> que verifica su funcionalidad
-/// en la eliminación de efectos activos de estado en un Pokémon.
+/// Test de los Item.
 /// </summary>
 internal sealed class ItemTest
 {
     /// <summary>
-    /// Instancia de Pokémon utilizada en las pruebas.
+    /// Testea si el metodo Revive, lo revive con el 50 de HP.
     /// </summary>
-    private Pokemon pokemon;
-
-    /// <summary>
-    /// Instancia de <see cref="TotalCure"/> utilizada en las pruebas.
-    /// </summary>
-    private TotalCure totalCure;
-
-    /// <summary>
-    /// Configura el entorno de prueba inicializando un Pokémon y el objeto <see cref="TotalCure"/>
-    /// antes de cada prueba individual.
-    /// </summary>
-    [SetUp]
-    public void SetUp()
+    [Test]
+    public void CanRevive()
     {
-        this.pokemon = new Pokemon("Pikachu", PokemonType.Electric, 100, new List<Attack>());
-        this.totalCure = new TotalCure();
+        // MaxHealth > 50
+        Pokemon p = PokemonRegistry.GetPokemon("Dragonite");
+        p.Damage(1000);
+
+        Revive revive = new Revive();
+        revive.Use(p);
+
+        Assert.That(p.Health, Is.EqualTo(50));
+    }
+
+    // FIXME: Hacer un test de revivir a un Pokémon vivo.
+
+    /// <summary>
+    /// Testea que falle el hecho de que pasemos como parametro algo null.
+    /// </summary>
+    [Test]
+    public void PasarUnParametroNullFalla()
+    {
+        Revive revive = new Revive();
+        bool exceptionThrown = false;
+        try
+        {
+#pragma warning disable CS8625 // se le pasa null a propósito
+            revive.Use(null);
+#pragma warning restore CS8625
+        }
+        catch (ArgumentNullException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Curar a un pokemon inexistente no tiro una excepcion");
     }
 
     /// <summary>
@@ -45,15 +61,18 @@ internal sealed class ItemTest
     [Test]
     public void UseRemovesActiveEffectSuccessfully()
     {
+        var p = PokemonRegistry.GetPokemon("Pikachu");
+        var totalCure = new TotalCure();
+
         // Arrange
         var poisonEffect = new Poison();
-        this.pokemon.ApplyEffect(poisonEffect);
+        p.ApplyEffect(poisonEffect);
 
         // Act
-        this.totalCure.Use(this.pokemon);
+        totalCure.Use(p);
 
         // Assert
-        Assert.IsNull(this.pokemon.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
+        Assert.IsNull(p.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
     }
 
     /// <summary>
@@ -64,9 +83,11 @@ internal sealed class ItemTest
     [Test]
     public void UseThrowsInvalidOperationExceptionWhenNoActiveEffect()
     {
-        // Act & Assert
+        var p = PokemonRegistry.GetPokemon("Pikachu");
+        var totalCure = new TotalCure();
+
         Assert.Throws<InvalidOperationException>(
-            () => this.totalCure.Use(this.pokemon),
+            () => totalCure.Use(p),
             "Usar TotalCure en un Pokémon sin efecto activo debería lanzar InvalidOperationException.");
     }
 }

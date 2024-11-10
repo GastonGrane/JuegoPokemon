@@ -7,8 +7,6 @@ using Library.Effect;
 
 namespace Library;
 
-// FIXME: Por ahora, este código no implementa ataques especiales ni define los efectos aplicados
-
 /// <summary>
 /// Representa un ataque especial que, además de causar daño, también inflige un estado en el Pokémon objetivo,
 /// dependiendo del tipo de ataque que se utilice. Una vez que el ataque acierta, el estado se aplica
@@ -16,28 +14,33 @@ namespace Library;
 /// </summary>
 public class SpecialAttack : Attack
 {
-    private PokemonType attackType;
-    private IEffect Effect;
+    private IEffect effect;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>.
     /// </summary>
-    public SpecialAttack(string name, int damage, PokemonType attackType, int precision)
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de daño que realiza.</param>
+    /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
+    /// <param name="precision">La precisión del ataque (1-100).</param>
+    /// <param name="effect">El efecto del ataque.</param>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect)
         : base(name, damage, attackType, precision)
     {
-        this.attackType = attackType;
-        this.Effect = Effect;
+        this.effect = effect;
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>, copiando los valores
-    /// de otra instancia de <see cref="SpecialAttack"/>.
+    /// Constructor que copia los valores de una instancia de la clase <see cref="SpecialAttack"/>.
     /// </summary>
-    /// <param name="attack">Instancia de ataque especial a copiar.</param>
-    /// <exception cref="ArgumentNullException">Se lanza si el parámetro <paramref name="attack"/> es <c>null</c>.</exception>
+    /// <param name="attack">El ataque a copiar.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
     public SpecialAttack(SpecialAttack attack)
         : base(attack)
     {
+        this.effect = attack.effect;
     }
 
     private static readonly Random Random = new Random();
@@ -55,13 +58,13 @@ public class SpecialAttack : Attack
             throw new ArgumentNullException(nameof(target));
         }
 
-        double multiplier = attackType.Advantage(target.Type);
-        double damage = this.Damage * multiplier;
-        target.Damage((int)damage);
+        double multiplier = this.Type.Advantage(target.Type);
+        int damage = (int)(this.Damage * multiplier);
+        target.Damage(damage);
 
         if (target.ActiveEffect == null)
         {
-            target.ApplyEffect(this.Effect);
+            target.ApplyEffect(this.effect);
         }
     }
 }

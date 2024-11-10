@@ -21,7 +21,7 @@ public abstract class Attack
     /// <param name="name">El nombre del ataque.</param>
     /// <param name="damage">La cantidad de daño que causa el ataque.</param>
     /// <param name="type">El tipo de ataque (<see cref="PokemonType"/>), que determina su efectividad.</param>
-    /// <param name="precision">La precisión del ataque, en un rango de 1 a 100.</param>
+    /// <param name="precision">La precision del ataque (1-100).</param>
     protected Attack(string name, int damage, PokemonType type, int precision)
     {
         this.Name = name;
@@ -31,17 +31,18 @@ public abstract class Attack
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Attack"/> copiando los valores del ataque proporcionado.
+    /// Crea un <see cref="Attack"/> copiando los valores del ataque provisto.
     /// </summary>
     /// <param name="attack">El ataque a copiar.</param>
-    /// <exception cref="ArgumentNullException">Se lanza si el ataque proporcionado es <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="attack"/> es <c>null</c>.
+    /// </exception>
     protected Attack(Attack attack)
     {
-        if (attack == null) throw new ArgumentNullException(nameof(attack), "El ataque no puede ser null.");
+        ArgumentNullException.ThrowIfNull(attack, nameof(attack));
         this.Name = attack.Name;
         this.Damage = attack.Damage;
         this.Type = attack.Type;
-        this.Precision = attack.Precision;
     }
 
     /// <summary>

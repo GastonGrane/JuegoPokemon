@@ -22,6 +22,7 @@
     <!-- SA1642: Poner "Initializes" al principio de los docs de todos los constructores -->
     <!-- CA1002: Usar Collection<T> enves de List<T> -->
     <!-- CA1303: Usar resource tables para localización -->
-    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303</NoWarn>
+    <!-- CA5394: Random no es criptocráficamente seguro -->
+    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303;CA5394</NoWarn>
   </PropertyGroup>
 </Project>
