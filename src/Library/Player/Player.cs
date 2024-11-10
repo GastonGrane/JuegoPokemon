@@ -35,16 +35,18 @@ public class Player
 
         this.Name = name;
         this.Pokemons = pokemons;
-        this.Items = new List<IItem>();
-        this.Items.Add(new Revive());
+        this.Items = new List<IItem>
+        {
+            new Revive(),
 
-        this.Items.Add(new SuperPotion());
-        this.Items.Add(new SuperPotion());
-        this.Items.Add(new SuperPotion());
-        this.Items.Add(new SuperPotion());
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
 
-        this.Items.Add(new TotalCure());
-        this.Items.Add(new TotalCure());
+            new TotalCure(),
+            new TotalCure(),
+        };
         this.ActivePokemon = pokemons[0];
     }
 
@@ -123,23 +125,18 @@ public class Player
     /// <summary>
     /// Aplica los Items disponibles del jugador.
     /// </summary>
+    /// <param name="target">El pokémon sobre el cual usar el item.</param>
+    /// <param name="item">El índice del item para utilizar.</param>
     public void ApplyItem(Pokemon target, int item)
     {
-        if (this.Pokemons.Contains(target))
-        {
-            if (this.Items.Count <= item)
-            {
-                this.Items[item].Use(target);
-                this.Items.Remove(this.Items[item]); // Remtiro los items utilizados.
-            }
-            else
-            {
-                throw new KeyNotFoundException("Player no tiene este item disponible.");
-            }
-        }
-        else
+        if (!this.Pokemons.Contains(target))
         {
             throw new InvalidOperationException("Player no tiene este pokemon en su equipo.");
         }
+
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(item, this.Items.Count, nameof(item));
+
+        this.Items[item].Use(target);
+        this.Items.Remove(this.Items[item]); // Retiro el item utilizado.
     }
 }

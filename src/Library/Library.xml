@@ -561,6 +561,8 @@
             <summary>
             Aplica los Items disponibles del jugador.
             </summary>
+            <param name="target">El pokémon sobre el cual usar el item.</param>
+            <param name="item">El índice del item para utilizar.</param>
         </member>
         <member name="T:Library.Pokemon">
             <summary>
