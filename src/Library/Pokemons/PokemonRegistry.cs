@@ -271,7 +271,7 @@ public static class PokemonRegistry
                 NormalAttackRegistry.GetNormalAttack("Double Slap"),
                 NormalAttackRegistry.GetNormalAttack("Body Slam"),
                 SpecialAttackRegistry.GetSpecialAttack("Sing"),
-                SpecialAttackRegistry.GetSpecialAttack("Hyper Voice"),
+                NormalAttackRegistry.GetNormalAttack("Hyper Voice"),
             })
         },
         {
@@ -360,7 +360,7 @@ public static class PokemonRegistry
             {
                 NormalAttackRegistry.GetNormalAttack("Dig"),
                 NormalAttackRegistry.GetNormalAttack("Scratch"),
-                SpecialAttackRegistry.GetSpecialAttack("Sand Attack"),
+                NormalAttackRegistry.GetNormalAttack("Sand Attack"),
                 NormalAttackRegistry.GetNormalAttack("Mud Slap"),
             })
         },
@@ -369,7 +369,7 @@ public static class PokemonRegistry
             {
                 NormalAttackRegistry.GetNormalAttack("Earthquake"),
                 NormalAttackRegistry.GetNormalAttack("Earth Power"),
-                SpecialAttackRegistry.GetSpecialAttack("Sand Tomb"),
+                NormalAttackRegistry.GetNormalAttack("Sand Tomb"),
                 NormalAttackRegistry.GetNormalAttack("Slash"),
             })
         },
@@ -459,7 +459,7 @@ public static class PokemonRegistry
             {
                 NormalAttackRegistry.GetNormalAttack("Rock Throw"),
                 NormalAttackRegistry.GetNormalAttack("Magnitude"),
-                SpecialAttackRegistry.GetSpecialAttack("Sand Attack"),
+                NormalAttackRegistry.GetNormalAttack("Sand Attack"),
                 NormalAttackRegistry.GetNormalAttack("Rock Blast"),
             })
         },
