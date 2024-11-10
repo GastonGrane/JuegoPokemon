@@ -9,6 +9,10 @@ namespace Library;
 /// <summary>
 /// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
 /// </summary>
+/// <remarks>
+/// Esta clase se podría considerar como una fachada sobre el juego de Pokemon, ya que al pasarle la conexión externa, esta
+/// clase se encarga de la lógica de cómo funciona el juego, escondiendo los detalles de las clases que lo implementan.
+/// </remarks>
 public class Game
 {
     /// <summary>
