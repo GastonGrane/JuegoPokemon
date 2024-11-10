@@ -11,6 +11,7 @@ namespace Library;
 /// </summary>
 /// <remarks>
 /// Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>.
+/// Esto es porque esta clase permite conseguir un objeto de la clase SpecialAttack sin conocer su estructura, a través de el nombre del objeto, clonando un prototipo pre-definido.
 /// </remarks>
 public static class SpecialAttackRegistry
 {

@@ -32,12 +32,12 @@
         </member>
         <member name="T:Library.Tests.ItemTest">
             <summary>
-            Testea si el metodo Revive, lo revive con el 50 de HP.
+            Test de los Item.
             </summary>
         </member>
         <member name="M:Library.Tests.ItemTest.CanRevive">
             <summary>
-            Instancia de Pokémon utilizada en las pruebas.
+            Testea si el metodo Revive, lo revive con el 50 de HP.
             </summary>
         </member>
         <member name="M:Library.Tests.ItemTest.PasarUnParametroNullFalla">
