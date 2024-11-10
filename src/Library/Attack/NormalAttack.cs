@@ -11,8 +11,9 @@ namespace Library;
 /// <see cref="NormalAttack"/> no utiliza efectos y solo inflige daño directo al Pokémon objetivo.
 /// </summary>
 /// <remarks>
-/// Las instancias de esta clase representan ataques normales que pueden ser usados en batallas.
-/// Cada ataque tiene características únicas predefinidas para ser utilizados como movimientos en combate.
+/// Esta clase cumple con SRP, al abarcar la funcionalidad de un único tipo de ataque, aquellos que únicamente producen daño.
+/// La clase <see cref="NormalAttack"/> permite crear instancias de ataques predefinidos para ser utilizados
+/// en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="Attack"/>.
 /// </remarks>
 public class NormalAttack : Attack
 {
@@ -48,6 +49,8 @@ public class NormalAttack : Attack
     public NormalAttack(NormalAttack attack)
         : base(attack)
     {
+        ArgumentNullException.ThrowIfNull(attack.Name, "Un Ataque no se puede inicializar con nombre null");
+        ArgumentOutOfRangeException.ThrowIfNegative(attack.Damage, "El daño no puede ser negativo");
     }
 
     /// <summary>

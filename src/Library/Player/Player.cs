@@ -4,11 +4,18 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Items;
+
 namespace Library;
 
 /// <summary>
-/// Un jugador de pokemon.
+/// Este un jugador en el juego, el cual tiene un nombre, y una lista con sus pokemons.
+/// El jugador puede cambiar de pokemon activo, atacar a aotro jugador y verificar si todos sus pokemons estan muertos.
 /// </summary>
+/// <remarks>
+/// La clase <see cref="Player"/> esta encargada de gestionar las interacciones basicas que puede tener un jugador con
+/// sus pokemon a lo largo de la batalla de pokemon.
+/// </remarks>
 public class Player
 {
     /// <summary>
@@ -19,20 +26,32 @@ public class Player
     public Player(string name, List<Pokemon> pokemons)
     {
         ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
-
         ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
         if (pokemons.Count > 6)
         {
-            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener más de 6 pokemons");
+            throw new ArgumentException("Este player tiene mas de 6 pokemons");
         }
 
         if (pokemons.Count == 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(pokemons), "Player no puede tener 0 pokemones");
+            throw new ArgumentException("Player no puede tener 0 pokemones");
         }
 
         this.Name = name;
         this.Pokemons = pokemons;
+        // Nota de Guzmán: Esto es _una_ solución al problema. Lo ideal, creo yo, sería utilizar cantidades del item que vayan disminuyendo. Esto no lo implementé yo, entonces queda así.
+        this.Items = new List<IItem>
+        {
+            new Revive(),
+
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
+
+            new TotalCure(),
+            new TotalCure(),
+        };
         this.ActivePokemon = pokemons[0];
     }
 
@@ -48,6 +67,11 @@ public class Player
     /// Esta lista tiene hasta 6 pokemons.
     /// </value>
     public List<Pokemon> Pokemons { get; }
+
+    /// <summary>
+    /// Lista de items disponibles para el jugador.
+    /// </summary>
+    public List<IItem> Items { get; }
 
     /// <summary>
     /// Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="ChangePokemon(string)"/>.
@@ -101,5 +125,23 @@ public class Player
     public bool AllAreDead()
     {
         return this.Pokemons.All(p => p.Health == 0);
+    }
+
+    /// <summary>
+    /// Aplica los Items disponibles del jugador.
+    /// </summary>
+    /// <param name="target">El pokémon sobre el cual usar el item.</param>
+    /// <param name="item">El índice del item para utilizar.</param>
+    public void ApplyItem(Pokemon target, int item)
+    {
+        if (!this.Pokemons.Contains(target))
+        {
+            throw new InvalidOperationException("Player no tiene este pokemon en su equipo.");
+        }
+
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(item, this.Items.Count, nameof(item));
+
+        this.Items[item].Use(target);
+        this.Items.Remove(this.Items[item]); // Retiro el item utilizado.
     }
 }

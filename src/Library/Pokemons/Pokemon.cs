@@ -12,6 +12,13 @@ namespace Library;
 /// <summary>
 /// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.
 /// </summary>
+/// <remarks>
+/// En esta clase podemos notar el encapsulamiento, donde **Health** y las lista de ataques **Attacks** estan
+/// protegidas. Las clases proporcionan un acceso a estos solo a traves de propiedas o metodos, esto ayuda a controlar
+/// la validacion de los mismos.
+/// Además, se puede ver DIP (Dependency Inversion Principle), ya que esta clase depende de la clase abstracta "Attack", y no de ninguna implementación
+/// concreta, así permitiendo que sea más reutilizable, ya que al agregar tipos de ataques nuevos, estos funcionarán sin modificar esta clase.
+/// </remarks>
 public class Pokemon
 {
     /// <summary>
@@ -305,7 +312,7 @@ public class Pokemon
     /// </exception>
     private Attack GetAttack(int attackIdx)
     {
-        // FIXME (Gaston): Idem, anterior GetAttack
+        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

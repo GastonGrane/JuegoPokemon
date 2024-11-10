@@ -9,8 +9,27 @@ namespace Library.Items;
 /// <summary>
 /// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
 /// </summary>
+/// <remarks>
+/// La clase <see cref="Revive"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
+/// del ítem "Revive", cumpliendo con LSP.
+/// </remarks>
 public class Revive : IItem
 {
+    /// <summary>
+    /// Constructor establece nombre para ser imprimido al Player.
+    /// </summary>
+    public Revive()
+    {
+    }
+
+    /// <summary>
+    /// Nombre de el efecto.
+    /// </summary>
+    public static string Name
+    {
+        get { return "Revive"; }
+    }
+
     /// <summary>
     /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
     /// </summary>

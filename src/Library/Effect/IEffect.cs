@@ -10,6 +10,12 @@ namespace Library.Effect;
 /// Define una interfaz para los efectos que se pueden aplicar a un Pokémon.
 /// Los efectos pueden actualizarse en cada turno, eliminarse y expirar.
 /// </summary>
+/// <remarks>
+/// Implementa el principio ISP (Interface Segregation Principle) al proporcionar una interfaz específica
+/// para los efectos, la cual todos ecesitan utilizar
+/// Aplica el patrón GRASP de "Polimorfismo" al permitir que cada tipo de efecto defina su propio
+/// comportamiento, cumple así con el el principio "Open-Closed Principle" al facilitar la extensión de su funcionalidad, mediante la implementación de la misma.
+/// </remarks>
 public interface IEffect
 {
     /// <summary>

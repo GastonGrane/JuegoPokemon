@@ -12,6 +12,21 @@ namespace Library.Items;
 public class SuperPotion : IItem
 {
     /// <summary>
+    /// Constructor establece nombre para ser imprimido al Player.
+    /// </summary>
+    public SuperPotion()
+    {
+    }
+
+    /// <summary>
+    /// Nombre de el efecto.
+    /// </summary>
+    public static string Name
+    {
+        get { return "Super Potion"; }
+    }
+
+    /// <summary>
     /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
