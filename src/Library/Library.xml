@@ -426,6 +426,11 @@
             <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
             <param name="externalConnection">La conección con el servicio externo.</param>
         </member>
+        <member name="M:Library.Game.ShowWelcome">
+            <summary>
+            Shows the welcome message.
+            </summary>
+        </member>
         <member name="M:Library.Game.Play">
             <summary>
             Comienza el juego, va alternando el turno entre los jugadores. Este método inicia un bucle hasta que termine el juego. Para jugar de a turnos, utilice <see cref="M:Library.Game.PlayGameTurn"/>.
@@ -884,6 +889,14 @@
             </exception>
             <returns>
             Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
+            </returns>
+        </member>
+        <member name="M:Library.PokemonRegistry.GetAllPokemon">
+            <summary>
+            Retorna una lista de todos los Pokemon del registro.
+            </summary>
+            <returns>
+            Lista de todos los Pokemon del registro.
             </returns>
         </member>
         <member name="M:Library.PokemonRegistry.GetPokemonNamesAndTypes">

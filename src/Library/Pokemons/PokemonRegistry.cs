@@ -483,6 +483,17 @@ public static class PokemonRegistry
     }
 
     /// <summary>
+    /// Retorna una lista de todos los Pokemon del registro.
+    /// </summary>
+    /// <returns>
+    /// Lista de todos los Pokemon del registro.
+    /// </returns>
+    public static List<Pokemon> GetAllPokemon()
+    {
+        return PokemonTemplates.Values.ToList();
+    }
+
+    /// <summary>
     /// Retorna una lista de tuplas donde cada una es el nombre y tipo de un Pokémon del registro.
     /// </summary>
     /// <returns>

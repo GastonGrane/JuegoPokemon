@@ -30,6 +30,45 @@
             y que el efecto expire al removerlo explícitamente.
             </summary>
         </member>
+        <member name="M:Library.Tests.ConnectionMock.PrintPlayerWon(Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.PrintString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.PrintTurnHeading(Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.PrintWelcome(Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.ReportAttackResult(System.Int32,Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.ShowAttacksAndRecieveInput(Library.Pokemon)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.ShowChangePokemonMenu(Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.Tests.ConnectionMock.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.Tests.FacadeTests">
+            <summary>
+            Tests de la fachada.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.FacadeTests.TestWelcome">
+            <summary>
+            Test de la bienvenida al usuario.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.FacadeTests.TestPlayTurn">
+            <summary>
+            Test de la bienvenida al usuario.
+            </summary>
+        </member>
         <member name="T:Library.Tests.ItemTest">
             <summary>
             Test de los Item.

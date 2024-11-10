@@ -56,9 +56,17 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon>());
-        Player p2 = new Player("Sharon", new List<Pokemon>());
+        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
         return new Game(p1, p2, externalConnection);
+    }
+
+    /// <summary>
+    /// Shows the welcome message.
+    /// </summary>
+    public void ShowWelcome()
+    {
+        this.externalConnection.PrintWelcome(this.playerOne, this.playerTwo);
     }
 
     /// <summary>
@@ -71,7 +79,7 @@ public class Game
     /// </remarks>
     public void Play()
     {
-        this.externalConnection.PrintWelcome(this.playerOne, this.playerTwo);
+        this.ShowWelcome();
 
         bool inGame = true;
         while (inGame)
@@ -155,21 +163,21 @@ public class Game
                 case 1:
                     if (this.AttackPlayer(active, other))
                     {
-                        break;
+                        return;
                     }
 
                     break;
                 case 2:
                     if (this.ChangePokemon(active))
                     {
-                        break;
+                        return;
                     }
 
                     break;
                 case 3:
                     if (this.UseItem(active))
                     {
-                        break;
+                        return;
                     }
 
                     break;
