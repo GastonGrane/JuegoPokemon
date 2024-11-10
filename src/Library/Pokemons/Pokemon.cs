@@ -116,7 +116,7 @@ public class Pokemon
     {
         get
         {
-            return (int)this.health;
+            return this.health;
         }
 
         private set
