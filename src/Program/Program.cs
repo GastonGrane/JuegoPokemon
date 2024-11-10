@@ -19,8 +19,6 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            ConsolePrinter consolePrinter = new ConsolePrinter();
-
             List<Pokemon> pokemons = new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Pikachu"),
@@ -29,7 +27,7 @@ namespace Program
                 PokemonRegistry.GetPokemon("Squirtle"),
             };
 
-            consolePrinter.PrintList(pokemons);
+            Console.WriteLine(PokemonRegistry.GetPokemon("Pikachu").Name);
         }
     }
 }

@@ -104,6 +104,29 @@ public class Player
     }
 
     /// <summary>
+    /// Cambia el pokemon que estaria en pantalla(<see cref="ActivePokemon"/>) del jugador.
+    /// </summary>
+    /// <param name="pokeIdx">El índice del pokemon por el cual quiere cambiar, este debe ser válido para su lista de pokemon.</param>
+    /// <returns>
+    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Si <paramref name="pokeIdx"/> no es un índice en la lista.
+    /// </exception>
+    public bool ChangePokemon(int pokeIdx)
+    {
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(pokeIdx, this.Pokemons.Count, nameof(pokeIdx));
+        ArgumentOutOfRangeException.ThrowIfLessThan(pokeIdx, 0, nameof(pokeIdx));
+        if (this.Pokemons[pokeIdx] == this.ActivePokemon)
+        {
+            return false;
+        }
+
+        this.ActivePokemon = this.Pokemons[pokeIdx];
+        return true;
+    }
+
+    /// <summary>
     /// Ataca al <see cref="ActivePokemon"/> de <paramref name="other"/> utilizando el
     /// <see cref="ActivePokemon"/> del jugador con el ataque <paramref name="attackName"/>.
     /// </summary>

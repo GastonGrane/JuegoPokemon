@@ -76,7 +76,6 @@ public class Game
         }
     }
 
-
     /// <summary>
     /// Ejecuta un turno del juego, es decir, una acción realizada por cada jugador.
     /// </summary>
@@ -115,11 +114,21 @@ public class Game
         // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
         active.Attack(other, attackName);
 
-        int newHP = other.ActivePokemon.Health;
-        int diff = newHP - oldHP;
-        Console.WriteLine(
-            $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+        // FIXME(Guzmán): Reportar mejor el resultado del ataque.
+        this.externalConnection.ReportAttackResult(oldHP, active, other);
 
+        return true;
+    }
+
+    /// <summary>
+    /// Ejecuta un ataque por el jugador que le toca hacia el contrincante.
+    /// </summary>
+    /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
+    private bool UseItem(Player active)
+    {
+        this.externalConnection.PrintString("UseItem");
+
+        // FIXME(Guzmán): No está hecho, no tengo ganas.
         return true;
     }
 
@@ -136,7 +145,7 @@ public class Game
     {
         while (true)
         {
-            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", ["Atacar", "Cambiar de Pokémon", "Usar un item"]);
+            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
             switch (selection)
             {
                 case 1:
@@ -144,6 +153,7 @@ public class Game
                     {
                         break;
                     }
+
                     break;
                 case 2:
                     if (this.ChangePokemon(active))
@@ -153,10 +163,11 @@ public class Game
 
                     break;
                 case 3:
-                    if (this.ChangePokemon(active))
+                    if (this.UseItem(active))
                     {
                         break;
                     }
+
                     break;
             }
         }
@@ -180,28 +191,23 @@ public class Game
     /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>.
     /// </summary>
     /// <param name="p">El <see cref="Player"/> quien es que está haciendo el cambio.</param>
-    private void ChangePokemon(Player p)
+    private bool ChangePokemon(Player p)
     {
-        this.tmp++;
         while (true)
         {
-            Console.WriteLine("Ingrese el nombre del Pokemon para utilizar");
-            for (int i = 0; i < p.Pokemons.Count; ++i)
+            int idx = this.externalConnection.ShowChangePokemonMenu(p);
+            if (idx == -1)
             {
-                var pokemon = p.Pokemons[i];
-
-                // Console.WriteLine($"{i + 1} - {pokemon.Name}");
-                Console.WriteLine($"- {pokemon.Name}");
+                return false;
             }
 
-            string input = Console.ReadLine()!;
-            if (!p.ChangePokemon(input))
+            if (!p.ChangePokemon(idx))
             {
-                Console.WriteLine("El nombre que ha ingresado no pertenece a ningún Pokemon suyo, intente de nuevo");
+                this.externalConnection.PrintString("No se puede cambiar a utilizar el mismo Pokemon. Intente de nuevo");
             }
             else
             {
-                break;
+                return true;
             }
         }
     }
@@ -225,7 +231,7 @@ public class Game
 
         if (p.ActivePokemon.Health == 0)
         {
-            Console.WriteLine($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+            this.externalConnection.PrintString($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
             this.ChangePokemon(p);
             return false;
         }

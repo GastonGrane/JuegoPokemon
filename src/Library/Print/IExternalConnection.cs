@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.ObjectModel;
+
 namespace Library;
 
 /// <summary>
@@ -27,6 +29,12 @@ namespace Library;
 public interface IExternalConnection
 {
     /// <summary>
+    /// Imprime la string pasada al servicio.
+    /// </summary>
+    /// <param name="str">La string a imprimir.</param>
+    public void PrintString(string str);
+
+    /// <summary>
     /// Imprime el mensaje de bienvenida a ambos usuarios.
     /// </summary>
     /// <param name="p1">El primer jugador.</param>
@@ -43,27 +51,44 @@ public interface IExternalConnection
     /// <summary>
     /// Imprime la indicación del comienzo del turno del jugador 1.
     /// </summary>
-    /// <param name="p1">El jugador cuyo turno es.</param>
-    public void PrintTurnHeading(Player p1);
+    /// <param name="player">El jugador cuyo turno es.</param>
+    public void PrintTurnHeading(Player player);
 
     /// <summary>
     /// Le imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
     /// Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
     /// </summary>
-    /// <param name="options">Los elementos que se pueden elegir del menú.</param>
     /// <param name="selectionText">El texto a mostrar para contextualizar las opciones. El texto se muestra antes de las mismas.</param>
+    /// <param name="options">Los elementos que se pueden elegir del menú.</param>
     /// <returns>
     /// El índice, relativo al array <paramref name="options"/> de la opción elegida.
     /// </returns>
-    public int ShowMenuAndReceiveInput(string selectionText, string[] options);
+    public int ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection<string> options);
 
     /// <summary>
     /// Le imprime la lista de ataques del pokemon recibido, y le permite eligir una opción al usuario mediante un número o el nombre del ataque.
     /// Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
     /// </summary>
-    /// <param name="p">El pokemon cuyos ataques se elegirán.</param>
+    /// <param name="pokemon">El pokemon cuyos ataques se elegirán.</param>
     /// <returns>
     /// El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
-    public string? ShowAttacksAndRecieveInput(Pokemon p);
+    public string? ShowAttacksAndRecieveInput(Pokemon pokemon);
+
+    /// <summary>
+    /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
+    /// </summary>
+    /// <param name="player">El jugador que quiere cambiar de Pokemon.</param>
+    /// <returns>
+    /// El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
+    /// </returns>
+    public int ShowChangePokemonMenu(Player player);
+
+    /// <summary>
+    /// Le muestra al usuario el resultado que tuvo su ataque.
+    /// </summary>
+    /// <param name="oldHP">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
+    /// <param name="attacker">El jugador que atacó.</param>
+    /// <param name="defender">El jugador que fue atacado.</param>
+    public void ReportAttackResult(int oldHP, Player attacker, Player defender);
 }
