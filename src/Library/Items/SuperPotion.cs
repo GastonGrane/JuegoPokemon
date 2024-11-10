@@ -14,7 +14,6 @@ public class SuperPotion : IItem
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    /// <param name="name"></param>
     public SuperPotion()
     {
         this.Name = "Super Potion";
@@ -23,7 +22,6 @@ public class SuperPotion : IItem
     /// <summary>
     /// Nombre de el efecto.
     /// </summary>
-    /// <param name="name"></param>
     public string Name { get; }
 
     /// <summary>

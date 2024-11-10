@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Globalization;
+using Library.Player;
 
 namespace Library;
 
@@ -16,12 +17,12 @@ public class Game
     /// <summary>
     /// El primer jugador en el juego.
     /// </summary>
-    private Player playerOne;
+    private Player.Player playerOne;
 
     /// <summary>
     /// El segundo jugador en el juego.
     /// </summary>
-    private Player playerTwo;
+    private Player.Player playerTwo;
 
     /// <summary>
     /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
@@ -35,7 +36,7 @@ public class Game
     /// </summary>
     /// <param name="p1">El primer jugador <see cref="playerOne"/>.</param>
     /// <param name="p2">El segundo jugador <see cref="playerTwo"/>.</param>
-    private Game(Player p1, Player p2)
+    private Game(Player.Player p1, Player.Player p2)
     {
         this.playerOne = p1;
         this.playerTwo = p2;
@@ -49,8 +50,8 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon>());
-        Player p2 = new Player("Sharon", new List<Pokemon>());
+        Player.Player p1 = new Player.Player("Axel", new List<Pokemon>());
+        Player.Player p2 = new Player.Player("Sharon", new List<Pokemon>());
         return new Game(p1, p2);
     }
 
@@ -93,7 +94,7 @@ public class Game
     /// </summary>
     /// <param name="active">El <see cref="Player"/> que va a atacar.</param>
     /// <param name="other">El <see cref="Player"/> que va a ser atacado.</param>
-    private void AttackPlayer(Player active, Player other)
+    private void AttackPlayer(Player.Player active, Player.Player other)
     {
         this.tmp++;
         while (true)
@@ -140,7 +141,7 @@ public class Game
     /// Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
     /// Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
     /// </remarks>
-    private void PlayTurn(Player active, Player other)
+    private void PlayTurn(Player.Player active, Player.Player other)
     {
         Console.WriteLine($"{active.Name} es su turno de jugar");
         int selection;
@@ -195,7 +196,7 @@ public class Game
     /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>.
     /// </summary>
     /// <param name="p">El <see cref="Player"/> quien es que esta haciendo el cambio.</param>
-    private void ChangePokemon(Player p)
+    private void ChangePokemon(Player.Player p)
     {
         this.tmp++;
         while (true)
@@ -231,7 +232,7 @@ public class Game
     /// <remarks>
     /// Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
     /// </remarks>
-    private bool CheckDead(Player p)
+    private bool CheckDead(Player.Player p)
     {
         if (p.AllAreDead())
         {

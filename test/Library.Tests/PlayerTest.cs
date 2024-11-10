@@ -21,7 +21,7 @@ public class PlayerTest
         try
         {
 #pragma warning disable CS8625 // se le pasa null a propósito
-            Player p = new Player("Gaston", null);
+            Player.Player p = new Player.Player("Gaston", null);
 #pragma warning restore CS8625
         }
         catch (ArgumentNullException)
@@ -63,7 +63,7 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
-            Player p = new Player(string.Empty, pokemon);
+            Player.Player p = new Player.Player(string.Empty, pokemon);
         }
         catch (ArgumentException)
         {
@@ -84,7 +84,7 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
-            Player p = new Player("Gaston", pokemones);
+            Player.Player p = new Player.Player("Gaston", pokemones);
         }
         catch (ArgumentException)
         {
@@ -125,7 +125,7 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
-            Player p = new Player("Gaston", pokemon);
+            Player.Player p = new Player.Player("Gaston", pokemon);
 #pragma warning disable CS8625 // se le pasa null a propósito
             p.Attack(null, "Blaze Kick");
 #pragma warning restore CS8625
@@ -166,7 +166,7 @@ public class PlayerTest
         pokemon.Add(p5);
         pokemon.Add(p6);
 
-        Player player2 = new Player("Guzman", pokemon);
+        Player.Player player2 = new Player.Player("Guzman", pokemon);
 
         Assert.True(player2.AllAreDead());
     }

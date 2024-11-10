@@ -6,7 +6,7 @@
 
 using Library.Items;
 
-namespace Library;
+namespace Library.Player;
 
 /// <summary>
 /// Un jugador de pokemon.
@@ -35,10 +35,10 @@ public class Player
 
         this.Name = name;
         this.Pokemons = pokemons;
-        Items = new List<IItem>();
-        Items.Add(new Revive());
-        Items.Add(new SuperPotion());
-        Items.Add(new TotalCure());
+        this.Items = new List<IItem>();
+        this.Items.Add(new Revive());
+        this.Items.Add(new SuperPotion());
+        this.Items.Add(new TotalCure());
         this.ActivePokemon = pokemons[0];
     }
 
@@ -125,6 +125,7 @@ public class Player
             if (this.Items.Count <= item)
             {
                 this.Items[item].Use(target);
+                this.Items.Remove(this.Items[item]); // Remtiro los items utilizados.
             }
             else
             {
