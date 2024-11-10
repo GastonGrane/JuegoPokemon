@@ -12,7 +12,7 @@ namespace Library.Effect;
 /// </summary>
 /// /// <remarks>
 /// Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
-/// logica del efecto Posion.
+/// logica del efecto Poison.
 /// </remarks>
 public class Poison : IEffect
 {

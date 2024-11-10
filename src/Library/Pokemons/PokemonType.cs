@@ -12,12 +12,9 @@ namespace Library;
 /// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
 /// </summary>
 /// <remarks>
-/// Este implementacion de <see cref="PokemonType"/> y <see cref="Calculate"/> ocurren juntas debido a que en un futuro si
-/// se quiere implementar nuevos tipos de pokemons vendriamos a este mismo archivo y modificariamos lo necesario para el nuevo tipo,
-/// esto solucionando el posible error de que tendriamos que cambiar varios archivos si no fuera de esta manera,
-/// generando asi un alto acoplamiento que es algo que no buscamos.
-/// Esta enum y la clase Calculate cumple con SRP "Single Responsability Principiple" ya tiene una unica responsabilidad, esta define los
-/// tipos de los pokemons y la clase proporciona unicamente la logica para calcular las ventajas entre los tipos de Pokemon.
+/// A través del uso de esta enumeración, logramos cumplir con SRP, ya que a
+/// través de esta, se manejan las interacciones entre todos los tipos, que
+/// luego son utilizados a través del método <see cref="Calculate.Advantage(PokemonType, PokemonType)"/>
 /// </remarks>
 public enum PokemonType
 {

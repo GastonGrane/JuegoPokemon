@@ -10,12 +10,12 @@ using Library.Items;
 namespace Library.Tests;
 
 /// <summary>
-/// Testea si el metodo Revive, lo revive con el 50 de HP.
+/// Test de los Item.
 /// </summary>
-public class ItemTest
+internal sealed class ItemTest
 {
     /// <summary>
-    /// Instancia de Pokémon utilizada en las pruebas.
+    /// Testea si el metodo Revive, lo revive con el 50 de HP.
     /// </summary>
     [Test]
     public void CanRevive()

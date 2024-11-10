@@ -10,10 +10,7 @@ namespace Library;
 /// Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
 /// </summary>
 /// <remarks>
-/// Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica cumpliendo asi con SRP al
-/// enfocarse unicmaneteen proporcionar ataques sin efectos.
-/// Esta clase tambien encapsulando la fiuncionalidad del ataque, que es ser una clase padre para poder heredarla en
-/// distintos ataque, en este caso NormalAttack.
+/// Esta clase cumple con SRP, al abarcar la funcionalidad de un único tipo de ataque, aquellos que únicamente producen daño.
 /// La clase <see cref="NormalAttack"/> permite crear instancias de ataques predefinidos para ser utilizados
 /// en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="Attack"/>.
 /// </remarks>

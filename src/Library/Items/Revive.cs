@@ -11,7 +11,7 @@ namespace Library.Items;
 /// </summary>
 /// <remarks>
 /// La clase <see cref="Revive"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
-/// del ítem "Revive".
+/// del ítem "Revive", cumpliendo con LSP.
 /// </remarks>
 public class Revive : IItem
 {

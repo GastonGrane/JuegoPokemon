@@ -75,14 +75,14 @@ public class Game
             this.PlayTurnP1();
             if (this.CheckDead(this.playerTwo))
             {
-                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {this.playerOne}");
                 break;
             }
 
             this.PlayTurnP2();
             if (this.CheckDead(this.playerOne))
             {
-                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Pua pua");
+                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {this.playerTwo}");
                 break;
             }
         }
@@ -180,12 +180,14 @@ public class Game
     // Ejecuta el turno del primero jugador
     private void PlayTurnP1()
     {
+        Console.WriteLine($"Turno de {this.playerOne}");
         this.PlayTurn(this.playerOne, this.playerTwo);
     }
 
     // Ejecuta el turno del segundo jugador
     private void PlayTurnP2()
     {
+        Console.WriteLine($"Turno de {this.playerTwo}");
         this.PlayTurn(this.playerTwo, this.playerOne);
     }
 

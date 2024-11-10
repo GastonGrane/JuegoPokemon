@@ -11,7 +11,7 @@ namespace Library.Effect;
 /// Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
 /// </summary>
 /// <remarks>
-/// Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+/// Esta clase cumple con SRP (Single Responsibility Principle) ya que tiene una unica responsabilidad, manejar la
 /// logica del efecto Burn.
 /// </remarks>
 public class Burn : IEffect
