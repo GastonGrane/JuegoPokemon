@@ -12,6 +12,10 @@ namespace Library.Effect;
 /// Representa un efecto de parálisis que puede ser aplicado a un Pokémon.
 /// Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
 /// </summary>
+/// <remarks>
+/// Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+/// logica del efecto Paralysis.
+/// </remarks>
 public class Paralysis : IEffect
 {
     /// <summary>

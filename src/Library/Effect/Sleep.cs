@@ -10,6 +10,10 @@ namespace Library.Effect;
 /// Representa un efecto de sueño que puede ser aplicado a un Pokémon.
 /// Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
 /// </summary>
+/// <remarks>
+/// Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+/// logica del efecto Sleep.
+/// </remarks>
 public class Sleep : IEffect
 {
     /// <summary>

@@ -10,8 +10,9 @@ namespace Library;
 /// Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
 /// </summary>
 /// <remarks>
-/// Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
-/// Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
+/// Esta clase cumple con SRP, al abarcar la funcionalidad de un único tipo de ataque, aquellos que únicamente producen daño.
+/// La clase <see cref="NormalAttack"/> permite crear instancias de ataques predefinidos para ser utilizados
+/// en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="Attack"/>.
 /// </remarks>
 public class NormalAttack : Attack
 {
@@ -42,5 +43,7 @@ public class NormalAttack : Attack
     public NormalAttack(NormalAttack attack)
         : base(attack)
     {
+        ArgumentNullException.ThrowIfNull(attack.Name, "Un Ataque no se puede inicializar con nombre null");
+        ArgumentOutOfRangeException.ThrowIfNegative(attack.Damage, "El daño no puede ser negativo");
     }
 }

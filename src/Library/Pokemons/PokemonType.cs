@@ -11,6 +11,9 @@ namespace Library;
 /// <summary>
 /// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
 /// </summary>
+/// <remarks>
+/// A través del uso de esta enumeración, logramos cumplir con SRP, ya que a través de esta, se manejan las interacciones entre todos los tipos, que luego son utilizados a través del método <see cref="Calculate.Advantage(PokemonType, PokemonType)"/>.
+/// </remarks>
 public enum PokemonType
 {
     /// <summary>

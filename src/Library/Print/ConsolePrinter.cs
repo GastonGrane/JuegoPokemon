@@ -9,6 +9,14 @@ namespace Library;
 /// <summary>
 /// Un IPrinter que imprime/toma entrada de la consola.
 /// </summary>
+/// <remarks>
+/// Cumple con SRP "Single Responsability Principle", ya que su unica responsabilidad es manejar la interaccion con la consola.
+/// Cumple con LSP "Liskov Substitution Principlee" ya que cualquier clase que implemente IPrinter, como en este caso
+/// ConsolePrinter, puede ser reemplazada por otra implementación sin alterar el comportamiento esperado.
+/// Cumple con DIP "Dependency Inversion Principle" debido a que clases de alto nivel dependen de la
+/// interfaz IPrinter en lugar de depender de ConsolePrinter directamente. Esto permite que las clases de alto nivel
+/// puedan funcionar sin estar acopladas a una implementación concreta.
+/// </remarks>
 public class ConsolePrinter : IPrinter
 {
     /// <summary>
