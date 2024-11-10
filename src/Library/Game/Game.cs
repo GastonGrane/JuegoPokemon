@@ -4,8 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Globalization;
-
 namespace Library;
 
 /// <summary>
@@ -13,6 +11,15 @@ namespace Library;
 /// </summary>
 public class Game
 {
+    /// <summary>
+    /// La conexión al servicio externo.
+    /// </summary>
+    /// <remarks>
+    /// A través de depender de una interfaz, y no una clase explícita, esta clase cumple con DIP. Esto ayuda, ya que hace a la clase más reutilizable, porque sea imprimir a la consola, discord, o algo para un test,
+    /// únicamente requiere cambios en esta clase para lograr cambiar dónde imprime. Esto también genera cumplimiento de SRP, ya que Game se ocupa solamente de jugar el juego, interactuando con esta clase para lograr hablar con el exterior.
+    /// </remarks>
+    private IExternalConnection externalConnection;
+
     /// <summary>
     /// El primer jugador en el juego.
     /// </summary>
@@ -24,21 +31,16 @@ public class Game
     private Player playerTwo;
 
     /// <summary>
-    /// Variable que se utiliza temporalmente para suprimir las advertencias por no utilizar atributos de instancia en algunos metodos.
-    /// </summary>
-    // FIXME: Esto es para suprimir las advertencias por no utilizar atributos de instancia en algunos métodos.
-    // Cuando se añada una "Message Gateway" esto se podría ir, porque se irían las advertencias para estos métodos.
-    private int tmp;
-
-    /// <summary>
     /// Inicializa el juego.
     /// </summary>
     /// <param name="p1">El primer jugador <see cref="playerOne"/>.</param>
     /// <param name="p2">El segundo jugador <see cref="playerTwo"/>.</param>
-    private Game(Player p1, Player p2)
+    /// <param name="externalConnection">La conección con el servicio externo.</param>
+    private Game(Player p1, Player p2, IExternalConnection externalConnection)
     {
         this.playerOne = p1;
         this.playerTwo = p2;
+        this.externalConnection = externalConnection;
     }
 
     /// <summary>
@@ -46,16 +48,17 @@ public class Game
     /// </summary>
     /// <param name="pokemon">Una lista de <see cref="Pokemon"/> para usar en el juego.</param>
     /// <returns>Una nueva instancia de <see cref="Game"/> que es hard-coded.</returns>
-    public static Game CreateGame(List<Pokemon> pokemon)
+    /// <param name="externalConnection">La conección con el servicio externo.</param>
+    public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
         Player p1 = new Player("Axel", new List<Pokemon>());
         Player p2 = new Player("Sharon", new List<Pokemon>());
-        return new Game(p1, p2);
+        return new Game(p1, p2, externalConnection);
     }
 
     /// <summary>
-    /// Comienza el juego, va alternando el turno entre los jugadores.
+    /// Comienza el juego, va alternando el turno entre los jugadores. Este método inicia un bucle hasta que termine el juego. Para jugar de a turnos, utilice <see cref="PlayGameTurn()"/>.
     /// </summary>
     /// <remarks>
     /// El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
@@ -64,27 +67,33 @@ public class Game
     /// </remarks>
     public void Play()
     {
-        Console.WriteLine("-------------------");
-        Console.WriteLine(" COMIENZA EL JUEGO ");
-        Console.WriteLine("-------------------");
+        this.externalConnection.PrintWelcome(this.playerOne, this.playerTwo);
 
         bool inGame = true;
         while (inGame)
         {
-            // FIXME: Tengo entendido que Pokemon permite que ambos jugadores hagan movidas, y luego se selecciona quién ataca primero por su velocidad. Acá se juego siempre primero el turno del jugador uno, o hay otra manera de selección?
-            this.PlayTurnP1();
-            if (this.CheckDead(this.playerTwo))
-            {
-                Console.WriteLine($"{this.playerTwo.Name} todos sus Pokemon han muerto, y ha perdido. Ganadaor {this.playerOne}");
-                break;
-            }
+            this.PlayGameTurn();
+        }
+    }
 
-            this.PlayTurnP2();
-            if (this.CheckDead(this.playerOne))
-            {
-                Console.WriteLine($"{this.playerOne.Name} todos sus Pokemon han muerto, y ha perdido. Ganador {this.playerTwo}");
-                break;
-            }
+
+    /// <summary>
+    /// Ejecuta un turno del juego, es decir, una acción realizada por cada jugador.
+    /// </summary>
+    public void PlayGameTurn()
+    {
+        this.PlayTurnP1();
+        if (this.CheckDead(this.playerTwo))
+        {
+            this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+            return;
+        }
+
+        this.PlayTurnP2();
+        if (this.CheckDead(this.playerOne))
+        {
+            this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+            return;
         }
     }
 
@@ -93,42 +102,25 @@ public class Game
     /// </summary>
     /// <param name="active">El <see cref="Player"/> que va a atacar.</param>
     /// <param name="other">El <see cref="Player"/> que va a ser atacado.</param>
-    private void AttackPlayer(Player active, Player other)
+    private bool AttackPlayer(Player active, Player other)
     {
-        this.tmp++;
-        while (true)
+        string? attackName = this.externalConnection.ShowAttacksAndRecieveInput(active.ActivePokemon);
+        if (attackName == null)
         {
-            Console.WriteLine("Ingrese el nombre del ataque para utilizar:");
-            var attacks = active.ActivePokemon.Attacks;
-            for (int i = 0; i < attacks.Count; ++i)
-            {
-                var attack = attacks[i];
-
-                // Console.WriteLine($"{i + 1} - {attack.Name}");
-                Console.WriteLine($"- {attack.Name}");
-            }
-
-            string attackName = Console.ReadLine()!;
-            Console.WriteLine();
-
-            // Esto es sucio, sí, pero no quiero hacer que Attack devuelva la vida o algo porque la verdad que es tarde y no tengo ganas
-            // Es más, esto tendría que ser actualizado para ataques especiales, pero bueno
-            double oldHP = other.ActivePokemon.Health;
-            try
-            {
-                active.Attack(other, attackName);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine("El nombre de ataque fue inválido, intente de nuevo");
-                continue;
-            }
-
-            double newHP = other.ActivePokemon.Health;
-            Console.WriteLine(
-                $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
-            break;
+            return false;
         }
+
+        int oldHP = other.ActivePokemon.Health;
+
+        // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
+        active.Attack(other, attackName);
+
+        int newHP = other.ActivePokemon.Health;
+        int diff = newHP - oldHP;
+        Console.WriteLine(
+            $"{active.ActivePokemon.Name} atacó a {other.ActivePokemon.Name}, haciéndole {oldHP - newHP} de daño, y dejándolo en {newHP}/{other.ActivePokemon.MaxHealth}");
+
+        return true;
     }
 
     /// <summary>
@@ -142,59 +134,52 @@ public class Game
     /// </remarks>
     private void PlayTurn(Player active, Player other)
     {
-        Console.WriteLine($"{active.Name} es su turno de jugar");
-        int selection;
         while (true)
         {
-            Console.WriteLine("Seleccione una opción:");
-            Console.WriteLine("1 - Atacar");
-            Console.WriteLine("2 - Cambiar de Pokemon");
-            Console.WriteLine();
-
-            string input = Console.ReadLine()!;
-            Console.WriteLine();
-
-            CultureInfo culture = new CultureInfo("en_US");
-            try
+            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", ["Atacar", "Cambiar de Pokémon", "Usar un item"]);
+            switch (selection)
             {
-                selection = int.Parse(input, culture);
-                break;
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
-            }
-        }
+                case 1:
+                    if (this.AttackPlayer(active, other))
+                    {
+                        break;
+                    }
+                    break;
+                case 2:
+                    if (this.ChangePokemon(active))
+                    {
+                        break;
+                    }
 
-        switch (selection)
-        {
-            case 1:
-                this.AttackPlayer(active, other);
-                break;
-            case 2:
-                this.ChangePokemon(active);
-                break;
+                    break;
+                case 3:
+                    if (this.ChangePokemon(active))
+                    {
+                        break;
+                    }
+                    break;
+            }
         }
     }
 
     // Ejecuta el turno del primero jugador
     private void PlayTurnP1()
     {
-        Console.WriteLine($"Turno de {this.playerOne}");
+        this.externalConnection.PrintTurnHeading(this.playerOne);
         this.PlayTurn(this.playerOne, this.playerTwo);
     }
 
     // Ejecuta el turno del segundo jugador
     private void PlayTurnP2()
     {
-        Console.WriteLine($"Turno de {this.playerTwo}");
+        this.externalConnection.PrintTurnHeading(this.playerTwo);
         this.PlayTurn(this.playerTwo, this.playerOne);
     }
 
     /// <summary>
     /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>.
     /// </summary>
-    /// <param name="p">El <see cref="Player"/> quien es que esta haciendo el cambio.</param>
+    /// <param name="p">El <see cref="Player"/> quien es que está haciendo el cambio.</param>
     private void ChangePokemon(Player p)
     {
         this.tmp++;
