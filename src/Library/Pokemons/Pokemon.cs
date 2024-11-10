@@ -257,7 +257,16 @@ public class Pokemon
     /// <summary>
     /// Retorna el ataque correspondiente al nombre especificado.
     /// </summary>
-    /// <param name="attackName">Nombre del ataque.</param>
+    /// <param name="attackName">
+    /// El nombre del ataque al cual se quiere acceder.
+    /// </param>
+    /// <returns>El ataque correspondiente al nombre provisto.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si <paramref name="attackName"/> no es el nombre de ningún ataque.
+    /// </exception>
     private Attack GetAttack(string attackName)
     {
         // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
@@ -284,7 +293,16 @@ public class Pokemon
     /// <summary>
     /// Retorna el ataque correspondiente al índice especificado.
     /// </summary>
-    /// <param name="attackIdx">Índice del ataque.</param>
+    /// <param name="attackIdx">
+    /// Índice del ataque en la lista de ataques.
+    /// </param>
+    /// <returns>El ataque correspondiente al índice provisto.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Lanzada si el Pokémon no tiene ataques disponibles.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
+    /// </exception>
     private Attack GetAttack(int attackIdx)
     {
         // FIXME (Gaston): Idem, anterior GetAttack
