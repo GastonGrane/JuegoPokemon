@@ -13,7 +13,6 @@ namespace Library.Tests;
 /// </summary>
 internal sealed class EffectTests
 {
-
     /// <summary>
     /// Verifica que el efecto de veneno disminuya la salud en un 5% cada turno.
     /// </summary>
@@ -30,7 +29,7 @@ internal sealed class EffectTests
         }
 
         pokemon.RemoveEffect();
-        Assert.That(pokemon.Health, Is.EqualTo(86.74).Within(1));
+        Assert.That(pokemon.Health, Is.EqualTo(32));
         Assert.IsTrue(poisonEffect.IsExpired);
         Assert.IsNull(pokemon.ActiveEffect);
     }

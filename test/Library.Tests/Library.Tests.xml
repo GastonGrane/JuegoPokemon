@@ -32,25 +32,12 @@
         </member>
         <member name="T:Library.Tests.ItemTest">
             <summary>
-            Test de los Item.
-<<<<<<< HEAD
+            Testea si el metodo Revive, lo revive con el 50 de HP.
             </summary>
         </member>
         <member name="M:Library.Tests.ItemTest.CanRevive">
             <summary>
-            Testea si el metodo Revive, lo revive con el 50 de HP.
-            </summary>
-        </member>
-        <member name="M:Library.Tests.ItemTest.PasarUnParametroNullFalla">
-            <summary>
-            Testea que falle el hecho de que pasemos como parametro algo null.
-=======
->>>>>>> main
-            </summary>
-        </member>
-        <member name="M:Library.Tests.ItemTest.CanRevive">
-            <summary>
-            Testea si el metodo Revive, lo revive con el 50 de HP.
+            Instancia de Pokémon utilizada en las pruebas.
             </summary>
         </member>
         <member name="M:Library.Tests.ItemTest.PasarUnParametroNullFalla">
@@ -73,11 +60,7 @@
         </member>
         <member name="T:Library.Tests.NormalAttackTests">
             <summary>
-<<<<<<< HEAD
-            Test de los metodos de NormalAttack
-=======
             Test de los metodos de NormalAttack.
->>>>>>> main
             </summary>
         </member>
         <member name="M:Library.Tests.NormalAttackTests.CanNormalAttack">

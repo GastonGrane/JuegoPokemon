@@ -9,8 +9,15 @@
             Representa una clase base abstracta para atacar en el juego, nos da las propiedades esenciales que definen las caracteristicas de cada ataque.
             </summary>
             <remarks>
-            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos,
-            tal como <see cref="T:Library.NormalAttack"/>.
+            La clase <see cref="T:Library.Attack"/> sirve como base para varios tipos de ataques especificos.
+            Esta clase cumple con LSP "Liskov Subsititution Principle" debido a que en los objetos de las subclases creadas a partir
+            de estas ban a generar el mismo comportamiento que los objetos de la superclase, estos pudiendo asi ser reemplazados
+            por los objetos de las superclases y no generar ningun tipo de implementacion nurar o erronea.
+            Cumple también con el principio de OCP "Open-Closed Principle", ya que permite
+            la extensión a través de subclases como <see cref="T:Library.NormalAttack"/> o <see cref="T:Library.SpecialAttack"/> sin necesidad de
+            modificar el código base.
+            E implementa el patrón GRASP de "Polimorfismo", ya que se espera que las subclases concreten comportamientos específicos.
+            Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
             </remarks>
         </member>
         <member name="M:Library.Attack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
@@ -59,8 +66,12 @@
             Representa un tipo especifico de ataque en el juego, NormalAttack a diferencia de SpecialAttack no va a utilizar efectos.
             </summary>
             <remarks>
-            Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica,
-            Estas instancias predefinidas las creamos para utilziarlas como un movimiento en las batallas.
+            Esta clase nos da instancias de Attack, cada uno con sus caracteristicas unica cumpliendo asi con SRP al
+            enfocarse unicmaneteen proporcionar ataques sin efectos.
+            Esta clase tambien encapsulando la fiuncionalidad del ataque, que es ser una clase padre para poder heredarla en
+            distintos ataque, en este caso NormalAttack.
+            La clase <see cref="T:Library.NormalAttack"/> permite crear instancias de ataques predefinidos para ser utilizados
+            en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="T:Library.Attack"/>.
             </remarks>
         </member>
         <member name="M:Library.NormalAttack.#ctor(System.String,System.Int32,Library.PokemonType,System.Int32)">
@@ -173,6 +184,10 @@
             Representa un efecto de quemadura que puede ser aplicado a un Pokémon.
             Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
             </summary>
+            <remarks>
+            Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+            logica del efecto Burn.
+            </remarks>
         </member>
         <member name="M:Library.Effect.Burn.#ctor">
             <summary>
@@ -203,6 +218,12 @@
             Define una interfaz para los efectos que se pueden aplicar a un Pokémon.
             Los efectos pueden actualizarse en cada turno, eliminarse y expirar.
             </summary>
+            <remarks>
+            Implementa el principio SOLID ISP "Interface Segregation Principle" al proporcionar una interfaz específica
+            para los efectos.
+            Aplica el patrón GRASP de "Polimorfismo" al permitir que cada tipo de efecto defina su propio
+            comportamiento, cumpliendo así con el el principio "Open-Closed Principle" al facilitar la extensión.
+            </remarks>
         </member>
         <member name="P:Library.Effect.IEffect.IsExpired">
             <summary>
@@ -226,6 +247,10 @@
             Representa un efecto de parálisis que puede ser aplicado a un Pokémon.
             Este efecto impide que el Pokémon objetivo ataque en algunos turnos mientras está activo.
             </summary>
+            <remarks>
+            Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+            logica del efecto Paralysis.
+            </remarks>
         </member>
         <member name="F:Library.Effect.Paralysis.random">
             <summary>
@@ -262,6 +287,10 @@
             Representa un efecto de veneno que puede ser aplicado a un Pokémon.
             Este efecto causa daño al Pokémon objetivo cada turno mientras está activo.
             </summary>
+            /// <remarks>
+            Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+            logica del efecto Posion.
+            </remarks>
         </member>
         <member name="M:Library.Effect.Poison.#ctor">
             <summary>
@@ -292,6 +321,10 @@
             Representa un efecto de sueño que puede ser aplicado a un Pokémon.
             Este efecto impide que el Pokémon pueda atacar durante un número determinado de turnos.
             </summary>
+            <remarks>
+            Esta clase cumple con SRP "Single Responsibility Principle" ya que tiene una unica responsabilidad, manejar la
+            logica del efecto Sleep.
+            </remarks>
         </member>
         <member name="F:Library.Effect.Sleep.turnsRemaining">
             <summary>
@@ -408,6 +441,17 @@
             <summary>
             Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.
             </summary>
+            /// <remarks>
+            La interfaz <see cref="T:Library.Items.IItem"/> permite que distintos ítems, puedan ser aplicados a un Pokémon de manera polimórfica
+            y utilizando un bajo acomplamiento al crear varios items pero que todos dependan de esta interfaz. Esto nos ayuda al dia
+            de mañana no generear un error, o no uno tan grande, gracias a que si ocurre un cambio sabemos que es este el lugar
+            donde se origina, o en el caso que sea dependiente el problema seria unicamente en su implementacion del item, esto haciendolo
+            mas felxible a la hora de añadir o modificar algo.
+            Este diseño sigue DIP el "Dependency Inversion Principle", ya que permite que
+            otras clases interactúen con objetos de tipo <see cref="T:Library.Items.IItem"/> sin depender de
+            implementaciones específicas. También sigue OCP el "Open-Close Principle", permitiendo
+            que nuevos ítems se añadan sin modificar el código existente.
+            </remarks>
         </member>
         <member name="M:Library.Items.IItem.Use(Library.Pokemon)">
             <summary>
@@ -419,6 +463,10 @@
             <summary>
             Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
             </summary>
+            <remarks>
+            La clase <see cref="T:Library.Items.Revive"/> implementa la interfaz <see cref="T:Library.Items.IItem"/> y define el comportamiento específico
+            del ítem "Revive".
+            </remarks>
         </member>
         <member name="M:Library.Items.Revive.Use(Library.Pokemon)">
             <summary>
@@ -448,6 +496,11 @@
             Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
             Al usar este objeto en un Pokémon, se eliminan todos los efectos de estado aplicados a él.
             </summary>
+            <remarks>
+            La clase <see cref="T:Library.Items.TotalCure"/> implementa la interfaz <see cref="T:Library.Items.IItem"/> y define el comportamiento específico
+            de un ítem que elimina todos los efectos de estado negativos de un Pokémon.
+            Esta implementación también muestra el uso de excepciones para asegurar que el objeto se utilice correctamente.
+            </remarks>
         </member>
         <member name="M:Library.Items.TotalCure.Use(Library.Pokemon)">
             <summary>
@@ -458,8 +511,13 @@
         </member>
         <member name="T:Library.Player">
             <summary>
-            Un jugador de pokemon.
+            Este un jugador en el juego, el cual tiene un nombre, y una lista con sus pokemons.
+            El jugador puede cambiar de pokemon activo, atacar a aotro jugador y verificar si todos sus pokemons estan muertos.
             </summary>
+            <remarks>
+            La clase <see cref="T:Library.Player"/> esta encargada de gestionar las interacciones basicas que puede tener un jugador con
+            sus pokemon a lo largo de la batalla de pokemon.
+            </remarks>
         </member>
         <member name="M:Library.Player.#ctor(System.String,System.Collections.Generic.List{Library.Pokemon})">
             <summary>
@@ -520,6 +578,9 @@
         <member name="T:Library.Pokemon">
             <summary>
             Crea instancias de los distintos pokemons.
+            En esta clase podemos notar el encapsulamiento, donde **Health** y las lista de ataques **Attacks** estan
+            protegidas. Las clases proporcionan un acceso a estos solo a traves de propiedas o metodos, esto ayuda a controlar
+            la validacion de los mismos.
             </summary>
         </member>
         <member name="F:Library.Pokemon.Random">
@@ -757,6 +818,14 @@
             <summary>
             Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.
             </summary>
+            <remarks>
+            Este implementacion de <see cref="T:Library.PokemonType"/> y <see cref="T:Library.Calculate"/> ocurren juntas debido a que en un futuro si
+            se quiere implementar nuevos tipos de pokemons vendriamos a este mismo archivo y modificariamos lo necesario para el nuevo tipo,
+            esto solucionando el posible error de que tendriamos que cambiar varios archivos si no fuera de esta manera,
+            generando asi un alto acoplamiento que es algo que no buscamos.
+            Esta enum y la clase Calculate cumple con SRP "Single Responsability Principiple" ya tiene una unica responsabilidad, esta define los
+            tipos de los pokemons y la clase proporciona unicamente la logica para calcular las ventajas entre los tipos de Pokemon.
+            </remarks>
         </member>
         <member name="F:Library.PokemonType.Normal">
             <summary>
@@ -864,6 +933,14 @@
             <summary>
             Un IPrinter que imprime/toma entrada de la consola.
             </summary>
+            <remarks>
+            Cumple con SRP "Single Responsability Principle", ya que su unica responsabilidad es manejar la interaccion con la consola.
+            Cumple con LSP "Liskov Substitution Principlee" ya que cualquier clase que implemente IPrinter, como en este caso
+            ConsolePrinter, puede ser reemplazada por otra implementación sin alterar el comportamiento esperado.
+            Cumple con DIP "Dependency Inversion Principle" debido a que clases de alto nivel dependen de la
+            interfaz IPrinter en lugar de depender de ConsolePrinter directamente. Esto permite que las clases de alto nivel
+            puedan funcionar sin estar acopladas a una implementación concreta.
+            </remarks>
         </member>
         <member name="M:Library.ConsolePrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
@@ -908,11 +985,22 @@
             <returns>Tampoco sé.</returns>
         </member>
         <member name="T:Library.IPrinter">
-             <summary>
-             Representa la comunicación a un servicio externo.
-            
-             Permite imprimir texto, y pedirlo al usuario una selección.
-             </summary>
+            <summary>
+            Representa la comunicación a un servicio externo.
+            Permite imprimir texto, y pedirlo al usuario una selección.
+            </summary>
+            <remarks>
+            Esta interfaz cumple con OCP "Open-Closed Principle" si se neccesita cambiar como se imprime la informcacio, se puede
+            crear nuevas implementacion sin modificar la interzas original.
+            Tambien cumple con DIP "Dependency Inversion Principle" al abstraer la funcionalidad de la impresion y permitir que
+            las clases de alto nivel (como la interaccion con el usuario) dependan de la interfaz en lugar de depender de una
+            implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
+            La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
+            mantiene una alta cohesion en la misma.
+            La interfaz cumple tambien con SRP "Single Responsability Principle" ya que encapsula el tema de "Comunicarse con el
+            usuario", y esta al tener solo un unico proposito tambien tiene solo una razon de cambio, que querramos cambiar como
+            se habla con el usuario, y gracias a esto generamos un bajo acomplamiento.
+            </remarks>
         </member>
         <member name="M:Library.IPrinter.PrintList(System.Collections.Generic.List{Library.Pokemon})">
             <summary>
@@ -948,13 +1036,6 @@
             <exception cref="T:System.ArgumentNullException">
             Si <paramref name="ataques"/> es null.
             </exception>
-        </member>
-        <member name="M:Library.IPrinter.SelectAtaque(System.String)">
-            <summary>
-            Nota de Guzmán: No tengo ni la más pálida idea del propósito de esto.
-            </summary>
-            <param name="str">Ni idea.</param>
-            <returns>Tampoco sé.</returns>
         </member>
     </members>
 </doc>
