@@ -157,15 +157,15 @@ public class Pokemon
     }
 
     /// <summary>
-    /// Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 5.
+    /// Aplica daño al Pokémon, reduciendo su salud. El daño mínimo permitido es 0.
     /// </summary>
-    /// <param name="damage">Cantidad de daño a aplicar. Debe ser 5 o mayor.</param>
+    /// <param name="damage">Cantidad de daño a aplicar. Debe ser mayor a 0.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Si <paramref name="damage"/> es menor a 0.
+    /// </exception>
     public void Damage(int damage)
     {
-        if (damage < 5)
-        {
-            throw new ArgumentOutOfRangeException(nameof(damage), "El daño debe ser mayor a 5.");
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(damage, 0, nameof(damage));
 
         this.Health -= damage;
     }
