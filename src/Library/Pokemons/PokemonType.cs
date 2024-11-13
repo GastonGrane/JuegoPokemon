@@ -114,7 +114,7 @@ public static class Calculate
     /// <param name="attacker">El tipo del ataque utilizado.</param>
     /// <param name="defender">El tipo del Pokemon atacado.</param>
     /// <returns>
-    /// Un double que representa la efectividad:
+    /// Un double que representa la efectividad.
     /// <item>2.0 si <paramref name="attacker"/> es fuerte contra <paramref name="defender"/></item>
     /// <item>0.5 si <paramref name="attacker"/> es debil contra <paramref name="defender"/></item>
     /// <item>0.0 si <paramref name="attacker"/> no tiene efecto en <paramref name="defender"/></item>

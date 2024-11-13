@@ -30,6 +30,66 @@
             y que el efecto expire al removerlo explícitamente.
             </summary>
         </member>
+        <member name="T:Library.Tests.FacadeTests">
+            <summary>
+            Tests de la fachada.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.FacadeTests.TestWelcome">
+            <summary>
+            Test de la bienvenida al usuario.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.FacadeTests.TestPlayTurn">
+            <summary>
+            Test de la bienvenida al usuario.
+            </summary>
+        </member>
+        <member name="T:Library.Tests.ConnectionMock">
+            <summary>
+            Clase para testear la fachada. Sirve como mock de la conexión externa.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.PrintPlayerWonCalled">
+            <summary>
+            Si el método PrintPlayerWon se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.PrintStringCalled">
+            <summary>
+            Si el método PrintString se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.PrintTurnHeadingCalled">
+            <summary>
+            Si el método PrintTurnHeading se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.PrintWelcomeCalled">
+            <summary>
+            Si el método PrintWelcome se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.ReportAttackResultCalled">
+            <summary>
+            Si el método ReportAttackResult se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.ShowAttacksAndRecieveInputCalled">
+            <summary>
+            Si el método ShowAttacksAndRecieveInput se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.ShowChangePokemonMenuCalled">
+            <summary>
+            Si el método ShowChangePokemonMenu se llamó.
+            </summary>
+        </member>
+        <member name="P:Library.Tests.ConnectionMock.ShowMenuAndReceiveInputCalled">
+            <summary>
+            Si el método ShowMenuAndReceiveInput se llamó.
+            </summary>
+        </member>
         <member name="M:Library.Tests.ConnectionMock.PrintPlayerWon(Library.Player,Library.Player)">
             <inheritdoc/>
         </member>
@@ -53,21 +113,6 @@
         </member>
         <member name="M:Library.Tests.ConnectionMock.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
             <inheritdoc/>
-        </member>
-        <member name="T:Library.Tests.FacadeTests">
-            <summary>
-            Tests de la fachada.
-            </summary>
-        </member>
-        <member name="M:Library.Tests.FacadeTests.TestWelcome">
-            <summary>
-            Test de la bienvenida al usuario.
-            </summary>
-        </member>
-        <member name="M:Library.Tests.FacadeTests.TestPlayTurn">
-            <summary>
-            Test de la bienvenida al usuario.
-            </summary>
         </member>
         <member name="T:Library.Tests.ItemTest">
             <summary>
@@ -257,6 +302,21 @@
         <member name="M:Library.Tests.UserStoryTests.UserStory8">
             <summary>
             Test de la octava historia de usuario: se pueden usar items.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory9">
+            <summary>
+            Test de la novena historia de usuario: me puedo unir a una lista y esperar por oponentes.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory10">
+            <summary>
+            Test de la décima historia de usuario: quiero ver la lista de jugador esperando por un oponente.
+            </summary>
+        </member>
+        <member name="M:Library.Tests.UserStoryTests.UserStory11">
+            <summary>
+            Test de la décima primera historia de usuario: se puede iniciar una batalla con otro jugador en la cola.
             </summary>
         </member>
     </members>
