@@ -210,16 +210,25 @@ internal sealed class UserStoryTests
         Assert.That(p2.ActivePokemon.Health, Is.EqualTo(50));
     }
 
+    /// <summary>
+    /// Test de la novena historia de usuario: me puedo unir a una lista y esperar por oponentes.
+    /// </summary>
     [Test]
     public void UserStory9()
     {
     }
 
+    /// <summary>
+    /// Test de la décima historia de usuario: quiero ver la lista de jugador esperando por un oponente.
+    /// </summary>
     [Test]
     public void UserStory10()
     {
     }
 
+    /// <summary>
+    /// Test de la décima primera historia de usuario: se puede iniciar una batalla con otro jugador en la cola.
+    /// </summary>
     [Test]
     public void UserStory11()
     {
