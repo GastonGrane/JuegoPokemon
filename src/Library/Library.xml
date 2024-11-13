@@ -4,6 +4,233 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Library.ConsoleConnection">
+            <summary>
+            Un <see cref="T:Library.IExternalConnection"/> que imprime/toma entrada de la consola.
+            </summary>
+            <remarks>
+            Cumple con SRP "Single Responsability Principle", ya que su unica responsabilidad es manejar la interaccion con la consola.
+            Cumple con LSP "Liskov Substitution Principle" ya que al implementar el contrato de la interfaz, se puede utilizar en cualquier lugar
+            que se utilize la interfaz, mantienendo el comportamiento esperado.
+            Cumple con DIP "Dependency Inversion Principle" debido a que clases de alto nivel dependen de la
+            interfaz IExternalConnection en lugar de depender de ConsoleConnection directamente. Esto permite que las clases de alto nivel
+            puedan funcionar sin estar acopladas a una implementación concreta.
+            </remarks>
+        </member>
+        <member name="M:Library.ConsoleConnection.PrintString(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.PrintWelcome(Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.PrintPlayerWon(Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.PrintTurnHeading(Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.ShowAttacksAndRecieveInput(Library.Pokemon)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.ReportAttackResult(System.Int32,Library.Player,Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ConsoleConnection.ShowChangePokemonMenu(Library.Player)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.Game">
+            <summary>
+            Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
+            </summary>
+            <remarks>
+            Esta clase se podría considerar como una fachada sobre el juego de Pokemon, ya que al pasarle la conexión externa, esta
+            clase se encarga de la lógica de cómo funciona el juego, escondiendo los detalles de las clases que lo implementan.
+            </remarks>
+        </member>
+        <member name="F:Library.Game.externalConnection">
+            <summary>
+            La conexión al servicio externo.
+            </summary>
+            <remarks>
+            A través de depender de una interfaz, y no una clase explícita, esta clase cumple con DIP. Esto ayuda, ya que hace a la clase más reutilizable, porque sea imprimir a la consola, discord, o algo para un test,
+            únicamente requiere cambios en esta clase para lograr cambiar dónde imprime. Esto también genera cumplimiento de SRP, ya que Game se ocupa solamente de jugar el juego, interactuando con esta clase para lograr hablar con el exterior.
+            </remarks>
+        </member>
+        <member name="F:Library.Game.playerOne">
+            <summary>
+            El primer jugador en el juego.
+            </summary>
+        </member>
+        <member name="F:Library.Game.playerTwo">
+            <summary>
+            El segundo jugador en el juego.
+            </summary>
+        </member>
+        <member name="M:Library.Game.#ctor(Library.Player,Library.Player,Library.IExternalConnection)">
+            <summary>
+            Inicializa el juego.
+            </summary>
+            <param name="p1">El primer jugador <see cref="F:Library.Game.playerOne"/>.</param>
+            <param name="p2">El segundo jugador <see cref="F:Library.Game.playerTwo"/>.</param>
+            <param name="externalConnection">La conección con el servicio externo.</param>
+        </member>
+        <member name="M:Library.Game.CreateGame(System.Collections.Generic.List{Library.Pokemon},Library.IExternalConnection)">
+            <summary>
+            Crea un nuevo juego con jugadores predefinidos.
+            </summary>
+            <param name="pokemon">Una lista de <see cref="T:Library.Pokemon"/> para usar en el juego.</param>
+            <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
+            <param name="externalConnection">La conección con el servicio externo.</param>
+        </member>
+        <member name="M:Library.Game.ShowWelcome">
+            <summary>
+            Shows the welcome message.
+            </summary>
+        </member>
+        <member name="M:Library.Game.Play">
+            <summary>
+            Comienza el juego, va alternando el turno entre los jugadores. Este método inicia un bucle hasta que termine el juego. Para jugar de a turnos, utilice <see cref="M:Library.Game.PlayGameTurn"/>.
+            </summary>
+            <remarks>
+            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
+            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
+            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
+            </remarks>
+        </member>
+        <member name="M:Library.Game.PlayGameTurn">
+            <summary>
+            Ejecuta un turno del juego, es decir, una acción realizada por cada jugador.
+            </summary>
+        </member>
+        <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
+            <summary>
+            Ejecuta un ataque por el jugador que le toca hacia el contrincante.
+            </summary>
+            <param name="active">El <see cref="T:Library.Player"/> que va a atacar.</param>
+            <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado.</param>
+        </member>
+        <member name="M:Library.Game.UseItem(Library.Player)">
+            <summary>
+            Ejecuta un ataque por el jugador que le toca hacia el contrincante.
+            </summary>
+            <param name="active">El <see cref="T:Library.Player"/> que va a usar items.</param>
+        </member>
+        <member name="M:Library.Game.PlayTurn(Library.Player,Library.Player)">
+            <summary>
+            Maneja el turno del jugador activo.
+            </summary>
+            <param name="active">El <see cref="T:Library.Player"/> que toma el turno.</param>
+            <param name="other">El <see cref="T:Library.Player"/> que no le toca atacar.</param>
+            <remarks>
+            Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
+            Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
+            </remarks>
+        </member>
+        <member name="M:Library.Game.ChangePokemon(Library.Player)">
+            <summary>
+            Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="T:Library.Player"/>.
+            </summary>
+            <param name="p">El <see cref="T:Library.Player"/> quien es que está haciendo el cambio.</param>
+        </member>
+        <member name="M:Library.Game.CheckDead(Library.Player)">
+            <summary>
+            Comprueba si un pokemon del jugador ha muerto.
+            </summary>
+            <param name="p">El <see cref="T:Library.Player"/> el cual estamos viendo el estado de su pokemon.</param>
+            <returns>
+            <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>.
+            </returns>
+            <remarks>
+            Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
+            </remarks>
+        </member>
+        <member name="T:Library.IExternalConnection">
+            <summary>
+            Representa la comunicación a un servicio externo.
+            Permite imprimir texto, y pedirlo al usuario una selección.
+            </summary>
+            <remarks>
+            Esta interfaz cumple con OCP "Open-Closed Principle" si se neccesita cambiar como se imprime la informcacio, se puede
+            crear nuevas implementacion sin modificar la interzas original.
+            Tambien cumple con DIP "Dependency Inversion Principle" al abstraer la funcionalidad de la impresion y permitir que
+            las clases de alto nivel (como la interacción con el usuario) dependan de la interfaz en lugar de depender de una
+            implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
+            La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
+            mantiene una alta cohesion en la misma.
+            La interfaz cumple tambien con SRP "Single Responsability Principle" ya que encapsula el tema de "Comunicarse con el
+            usuario", y esta al tener solo un unico proposito tambien tiene solo una razon de cambio, que querramos cambiar como
+            se habla con el usuario, y gracias a esto generamos un bajo acomplamiento.
+            Por supuesto, esta interfaz también hace uso de LSP, ya que una implementación debe cumplir con el contrato de la interfaz,
+            y una vez esto se logra esta implementación se puede utilizar donde sea que se necesita esta interfaz, logrando más flexibilidad.
+            </remarks>
+        </member>
+        <member name="M:Library.IExternalConnection.PrintString(System.String)">
+            <summary>
+            Imprime la string pasada al servicio.
+            </summary>
+            <param name="str">La string a imprimir.</param>
+        </member>
+        <member name="M:Library.IExternalConnection.PrintWelcome(Library.Player,Library.Player)">
+            <summary>
+            Imprime el mensaje de bienvenida a ambos usuarios.
+            </summary>
+            <param name="p1">El primer jugador.</param>
+            <param name="p2">El segundo jugador.</param>
+        </member>
+        <member name="M:Library.IExternalConnection.PrintPlayerWon(Library.Player,Library.Player)">
+            <summary>
+            Imprime el mensaje de victoria para el primer jugador. Además, debería indicar que terminó la partida, y hacer algo al respecto.
+            </summary>
+            <param name="p1">El jugador ganador.</param>
+            <param name="p2">El jugador perdedor.</param>
+        </member>
+        <member name="M:Library.IExternalConnection.PrintTurnHeading(Library.Player)">
+            <summary>
+            Imprime la indicación del comienzo del turno del jugador 1.
+            </summary>
+            <param name="player">El jugador cuyo turno es.</param>
+        </member>
+        <member name="M:Library.IExternalConnection.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
+            <summary>
+            Le imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
+            Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
+            </summary>
+            <param name="selectionText">El texto a mostrar para contextualizar las opciones. El texto se muestra antes de las mismas.</param>
+            <param name="options">Los elementos que se pueden elegir del menú.</param>
+            <returns>
+            El índice, relativo al array <paramref name="options"/> de la opción elegida.
+            </returns>
+        </member>
+        <member name="M:Library.IExternalConnection.ShowAttacksAndRecieveInput(Library.Pokemon)">
+            <summary>
+            Le imprime la lista de ataques del pokemon recibido, y le permite eligir una opción al usuario mediante un número o el nombre del ataque.
+            Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
+            </summary>
+            <param name="pokemon">El pokemon cuyos ataques se elegirán.</param>
+            <returns>
+            El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
+            </returns>
+        </member>
+        <member name="M:Library.IExternalConnection.ShowChangePokemonMenu(Library.Player)">
+            <summary>
+            Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
+            </summary>
+            <param name="player">El jugador que quiere cambiar de Pokemon.</param>
+            <returns>
+            El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
+            </returns>
+        </member>
+        <member name="M:Library.IExternalConnection.ReportAttackResult(System.Int32,Library.Player,Library.Player)">
+            <summary>
+            Le muestra al usuario el resultado que tuvo su ataque.
+            </summary>
+            <param name="oldHP">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
+            <param name="attacker">El jugador que atacó.</param>
+            <param name="defender">El jugador que fue atacado.</param>
+        </member>
         <member name="T:Library.Attack">
             <summary>
             Clase base abstracta que representa un ataque en el juego, proporcionando propiedades esenciales
@@ -381,233 +608,6 @@
             </summary>
             <param name="target">El Pokémon del que se removerá el efecto.</param>
             <exception cref="T:System.ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-        </member>
-        <member name="T:Library.ConsoleConnection">
-            <summary>
-            Un <see cref="T:Library.IExternalConnection"/> que imprime/toma entrada de la consola.
-            </summary>
-            <remarks>
-            Cumple con SRP "Single Responsability Principle", ya que su unica responsabilidad es manejar la interaccion con la consola.
-            Cumple con LSP "Liskov Substitution Principle" ya que al implementar el contrato de la interfaz, se puede utilizar en cualquier lugar
-            que se utilize la interfaz, mantienendo el comportamiento esperado.
-            Cumple con DIP "Dependency Inversion Principle" debido a que clases de alto nivel dependen de la
-            interfaz IExternalConnection en lugar de depender de ConsoleConnection directamente. Esto permite que las clases de alto nivel
-            puedan funcionar sin estar acopladas a una implementación concreta.
-            </remarks>
-        </member>
-        <member name="M:Library.ConsoleConnection.PrintString(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.PrintWelcome(Library.Player,Library.Player)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.PrintPlayerWon(Library.Player,Library.Player)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.PrintTurnHeading(Library.Player)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.ShowAttacksAndRecieveInput(Library.Pokemon)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.ReportAttackResult(System.Int32,Library.Player,Library.Player)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Library.ConsoleConnection.ShowChangePokemonMenu(Library.Player)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Library.Game">
-            <summary>
-            Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.
-            </summary>
-            <remarks>
-            Esta clase se podría considerar como una fachada sobre el juego de Pokemon, ya que al pasarle la conexión externa, esta
-            clase se encarga de la lógica de cómo funciona el juego, escondiendo los detalles de las clases que lo implementan.
-            </remarks>
-        </member>
-        <member name="F:Library.Game.externalConnection">
-            <summary>
-            La conexión al servicio externo.
-            </summary>
-            <remarks>
-            A través de depender de una interfaz, y no una clase explícita, esta clase cumple con DIP. Esto ayuda, ya que hace a la clase más reutilizable, porque sea imprimir a la consola, discord, o algo para un test,
-            únicamente requiere cambios en esta clase para lograr cambiar dónde imprime. Esto también genera cumplimiento de SRP, ya que Game se ocupa solamente de jugar el juego, interactuando con esta clase para lograr hablar con el exterior.
-            </remarks>
-        </member>
-        <member name="F:Library.Game.playerOne">
-            <summary>
-            El primer jugador en el juego.
-            </summary>
-        </member>
-        <member name="F:Library.Game.playerTwo">
-            <summary>
-            El segundo jugador en el juego.
-            </summary>
-        </member>
-        <member name="M:Library.Game.#ctor(Library.Player,Library.Player,Library.IExternalConnection)">
-            <summary>
-            Inicializa el juego.
-            </summary>
-            <param name="p1">El primer jugador <see cref="F:Library.Game.playerOne"/>.</param>
-            <param name="p2">El segundo jugador <see cref="F:Library.Game.playerTwo"/>.</param>
-            <param name="externalConnection">La conección con el servicio externo.</param>
-        </member>
-        <member name="M:Library.Game.CreateGame(System.Collections.Generic.List{Library.Pokemon},Library.IExternalConnection)">
-            <summary>
-            Crea un nuevo juego con jugadores predefinidos.
-            </summary>
-            <param name="pokemon">Una lista de <see cref="T:Library.Pokemon"/> para usar en el juego.</param>
-            <returns>Una nueva instancia de <see cref="T:Library.Game"/> que es hard-coded.</returns>
-            <param name="externalConnection">La conección con el servicio externo.</param>
-        </member>
-        <member name="M:Library.Game.ShowWelcome">
-            <summary>
-            Shows the welcome message.
-            </summary>
-        </member>
-        <member name="M:Library.Game.Play">
-            <summary>
-            Comienza el juego, va alternando el turno entre los jugadores. Este método inicia un bucle hasta que termine el juego. Para jugar de a turnos, utilice <see cref="M:Library.Game.PlayGameTurn"/>.
-            </summary>
-            <remarks>
-            El juego continua hasta que uno de los dos jugadores se quede sin ningun pokemon en su lista. Por el momento
-            siempre ataca primero el @b PlayerOne y luego **PlayerTwo**
-            De todas formas entendemos que este no justo para el jugador dos por ello tendriamos que implementar algo distinto en el futuro.
-            </remarks>
-        </member>
-        <member name="M:Library.Game.PlayGameTurn">
-            <summary>
-            Ejecuta un turno del juego, es decir, una acción realizada por cada jugador.
-            </summary>
-        </member>
-        <member name="M:Library.Game.AttackPlayer(Library.Player,Library.Player)">
-            <summary>
-            Ejecuta un ataque por el jugador que le toca hacia el contrincante.
-            </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que va a atacar.</param>
-            <param name="other">El <see cref="T:Library.Player"/> que va a ser atacado.</param>
-        </member>
-        <member name="M:Library.Game.UseItem(Library.Player)">
-            <summary>
-            Ejecuta un ataque por el jugador que le toca hacia el contrincante.
-            </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que va a usar items.</param>
-        </member>
-        <member name="M:Library.Game.PlayTurn(Library.Player,Library.Player)">
-            <summary>
-            Maneja el turno del jugador activo.
-            </summary>
-            <param name="active">El <see cref="T:Library.Player"/> que toma el turno.</param>
-            <param name="other">El <see cref="T:Library.Player"/> que no le toca atacar.</param>
-            <remarks>
-            Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
-            Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
-            </remarks>
-        </member>
-        <member name="M:Library.Game.ChangePokemon(Library.Player)">
-            <summary>
-            Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="T:Library.Player"/>.
-            </summary>
-            <param name="p">El <see cref="T:Library.Player"/> quien es que está haciendo el cambio.</param>
-        </member>
-        <member name="M:Library.Game.CheckDead(Library.Player)">
-            <summary>
-            Comprueba si un pokemon del jugador ha muerto.
-            </summary>
-            <param name="p">El <see cref="T:Library.Player"/> el cual estamos viendo el estado de su pokemon.</param>
-            <returns>
-            <c>true</c> Si el <paramref name="p"/> no tiene ningun Pokemon restante, sino <c>false</c>.
-            </returns>
-            <remarks>
-            Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
-            </remarks>
-        </member>
-        <member name="T:Library.IExternalConnection">
-            <summary>
-            Representa la comunicación a un servicio externo.
-            Permite imprimir texto, y pedirlo al usuario una selección.
-            </summary>
-            <remarks>
-            Esta interfaz cumple con OCP "Open-Closed Principle" si se neccesita cambiar como se imprime la informcacio, se puede
-            crear nuevas implementacion sin modificar la interzas original.
-            Tambien cumple con DIP "Dependency Inversion Principle" al abstraer la funcionalidad de la impresion y permitir que
-            las clases de alto nivel (como la interacción con el usuario) dependan de la interfaz en lugar de depender de una
-            implemntacion contreta. Esto nos da en el codigo una mayor flexibilidad y descaoplamiento.
-            La interfaz aplica multiples metodos, sin embargo estan todos relacionados con la impresdion, lo que
-            mantiene una alta cohesion en la misma.
-            La interfaz cumple tambien con SRP "Single Responsability Principle" ya que encapsula el tema de "Comunicarse con el
-            usuario", y esta al tener solo un unico proposito tambien tiene solo una razon de cambio, que querramos cambiar como
-            se habla con el usuario, y gracias a esto generamos un bajo acomplamiento.
-            Por supuesto, esta interfaz también hace uso de LSP, ya que una implementación debe cumplir con el contrato de la interfaz,
-            y una vez esto se logra esta implementación se puede utilizar donde sea que se necesita esta interfaz, logrando más flexibilidad.
-            </remarks>
-        </member>
-        <member name="M:Library.IExternalConnection.PrintString(System.String)">
-            <summary>
-            Imprime la string pasada al servicio.
-            </summary>
-            <param name="str">La string a imprimir.</param>
-        </member>
-        <member name="M:Library.IExternalConnection.PrintWelcome(Library.Player,Library.Player)">
-            <summary>
-            Imprime el mensaje de bienvenida a ambos usuarios.
-            </summary>
-            <param name="p1">El primer jugador.</param>
-            <param name="p2">El segundo jugador.</param>
-        </member>
-        <member name="M:Library.IExternalConnection.PrintPlayerWon(Library.Player,Library.Player)">
-            <summary>
-            Imprime el mensaje de victoria para el primer jugador. Además, debería indicar que terminó la partida, y hacer algo al respecto.
-            </summary>
-            <param name="p1">El jugador ganador.</param>
-            <param name="p2">El jugador perdedor.</param>
-        </member>
-        <member name="M:Library.IExternalConnection.PrintTurnHeading(Library.Player)">
-            <summary>
-            Imprime la indicación del comienzo del turno del jugador 1.
-            </summary>
-            <param name="player">El jugador cuyo turno es.</param>
-        </member>
-        <member name="M:Library.IExternalConnection.ShowMenuAndReceiveInput(System.String,System.Collections.ObjectModel.ReadOnlyCollection{System.String})">
-            <summary>
-            Le imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
-            Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
-            </summary>
-            <param name="selectionText">El texto a mostrar para contextualizar las opciones. El texto se muestra antes de las mismas.</param>
-            <param name="options">Los elementos que se pueden elegir del menú.</param>
-            <returns>
-            El índice, relativo al array <paramref name="options"/> de la opción elegida.
-            </returns>
-        </member>
-        <member name="M:Library.IExternalConnection.ShowAttacksAndRecieveInput(Library.Pokemon)">
-            <summary>
-            Le imprime la lista de ataques del pokemon recibido, y le permite eligir una opción al usuario mediante un número o el nombre del ataque.
-            Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
-            </summary>
-            <param name="pokemon">El pokemon cuyos ataques se elegirán.</param>
-            <returns>
-            El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
-            </returns>
-        </member>
-        <member name="M:Library.IExternalConnection.ShowChangePokemonMenu(Library.Player)">
-            <summary>
-            Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
-            </summary>
-            <param name="player">El jugador que quiere cambiar de Pokemon.</param>
-            <returns>
-            El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
-            </returns>
-        </member>
-        <member name="M:Library.IExternalConnection.ReportAttackResult(System.Int32,Library.Player,Library.Player)">
-            <summary>
-            Le muestra al usuario el resultado que tuvo su ataque.
-            </summary>
-            <param name="oldHP">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
-            <param name="attacker">El jugador que atacó.</param>
-            <param name="defender">El jugador que fue atacado.</param>
         </member>
         <member name="T:Library.Items.IItem">
             <summary>
