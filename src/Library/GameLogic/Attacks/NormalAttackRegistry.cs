@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
+namespace Library.GameLogic.Attacks;
 
 /// <summary>
 /// Clase estática con una colección de ataques normales pre-definidos.

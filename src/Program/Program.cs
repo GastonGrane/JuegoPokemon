@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library;
+using Library.GameLogic;
 
 namespace Program
 {

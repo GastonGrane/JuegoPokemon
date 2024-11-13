@@ -6,7 +6,7 @@
 
 using System.Security.Cryptography;
 
-namespace Library.Effect;
+namespace Library.GameLogic.Effects;
 
 /// <summary>
 /// Representa un efecto de parálisis que puede ser aplicado a un Pokémon.

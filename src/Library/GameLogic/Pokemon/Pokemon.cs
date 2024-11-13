@@ -5,9 +5,10 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-using Library.Effect;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Effects;
 
-namespace Library;
+namespace Library.GameLogic;
 
 /// <summary>
 /// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.
@@ -39,7 +40,7 @@ public class Pokemon
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
-    private List<Attack> attacks;
+    private List<Attacks.Attack> attacks;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados.
@@ -48,7 +49,7 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.Attack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -151,7 +152,7 @@ public class Pokemon
     public void Attack(Pokemon target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = this.GetAttack(attackIdx);
+        Attacks.Attack attack = this.GetAttack(attackIdx);
         this.Attack(target, attack);
     }
 
@@ -163,7 +164,7 @@ public class Pokemon
     public void Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = this.GetAttack(attackName);
+        Attacks.Attack attack = this.GetAttack(attackName);
         this.Attack(target, attack);
     }
 
@@ -241,7 +242,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private bool Attack(Pokemon target, Attack attack)
+    private bool Attack(Pokemon target, Attacks.Attack attack)
     {
         if (!this.Attacks.Contains(attack))
         {
@@ -276,7 +277,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si <paramref name="attackName"/> no es el nombre de ningún ataque.
     /// </exception>
-    private Attack GetAttack(string attackName)
+    private Attacks.Attack GetAttack(string attackName)
     {
         // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)

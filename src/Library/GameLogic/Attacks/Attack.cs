@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
+namespace Library.GameLogic.Attacks;
 
 /// <summary>
 /// Clase base abstracta que representa un ataque en el juego, proporcionando propiedades esenciales

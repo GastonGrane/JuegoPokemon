@@ -4,7 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Tests;
+using Library.GameLogic;
+using Library.GameLogic.Attacks;
+
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de los metodos de NormalAttack.

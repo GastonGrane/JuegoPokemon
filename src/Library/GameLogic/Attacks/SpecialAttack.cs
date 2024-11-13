@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Effect;
+using Library.GameLogic.Effects;
 
-namespace Library;
+namespace Library.GameLogic.Attacks;
 
 /// <summary>
 /// Representa un ataque especial que, además de causar daño, también inflige un estado en el Pokémon objetivo,

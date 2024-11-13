@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Items;
+namespace Library.GameLogic.Items;
 
 /// <summary>
 /// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.

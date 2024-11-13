@@ -4,7 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
+using Library.GameLogic.Attacks;
+
+namespace Library.GameLogic;
 
 /// <summary>
 /// Colección de Pokémon pre-definidos.

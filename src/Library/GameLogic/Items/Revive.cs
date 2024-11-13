@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Items;
+namespace Library.GameLogic.Items;
 
 /// <summary>
 /// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.

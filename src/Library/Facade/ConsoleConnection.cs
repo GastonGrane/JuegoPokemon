@@ -6,8 +6,11 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
+using Library.GameLogic;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Players;
 
-namespace Library;
+namespace Library.Facade;
 
 /// <summary>
 /// Un <see cref="IExternalConnection"/> que imprime/toma entrada de la consola.

@@ -4,9 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Effect;
+using Library.GameLogic;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Effects;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Tests para la clase SpecialAttack.

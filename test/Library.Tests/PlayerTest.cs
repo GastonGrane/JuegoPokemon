@@ -4,7 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Tests;
+using Library.GameLogic;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Players;
+
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de Player.

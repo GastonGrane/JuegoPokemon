@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Items;
+namespace Library.GameLogic.Items;
 
 /// <summary>
 /// Representa un objeto que puede eliminar todos los efectos de estado negativos de un Pokémon.
