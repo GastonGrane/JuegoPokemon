@@ -1,24 +1,20 @@
 // -----------------------------------------------------------------------
-// <copyright file="Revive.cs" company="Universidad Católica del Uruguay">
+// <copyright file="SuperPotion.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Items;
+namespace Library.GameLogic.Items;
 
 /// <summary>
-/// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
+/// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
 /// </summary>
-/// <remarks>
-/// La clase <see cref="Revive"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
-/// del ítem "Revive", cumpliendo con LSP.
-/// </remarks>
-public class Revive : IItem
+public class SuperPotion : IItem
 {
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public Revive()
+    public SuperPotion()
     {
     }
 
@@ -27,19 +23,19 @@ public class Revive : IItem
     /// </summary>
     public string Name
     {
-        get { return "Revive"; }
+        get { return "Super Potion"; }
     }
 
     /// <summary>
-    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
+    /// Aplica el efecto de la super poción en el Pokémon especificado, restaurando 70 puntos de salud.
     /// </summary>
-    /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
+    /// <param name="pokemon">El Pokémon al que se le aplicará la super poción.</param>
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
     public void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-        pokemon.Heal(50);
+        pokemon.Heal(70);
     }
 }

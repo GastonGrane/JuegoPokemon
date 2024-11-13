@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
+namespace Library.GameLogic.Attacks;
 
 /// <summary>
 /// Representa un ataque básico en el juego. A diferencia de <see cref="SpecialAttack"/>,

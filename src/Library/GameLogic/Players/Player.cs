@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Items;
+using Library.GameLogic.Items;
 
-namespace Library;
+namespace Library.GameLogic.Players;
 
 /// <summary>
 /// Este un jugador en el juego, el cual tiene un nombre, y una lista con sus pokemons.

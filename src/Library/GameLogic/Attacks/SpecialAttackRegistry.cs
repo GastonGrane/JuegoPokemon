@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Effect;
+using Library.GameLogic.Effects;
 
-namespace Library;
+namespace Library.GameLogic.Attacks;
 
 /// <summary>
 /// Clase estática con una colección de ataques especiales pre-definidos.

@@ -6,7 +6,10 @@
 
 using System.Collections.ObjectModel;
 
-namespace Library;
+using Library.GameLogic;
+using Library.GameLogic.Players;
+
+namespace Library.Facade;
 
 /// <summary>
 /// Representa la comunicación a un servicio externo.

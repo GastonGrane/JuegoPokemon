@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Items;
+namespace Library.GameLogic.Items;
 
 /// <summary>
 /// Define la funcionalidad básica para un objeto que se puede utilizar en un Pokémon.

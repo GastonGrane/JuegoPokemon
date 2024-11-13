@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Effect;
+namespace Library.GameLogic.Effects;
 
 /// <summary>
 /// Define una interfaz para los efectos que se pueden aplicar a un Pokémon.

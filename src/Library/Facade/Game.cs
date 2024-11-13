@@ -4,7 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library;
+using Library.GameLogic;
+using Library.GameLogic.Players;
+
+namespace Library.Facade;
 
 /// <summary>
 /// Maneja la dinamica del juego, incluye los turnos de los jugadores, ataques, y los cambios de pokemones.

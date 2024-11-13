@@ -4,10 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Effect;
-using Library.Items;
+using Library.GameLogic;
+using Library.GameLogic.Effects;
+using Library.GameLogic.Items;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de los Item.

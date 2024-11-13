@@ -4,9 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Effect;
+using Library.GameLogic;
+using Library.GameLogic.Effects;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Tests que prueban el correcto uncionamiento de los efectos del codigo.

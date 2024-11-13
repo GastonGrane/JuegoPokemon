@@ -4,7 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Tests;
+using Library.GameLogic;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Players;
+
+namespace Library.Tests.Facade;
 
 /// <summary>
 /// Tests de las historias de usuario.

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.Effect;
+namespace Library.GameLogic.Effects;
 
 /// <summary>
 /// Representa un efecto de sueño que puede ser aplicado a un Pokémon.
