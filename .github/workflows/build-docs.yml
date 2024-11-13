@@ -1,0 +1,38 @@
+name: Generate Documentation
+
+on:
+  workflow_run:
+    workflows: [ "Build and Test" ]
+    branches: [ main ]
+    types:
+      - completed
+  # Allow manual triggers
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    # Only run if the build workflow succeeded or this was manually triggered
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # This job does both restore and build, cuz we only do one dotnet job
+      - name: Generate XMLs for Doxygen
+        run: dotnet build
+
+      - name: Setup Doxygen
+        run: sudo apt-get install -y doxygen
+
+      - name: Generate documentation
+        working-directory: docs
+        run: doxygen Doxyfile
+
+      # Optional: Upload the generated docs as an artifact
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: Doxygen
+          path: docs/doxygen/html/

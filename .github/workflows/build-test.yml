@@ -1,4 +1,4 @@
-name: Build, Test & Generate Docs
+name: Build and Test
 
 on:
   push:
@@ -21,19 +21,11 @@ jobs:
         with:
           dotnet-version: 8.0.303
 
-      - name: Setup Doxygen
-        run: sudo apt-get install -y doxygen
-
-      - name: Installing dependencies...
+      - name: Install dependencies
         run: dotnet restore
 
-      - name: Building...
-        run: dotnet build
+      - name: Build
+        run: dotnet build --no-restore
 
-      - name: Running test...
-        run: dotnet test
-
-      - name: Generating docs...
-        working-directory: docs
-        run: doxygen Doxyfile
-        continue-on-error: false
+      - name: Run tests
+        run: dotnet test --no-restore
