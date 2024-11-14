@@ -26,7 +26,8 @@ public class Sleep : IEffect
     /// </summary>
     public Sleep()
     {
-        this.turnsRemaining = new Random().Next(1, 5);
+        IProbability rondasdormido = null;
+        this.turnsRemaining = rondasdormido.CalcularNumero(1, 5);
         this.IsExpired = false;
     }
 

@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Effects;
+
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -17,7 +19,7 @@ namespace Library.GameLogic.Attacks;
 /// </remarks>
 public class NormalAttack : Attack
 {
-    private static readonly Random Random = new Random();
+    private static readonly IProbability Random;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="NormalAttack"/>.
@@ -66,7 +68,7 @@ public class NormalAttack : Attack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (Random.Next(10) < 1)
+        if (Random.CalcularSioNo(1))
         {
             target.Damage((damage * 20) / 100);
         }

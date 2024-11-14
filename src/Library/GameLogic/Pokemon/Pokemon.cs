@@ -26,7 +26,7 @@ public class Pokemon
     /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
     /// </summary>
     // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
-    private static readonly Random Random = new Random();
+    private static readonly IProbability Random;
 
     /// <summary>
     /// El valor actual de salud del pokemon.
@@ -254,7 +254,7 @@ public class Pokemon
             return false;
         }
 
-        if (Random.Next(100) < attack.Precision)
+        if (Random.CalcularSioNo(attack.Precision))
         {
             attack.Use(target);
             return true;
