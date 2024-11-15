@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Effects;
+
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -52,12 +54,7 @@ public class NormalAttack : Attack
         ArgumentNullException.ThrowIfNull(attack.Name, "Un Ataque no se puede inicializar con nombre null");
         ArgumentOutOfRangeException.ThrowIfNegative(attack.Damage, "El daño no puede ser negativo");
     }
-
-    /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
-    /// </summary>
-    /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
-    /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
+    
     public override void Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
@@ -67,6 +64,26 @@ public class NormalAttack : Attack
         target.Damage(damage);
 
         if (Random.Next(10) < 1)
+        {
+            target.Damage((damage * 20) / 100);
+        }
+    }
+
+    /// <summary>
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo
+    /// </summary>
+    /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
+    /// <param name="random"> asdfasf.</param>
+    /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
+    public override void Use(Pokemon target, IProbability random)
+    {
+        ArgumentNullException.ThrowIfNull(target, nameof(target));
+
+        double multiplier = this.Type.Advantage(target.Type);
+        int damage = (int)(this.Damage * multiplier);
+        target.Damage(damage);
+
+        if (random.CalcularSioNo(10))
         {
             target.Damage((damage * 20) / 100);
         }

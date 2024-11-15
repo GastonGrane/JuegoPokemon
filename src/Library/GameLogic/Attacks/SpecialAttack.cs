@@ -63,4 +63,23 @@ public class SpecialAttack : Attack
             target.ApplyEffect(this.effect);
         }
     }
+
+    /// <summary>
+    /// asf.
+    /// </summary>
+    /// <param name="target"> asdas. </param>
+    /// <param name="probabilidad"> asd. </param>
+    public override void Use(Pokemon target, IProbability probabilidad)
+    {
+        ArgumentNullException.ThrowIfNull(target, nameof(target));
+
+        double multiplier = this.Type.Advantage(target.Type);
+        int damage = (int)(this.Damage * multiplier);
+        target.Damage(damage);
+
+        if (target.ActiveEffect == null)
+        {
+            target.ApplyEffect(this.effect);
+        }
+    }
 }
