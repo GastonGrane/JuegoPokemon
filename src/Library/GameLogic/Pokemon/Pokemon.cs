@@ -7,6 +7,7 @@
 using System.Collections.ObjectModel;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic;
 
@@ -22,11 +23,6 @@ namespace Library.GameLogic;
 /// </remarks>
 public class Pokemon
 {
-    /// <summary>
-    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
-    /// </summary>
-    // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
-    private static readonly Random Random = new Random();
 
     /// <summary>
     /// El valor actual de salud del pokemon.
@@ -41,6 +37,8 @@ public class Pokemon
     /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
     private List<Attacks.Attack> attacks;
+
+    private IProbability probabilidad;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados.
@@ -62,6 +60,31 @@ public class Pokemon
         this.attacks = attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
+        this.probabilidad = new AleatoriedadPrograma();
+    }
+    
+    /// <summary>
+    /// .
+    /// </summary>
+    /// <param name="name"> a. </param>
+    /// <param name="type">asd.</param>
+    /// <param name="maxHealth">as.</param>
+    /// <param name="attacks"> as . </param>
+    /// <param name="generador"> aasd.</param>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.Attack> attacks, IProbability generador)
+    {
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
+
+        this.Name = name;
+        this.Type = type;
+        this.Health = maxHealth;
+        this.MaxHealth = maxHealth;
+        this.attacks = attacks;
+        this.ActiveEffect = null;
+        this.CanAttack = true;
+        this.probabilidad = generador;
     }
 
     /// <summary>
@@ -85,6 +108,7 @@ public class Pokemon
         this.attacks = pokemon.attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
+        this.probabilidad = pokemon.probabilidad;
     }
 
     /// <summary>
@@ -254,29 +278,7 @@ public class Pokemon
             return false;
         }
 
-        if (Random.Next(100) < attack.Precision)
-        {
-            attack.Use(target);
-            return true;
-        }
-
-        this.UpdateEffect();
-        return false;
-    }
-    
-    private bool Attack(Pokemon target, Attacks.Attack attack, IProbability random)
-    {
-        if (!this.Attacks.Contains(attack))
-        {
-            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
-        }
-
-        if (!this.CanAttack)
-        {
-            return false;
-        }
-
-        if (random.CalcularSioNo(attack.Precision))
+        if (this.probabilidad.CalcularSioNo(attack.Precision))
         {
             attack.Use(target);
             return true;

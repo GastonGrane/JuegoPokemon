@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Effects;
+
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -79,4 +81,11 @@ public abstract class Attack
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
     public abstract void Use(Pokemon target);
+
+    /// <summary>
+    /// .
+    /// </summary>
+    /// <param name="target"> sdfdsf .</param>
+    /// <param name="probabildiad"> asdas. </param>
+    public abstract void Use(Pokemon target, IProbability probabildiad);
 }

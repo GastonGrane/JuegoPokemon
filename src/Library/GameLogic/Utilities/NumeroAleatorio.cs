@@ -5,10 +5,21 @@ namespace Library.GameLogic.Utilities;
 public class AleatoriedadPrograma : IProbability
 {
 
-    public int LimInf;
-    public int LimSupe;
-    public int ProcentajeProbabilidad;
-
+    /// <summary>
+    /// .
+    /// </summary>
+    public int LimInf { get; set; }
+    
+    /// <summary>
+    /// .
+    /// </summary>
+    public int LimSupe { get; set; }
+    
+    /// <summary>
+    /// .
+    /// </summary>
+    public int ProcentajeProbabilidad { get; set; }
+    
     public bool CalcularSioNo(int porcentajedeprob)
     {
         int numero = new Random().Next(1, 101);
