@@ -21,7 +21,7 @@ public class Paralysis : IEffect
     /// <summary>
     /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
     /// </summary>
-    private readonly IProbability random;
+    private readonly RandomNumberGenerator random = RandomNumberGenerator.Create();
 
     /// <summary>
     /// Inicializa una nueva instancia del efecto de parálisis con el estado activo.
@@ -48,8 +48,19 @@ public class Paralysis : IEffect
         {
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
+        byte[] randomByte = new byte[1];
+        this.random.GetBytes(randomByte);
+        target.CanAttack = (randomByte[0] % 2) == 1; // 50% probabilidad de atacar o no
+    }
+    
+    public void UpdateEffect(Pokemon target, IProbability randomp)
+    {
+        if (target == null)
+        {
+            throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
+        }
 
-        target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
+        target.CanAttack = randomp.CalcularSioNo(50); // 50% probabilidad de atacar o no
     }
 
     /// <summary>
