@@ -17,7 +17,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.303
 
       # This job does both restore and build, cuz we only do one dotnet job
       - name: Generate XMLs for Doxygen
