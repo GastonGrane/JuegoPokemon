@@ -9,12 +9,13 @@ namespace Library.GameLogic.Items;
 /// <summary>
 /// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
 /// </summary>
-public class SuperPotion : IItem
+public class SuperPotion : Item
 {
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public SuperPotion()
+    public SuperPotion(string name)
+        : base(name)
     {
     }
 
@@ -33,7 +34,7 @@ public class SuperPotion : IItem
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
-    public void Use(Pokemon pokemon)
+    public override void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(70);

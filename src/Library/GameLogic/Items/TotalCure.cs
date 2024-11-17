@@ -16,12 +16,13 @@ namespace Library.GameLogic.Items;
 /// Esta clase también cumple con LSP, al cumplir con el contrato de la interfaz, al únicamente aplicar el efecto necesario en el Pokémon.
 /// Esta implementación también muestra el uso de excepciones para asegurar que el objeto se utilice correctamente.
 /// </remarks>
-public class TotalCure : IItem
+public class TotalCure : Item
 {
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public TotalCure()
+    public TotalCure(string name)
+        : base(name)
     {
     }
 
@@ -38,7 +39,7 @@ public class TotalCure : IItem
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
-    public void Use(Pokemon pokemon)
+    public override void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         if (pokemon.ActiveEffect == null)
