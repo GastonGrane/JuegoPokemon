@@ -296,7 +296,6 @@ public class Pokemon
                 nameof(attackName),
                 "El nombre de ataque no se encuentra en la lista de ataques");
         }
-
         return attack;
     }
 

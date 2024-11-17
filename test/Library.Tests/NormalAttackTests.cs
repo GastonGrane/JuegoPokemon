@@ -20,7 +20,7 @@ public class NormalAttackTests
     [Test]
     public void CanNormalAttack()
     {
-        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon, 100);
+        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon, 100, true);
 
         Assert.That(colaDragon.Name, Is.EqualTo("Cola Dragon"), "El nombre no se inicio correctoamente");
         Assert.That(colaDragon.Damage, Is.EqualTo(15), "El daño no se incio correctamente");
@@ -37,7 +37,7 @@ public class NormalAttackTests
         try
         {
 #pragma warning disable CS8625 // se le pasa null a propósito
-            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug, 100);
+            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug, 100, true);
 #pragma warning restore CS8625
         }
         catch (ArgumentNullException)
@@ -57,7 +57,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
+            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100, true);
         }
         catch (ArgumentOutOfRangeException)
         {

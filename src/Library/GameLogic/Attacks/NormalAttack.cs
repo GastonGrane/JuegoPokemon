@@ -32,8 +32,8 @@ public class NormalAttack : Attack
     /// <remarks>
     /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
     /// </remarks>
-    public NormalAttack(string name, int damage, PokemonType type, int precision)
-        : base(name, damage, type, precision)
+    public NormalAttack(string name, int damage, PokemonType type, int precision, bool available)
+        : base(name, damage, type, precision, available)
     {
         ArgumentNullException.ThrowIfNull(name, nameof(name));
         ArgumentOutOfRangeException.ThrowIfNegative(damage, nameof(damage));
@@ -70,5 +70,23 @@ public class NormalAttack : Attack
         {
             target.Damage((damage * 20) / 100);
         }
+    }
+    /// <summary>
+    /// Actualiza el numero de turno en los que el ataqiue no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
+    /// </summary>
+    /// <param name="attack"></param>Ataque al cual se le actualizara su estado.
+    public override void UpdateAmountUnusedTurn(Attack attack)
+    {
+        if (attack.Available == false)
+        {
+            attack.AmountUnusedTurn += 1;
+        }
+
+        if (attack.AmountUnusedTurn > 2)
+        {
+            this.Available = Available;
+            attack.AmountUnusedTurn = 0; // no seria exactamente necesario pero hace al código más escalable
+        }
+        
     }
 }
