@@ -55,7 +55,14 @@ public class Paralysis : IEffect
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
+        if (this.random == null)
+        {
+            target.CanAttack = true;
+        }
+        else
+        {
+            target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
+        }
     }
 
     /// <summary>

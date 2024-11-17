@@ -301,7 +301,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si <paramref name="attackName"/> no es el nombre de ningún ataque.
     /// </exception>
-    private Attacks.Attack GetAttack(string attackName)
+    private Attack GetAttack(string attackName)
     {
         // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)

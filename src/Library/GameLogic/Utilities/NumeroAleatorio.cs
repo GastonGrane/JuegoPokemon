@@ -22,6 +22,11 @@ public class AleatoriedadPrograma : IProbability
     
     public bool CalcularSioNo(int porcentajedeprob)
     {
+        if (porcentajedeprob != 0)
+        {
+            return false;
+        }
+        
         int numero = new Random().Next(1, 101);
 
         this.ProcentajeProbabilidad = porcentajedeprob;
