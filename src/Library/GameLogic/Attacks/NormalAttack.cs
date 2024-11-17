@@ -69,6 +69,8 @@ public class NormalAttack : Attack
         if (Random.Next(10) < 1)
         {
             target.Damage((damage * 20) / 100);
+            CommunicationUser.attackStatus = AttackStatus.CriticalHit;
         }
+        CommunicationUser.attackStatus = AttackStatus.NormalAttack;
     }
 }

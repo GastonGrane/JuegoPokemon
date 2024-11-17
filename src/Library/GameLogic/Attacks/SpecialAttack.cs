@@ -61,6 +61,9 @@ public class SpecialAttack : Attack
         if (target.ActiveEffect == null)
         {
             target.ApplyEffect(this.effect);
+            CommunicationUser.attackStatus = AttackStatus.EffectApplied;
         }
+
+        CommunicationUser.attackStatus = AttackStatus.NoEffect;
     }
 }

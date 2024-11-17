@@ -102,13 +102,14 @@ public class Game
             this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
             return;
         }
-
+        GameState.PrintStatuses(externalConnection, playerOne, playerTwo);
         this.PlayTurnP2();
         if (this.CheckDead(this.playerOne))
         {
             this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
             return;
         }
+        GameState.PrintStatuses(externalConnection, playerTwo, playerOne);
     }
 
     /// <summary>

@@ -41,5 +41,6 @@ public class Revive : IItem
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(50);
+        CommunicationUser.itemStatus = ItemStatus.Revive;
     }
 }

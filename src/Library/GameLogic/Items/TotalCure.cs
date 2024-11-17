@@ -45,7 +45,7 @@ public class TotalCure : IItem
         {
             throw new InvalidOperationException("El Pokémon no tiene ningún efecto activo.");
         }
-
+        CommunicationUser.itemStatus = ItemStatus.TotalCure;
         pokemon.RemoveEffect();
     }
 }

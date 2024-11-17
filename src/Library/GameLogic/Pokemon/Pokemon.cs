@@ -252,11 +252,12 @@ public class Pokemon
         if (!this.CanAttack)
         {
             return false;
+            CommunicationUser.attackStatus = AttackStatus.HinderingEffect;
         }
 
         if (Random.Next(100) < attack.Precision)
         {
-            attack.Use(target);
+           attack.Use(target);
             return true;
         }
 
@@ -279,7 +280,7 @@ public class Pokemon
     /// </exception>
     private Attacks.Attack GetAttack(string attackName)
     {
-        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
+        // FIXME (Gaton): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
         {
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");

@@ -37,5 +37,6 @@ public class SuperPotion : IItem
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(70);
+        CommunicationUser.itemStatus = ItemStatus.SuperPotion;
     }
 }
