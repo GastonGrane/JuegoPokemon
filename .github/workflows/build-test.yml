@@ -39,5 +39,3 @@ jobs:
 
       - name: Run tests
         run: dotnet test --no-build --no-restore
-
-      # TODO: Get coverage
