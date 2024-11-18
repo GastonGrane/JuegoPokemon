@@ -10,7 +10,7 @@ namespace Library.GameLogic.Items;
 /// Representa un objeto de revivir que restaura parcialmente la salud de un Pokémon debilitado.
 /// </summary>
 /// <remarks>
-/// La clase <see cref="Revive"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
+/// La clase <see cref="Revive"/> implementa la clase <see cref="Item"/> y define el comportamiento específico
 /// del ítem "Revive", cumpliendo con LSP.
 /// </remarks>
 public class Revive : Item

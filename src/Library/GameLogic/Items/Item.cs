@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="IItem.cs" company="Universidad Católica del Uruguay">
+// <copyright file="Item.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -23,14 +23,18 @@ namespace Library.GameLogic.Items;
 public abstract class Item
 {
     /// <summary>
-    /// El nombre del item.
+    /// Constructor base para los Items.
     /// </summary>
-    public string Name;
-
-    public Item(string name)
+    /// <param name="name"> El nombre del Item. </param>
+    protected Item(string name)
     {
         this.Name = name;
     }
+
+    /// <summary>
+    /// El nombre del item.
+    /// </summary>
+    public string Name { get; }
 
     /// <summary>
     /// Aplica el efecto del objeto en el Pokémon especificado.

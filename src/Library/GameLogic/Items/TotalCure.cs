@@ -11,7 +11,7 @@ namespace Library.GameLogic.Items;
 /// Al usar este objeto en un Pokémon, se eliminan todos los efectos de estado aplicados a él.
 /// </summary>
 /// <remarks>
-/// La clase <see cref="TotalCure"/> implementa la interfaz <see cref="IItem"/> y define el comportamiento específico
+/// La clase <see cref="TotalCure"/> implementa la clase <see cref="Item"/> y define el comportamiento específico
 /// de un ítem que elimina todos los efectos de estado negativos de un Pokémon.
 /// Esta clase también cumple con LSP, al cumplir con el contrato de la interfaz, al únicamente aplicar el efecto necesario en el Pokémon.
 /// Esta implementación también muestra el uso de excepciones para asegurar que el objeto se utilice correctamente.

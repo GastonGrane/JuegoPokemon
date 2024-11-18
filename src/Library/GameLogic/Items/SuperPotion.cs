@@ -9,6 +9,10 @@ namespace Library.GameLogic.Items;
 /// <summary>
 /// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
 /// </summary>
+/// /// <remarks>
+/// La clase <see cref="SuperPotion"/> implementa la clase <see cref="Item"/> y define el comportamiento específico
+/// del ítem "Superpotion", cumpliendo con LSP.
+/// </remarks>
 public class SuperPotion : Item
 {
     /// <summary>
