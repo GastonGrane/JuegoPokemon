@@ -65,10 +65,11 @@ public class SpecialAttack : Attack
     }
 
     /// <summary>
-    /// asf.
+    /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
+    /// activo, se le aplica el efecto de este ataque con una probabilidad de efectuarlo o no.
     /// </summary>
-    /// <param name="target"> asdas. </param>
-    /// <param name="probabilidad"> asd. </param>
+    /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
+    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar. </param>
     public override void Use(Pokemon target, IProbability probabilidad)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));

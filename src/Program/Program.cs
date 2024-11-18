@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
+using Library.GameLogic.Effects;
+using Library.GameLogic.Utilities;
 
 namespace Program
 {
@@ -19,6 +21,8 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
+            var rand = new AleatoriedadPrograma();
+            var p = new Paralysis(rand);
             List<Pokemon> pokemons = new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Pikachu"),

@@ -54,7 +54,13 @@ public class NormalAttack : Attack
         ArgumentNullException.ThrowIfNull(attack.Name, "Un Ataque no se puede inicializar con nombre null");
         ArgumentOutOfRangeException.ThrowIfNegative(attack.Damage, "El daño no puede ser negativo");
     }
-    
+
+    /// <summary>
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo
+    /// </summary>
+    /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
+    /// <param name="random"> asdfasf.</param>
+    /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
@@ -70,10 +76,11 @@ public class NormalAttack : Attack
     }
 
     /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo y con una probabilidad
+    /// de efectuarlo o no.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
-    /// <param name="random"> asdfasf.</param>
+    /// <param name="random"> El tipo de aleatoriedad que queremos utilizar.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target, IProbability random)
     {

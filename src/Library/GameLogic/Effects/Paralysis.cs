@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Security.Cryptography;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Effects;
 
@@ -29,8 +30,14 @@ public class Paralysis : IEffect
     public Paralysis()
     {
         this.IsExpired = false;
+        this.random = new AleatoriedadPrograma();
     }
 
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Paralysis"/> con un parametro <see cref="IProbability"/> para calcular
+    /// la probabilidad de si ese pokemon puede atacar o no, cada vez que se aplica el efecto.
+    /// </summary>
+    /// <param name="probabilidad"> De tipo IProbability. </param>
     public Paralysis(IProbability probabilidad)
     {
         this.IsExpired = false;
@@ -55,14 +62,7 @@ public class Paralysis : IEffect
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        if (this.random == null)
-        {
-            target.CanAttack = true;
-        }
-        else
-        {
-            target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
-        }
+        target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
     }
 
     /// <summary>
