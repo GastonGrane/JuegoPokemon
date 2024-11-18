@@ -84,6 +84,7 @@ public class NormalAttack : Attack
     public override void Use(Pokemon target, IProbability probabilidad)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
+        ArgumentNullException.ThrowIfNull(probabilidad);
 
         double multiplier = this.Type.Advantage(target.Type);
         int damage = (int)(this.Damage * multiplier);

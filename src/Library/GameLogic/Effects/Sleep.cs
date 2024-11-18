@@ -36,6 +36,8 @@ public class Sleep : IEffect
     /// <param name="rondasdormido"> El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
     public Sleep(IProbability rondasdormido)
     {
+        ArgumentNullException.ThrowIfNull(rondasdormido);
+
         this.turnsRemaining = rondasdormido.CalcularNumero(1, 5);
         this.IsExpired = false;
     }
