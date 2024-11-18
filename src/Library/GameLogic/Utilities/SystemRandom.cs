@@ -15,10 +15,10 @@ namespace Library.GameLogic.Utilities;
 /// Todas las clases que utilizan esto cumplen con el principio DIP debido a que pasan de depender de la clase <see cref="Random"/>
 /// a depender de esta que es mas abstracta y permite cambiar como funciona la adquisicion denumeros aleatorios.
 /// </remarks>
-public class AleatoriedadPrograma : IProbability
+public class SystemRandom : IProbability
 {
     /// <inheritdoc/>
-    public bool CalcularSioNo(int porcentaje)
+    public bool Chance(int porcentaje)
     {
         int numero = new Random().Next(1, 101);
 
@@ -26,7 +26,7 @@ public class AleatoriedadPrograma : IProbability
     }
 
     /// <inheritdoc/>
-    public int CalcularNumero(int liminferior, int limsuperior)
+    public int Number(int liminferior, int limsuperior)
     {
         return new Random().Next(liminferior, limsuperior);
     }

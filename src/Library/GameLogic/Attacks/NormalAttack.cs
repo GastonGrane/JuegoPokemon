@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic.Effects;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;
 
@@ -90,7 +90,7 @@ public class NormalAttack : Attack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (probabilidad.CalcularSioNo(10))
+        if (probabilidad.Chance(10))
         {
             target.Damage((damage * 20) / 100);
         }

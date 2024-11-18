@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Library.GameLogic.Effects;
+namespace Library.GameLogic.Utilities;
 
 /// <summary>
 /// Define la utiliziacion de la probabilidad que vayamos a utiliziar en nuestro codigo. Eligiendo entre un metodo que nos retorna
@@ -19,7 +19,7 @@ public interface IProbability
     /// Nos devuelve si el pokemon pudo dar un ataque critico.
     /// </returns>
     /// <param name="porcentaje"> Porcentaje de probabilidad de retornar un booleano.</param>
-    public bool CalcularSioNo(int porcentaje);
+    public bool Chance(int porcentaje);
 
     /// <summary>
     /// Esta logica nos da el numero de turnos que el efecto perdurara.
@@ -29,5 +29,5 @@ public interface IProbability
     /// </returns>
     /// <param name="liminferior"> Minimo numero que podria tocar. </param>
     /// <param name="limsuperior"> Maximo numero que podria tocar. </param>
-    public int CalcularNumero(int liminferior, int limsuperior);
+    public int Number(int liminferior, int limsuperior);
 }

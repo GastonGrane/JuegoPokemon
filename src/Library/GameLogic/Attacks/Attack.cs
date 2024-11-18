@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic.Effects;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;
 
@@ -79,13 +79,13 @@ public abstract class Attack
     /// <summary>
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
     /// </summary>
-    /// <param name="target"> El Pokémon objetivo al que se aplicará el ataque.</param>
+    /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
     public abstract void Use(Pokemon target);
 
     /// <summary>
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
     /// </summary>
-    /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
-    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar. </param>
+    /// <param name="target">El Pokémon objetivo que recibirá el daño. </param>
+    /// <param name="probabilidad">El tipo de aleatoriedad que queremos utilizar. </param>
     public abstract void Use(Pokemon target, IProbability probabilidad);
 }

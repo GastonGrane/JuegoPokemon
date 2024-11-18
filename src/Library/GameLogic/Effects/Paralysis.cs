@@ -30,7 +30,7 @@ public class Paralysis : IEffect
     public Paralysis()
     {
         this.IsExpired = false;
-        this.random = new AleatoriedadPrograma();
+        this.random = new SystemRandom();
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class Paralysis : IEffect
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        target.CanAttack = this.random.CalcularSioNo(50); // 50% probabilidad de atacar o no
+        target.CanAttack = this.random.Chance(50); // 50% probabilidad de atacar o no
     }
 
     /// <summary>

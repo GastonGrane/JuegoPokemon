@@ -59,7 +59,7 @@ public class Pokemon
         this.attacks = attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
-        this.probabilidad = new AleatoriedadPrograma();
+        this.probabilidad = new SystemRandom();
     }
 
     /// <summary>
@@ -277,7 +277,7 @@ public class Pokemon
             return false;
         }
 
-        if (this.probabilidad.CalcularSioNo(attack.Precision))
+        if (this.probabilidad.Chance(attack.Precision))
         {
             attack.Use(target);
             return true;

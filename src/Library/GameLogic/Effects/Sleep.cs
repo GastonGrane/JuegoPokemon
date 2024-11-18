@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Utilities;
+
 namespace Library.GameLogic.Effects;
 
 /// <summary>
@@ -33,12 +35,12 @@ public class Sleep : IEffect
     /// <summary>
     /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
     /// </summary>
-    /// <param name="rondasdormido"> El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
-    public Sleep(IProbability rondasdormido)
+    /// <param name="rondasaleatorias">El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
+    public Sleep(IProbability rondasaleatorias)
     {
-        ArgumentNullException.ThrowIfNull(rondasdormido);
+        ArgumentNullException.ThrowIfNull(rondasaleatorias, nameof(rondasaleatorias));
 
-        this.turnsRemaining = rondasdormido.CalcularNumero(1, 5);
+        this.turnsRemaining = rondasaleatorias.Number(1, 5);
         this.IsExpired = false;
     }
 
