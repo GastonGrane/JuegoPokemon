@@ -43,15 +43,15 @@ public class Player
         // Nota de Guzmán: Esto es _una_ solución al problema. Lo ideal, creo yo, sería utilizar cantidades del item que vayan disminuyendo. Esto no lo implementé yo, entonces queda así.
         this.Items = new List<Item>
         {
-            new Revive("Revive"),
+            new Revive(),
 
-            new SuperPotion("Super Potion"),
-            new SuperPotion("Super Potion"),
-            new SuperPotion("Super Potion"),
-            new SuperPotion("Super Potion"),
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
+            new SuperPotion(),
 
-            new TotalCure("Total Cure"),
-            new TotalCure("Total Cure"),
+            new TotalCure(),
+            new TotalCure(),
         };
         this.ActivePokemon = pokemons[0];
     }

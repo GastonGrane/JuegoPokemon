@@ -25,7 +25,7 @@ internal sealed class ItemTest
         Pokemon p = PokemonRegistry.GetPokemon("Dragonite");
         p.Damage(1000);
 
-        Revive revive = new Revive("Revive");
+        Revive revive = new Revive();
         revive.Use(p);
 
         Assert.That(p.Health, Is.EqualTo(50));
@@ -39,7 +39,7 @@ internal sealed class ItemTest
     [Test]
     public void PasarUnParametroNullFalla()
     {
-        Revive revive = new Revive("Revive");
+        Revive revive = new Revive();
         bool exceptionThrown = false;
         try
         {
@@ -63,7 +63,7 @@ internal sealed class ItemTest
     public void UseRemovesActiveEffectSuccessfully()
     {
         var p = PokemonRegistry.GetPokemon("Pikachu");
-        var totalCure = new TotalCure("Total Cure");
+        var totalCure = new TotalCure();
 
         // Arrange
         var poisonEffect = new Poison();
@@ -85,7 +85,7 @@ internal sealed class ItemTest
     public void UseThrowsInvalidOperationExceptionWhenNoActiveEffect()
     {
         var p = PokemonRegistry.GetPokemon("Pikachu");
-        var totalCure = new TotalCure("Total Cure");
+        var totalCure = new TotalCure();
 
         Assert.Throws<InvalidOperationException>(
             () => totalCure.Use(p),

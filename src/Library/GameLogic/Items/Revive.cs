@@ -18,8 +18,8 @@ public class Revive : Item
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public Revive(string name)
-        : base(name)
+    public Revive()
+        : base("Revive")
     {
     }
 

@@ -14,17 +14,9 @@ public class SuperPotion : Item
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public SuperPotion(string name)
-        : base(name)
+    public SuperPotion()
+        : base("Super Potion")
     {
-    }
-
-    /// <summary>
-    /// Nombre de el efecto.
-    /// </summary>
-    public string Name
-    {
-        get { return "Super Potion"; }
     }
 
     /// <summary>

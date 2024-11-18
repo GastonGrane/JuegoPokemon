@@ -21,17 +21,9 @@ public class TotalCure : Item
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
-    public TotalCure(string name)
-        : base(name)
+    public TotalCure()
+        : base("Total Cure")
     {
-    }
-
-    /// <summary>
-    /// Nombre de el efecto.
-    /// </summary>
-    public string Name
-    {
-        get { return "Total Cure"; }
     }
 
     /// <summary>
