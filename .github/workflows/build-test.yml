@@ -1,23 +1,33 @@
-name: Build and Test
+permissions:
+  contents: read
 
 on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-    branches: [ main ]
 
+# If new code is pushed to a PR branch, then cancel in progress workflows for
+# that PR. Ensures that we don't waste CI time, and returns results quicker.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+name: Build and Test
 jobs:
-  build-test-generate-docs:
-    runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup .NET 8.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.303
 
@@ -25,7 +35,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build /WarnAsError --no-restore
 
       - name: Run tests
-        run: dotnet test --no-restore
+        run: dotnet test --no-build --no-restore
