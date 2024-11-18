@@ -20,6 +20,12 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
+            ConsoleApp();
+            // DiscordBot();
+        }
+
+        private static void ConsoleApp()
+        {
             List<Pokemon> pokemons = new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Pikachu"),
@@ -30,6 +36,11 @@ namespace Program
             IExternalConnection connection = new ConsoleConnection();
             Game game = Game.CreateGame(pokemons, connection);
             game.PlayGameTurn();
+        }
+
+        private static void DiscordBot()
+        {
+            Library.Facade.Discord.BotLoader.LoadAsync().GetAwaiter().GetResult();
         }
     }
 }
