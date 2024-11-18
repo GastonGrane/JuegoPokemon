@@ -1,24 +1,35 @@
+// -----------------------------------------------------------------------
+// <copyright file="Bot.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Library.Facade.Discord;
 
 /// <summary>
 /// Esta clase implementa el bot de Discord.
 /// </summary>
-public class Bot : IBot
+public class Bot : IBot, IDisposable
 {
-    private ServiceProvider? serviceProvider;
     private readonly ILogger<Bot> logger;
     private readonly IConfiguration configuration;
     private readonly DiscordSocketClient client;
     private readonly CommandService commands;
+    private ServiceProvider? serviceProvider;
 
+    /// <summary>
+    /// Crea una instancia del bot.
+    /// </summary>
+    /// <param name="logger">El logger que utilizará el bot.</param>
+    /// <param name="configuration">La configuración del bot. Principalmente para el token.</param>
     public Bot(ILogger<Bot> logger, IConfiguration configuration)
     {
         this.logger = logger;
@@ -29,35 +40,57 @@ public class Bot : IBot
             AlwaysDownloadUsers = true,
             GatewayIntents =
                 GatewayIntents.AllUnprivileged
-                | GatewayIntents.MessageContent/*
-                | GatewayIntents.GuildMembers*/
+                | GatewayIntents.MessageContent,
+            /* | GatewayIntents.GuildMembers */
         };
 
-        client = new DiscordSocketClient(config);
-        commands = new CommandService();
+        this.client = new DiscordSocketClient(config);
+        this.commands = new CommandService();
     }
 
+    /// <inheritdoc/>
     public async Task StartAsync(ServiceProvider services)
     {
-        string discordToken = configuration["DiscordToken"] ?? throw new Exception("Falta el token");
+        string discordToken = this.configuration["DiscordToken"] ?? throw new MissingFieldException("Falta el token");
 
-        logger.LogInformation("Iniciando el con token {Token}", discordToken);
+        this.logger.LogInformation("Iniciando el con token {Token}", discordToken);
 
-        serviceProvider = services;
+        this.serviceProvider = services;
 
-        await commands.AddModulesAsync(Assembly.GetExecutingAssembly(), serviceProvider);
+        await this.commands.AddModulesAsync(Assembly.GetExecutingAssembly(), this.serviceProvider).ConfigureAwait(false);
 
-        await client.LoginAsync(TokenType.Bot, discordToken);
-        await client.StartAsync();
+        await this.client.LoginAsync(TokenType.Bot, discordToken).ConfigureAwait(false);
+        await this.client.StartAsync().ConfigureAwait(false);
 
-        client.MessageReceived += HandleCommandAsync;
+        this.client.MessageReceived += this.HandleCommandAsync;
     }
 
+    /// <inheritdoc/>
     public async Task StopAsync()
     {
-        logger.LogInformation("Finalizando");
-        await client.LogoutAsync();
-        await client.StopAsync();
+        this.logger.LogInformation("Finalizando");
+        await this.client.LogoutAsync().ConfigureAwait(false);
+        await this.client.StopAsync().ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Called when disposing of the class.
+    /// </summary>
+    /// <param name="dispose">Whether to dispose of managed resources.</param>
+    protected virtual void Dispose(bool dispose)
+    {
+        if (dispose)
+        {
+            this.client.Dispose();
+            (this.commands as IDisposable).Dispose();
+        }
     }
 
     private async Task HandleCommandAsync(SocketMessage arg)
@@ -72,11 +105,10 @@ public class Bot : IBot
 
         if (messageIsCommand)
         {
-            await commands.ExecuteAsync(
-                new SocketCommandContext(client, message),
+            await this.commands.ExecuteAsync(
+                new SocketCommandContext(this.client, message),
                 position,
-                serviceProvider);
+                this.serviceProvider).ConfigureAwait(false);
         }
     }
 }
-

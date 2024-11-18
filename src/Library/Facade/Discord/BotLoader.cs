@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="BotLoader.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +17,12 @@ namespace Library.Facade.Discord;
 /// </summary>
 public static class BotLoader
 {
+    /// <summary>
+    /// Ejecuta el bot.
+    /// </summary>
+    /// <returns>
+    /// Task de ejecutar el bot.
+    /// </returns>
     public static async Task LoadAsync()
     {
         var configuration = new ConfigurationBuilder()
@@ -27,31 +39,26 @@ public static class BotLoader
             .AddScoped<IBot, Bot>()
             .BuildServiceProvider();
 
-        try
+        IBot bot = serviceProvider.GetRequiredService<IBot>();
+
+        await bot.StartAsync(serviceProvider).ConfigureAwait(false);
+
+        Console.WriteLine("Conectado a Discord. Presione 'q' para salir...");
+
+        do
         {
-            IBot bot = serviceProvider.GetRequiredService<IBot>();
+            var keyInfo = Console.ReadKey();
 
-            await bot.StartAsync(serviceProvider);
-
-            Console.WriteLine("Conectado a Discord. Presione 'q' para salir...");
-
-            do
+            if (keyInfo.Key != ConsoleKey.Q)
             {
-                var keyInfo = Console.ReadKey();
+                continue;
+            }
 
-                if (keyInfo.Key != ConsoleKey.Q) continue;
+            Console.WriteLine("\nFinalizado");
+            await bot.StopAsync().ConfigureAwait(false);
 
-                Console.WriteLine("\nFinalizado");
-                await bot.StopAsync();
-
-                return;
-            } while (true);
+            return;
         }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception.Message);
-            Environment.Exit(-1);
-        }
+        while (true);
     }
 }
-
