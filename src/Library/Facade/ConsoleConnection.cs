@@ -156,7 +156,6 @@ public class ConsoleConnection : IExternalConnection
                 if (selection >= 1 && selection <= attacks.Count)
                 {
                     return attacks[selection - 1].Name;
-                    
                 }
 
                 Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{attacks.Count}");
