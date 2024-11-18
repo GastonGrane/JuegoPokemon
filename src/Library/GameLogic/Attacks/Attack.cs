@@ -30,7 +30,7 @@ public abstract class Attack
     /// <param name="damage">La cantidad de daño que causa el ataque.</param>
     /// <param name="type">El tipo de ataque (<see cref="PokemonType"/>), que determina su efectividad.</param>
     /// <param name="precision">La precision del ataque (1-100).</param>
-    protected Attack(string name, int damage, PokemonType type, int precision, bool available)
+    protected Attack(string name, int damage, PokemonType type, int precision)
     {
         this.Name = name;
         this.Damage = damage;
@@ -76,12 +76,12 @@ public abstract class Attack
     /// Obtiene la precisión del ataque, representada como un porcentaje entre 1 y 100.
     /// </summary>
     public int Precision { get; }
-    
+
     /// <summary>
-    /// Disponibilidad del ataque en el turno que se está jugando. 
+    /// Disponibilidad del ataque en el turno que se está jugando.
     /// </summary>
     public bool Available { get; set; }
-    
+
     /// <summary>
     /// Cantidad de turnos en los que el ataque no se ha encontrado disponible.
     /// </summary>
@@ -92,11 +92,9 @@ public abstract class Attack
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
     public abstract void Use(Pokemon target);
-    
-    /// <summary>
-    /// Actualiza el numero de turno en los que el ataqiue no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
-    /// </summary>
-    /// <param name="attack"></param>Ataque al cual se le actualizara su estado.
 
-    public abstract void UpdateAmountUnusedTurn(Attack attack);
+    /// <summary>
+    /// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
+    /// </summary>
+    public abstract void UpdateTurn();
 }

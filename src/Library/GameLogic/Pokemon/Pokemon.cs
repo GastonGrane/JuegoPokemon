@@ -260,7 +260,6 @@ public class Pokemon
             return true;
         }
 
-        this.UpdateEffect();
         return false;
     }
 
@@ -296,6 +295,7 @@ public class Pokemon
                 nameof(attackName),
                 "El nombre de ataque no se encuentra en la lista de ataques");
         }
+
         return attack;
     }
 
@@ -326,5 +326,18 @@ public class Pokemon
         }
 
         return this.Attacks[attackIdx];
+    }
+
+    /// <summary>
+    ///  Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar los efectos del Pokemon y si los ataque se encuentran validos o no.
+    /// </summary>
+    public void UpdateTurn()
+    {
+        this.UpdateEffect();
+        for (int i = 0; i < this.Attacks.Count; i++)
+        {
+            Attack a = this.Attacks[i];
+            a.UpdateTurn();
+        }
     }
 }

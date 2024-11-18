@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic.Attacks;
 using Library.GameLogic.Items;
 
 namespace Library.GameLogic.Players;
@@ -182,18 +181,16 @@ public class Player
         this.Items[idx].Use(target);
         this.Items.RemoveAt(idx); // Retiro el item utilizado.
     }
+
 /// <summary>
-/// Actualiza los ataques de todos los Pokemon del Player, "avisandoles" que pasó un turno.
+/// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
 /// </summary>
-    public void SpendATurn()
+    public void UpdateTurn()
     {
-        for (int i = 0; i < Pokemons.Count; i++)
+        for (int i = 0; i < this.Pokemons.Count; i++)
         {
-            Pokemon a = Pokemons[i];
-            foreach (Attack attack in a.Attacks)
-            {
-                attack.UpdateAmountUnusedTurn(attack);
-            }
+            Pokemon p = this.Pokemons[i];
+            p.UpdateTurn();
         }
     }
 }

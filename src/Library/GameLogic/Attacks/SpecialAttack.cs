@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Runtime.CompilerServices;
 using Library.GameLogic.Effects;
 
 namespace Library.GameLogic.Attacks;
@@ -26,8 +25,8 @@ public class SpecialAttack : Attack
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
     /// <param name="precision">La precisión del ataque (1-100).</param>
     /// <param name="effect">El efecto del ataque.</param>
-    public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect, bool available)
-        : base(name, damage, attackType, precision, available)
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect)
+        : base(name, damage, attackType, precision)
     {
         this.effect = effect;
     }
@@ -64,21 +63,21 @@ public class SpecialAttack : Attack
             target.ApplyEffect(this.effect);
         }
     }
+
     /// <summary>
-    /// Actualiza el numero de turno en los que el ataqiue no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
+    /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
     /// </summary>
-    /// <param name="attack"></param>Ataque al cual se le actualizara su estado.
-    public override void UpdateAmountUnusedTurn(Attack attack)
+    public override void UpdateTurn()
     {
-        if (attack.Available == false)
+        if (this.Available == false)
         {
-            attack.AmountUnusedTurn += 1;
+            this.AmountUnusedTurn += 1;
         }
 
-        if (attack.AmountUnusedTurn > 2)
+        if (this.AmountUnusedTurn > 2)
         {
-            this.Available = !Available;
-            attack.AmountUnusedTurn = 0;
+            this.Available = !this.Available;
+            this.AmountUnusedTurn = 0;
         }
     }
 }

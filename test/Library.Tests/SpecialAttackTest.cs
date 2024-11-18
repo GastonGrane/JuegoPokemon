@@ -21,7 +21,7 @@ public class SpecialAttackTest
     [Test]
     public void SpecialAttackAppliesEffectAfterSuccessfulHit()
     {
-        SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis(), true);
+        SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
 
         Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
 
@@ -38,8 +38,8 @@ public class SpecialAttackTest
     public void SpecialAttackDoesNotOverrideEffectAfterSuccessfulHit()
     {
         Poison initialEffect = new Poison();
-        SpecialAttack poisonSpecialAttack = new SpecialAttack("Spit", 10, PokemonType.Poison, 100, initialEffect, true);
-        SpecialAttack paralysisSpecialAttack = new SpecialAttack("Thunder", 10, PokemonType.Electric, 100, new Paralysis(), true);
+        SpecialAttack poisonSpecialAttack = new SpecialAttack("Spit", 10, PokemonType.Poison, 100, initialEffect);
+        SpecialAttack paralysisSpecialAttack = new SpecialAttack("Thunder", 10, PokemonType.Electric, 100, new Paralysis());
 
         Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
 
