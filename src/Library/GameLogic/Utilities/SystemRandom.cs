@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="AleatoriedadPrograma.cs" company="Universidad Católica del Uruguay">
+// <copyright file="SystemRandom.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
