@@ -41,7 +41,7 @@ public class Player
         this.Pokemons = pokemons;
 
         // Nota de Guzmán: Esto es _una_ solución al problema. Lo ideal, creo yo, sería utilizar cantidades del item que vayan disminuyendo. Esto no lo implementé yo, entonces queda así.
-        this.Items = new List<IItem>
+        this.Items = new List<Item>
         {
             new Revive(),
 
@@ -72,7 +72,7 @@ public class Player
     /// <summary>
     /// Lista de items disponibles para el jugador.
     /// </summary>
-    public List<IItem> Items { get; }
+    public List<Item> Items { get; }
 
     /// <summary>
     /// Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="ChangePokemon(string)"/>.
@@ -166,7 +166,7 @@ public class Player
         int idx = -1;
         for (int i = 0; i < this.Items.Count; ++i)
         {
-            IItem item = this.Items[i];
+            Item item = this.Items[i];
             if (item.Name == name)
             {
                 idx = i;
