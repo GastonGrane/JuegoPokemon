@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="AleatoriedadPrograma.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using Library.GameLogic.Effects;
 
 namespace Library.GameLogic.Utilities;
@@ -12,11 +18,11 @@ namespace Library.GameLogic.Utilities;
 public class AleatoriedadPrograma : IProbability
 {
     /// <inheritdoc/>
-    public bool CalcularSioNo(int porcentajedeprob)
+    public bool CalcularSioNo(int porcentaje)
     {
         int numero = new Random().Next(1, 101);
 
-        return numero <= porcentajedeprob;
+        return numero <= porcentaje;
     }
 
     /// <inheritdoc/>

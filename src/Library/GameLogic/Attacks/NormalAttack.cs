@@ -56,10 +56,9 @@ public class NormalAttack : Attack
     }
 
     /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
-    /// <param name="random"> asdfasf.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
@@ -80,9 +79,9 @@ public class NormalAttack : Attack
     /// de efectuarlo o no.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
-    /// <param name="random"> El tipo de aleatoriedad que queremos utilizar.</param>
+    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
-    public override void Use(Pokemon target, IProbability random)
+    public override void Use(Pokemon target, IProbability probabilidad)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
@@ -90,7 +89,7 @@ public class NormalAttack : Attack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (random.CalcularSioNo(10))
+        if (probabilidad.CalcularSioNo(10))
         {
             target.Damage((damage * 20) / 100);
         }

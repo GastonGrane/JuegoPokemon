@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="IProbability.cs" company="Universidad Católica del Uruguay">
+// Copyright (c) Programación II. Derechos reservados.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Library.GameLogic.Effects;
 
 /// <summary>
@@ -10,15 +16,18 @@ public interface IProbability
     /// Esta logica nos ayuda a resolver el porcentaje de probabilidad de un ataque.
     /// </summary>
     /// <returns>
-    /// Nos devuelve si el pokemon pudo dar un ataque critico
+    /// Nos devuelve si el pokemon pudo dar un ataque critico.
     /// </returns>
+    /// <param name="porcentaje"> Porcentaje de probabilidad de retornar un booleano.</param>
     public bool CalcularSioNo(int porcentaje);
 
     /// <summary>
-    /// Esta logica nos da el numero de turnos que el efecto perdurara
+    /// Esta logica nos da el numero de turnos que el efecto perdurara.
     /// </summary>
     /// <returns>
     /// Nos retorna el numero de turnos.
     /// </returns>
-    public int CalcularNumero(int a, int b);
+    /// <param name="liminferior"> Minimo numero que podria tocar. </param>
+    /// <param name="limsuperior"> Maximo numero que podria tocar. </param>
+    public int CalcularNumero(int liminferior, int limsuperior);
 }

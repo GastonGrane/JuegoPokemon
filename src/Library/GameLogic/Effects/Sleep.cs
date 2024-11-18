@@ -21,6 +21,9 @@ public class Sleep : IEffect
     /// </summary>
     private int turnsRemaining;
 
+    /// <summary>
+    /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
+    /// </summary>
     public Sleep()
     {
         this.turnsRemaining = new Random().Next(1, 5);
@@ -30,6 +33,7 @@ public class Sleep : IEffect
     /// <summary>
     /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
     /// </summary>
+    /// <param name="rondasdormido"> El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
     public Sleep(IProbability rondasdormido)
     {
         this.turnsRemaining = rondasdormido.CalcularNumero(1, 5);

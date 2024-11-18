@@ -23,7 +23,6 @@ namespace Library.GameLogic;
 /// </remarks>
 public class Pokemon
 {
-
     /// <summary>
     /// El valor actual de salud del pokemon.
     ///
@@ -36,7 +35,7 @@ public class Pokemon
     ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
-    private List<Attacks.Attack> attacks;
+    private List<Attack> attacks;
 
     private IProbability probabilidad;
 
@@ -47,7 +46,7 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.Attack> attacks)
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -62,16 +61,16 @@ public class Pokemon
         this.CanAttack = true;
         this.probabilidad = new AleatoriedadPrograma();
     }
-    
+
     /// <summary>
-    /// .
+    /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados y el random que utilizara.
     /// </summary>
-    /// <param name="name"> a. </param>
-    /// <param name="type">asd.</param>
-    /// <param name="maxHealth">as.</param>
-    /// <param name="attacks"> as . </param>
-    /// <param name="generador"> aasd.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.Attack> attacks, IProbability generador)
+    /// <param name="name">El nombre del Pokémon.</param>
+    /// <param name="type">El tipo del Pokémon.</param>
+    /// <param name="maxHealth">La salud máxima del Pokémon.</param>
+    /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
+    /// <param name="generador"> El random que utilizara el pokemon para sus ataques. </param>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks, IProbability generador)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -176,7 +175,7 @@ public class Pokemon
     public void Attack(Pokemon target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attacks.Attack attack = this.GetAttack(attackIdx);
+        Attack attack = this.GetAttack(attackIdx);
         this.Attack(target, attack);
     }
 
@@ -188,7 +187,7 @@ public class Pokemon
     public void Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attacks.Attack attack = this.GetAttack(attackName);
+        Attack attack = this.GetAttack(attackName);
         this.Attack(target, attack);
     }
 
@@ -266,7 +265,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private bool Attack(Pokemon target, Attacks.Attack attack)
+    private bool Attack(Pokemon target, Attack attack)
     {
         if (!this.Attacks.Contains(attack))
         {

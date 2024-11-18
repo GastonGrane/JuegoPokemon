@@ -86,6 +86,6 @@ public abstract class Attack
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
     /// </summary>
     /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
-    /// <param name="random"> El tipo de aleatoriedad que queremos utilizar. </param>
-    public abstract void Use(Pokemon target, IProbability probabildiad);
+    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar. </param>
+    public abstract void Use(Pokemon target, IProbability probabilidad);
 }
