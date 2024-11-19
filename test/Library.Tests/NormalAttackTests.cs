@@ -20,7 +20,7 @@ public class NormalAttackTests
     [Test]
     public void CanNormalAttack()
     {
-        Attack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon, 100);
+        NormalAttack colaDragon = new NormalAttack("Cola Dragon", 15, PokemonType.Dragon, 100);
 
         Assert.That(colaDragon.Name, Is.EqualTo("Cola Dragon"), "El nombre no se inicio correctoamente");
         Assert.That(colaDragon.Damage, Is.EqualTo(15), "El daño no se incio correctamente");
@@ -57,7 +57,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            Attack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
+            NormalAttack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
         }
         catch (ArgumentOutOfRangeException)
         {

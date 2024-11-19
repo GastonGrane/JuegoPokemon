@@ -13,7 +13,7 @@ namespace Library.GameLogic.Attacks;
 /// dependiendo del tipo de ataque que se utilice. Una vez que el ataque acierta, el estado se aplica
 /// con un 100% de precisión.
 /// </summary>
-public class SpecialAttack : Attack
+public class SpecialAttack : NormalAttack
 {
     private IEffect effect;
 

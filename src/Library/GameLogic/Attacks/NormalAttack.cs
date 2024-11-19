@@ -13,9 +13,9 @@ namespace Library.GameLogic.Attacks;
 /// <remarks>
 /// Esta clase cumple con SRP, al abarcar la funcionalidad de un único tipo de ataque, aquellos que únicamente producen daño.
 /// La clase <see cref="NormalAttack"/> permite crear instancias de ataques predefinidos para ser utilizados
-/// en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="Attack"/>.
+/// en las batallas, y se beneficia del "Polimorfismo" del patrón GRASP al heredar de la clase base <see cref="NormalAttack"/>.
 /// </remarks>
-public class NormalAttack : Attack
+public class NormalAttack
 {
     private static readonly Random Random = new Random();
 
@@ -23,7 +23,7 @@ public class NormalAttack : Attack
     /// Inicializa una nueva instancia de la clase <see cref="NormalAttack"/>.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
-    /// <param name="damage">La cantidad de danio que genera.</param>
+    /// <param name="damage">La cantidad de daño que genera.</param>
     /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
     /// <param name="precision">La precision del ataque (1-100).</param>
     /// <exception cref="ArgumentNullException">
@@ -33,32 +33,69 @@ public class NormalAttack : Attack
     /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
     /// </remarks>
     public NormalAttack(string name, int damage, PokemonType type, int precision)
-        : base(name, damage, type, precision)
     {
         ArgumentNullException.ThrowIfNull(name, nameof(name));
         ArgumentOutOfRangeException.ThrowIfNegative(damage, nameof(damage));
+        this.Name = name;
+        this.Damage = damage;
+        this.Type = type;
+        this.Precision = precision;
+        this.Available = true;
     }
 
     /// <summary>
-    /// Constructor que copia los valores de una instancia de la clase <see cref="NormalAttack"/>.
+    /// Crea un <see cref="NormalAttack"/> copiando los valores del ataque provisto.
     /// </summary>
     /// <param name="attack">El ataque a copiar.</param>
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="attack"/> es <c>null</c>.
     /// </exception>
     public NormalAttack(NormalAttack attack)
-        : base(attack)
     {
-        ArgumentNullException.ThrowIfNull(attack.Name, "Un Ataque no se puede inicializar con nombre null");
-        ArgumentOutOfRangeException.ThrowIfNegative(attack.Damage, "El daño no puede ser negativo");
+        ArgumentNullException.ThrowIfNull(attack, nameof(attack));
+        this.Name = attack.Name;
+        this.Damage = attack.Damage;
+        this.Type = attack.Type;
+        this.Precision = attack.Precision;
+        this.Available = true;
     }
+
+    /// <summary>
+    /// Obtiene el nombre del ataque.
+    /// </summary>
+    public string Name { get; }
+
+    /// <summary>
+    /// Obtiene el valor de daño del ataque.
+    /// </summary>
+    public int Damage { get; }
+
+    /// <summary>
+    /// Obtiene el tipo de ataque, que determina la efectividad del ataque contra diferentes tipos de Pokémon.
+    /// </summary>
+    public PokemonType Type { get; }
+
+    /// <summary>
+    /// Obtiene la precisión del ataque, representada como un porcentaje entre 1 y 100.
+    /// </summary>
+    public int Precision { get; }
+
+    /// <summary>
+    /// Disponibilidad del ataque en el turno que se está jugando.
+    /// </summary>
+    public bool Available { get; protected set; }
+
+    /// <summary>
+    /// Cantidad de turnos en los que el ataque no se ha encontrado disponible.
+    /// </summary>
+    public int AmountUnusedTurn { get; protected set; }
 
     /// <summary>
     /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
-    public override void Use(Pokemon target)
+    public virtual void Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
@@ -73,9 +110,9 @@ public class NormalAttack : Attack
     }
 
     /// <summary>
-    /// En la actualidad del juego este método no hace nada.
+    /// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
     /// </summary>
-    public override void UpdateTurn()
+    public virtual void UpdateTurn()
     {
     }
 }
