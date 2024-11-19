@@ -50,7 +50,8 @@
     <!-- CA1002: Usar Collection<T> en vez de List<T> -->
     <!-- CA1303: Usar resource tables para localización -->
     <!-- CA5394: Random no es criptocráficamente seguro -->
-    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303;CA5394</NoWarn>
+    <!-- CA1812: Una clase interna debe ser instanciada -->
+    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303;CA5394;CA1812</NoWarn>
   </PropertyGroup>
 
 </Project>
