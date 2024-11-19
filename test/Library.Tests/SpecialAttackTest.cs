@@ -4,9 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Facade;
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Players;
 
 namespace Library.Tests.GameLogic;
 
@@ -47,5 +49,22 @@ public class SpecialAttackTest
         paralysisSpecialAttack.Use(target);
         Assert.That(initialEffect, Is.EqualTo(target.ActiveEffect)); // Verifica que el efecto inicial no haya cambiado
         Assert.That(target.Health, Is.LessThan(target.MaxHealth)); // Verifica que el daño haya sido aplicado
+    }
+
+    /// <summary>
+    /// Testea que luego de utilizarse un ataque especial el mismo no este disponible durante dos turnos.
+    /// </summary>
+    [Test]
+    public void UsingSpecialAttackAreDisabledForTwoTurns()
+    {
+        SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
+
+        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Assert.That(specialAttack.Available);
+        specialAttack.Use(target);
+        Assert.That(specialAttack.Available == false);
+        specialAttack.UpdateTurn();
+        specialAttack.UpdateTurn();
+        Assert.That(specialAttack.Available);
     }
 }

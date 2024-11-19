@@ -62,6 +62,9 @@ public class SpecialAttack : Attack
         {
             target.ApplyEffect(this.effect);
         }
+
+        this.Available = !this.Available;
+        this.AmountUnusedTurn = 0;
     }
 
     /// <summary>
@@ -74,10 +77,9 @@ public class SpecialAttack : Attack
             this.AmountUnusedTurn += 1;
         }
 
-        if (this.AmountUnusedTurn > 2)
+        if (this.AmountUnusedTurn >= 2)
         {
             this.Available = !this.Available;
-            this.AmountUnusedTurn = 0;
         }
     }
 }

@@ -6,6 +6,7 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Effects;
 
 namespace Library.Tests.GameLogic;
 
@@ -79,5 +80,19 @@ public class NormalAttackTests
         p1.Attack(p2, "Water Gun");
         Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
         Assert.That(p2.Health, Is.LessThan(p2.MaxHealth));
+    }
+
+    /// <summary>
+    /// Testea que el ataque continue disponible luego de ser utilizado.
+    /// </summary>
+    [Test]
+    public void UsingSpecialAttackAreNotDisabled()
+    {
+        NormalAttack normalAttack = new("Fury Swipes",  54, PokemonType.Normal, 80);
+
+        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Assert.That(normalAttack.Available);
+        normalAttack.Use(target);
+        Assert.That(normalAttack.Available);
     }
 }
