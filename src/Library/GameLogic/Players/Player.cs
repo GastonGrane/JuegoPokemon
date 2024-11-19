@@ -182,15 +182,14 @@ public class Player
         this.Items.RemoveAt(idx); // Retiro el item utilizado.
     }
 
-/// <summary>
-/// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
-/// </summary>
+    /// <summary>
+    /// Esta función debe ser llamada una vez finalizado el turno del juego. Lo que hace es actualizar todo lo que deba actualizarse cada turno.
+    /// </summary>
     public void UpdateTurn()
     {
-        for (int i = 0; i < this.Pokemons.Count; i++)
+        foreach (Pokemon pok in this.Pokemons)
         {
-            Pokemon p = this.Pokemons[i];
-            p.UpdateTurn();
+            pok.UpdateTurn();
         }
     }
 }

@@ -236,10 +236,10 @@ public class Pokemon
     public void UpdateTurn()
     {
         this.UpdateEffect();
-        for (int i = 0; i < this.Attacks.Count; i++)
+
+        foreach (Attack attack in this.Attacks)
         {
-            Attack a = this.Attacks[i];
-            a.UpdateTurn();
+            attack.UpdateTurn();
         }
     }
 
