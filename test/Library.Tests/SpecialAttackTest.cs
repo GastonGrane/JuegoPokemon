@@ -69,4 +69,25 @@ public class SpecialAttackTest
         specialAttack.UpdateTurn();
         Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible después de dos turnos");
     }
+
+    /// <summary>
+    /// Testea que luego de utilizarse un ataque especial el mismo no este disponible durante dos turnos.
+    /// </summary>
+    [Test]
+    public void UnavailableSpecialAttackDoesNotDoDamage()
+    {
+        SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
+        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+
+        Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible antes de utilizarse");
+
+        int oldHP = target.Health;
+        specialAttack.Use(target);
+        Assert.That(specialAttack.Available, Is.False, "El ataque especial no debe estar disponible después de utilizarse");
+        Assert.That(target.Health, Is.LessThan(oldHP), "El ataque especial no debe estar disponible después de utilizarse");
+
+        oldHP = target.Health;
+        specialAttack.Use(target);
+        Assert.That(target.Health, Is.EqualTo(oldHP), "El ataque no debe restar vida si no está disponible");
+    }
 }

@@ -52,6 +52,11 @@ public class SpecialAttack : Attack
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
+        if (!this.Available)
+        {
+            return;
+        }
+
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
         double multiplier = this.Type.Advantage(target.Type);
@@ -63,7 +68,7 @@ public class SpecialAttack : Attack
             target.ApplyEffect(this.effect);
         }
 
-        this.Available = !this.Available;
+        this.Available = false;
         this.AmountUnusedTurn = 0;
     }
 
@@ -72,14 +77,13 @@ public class SpecialAttack : Attack
     /// </summary>
     public override void UpdateTurn()
     {
-        if (this.Available == false)
+        if (!this.Available)
         {
             this.AmountUnusedTurn += 1;
-        }
-
-        if (this.AmountUnusedTurn >= 2)
-        {
-            this.Available = !this.Available;
+            if (this.AmountUnusedTurn >= 2)
+            {
+                this.Available = true;
+            }
         }
     }
 }
