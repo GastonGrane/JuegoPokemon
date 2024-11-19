@@ -36,6 +36,7 @@ public abstract class Attack
         this.Damage = damage;
         this.Type = type;
         this.Precision = precision;
+        this.Available = true;
     }
 
     /// <summary>
@@ -52,6 +53,7 @@ public abstract class Attack
         this.Damage = attack.Damage;
         this.Type = attack.Type;
         this.Precision = attack.Precision;
+        this.Available = true;
     }
 
     /// <summary>
@@ -75,8 +77,23 @@ public abstract class Attack
     public int Precision { get; }
 
     /// <summary>
+    /// Disponibilidad del ataque en el turno que se está jugando.
+    /// </summary>
+    public bool Available { get; protected set; }
+
+    /// <summary>
+    /// Cantidad de turnos en los que el ataque no se ha encontrado disponible.
+    /// </summary>
+    public int AmountUnusedTurn { get; protected set; }
+
+    /// <summary>
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
     public abstract void Use(Pokemon target);
+
+    /// <summary>
+    /// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
+    /// </summary>
+    public abstract void UpdateTurn();
 }

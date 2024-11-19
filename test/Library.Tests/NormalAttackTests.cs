@@ -80,4 +80,18 @@ public class NormalAttackTests
         Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
         Assert.That(p2.Health, Is.LessThan(p2.MaxHealth));
     }
+
+    /// <summary>
+    /// Testea que el ataque continue disponible luego de ser utilizado.
+    /// </summary>
+    [Test]
+    public void UsingSpecialAttackAreNotDisabled()
+    {
+        NormalAttack normalAttack = new("Fury Swipes", 54, PokemonType.Normal, 80);
+
+        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");
+        normalAttack.Use(target);
+        Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");
+    }
 }

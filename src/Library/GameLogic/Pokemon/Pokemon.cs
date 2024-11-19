@@ -231,6 +231,19 @@ public class Pokemon
     }
 
     /// <summary>
+    ///  Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar los efectos del Pokemon y si los ataque se encuentran validos o no.
+    /// </summary>
+    public void UpdateTurn()
+    {
+        this.UpdateEffect();
+
+        foreach (Attack attack in this.Attacks)
+        {
+            attack.UpdateTurn();
+        }
+    }
+
+    /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
@@ -260,7 +273,6 @@ public class Pokemon
             return true;
         }
 
-        this.UpdateEffect();
         return false;
     }
 

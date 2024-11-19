@@ -71,4 +71,11 @@ public class NormalAttack : Attack
             target.Damage((damage * 20) / 100);
         }
     }
+
+    /// <summary>
+    /// En la actualidad del juego este método no hace nada.
+    /// </summary>
+    public override void UpdateTurn()
+    {
+    }
 }
