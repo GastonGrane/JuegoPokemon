@@ -54,7 +54,6 @@ public abstract class Attack
         this.Type = attack.Type;
         this.Precision = attack.Precision;
         this.Available = true;
-        this.AmountUnusedTurn = 0;
     }
 
     /// <summary>
@@ -80,12 +79,12 @@ public abstract class Attack
     /// <summary>
     /// Disponibilidad del ataque en el turno que se está jugando.
     /// </summary>
-    public bool Available { get; set; }
+    public bool Available { get; protected set; }
 
     /// <summary>
     /// Cantidad de turnos en los que el ataque no se ha encontrado disponible.
     /// </summary>
-    public int AmountUnusedTurn { get; set; }
+    public int AmountUnusedTurn { get; protected set; }
 
     /// <summary>
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
