@@ -20,7 +20,7 @@ public class PokemonTests
     [Test]
     public void PokemonConMuchosAtaquesFalla()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -47,7 +47,7 @@ public class PokemonTests
     [Test]
     public void PokemonCon3AtaquesSePuede()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -67,7 +67,7 @@ public class PokemonTests
     [Test]
     public void PokemonSinAtaquesFalla()
     {
-        List<Attack> attacks = new List<Attack>();
+        List<NormalAttack> attacks = new List<NormalAttack>();
 
         bool exceptionThrown = false;
         try
@@ -88,7 +88,7 @@ public class PokemonTests
     [Test]
     public void PokemonAtacaConUnAtaqueInexistenteFalla()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -115,7 +115,7 @@ public class PokemonTests
     [Test]
     public void PokemonSeCuraNegativoFalla()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -141,7 +141,7 @@ public class PokemonTests
     [Test]
     public void PokemonNoSeCuraDeMas()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
