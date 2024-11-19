@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
-using Library.GameLogic.Attacks;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;
@@ -50,11 +49,6 @@ public class Game
         this.playerTwo = p2;
         this.externalConnection = externalConnection;
     }
-
-    /// <summary>
-    /// Registra el numero de turno en el que va el juego.
-    /// </summary>
-    public int ContTurn { get; set; }
 
     /// <summary>
     /// Crea un nuevo juego con jugadores predefinidos.
@@ -166,7 +160,6 @@ public class Game
     {
         while (true)
         {
-            this.ContTurn += 1;
             int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
             switch (selection)
             {
