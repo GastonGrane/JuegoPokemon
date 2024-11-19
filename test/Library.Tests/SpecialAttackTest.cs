@@ -4,11 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.Facade;
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
-using Library.GameLogic.Players;
 
 namespace Library.Tests.GameLogic;
 
@@ -60,11 +58,12 @@ public class SpecialAttackTest
         SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
 
         Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
-        Assert.That(specialAttack.Available);
+        Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible antes de utilizarse");
         specialAttack.Use(target);
-        Assert.That(specialAttack.Available == false);
+        Assert.That(specialAttack.Available, Is.False, "El ataque especial no debe estar disponible después de utilizarse");
         specialAttack.UpdateTurn();
+        Assert.That(specialAttack.Available, Is.False, "El ataque especial no debe estar disponible después de utilizarse");
         specialAttack.UpdateTurn();
-        Assert.That(specialAttack.Available);
+        Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible después de dos turnos");
     }
 }
