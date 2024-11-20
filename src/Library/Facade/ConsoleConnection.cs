@@ -128,8 +128,8 @@ public class ConsoleConnection : IExternalConnection
 
             foreach (NormalAttack attack in attacks)
             {
-                    Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
-                    idx++;
+                Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
+                idx++;
             }
 
             string input = Console.ReadLine()!;
