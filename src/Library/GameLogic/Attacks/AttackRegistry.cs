@@ -1,8 +1,10 @@
 // -----------------------------------------------------------------------
-// <copyright file="NormalAttackRegistry.cs" company="Universidad Católica del Uruguay">
+// <copyright file="AttackRegistry.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
+
+using Library.GameLogic.Effects;
 
 namespace Library.GameLogic.Attacks;
 
@@ -13,7 +15,7 @@ namespace Library.GameLogic.Attacks;
 /// Se podría decir que es una implementación de <see href="https://refactoring.guru/design-patterns/prototype">Prototype</see>.
 /// Esto es porque esta clase permite conseguir un objeto de la clase NormalAttack sin conocer su estructura, a través de el nombre del objeto, clonando un prototipo pre-definido.
 /// </remarks>
-public static class NormalAttackRegistry
+public static class AttackRegistry
 {
     // Nota de Guzmán: Estos ataques no son todos de Gen-1, y la mayoría tampoco corresponderían acá. Sin embargo, quiero entregar, así que acá van.
     // Lo que sí, son todos ataques reales, sacados de Pokémon.
@@ -100,6 +102,31 @@ public static class NormalAttackRegistry
         { "Wing Attack", new NormalAttack("Wing Attack", 60, PokemonType.Flying, 100) },
         { "Wrap", new NormalAttack("Wrap", 15, PokemonType.Normal, 90) },
         { "X-Scissor", new NormalAttack("X-Scissor",  80, PokemonType.Bug, 100) },
+        { "Acid", new SpecialAttack("Acid",  55, PokemonType.Poison, 100, new Poison()) },
+        { "Blizzard", new SpecialAttack("Blizzard",  110, PokemonType.Ice, 70, new Paralysis()) },
+        { "Cross Poison", new SpecialAttack("Cross Poison",  70, PokemonType.Poison, 100, new Poison()) },
+        { "Fire Blast", new SpecialAttack("Fire Blast",  110, PokemonType.Fire, 85, new Burn()) },
+        { "Fire Punch", new SpecialAttack("Fire Punch",  75, PokemonType.Fire, 100, new Burn()) },
+        { "Fire Spin", new SpecialAttack("Fire Spin", 35, PokemonType.Fire, 85, new Burn()) },
+        { "Freeze-Dry", new SpecialAttack("Freeze-Dry",  70, PokemonType.Ice, 100, new Burn()) },
+        { "Heat Wave", new SpecialAttack("Heat Wave",  95, PokemonType.Fire, 90, new Burn()) },
+        { "Hypnosis", new SpecialAttack("Hypnosis",  0, PokemonType.Psychic, 60, new Sleep()) },
+        { "Poison Fang", new SpecialAttack("Poison Fang",  50, PokemonType.Poison, 100, new Poison()) },
+        { "Poison Powder", new SpecialAttack("Poison Powder",  0, PokemonType.Poison, 75, new Poison()) },
+        { "Poison Sting", new SpecialAttack("Poison Sting", 15, PokemonType.Poison, 100, new Poison()) },
+        { "Psystrike", new SpecialAttack("Psystrike",  100, PokemonType.Psychic, 100, new Sleep()) },
+        { "Screech", new SpecialAttack("Screech",  0, PokemonType.Normal, 85, new Paralysis()) },
+        { "Sing", new SpecialAttack("Sing",  0, PokemonType.Normal, 55, new Sleep()) },
+        { "Sleep Powder", new SpecialAttack("Sleep Powder",  0, PokemonType.Grass, 75, new Sleep()) },
+        { "Sludge Bomb", new SpecialAttack("Sludge Bomb",  85, PokemonType.Poison, 100, new Poison()) },
+        { "Spore", new SpecialAttack("Spore",  0, PokemonType.Grass, 100, new Sleep()) },
+        { "Stun Spore", new SpecialAttack("Stun Spore",  0, PokemonType.Grass, 75, new Paralysis()) },
+        { "Supersonic", new SpecialAttack("Supersonic",  0, PokemonType.Normal, 55, new Paralysis()) },
+        { "Thunderbolt", new SpecialAttack("Thunderbolt",  90, PokemonType.Electric, 100, new Paralysis()) },
+        { "Thunder", new SpecialAttack("Thunder",  110, PokemonType.Electric, 70, new Paralysis()) },
+        { "Thunder Wave", new SpecialAttack("Thunder Wave",  0, PokemonType.Electric, 90, new Paralysis()) },
+        { "Toxic", new SpecialAttack("Toxic", 0, PokemonType.Poison, 90, new Poison()) },
+        { "Yawn", new SpecialAttack("Yawn",  0, PokemonType.Normal, 100, new Sleep()) },
     };
 
     /// <summary>
