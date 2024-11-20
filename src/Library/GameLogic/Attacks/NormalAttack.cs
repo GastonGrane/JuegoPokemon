@@ -133,6 +133,7 @@ public class NormalAttack
         }
     }
 
+    /// <summary>
     /// Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar todo lo que deba actualizarse en cada turno.
     /// </summary>
     public virtual void UpdateTurn()
