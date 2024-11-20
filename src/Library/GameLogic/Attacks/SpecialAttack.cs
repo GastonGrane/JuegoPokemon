@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
-using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;
 
@@ -67,6 +66,11 @@ public class SpecialAttack : NormalAttack
     /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
     public override void Use(Pokemon target)
     {
+        if (!this.Available)
+        {
+            return;
+        }
+
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
         double multiplier = this.Type.Advantage(target.Type);
@@ -82,5 +86,8 @@ public class SpecialAttack : NormalAttack
         {
             target.ApplyEffect(this.effect);
         }
+
+        this.Available = false;
+        this.AmountUnusedTurn = 0;
     }
 }
