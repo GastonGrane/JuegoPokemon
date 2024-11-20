@@ -124,7 +124,7 @@ internal sealed class ConnectionMock : IExternalConnection
         this.ReportAttackResultCalled = true;
     }
 
-    public void PrintStatuses(Player attacker, Player defender, Game game)
+    public void PrintStatuses(Player attacker, Player defender, Game? game)
     {
         throw new NotImplementedException();
     }

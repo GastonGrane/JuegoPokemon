@@ -120,7 +120,7 @@ public class ConsoleConnection : IExternalConnection
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
-        ReadOnlyCollection<Attack> attacks = pokemon.Attacks;
+        ReadOnlyCollection<NormalAttack> attacks = pokemon.Attacks;
         while (true)
         {
             Console.WriteLine("Seleccione un ataque");
@@ -129,7 +129,7 @@ public class ConsoleConnection : IExternalConnection
             int idx = 1;
 
             // FIXME(Guzmán): Esto sería algo como p.AttackAvailable, pero no está hecho eso.
-            foreach (Attack attack in attacks)
+            foreach (NormalAttack attack in attacks)
             {
                 Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
                 idx++;
@@ -165,7 +165,7 @@ public class ConsoleConnection : IExternalConnection
 
             for (int i = 0; i < attacks.Count; ++i)
             {
-                Attack attack = attacks[i];
+                NormalAttack attack = attacks[i];
 
                 // FIXME(Guzmán): Sensible o no a mayús.?
                 if (attack.Name == input)
@@ -258,38 +258,44 @@ public class ConsoleConnection : IExternalConnection
     /// <param name="attacker">El jugador que realizó el ataque.</param>
     /// <param name="defender">El jugador defensor cuyo Pokémon fue atacado.</param>
     /// <param name="game">El estado actual del juego, que contiene información del ataque e ítems utilizados.</param>
-    public void PrintStatuses(Player attacker, Player defender, Game game)
+    public void PrintStatuses(Player attacker, Player defender, Game? game)
     {
-        Debug.Assert(game.AttackResult != null, "game.AttackResult != null");
+        Debug.Assert(game?.AttackResult != null, "game.AttackResult != null");
         switch (game.AttackResult.AttackStatus)
         {
             case AttackStatus.CriticalHit:
                 Console.WriteLine(
-                    $"¡Golpe crítico! {attacker.ActivePokemon.Name} atacó a {defender.ActivePokemon.Name}, causando {game.AttackResult.Damage} de daño. Vida restante: {defender.ActivePokemon.Health}/{defender.ActivePokemon.MaxHealth}.");
+                    $"¡Golpe crítico! {attacker?.ActivePokemon.Name} atacó a {defender?.ActivePokemon.Name}, causando {game.AttackResult.Damage} de daño. Vida restante: {defender?.ActivePokemon.Health}/{defender?.ActivePokemon.MaxHealth}.");
                 game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
                 break;
 
             case AttackStatus.NormalAttack:
                 Console.WriteLine(
-                    $"{attacker.ActivePokemon.Name} atacó a {defender.ActivePokemon.Name}, causando {game.AttackResult.Damage} de daño. Vida restante: {defender.ActivePokemon.Health}/{defender.ActivePokemon.MaxHealth}.");
+                    $"{attacker?.ActivePokemon.Name} atacó a {defender?.ActivePokemon.Name}, causando {game.AttackResult.Damage} de daño. Vida restante: {defender?.ActivePokemon.Health}/{defender?.ActivePokemon.MaxHealth}.");
                 game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
                 break;
 
             case AttackStatus.EffectApplied:
                 Console.WriteLine(
-                    $"{attacker.ActivePokemon.Name} aplicó un efecto especial a {defender.ActivePokemon.Name}. Vida restante: {defender.ActivePokemon.Health}/{defender.ActivePokemon.MaxHealth}.");
+                    $"{attacker?.ActivePokemon.Name} aplicó un efecto especial a {defender?.ActivePokemon.Name}. Vida restante: {defender?.ActivePokemon.Health}/{defender?.ActivePokemon.MaxHealth}.");
                 game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
                 break;
 
             case AttackStatus.NoEffect:
                 Console.WriteLine(
-                    $"El ataque de {attacker.ActivePokemon.Name} no tuvo efecto sobre {defender.ActivePokemon.Name}.");
+                    $"El ataque de {attacker?.ActivePokemon.Name} no tuvo efecto sobre {defender?.ActivePokemon.Name}.");
                 game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
                 break;
 
             case AttackStatus.HinderingEffect:
                 Console.WriteLine(
-                    $"El ataque de {attacker.ActivePokemon.Name} fue bloqueado por un efecto en {defender.ActivePokemon.Name}.");
+                    $"El ataque de {attacker?.ActivePokemon.Name} fue bloqueado por un efecto en {defender?.ActivePokemon.Name}.");
+                game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
+                break;
+
+            case AttackStatus.NotAvailable:
+                Console.WriteLine(
+                    $"El ataque de {attacker?.ActivePokemon.Name} no esta disponible.");
                 game.AttackResult = new AttackResult(AttackStatus.Empty, 0);
                 break;
 
@@ -306,25 +312,25 @@ public class ConsoleConnection : IExternalConnection
             {
                 case ItemStatus.Revive:
                     Console.WriteLine(
-                        $"{attacker.Name} usó Revive. {attacker.ActivePokemon.Name} fue revivido y ahora tiene {attacker.ActivePokemon.Health}/{attacker.ActivePokemon.MaxHealth} puntos de vida.");
+                        $"{attacker?.Name} usó Revive. {attacker?.ActivePokemon.Name} fue revivido y ahora tiene {attacker?.ActivePokemon.Health}/{attacker?.ActivePokemon.MaxHealth} puntos de vida.");
                     game.ItemResult = new ItemResult(ItemStatus.Empty);
                     break;
 
                 case ItemStatus.SuperPotion:
                     Console.WriteLine(
-                        $"{attacker.Name} usó Super Poción en {attacker.ActivePokemon.Name}. Vida actual: {attacker.ActivePokemon.Health}/{attacker.ActivePokemon.MaxHealth}.");
+                        $"{attacker?.Name} usó Super Poción en {attacker?.ActivePokemon.Name}. Vida actual: {attacker?.ActivePokemon.Health}/{attacker?.ActivePokemon.MaxHealth}.");
                     game.ItemResult = new ItemResult(ItemStatus.Empty);
                     break;
 
                 case ItemStatus.TotalCure:
                     Console.WriteLine(
-                        $"{attacker.Name} usó Cura Total. {attacker.ActivePokemon.Name} ya no está afectado por efectos negativos.");
+                        $"{attacker?.Name} usó Cura Total. {attacker?.ActivePokemon.Name} ya no está afectado por efectos negativos.");
                     game.ItemResult = new ItemResult(ItemStatus.Empty);
                     break;
                 case ItemStatus.Empty:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(attacker));
             }
         }
     }

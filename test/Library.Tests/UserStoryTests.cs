@@ -107,7 +107,7 @@ internal sealed class UserStoryTests
         Assert.That(p2.ActivePokemon.Health, Is.LessThan(p2.ActivePokemon.MaxHealth));
 
         Assert.That(p2.ActivePokemon.Type.Advantage(p1.ActivePokemon.Type), Is.AnyOf([0.0, 1.0, 2.0, 0.5]));
-        foreach (Attack a in p2.ActivePokemon.Attacks)
+        foreach (NormalAttack a in p2.ActivePokemon.Attacks)
         {
             Assert.That(a.Type.Advantage(p1.ActivePokemon.Type), Is.AnyOf([0.0, 1.0, 2.0, 0.5]));
         }

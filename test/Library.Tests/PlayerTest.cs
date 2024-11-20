@@ -43,7 +43,7 @@ public class PlayerTest
     [Test]
     public void PlayerSinNombreONullFalla()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -105,7 +105,7 @@ public class PlayerTest
     [Test]
     public void PlayerAtacaANingunJugadorFalla()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
@@ -149,7 +149,7 @@ public class PlayerTest
     [Test]
     public void PlayerSeQuedaSinPokemonVivosTerminaElJuego()
     {
-        List<Attack> attacks = new List<Attack>
+        List<NormalAttack> attacks = new List<NormalAttack>
         {
             NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),

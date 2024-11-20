@@ -14,7 +14,7 @@ namespace Library.GameLogic.Attacks;
 /// dependiendo del tipo de ataque que se utilice. Una vez que el ataque acierta, el estado se aplica
 /// con un 100% de precisión.
 /// </summary>
-public class SpecialAttack : Attack
+public class SpecialAttack : NormalAttack
 {
     private IEffect effect;
 
@@ -52,8 +52,13 @@ public class SpecialAttack : Attack
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     /// <returns>Un <see cref="AttackResult"/> con el daño infligido y el estado del ataque.</returns>
-    public override AttackResult? Use(Pokemon.Pokemon target)
+    public new AttackResult Use(Pokemon.Pokemon target)
     {
+        if (!this.Available)
+        {
+            return new AttackResult(AttackStatus.NotAvailable, 0);
+        }
+
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
         double multiplier = this.Type.Advantage(target.Type);
@@ -66,6 +71,23 @@ public class SpecialAttack : Attack
             return new AttackResult(AttackStatus.EffectApplied, damage);
         }
 
+        this.Available = false;
+        this.AmountUnusedTurn = 0;
         return new AttackResult(AttackStatus.NoEffect, damage);
+    }
+
+    /// <summary>
+    /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
+    /// </summary>
+    public override void UpdateTurn()
+    {
+        if (!this.Available)
+        {
+            this.AmountUnusedTurn += 1;
+            if (this.AmountUnusedTurn >= 2)
+            {
+                this.Available = true;
+            }
+        }
     }
 }

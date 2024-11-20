@@ -42,6 +42,11 @@ public enum AttackStatus
     Miss,
 
     /// <summary>
+    /// Se coloca cuando no se puede usar ese ataque.
+    /// </summary>
+    NotAvailable,
+
+    /// <summary>
     /// Se coloca vacio para esperar el siguiente turno a informar.
     /// </summary>
     Empty,

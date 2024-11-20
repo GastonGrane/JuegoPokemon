@@ -100,5 +100,5 @@ public interface IExternalConnection
     /// <param name="attacker">El jugador que realizó el ataque, si corresponde.</param>
     /// <param name="defender">El Pokémon activo del jugador defensor.</param>
     /// <param name="game">El estado actual del juego que contiene información del ataque e ítem.</param>
-    public void PrintStatuses(Player attacker, Player defender, Game game);
+    public void PrintStatuses(Player attacker, Player defender, Game? game);
 }

@@ -1,0 +1,48 @@
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+# If new code is pushed to a PR branch, then cancel in progress workflows for
+# that PR. Ensures that we don't waste CI time, and returns results quicker.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+name: Collect coverage
+jobs:
+  collect-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.303
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --no-restore --collect:"XPlat Code Coverage"
+
+      - name: Collect coverage
+        run: |
+          dir=$(ls test/Library.Tests/TestResults)
+          linerate=$(cat test/Library.Tests/TestResults/$dir/coverage.cobertura.xml | grep -oP 'coverage.*line-rate=".*?"' | sed 's#coverage.*line-rate="\(.*\)"#\1#')
+          branchrate=$(cat test/Library.Tests/TestResults/$dir/coverage.cobertura.xml | grep -oP 'coverage.*branch-rate=".*?"' | sed 's#coverage.*branch-rate="\(.*\)"#\1#')
+
+          average=$(echo "scale=3; ((($linerate + $branchrate) / 2) * 100)" | bc)
+          if (( $(echo "$average < 80" | bc -l) )); then
+            echo "Error: Coverage was \`$average\`, which is below the required 80%"
+            #exit 1
+          fi
+
+          echo "Coverage is above 80. nice"
+

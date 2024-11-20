@@ -9,21 +9,18 @@ namespace Library.GameLogic.Items;
 /// <summary>
 /// Representa una super poción que cura a un Pokémon específico, restaurando una cantidad significativa de su salud.
 /// </summary>
-public class SuperPotion : IItem
+/// /// <remarks>
+/// La clase <see cref="SuperPotion"/> implementa la clase <see cref="Item"/> y define el comportamiento específico
+/// del ítem "Superpotion", cumpliendo con LSP.
+/// </remarks>
+public class SuperPotion : Item
 {
     /// <summary>
     /// Constructor establece nombre para ser imprimido al Player.
     /// </summary>
     public SuperPotion()
+        : base("Super Potion")
     {
-    }
-
-    /// <summary>
-    /// Nombre de el efecto.
-    /// </summary>
-    public string Name
-    {
-        get { return "Super Potion"; }
     }
 
     /// <summary>
@@ -34,7 +31,7 @@ public class SuperPotion : IItem
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
     /// <returns>Un <see cref="ItemStatus"/> que indica el resultado del uso del ítem, en este caso, <see cref="ItemStatus.SuperPotion"/>.</returns>
-    public ItemStatus Use(Pokemon.Pokemon pokemon)
+    public override ItemStatus Use(Pokemon.Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(70);
