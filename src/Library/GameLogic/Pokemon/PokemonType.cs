@@ -6,7 +6,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Library.GameLogic;
+namespace Library.GameLogic.Pokemon;
 
 /// <summary>
 /// Enumera los diferentes tipos de Pokemon, cada uno con una cierta ventaja y desventaja sobre otro tipo.

@@ -38,14 +38,16 @@ public class TotalCure : IItem
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
-    public void Use(Pokemon pokemon)
+    /// <returns>El estado del ítem después de ser utilizado.</returns>
+    public ItemStatus Use(Pokemon.Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         if (pokemon.ActiveEffect == null)
         {
             throw new InvalidOperationException("El Pokémon no tiene ningún efecto activo.");
         }
-        CommunicationUser.itemStatus = ItemStatus.TotalCure;
+
         pokemon.RemoveEffect();
+        return ItemStatus.TotalCure;
     }
 }

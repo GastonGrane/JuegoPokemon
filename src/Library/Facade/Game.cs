@@ -4,8 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
+using Library.GameLogic.Attacks;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Facade;
 
@@ -48,6 +50,32 @@ public class Game
         this.playerOne = p1;
         this.playerTwo = p2;
         this.externalConnection = externalConnection;
+    }
+
+    /// <summary>
+    /// Comunica el item con el jugador por partida.
+    /// </summary>
+    public ItemResult? ItemResult { get;  set; }
+
+    /// <summary>
+    /// Comunica el item con el jugador por partida.
+    /// </summary>
+    public AttackResult? AttackResult { get; set; }
+
+    /// <summary>
+    /// Obtiene el primer jugador.
+    /// </summary>
+    public Player GetPlayerOne
+    {
+        get { return this.playerOne;  }
+    }
+
+    /// <summary>
+    /// Obtiene el segundo jugador.
+    /// </summary>
+    public Player GetPlayerTwo
+    {
+        get { return this.playerTwo;  }
     }
 
     /// <summary>
@@ -102,14 +130,17 @@ public class Game
             this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
             return;
         }
-        GameState.PrintStatuses(externalConnection, playerOne, playerTwo);
+
+        this.externalConnection.PrintStatuses(this.playerOne, this.playerTwo, this);
+
         this.PlayTurnP2();
         if (this.CheckDead(this.playerOne))
         {
             this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
             return;
         }
-        GameState.PrintStatuses(externalConnection, playerTwo, playerOne);
+
+        this.externalConnection.PrintStatuses(this.playerTwo, this.playerOne, this);
     }
 
     /// <summary>
@@ -125,13 +156,13 @@ public class Game
             return false;
         }
 
-        int oldHP = other.ActivePokemon.Health;
+        int oldHp = other.ActivePokemon.Health;
 
         // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
-        active.Attack(other, attackName);
+        this.AttackResult = active.Attack(other, attackName);
 
         // FIXME(Guzmán): Reportar mejor el resultado del ataque.
-        this.externalConnection.ReportAttackResult(oldHP, active, other);
+        this.externalConnection.ReportAttackResult(oldHp, active, other);
 
         return true;
     }

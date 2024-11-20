@@ -6,7 +6,7 @@
 
 using Library.GameLogic.Attacks;
 
-namespace Library.GameLogic;
+namespace Library.GameLogic.Pokemon;
 
 /// <summary>
 /// Colección de Pokémon pre-definidos.

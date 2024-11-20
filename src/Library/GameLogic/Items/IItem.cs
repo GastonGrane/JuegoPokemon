@@ -31,5 +31,6 @@ public interface IItem
     /// Aplica el efecto del objeto en el Pokémon especificado.
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
-    public void Use(Pokemon pokemon);
+    /// <returns>Un <see cref="ItemStatus"/> que indica el resultado del uso del objeto, como <see cref="ItemStatus.Revive"/>, <see cref="ItemStatus.SuperPotion"/>, o <see cref="ItemStatus.TotalCure"/>.</returns>
+    public ItemStatus Use(Pokemon.Pokemon pokemon);
 }

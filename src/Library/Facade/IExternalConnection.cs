@@ -5,9 +5,8 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-
-using Library.GameLogic;
 using Library.GameLogic.Players;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Facade;
 
@@ -90,8 +89,16 @@ public interface IExternalConnection
     /// <summary>
     /// Le muestra al usuario el resultado que tuvo su ataque.
     /// </summary>
-    /// <param name="oldHP">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
+    /// <param name="oldHp">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
     /// <param name="attacker">El jugador que atacó.</param>
     /// <param name="defender">El jugador que fue atacado.</param>
-    public void ReportAttackResult(int oldHP, Player attacker, Player defender);
+    public void ReportAttackResult(int oldHp, Player attacker, Player defender);
+
+    /// <summary>
+    /// Imprime el estado actual del ataque y del ítem utilizado durante el turno, y limpia los estados después de imprimirlos.
+    /// </summary>
+    /// <param name="attacker">El jugador que realizó el ataque, si corresponde.</param>
+    /// <param name="defender">El Pokémon activo del jugador defensor.</param>
+    /// <param name="game">El estado actual del juego que contiene información del ataque e ítem.</param>
+    public void PrintStatuses(Player attacker, Player defender, Game game);
 }

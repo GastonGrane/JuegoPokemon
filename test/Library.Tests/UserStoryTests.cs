@@ -7,6 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Players;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.Facade;
 

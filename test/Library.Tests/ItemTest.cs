@@ -7,6 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Items;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 
@@ -75,6 +76,7 @@ internal sealed class ItemTest
         // Assert
         Assert.IsNull(p.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
     }
+
 
     /// <summary>
     /// Verifica que <see cref="TotalCure.Use(Pokemon)"/> lance una excepción

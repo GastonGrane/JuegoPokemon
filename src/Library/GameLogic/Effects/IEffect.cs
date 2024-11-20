@@ -27,11 +27,11 @@ public interface IEffect
     /// Actualiza el estado del efecto en cada turno.
     /// </summary>
     /// <param name="target">El Pokémon al que se aplica el efecto.</param>
-    void UpdateEffect(Pokemon target);
+    void UpdateEffect(Pokemon.Pokemon target);
 
     /// <summary>
     /// Elimina el efecto del Pokémon, restaurando cualquier cambio aplicado por el efecto.
     /// </summary>
     /// <param name="target">El Pokémon del que se elimina el efecto.</param>
-    void RemoveEffect(Pokemon target);
+    void RemoveEffect(Pokemon.Pokemon target);
 }

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
+using Library.GameLogic.Pokemon;
 
 namespace Library.GameLogic.Attacks;
 

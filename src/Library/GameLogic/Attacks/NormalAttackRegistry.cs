@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Pokemon;
+
 namespace Library.GameLogic.Attacks;
 
 /// <summary>

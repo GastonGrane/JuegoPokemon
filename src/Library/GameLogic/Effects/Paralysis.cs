@@ -42,7 +42,7 @@ public class Paralysis : IEffect
     /// </summary>
     /// <param name="target">El Pokémon al que se le aplicará el efecto de parálisis.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-    public void UpdateEffect(Pokemon target)
+    public void UpdateEffect(Pokemon.Pokemon target)
     {
         if (target == null)
         {
@@ -59,7 +59,7 @@ public class Paralysis : IEffect
     /// </summary>
     /// <param name="target">El Pokémon del que se removerá el efecto.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-    public void RemoveEffect(Pokemon target)
+    public void RemoveEffect(Pokemon.Pokemon target)
     {
         if (target == null)
         {

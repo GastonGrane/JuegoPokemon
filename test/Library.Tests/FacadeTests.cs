@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using Library.Facade;
 using Library.GameLogic;
 using Library.GameLogic.Players;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.Facade;
 
@@ -121,6 +122,11 @@ internal sealed class ConnectionMock : IExternalConnection
     public void ReportAttackResult(int oldHP, Player attacker, Player defender)
     {
         this.ReportAttackResultCalled = true;
+    }
+
+    public void PrintStatuses(Player attacker, Player defender, Game game)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc/>

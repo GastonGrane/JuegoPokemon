@@ -6,6 +6,7 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 

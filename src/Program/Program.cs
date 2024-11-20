@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
+using Library.GameLogic.Pokemon;
 
 namespace Program
 {

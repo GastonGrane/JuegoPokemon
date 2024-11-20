@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
+using Library.GameLogic.Pokemon;
 
 namespace Library.GameLogic.Attacks;
 
@@ -50,7 +51,8 @@ public class SpecialAttack : Attack
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
-    public override void Use(Pokemon target)
+    /// <returns>Un <see cref="AttackResult"/> con el daño infligido y el estado del ataque.</returns>
+    public override AttackResult? Use(Pokemon.Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
@@ -61,9 +63,9 @@ public class SpecialAttack : Attack
         if (target.ActiveEffect == null)
         {
             target.ApplyEffect(this.effect);
-            CommunicationUser.attackStatus = AttackStatus.EffectApplied;
+            return new AttackResult(AttackStatus.EffectApplied, damage);
         }
 
-        CommunicationUser.attackStatus = AttackStatus.NoEffect;
+        return new AttackResult(AttackStatus.NoEffect, damage);
     }
 }

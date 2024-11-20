@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Pokemon;
+
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -78,5 +80,6 @@ public abstract class Attack
     /// Aplica el ataque a un Pokémon objetivo. Debe ser implementado por clases derivadas.
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
-    public abstract void Use(Pokemon target);
+    /// <returns>Un <see cref="AttackResult"/> con el resultado del ataque.</returns>
+    public abstract AttackResult? Use(Pokemon.Pokemon target);
 }
