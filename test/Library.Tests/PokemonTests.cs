@@ -7,7 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 
-namespace Library.Tests.GameLogic;
+namespace Library.Tests;
 
 /// <summary>
 /// Test de Pokemon y sus metodos.
@@ -31,7 +31,7 @@ public class PokemonTests
         bool exceptionThrown = false;
         try
         {
-            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            Pokemon unused = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -72,7 +72,7 @@ public class PokemonTests
         bool exceptionThrown = false;
         try
         {
-            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            Pokemon unused = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -98,7 +98,7 @@ public class PokemonTests
         try
         {
             Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-            Pokemon? p2 = new Pokemon("pokemon", PokemonType.Fire, 100, attacks);
+            Pokemon p2 = new Pokemon("pokemon", PokemonType.Fire, 100, attacks);
             p.Attack(p2, "extra");
         }
         catch (ArgumentOutOfRangeException)
@@ -149,7 +149,7 @@ public class PokemonTests
         };
 
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
         p.Attack(p2, "Aqua Jet");
         p2.Heal(150);
 

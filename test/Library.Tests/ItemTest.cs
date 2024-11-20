@@ -8,7 +8,7 @@ using Library.GameLogic;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Items;
 
-namespace Library.Tests.GameLogic;
+namespace Library.Tests;
 
 /// <summary>
 /// Test de los Item.
@@ -23,12 +23,12 @@ internal sealed class ItemTest
     {
         // MaxHealth > 50
         Pokemon? p = PokemonRegistry.GetPokemon("Dragonite");
-        p.Damage(1000);
+        p?.Damage(1000);
 
         Revive revive = new Revive();
         revive.Use(p);
 
-        Assert.That(p.Health, Is.EqualTo(50));
+        Assert.That(p?.Health, Is.EqualTo(50));
     }
 
     // FIXME: Hacer un test de revivir a un Pokémon vivo.
@@ -67,13 +67,13 @@ internal sealed class ItemTest
 
         // Arrange
         var poisonEffect = new Poison();
-        p.ApplyEffect(poisonEffect);
+        p?.ApplyEffect(poisonEffect);
 
         // Act
         totalCure.Use(p);
 
         // Assert
-        Assert.IsNull(p.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
+        Assert.IsNull(p?.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
     }
 
     /// <summary>

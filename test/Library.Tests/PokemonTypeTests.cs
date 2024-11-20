@@ -6,7 +6,7 @@
 
 using Library.GameLogic;
 
-namespace Library.Tests.GameLogic;
+namespace Library.Tests;
 
 /// <summary>
 /// Tests de la clase <see cref="PokemonType"/>.

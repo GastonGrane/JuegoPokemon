@@ -135,7 +135,7 @@ public class Player
     /// <param name="attackName">El nombre del ataque a utlizar. Debe ser un ataque válido de <see cref="ActivePokemon"/>.</param>
     /// <exception cref="System.ArgumentNullException">Si <paramref name="other"/> es null.</exception>
     /// <returns>Un <see cref="AttackResult"/> que contiene información sobre el resultado del ataque, como el daño causado y el estado del ataque (crítico, normal, fallido, etc.).</returns>
-    public AttackResult? Attack(Player other, string attackName)
+    public AttackResult? Attack(Player? other, string attackName)
     {
         ArgumentNullException.ThrowIfNull(other, "No se puede atacar un jugador que es null");
         AttackResult? attackResult = this.ActivePokemon?.Attack(other.ActivePokemon, attackName);

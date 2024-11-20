@@ -7,7 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Effects;
 
-namespace Library.Tests.GameLogic;
+namespace Library.Tests;
 
 /// <summary>
 /// Tests que prueban el correcto uncionamiento de los efectos del codigo.
@@ -22,19 +22,19 @@ internal sealed class EffectTests
     {
         var pokemon = PokemonRegistry.GetPokemon("Pikachu");
         var poisonEffect = new Poison();
-        pokemon.ApplyEffect(poisonEffect);
+        pokemon?.ApplyEffect(poisonEffect);
 
         for (int i = 0; i < 3; i++)
         {
-            pokemon.UpdateEffect();
+            pokemon?.UpdateEffect();
         }
 
-        pokemon.RemoveEffect();
+        pokemon?.RemoveEffect();
 
         // MaxHealth = 35
         // 35*0.05 = 1.75 ~ 1
         // 35 - 1 - 1 - 1 = 32
-        Assert.That(pokemon.Health, Is.EqualTo(32));
+        Assert.That(pokemon?.Health, Is.EqualTo(32));
         Assert.IsTrue(poisonEffect.IsExpired);
         Assert.IsNull(pokemon.ActiveEffect);
     }
@@ -47,19 +47,19 @@ internal sealed class EffectTests
     {
         var pokemon = PokemonRegistry.GetPokemon("Pikachu");
         var burnEffect = new Burn();
-        pokemon.ApplyEffect(burnEffect);
+        pokemon?.ApplyEffect(burnEffect);
 
         for (int i = 0; i < 3; i++)
         {
-            pokemon.UpdateEffect();
+            pokemon?.UpdateEffect();
         }
 
-        pokemon.RemoveEffect();
+        pokemon?.RemoveEffect();
 
         // MaxHealth = 35
         // 35*0.1 = 3.5 ~ 3
         // 35 - 3 - 3 - 3 = 24
-        Assert.That(pokemon.Health, Is.EqualTo(26));
+        Assert.That(pokemon?.Health, Is.EqualTo(26));
         Assert.IsTrue(burnEffect.IsExpired);
         Assert.IsNull(pokemon.ActiveEffect);
     }
@@ -72,17 +72,17 @@ internal sealed class EffectTests
     {
         var pokemon = PokemonRegistry.GetPokemon("Pikachu");
         var sleepEffect = new Sleep(3);
-        pokemon.ApplyEffect(sleepEffect);
+        pokemon?.ApplyEffect(sleepEffect);
 
         for (int i = 0; i < 3; i++)
         {
-            pokemon.UpdateEffect();
-            Assert.IsFalse(pokemon.CanAttack);
+            pokemon?.UpdateEffect();
+            Assert.IsFalse(pokemon?.CanAttack);
         }
 
-        pokemon.UpdateEffect();
+        pokemon?.UpdateEffect();
         Assert.IsTrue(sleepEffect.IsExpired);
-        Assert.IsNull(pokemon.ActiveEffect);
+        Assert.IsNull(pokemon?.ActiveEffect);
     }
 
     /// <summary>
@@ -94,15 +94,15 @@ internal sealed class EffectTests
     {
         var pokemon = PokemonRegistry.GetPokemon("Pikachu");
         var paralysisEffect = new Paralysis();
-        pokemon.ApplyEffect(paralysisEffect);
+        pokemon?.ApplyEffect(paralysisEffect);
 
         int canAttackCount = 0;
         int cannotAttackCount = 0;
 
         while (canAttackCount == 0 || cannotAttackCount == 0)
         {
-            pokemon.UpdateEffect();
-            if (pokemon.CanAttack)
+            pokemon?.UpdateEffect();
+            if ((bool)pokemon?.CanAttack)
             {
                 canAttackCount++;
             }
@@ -115,7 +115,7 @@ internal sealed class EffectTests
         Assert.IsTrue(
             canAttackCount >= 1 && cannotAttackCount >= 1,
             "Debe permitir al menos un ataque y bloquear al menos uno.");
-        pokemon.RemoveEffect();
+        pokemon?.RemoveEffect();
         Assert.IsTrue(
             paralysisEffect.IsExpired,
             "El efecto de parálisis debería estar expirado después de removerlo.");

@@ -113,12 +113,12 @@ public class FakeExternalConnection : IExternalConnection
     /// <summary>
     /// Obtiene una lista de resultados de ataques registrados durante las pruebas.
     /// </summary>
-    public List<(int OldHp, Player Attacker, Player Defender)> AttackResults { get; } = new();
+    public List<(int OldHp, Player Attacker, Player Defender)>? AttackResults { get; } = new();
 
     /// <summary>
     /// Cola de entradas simuladas para el menú.
     /// </summary>
-    private Queue<int> MenuInputs { get; } = new();
+    private Queue<int>? MenuInputs { get; } = new();
 
     /// <inheritdoc/>
     public void PrintString(string str)
@@ -127,21 +127,21 @@ public class FakeExternalConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public void PrintWelcome(Player p1, Player p2)
+    public void PrintWelcome(Player? p1, Player? p2)
     {
         this.PrintedStrings.Add($"Bienvenidos {p1?.Name} y {p2?.Name}");
-        this.PlayerInteractions.Add(item: (p1,  p2)!);
+        this.PlayerInteractions.Add(item: (p1, p2)!);
     }
 
     /// <inheritdoc/>
-    public void PrintPlayerWon(Player p1, Player p2)
+    public void PrintPlayerWon(Player? p1, Player? p2)
     {
         this.PrintedStrings.Add($"El ganador es {p1?.Name}");
-        this.PlayerInteractions.Add(item: (p1,  p2)!);
+        this.PlayerInteractions.Add(item: (p1, p2)!);
     }
 
     /// <inheritdoc/>
-    public void PrintTurnHeading(Player player)
+    public void PrintTurnHeading(Player? player)
     {
         this.PrintedStrings.Add($"Turno de {player?.Name}");
     }
@@ -149,7 +149,7 @@ public class FakeExternalConnection : IExternalConnection
     /// <inheritdoc/>
     public int ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection<string> options)
     {
-        if (this.MenuInputs.Count > 0)
+        if (this.MenuInputs?.Count > 0)
         {
             return this.MenuInputs.Dequeue();
         }
@@ -160,16 +160,16 @@ public class FakeExternalConnection : IExternalConnection
     /// <inheritdoc/>
     public string? ShowAttacksAndRecieveInput(Pokemon? pokemon)
     {
-        if (this.AttackInputs.Count > 0)
+        if (this.MenuInputs?.Count > 0)
         {
-            return this.AttackInputs.Dequeue();
+            return this.MenuInputs.Dequeue().ToString();
         }
 
         return null;
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player player)
+    public int ShowChangePokemonMenu(Player? player)
     {
         return 0; // Simula siempre seleccionar el primer Pokémon.
     }
@@ -177,7 +177,7 @@ public class FakeExternalConnection : IExternalConnection
     /// <inheritdoc/>
     public void ReportAttackResult(int oldHp, Player? attacker, Player? defender)
     {
-        this.AttackResults.Add((oldHp, attacker, defender)!);
+        this.AttackResults?.Add((oldHp, attacker, defender)!);
         var damage = defender?.ActivePokemon != null ? oldHp - defender.ActivePokemon.Health : 0;
         this.PrintedStrings.Add(
             $"{attacker?.ActivePokemon?.Name ?? "Un atacante desconocido"} atacó a {defender?.ActivePokemon?.Name ?? "un defensor desconocido"} causando {damage} de daño.");
@@ -204,7 +204,7 @@ public class FakeExternalConnection : IExternalConnection
                     break;
                 case AttackStatus.EffectApplied:
                     this.PrintedStrings.Add(
-                        $"{attacker?.ActivePokemon.Name ?? "Un atacante desconocido"} aplicó un efecto especial en {defender?.ActivePokemon?.Name ?? "un defensor desconocido"}.");
+                        $"{attacker?.ActivePokemon?.Name ?? "Un atacante desconocido"} aplicó un efecto especial en {defender?.ActivePokemon?.Name ?? "un defensor desconocido"}.");
                     break;
                 default:
                     this.PrintedStrings.Add("El ataque no tuvo efecto.");
@@ -234,9 +234,4 @@ public class FakeExternalConnection : IExternalConnection
             }
         }
     }
-
-    /// <summary>
-    /// Cola de entradas simuladas para seleccionar ataques.
-    /// </summary>
-    public Queue<string?> AttackInputs { get; } = new();
 }

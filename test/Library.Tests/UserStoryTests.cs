@@ -94,7 +94,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player p2 = new Player("Gastón", new List<Pokemon?>
+        Player? p2 = new Player("Gastón", new List<Pokemon?>
         {
             PokemonRegistry.GetPokemon("Bulbasaur"),
             PokemonRegistry.GetPokemon("Metapod"),
@@ -135,7 +135,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player p2 = new Player("Gastón", new List<Pokemon?>
+        Player? p2 = new Player("Gastón", new List<Pokemon?>
         {
             PokemonRegistry.GetPokemon("Bulbasaur"),
             PokemonRegistry.GetPokemon("Metapod"),
@@ -195,7 +195,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player p2 = new Player("Gastón", new List<Pokemon?>
+        Player? p2 = new Player("Gastón", new List<Pokemon?>
         {
             PokemonRegistry.GetPokemon("Dragonite"),
             PokemonRegistry.GetPokemon("Bulbasaur"),

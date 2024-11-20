@@ -32,12 +32,12 @@ public class Game
     /// <summary>
     /// El primer jugador en el juego.
     /// </summary>
-    private Player playerOne;
+    private Player? playerOne;
 
     /// <summary>
     /// El segundo jugador en el juego.
     /// </summary>
-    private Player playerTwo;
+    private Player? playerTwo;
 
     /// <summary>
     /// Inicializa el juego.
@@ -45,7 +45,7 @@ public class Game
     /// <param name="p1">El primer jugador <see cref="playerOne"/>.</param>
     /// <param name="p2">El segundo jugador <see cref="playerTwo"/>.</param>
     /// <param name="externalConnection">La conección con el servicio externo.</param>
-    private Game(Player p1, Player p2, IExternalConnection externalConnection)
+    private Game(Player? p1, Player? p2, IExternalConnection externalConnection)
     {
         this.playerOne = p1;
         this.playerTwo = p2;
@@ -65,7 +65,7 @@ public class Game
     /// <summary>
     /// Obtiene el primer jugador.
     /// </summary>
-    public Player GetPlayerOne
+    public Player? GetPlayerOne
     {
         get { return this.playerOne;  }
     }
@@ -73,7 +73,7 @@ public class Game
     /// <summary>
     /// Obtiene el segundo jugador.
     /// </summary>
-    public Player GetPlayerTwo
+    public Player? GetPlayerTwo
     {
         get { return this.playerTwo;  }
     }
@@ -87,8 +87,8 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon?> { PokemonRegistry.GetPokemon("Pikachu") });
-        Player p2 = new Player("Sharon", new List<Pokemon?> { PokemonRegistry.GetPokemon("Rattata") });
+        Player? p1 = new Player("Axel", new List<Pokemon?> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player? p2 = new Player("Sharon", new List<Pokemon?> { PokemonRegistry.GetPokemon("Rattata") });
         return new Game(p1, p2, externalConnection);
     }
 
@@ -148,7 +148,7 @@ public class Game
     /// </summary>
     /// <param name="active">El <see cref="Player"/> que va a atacar.</param>
     /// <param name="other">El <see cref="Player"/> que va a ser atacado.</param>
-    private bool AttackPlayer(Player active, Player other)
+    private bool AttackPlayer(Player? active, Player? other)
     {
         string? attackName = this.externalConnection.ShowAttacksAndRecieveInput(active.ActivePokemon);
         if (attackName == null)
@@ -174,7 +174,7 @@ public class Game
     /// Ejecuta un ataque por el jugador que le toca hacia el contrincante.
     /// </summary>
     /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
-    private bool UseItem(Player active)
+    private bool UseItem(Player? active)
     {
         this.externalConnection.PrintString("UseItem");
 
@@ -191,7 +191,7 @@ public class Game
     /// Todos los jugadores deben poder atacar con el pokemon seleccionado, o en cambio realizar un cambio de pokemon
     /// Si el usuario genera una opcion invalida tendra que realizar nuevamente una de estas dos opciones.
     /// </remarks>
-    private void PlayTurn(Player active, Player other)
+    private void PlayTurn(Player? active, Player? other)
     {
         while (true)
         {
@@ -243,7 +243,7 @@ public class Game
     /// Deja que el jugador pueda hacer un cambio de pokemon dentro de su lista ya proporcionada en <see cref="Player"/>.
     /// </summary>
     /// <param name="p">El <see cref="Player"/> quien es que está haciendo el cambio.</param>
-    private bool ChangePokemon(Player p)
+    private bool ChangePokemon(Player? p)
     {
         while (true)
         {
@@ -274,7 +274,7 @@ public class Game
     /// <remarks>
     /// Si el ha muerto el pokemon activo de <paramref name="p"/> esta obligado a hacer un cambio de pokemon.
     /// </remarks>
-    private bool CheckDead(Player p)
+    private bool CheckDead(Player? p)
     {
         if (p.AllAreDead())
         {

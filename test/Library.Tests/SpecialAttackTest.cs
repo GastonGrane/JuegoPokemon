@@ -26,14 +26,14 @@ public class SpecialAttackTest
         Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
 
         specialAttack.Use(target);
-        Assert.NotNull(target.ActiveEffect);
+        Assert.NotNull(target?.ActiveEffect);
         Assert.IsInstanceOf<Paralysis>(target.ActiveEffect);
         Assert.That(target.Health, Is.LessThan(target.MaxHealth)); // Verifica que el daño haya sido aplicado
     }
 
     /// <summary>
-    /// Verifica que un ataque especial no reemplace el efecto activo si el Pokémon objetivo ya tiene uno.
     /// </summary>
+    /// Verifica que un ataque especial no reemplace el efecto activo si el Pokémon objetivo ya tiene uno.
     [Test]
     public void SpecialAttackDoesNotOverrideEffectAfterSuccessfulHit()
     {
@@ -45,8 +45,11 @@ public class SpecialAttackTest
 
         poisonSpecialAttack.Use(target);
         paralysisSpecialAttack.Use(target);
-        Assert.That(initialEffect, Is.EqualTo(target.ActiveEffect)); // Verifica que el efecto inicial no haya cambiado
-        Assert.That(target.Health, Is.LessThan(target.MaxHealth)); // Verifica que el daño haya sido aplicado
+        Assert.That(initialEffect, Is.EqualTo(target?.ActiveEffect)); // Verifica que el efecto inicial no haya cambiado
+        if (target != null)
+        {
+            Assert.That(target.Health, Is.LessThan(target.MaxHealth)); // Verifica que el daño haya sido aplicado
+        }
     }
 
 /// <summary>
@@ -91,14 +94,17 @@ public class SpecialAttackTest
     Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible antes de utilizarse");
 
     // Act and assert after first use
-    int oldHp = target.Health;
-    specialAttack.Use(target);
-    Assert.That(specialAttack.Available, Is.False, "El ataque especial no debe estar disponible después de utilizarse");
-    Assert.That(target.Health, Is.LessThan(oldHp), "El ataque especial debería hacer daño en el primer uso");
+    if (target != null)
+    {
+        int oldHp = target.Health;
+        specialAttack.Use(target);
+        Assert.That(specialAttack.Available, Is.False, "El ataque especial no debe estar disponible después de utilizarse");
+        Assert.That(target.Health, Is.LessThan(oldHp), "El ataque especial debería hacer daño en el primer uso");
 
-    // Act and assert when unavailable
-    oldHp = target.Health;
-    specialAttack.Use(target);
-    Assert.That(target.Health, Is.EqualTo(oldHp), "El ataque no debe restar vida si no está disponible");
+        // Act and assert when unavailable
+        oldHp = target.Health;
+        specialAttack.Use(target);
+        Assert.That(target.Health, Is.EqualTo(oldHp), "El ataque no debe restar vida si no está disponible");
+    }
 }
 }

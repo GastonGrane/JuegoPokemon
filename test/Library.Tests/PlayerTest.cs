@@ -25,7 +25,7 @@ public class PlayerTest
         try
         {
 #pragma warning disable CS8625 // se le pasa null a propósito
-            Player p = new Player("Gaston", null);
+            Player unused = new Player("Gaston", null);
 #pragma warning restore CS8625
         }
         catch (ArgumentNullException)
@@ -50,12 +50,12 @@ public class PlayerTest
         };
         List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
-        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
-        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
-        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
-        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
+        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
+        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
+        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
+        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
+        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);
@@ -67,7 +67,7 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
-            Player p = new Player(string.Empty, pokemon);
+            Player unused = new Player(string.Empty, pokemon);
         }
         catch (ArgumentException)
         {
@@ -78,24 +78,18 @@ public class PlayerTest
     }
 
     /// <summary>
-    /// Testea que de una excepcion si creamos un player sin pokemons.
+    /// Testea que se lanza una excepción si creamos un player sin pokémons.
     /// </summary>
     [Test]
     public void PlayerSinPokemonsFalla()
     {
-        List<Pokemon?> pokemones = new List<Pokemon?>();
-
-        bool exceptionThrown = false;
-        try
+        var ex = Assert.Throws<ArgumentNullException>(() =>
         {
-            Player p = new Player("Gaston", pokemones);
-        }
-        catch (ArgumentException)
-        {
-            exceptionThrown = true;
-        }
+            List<Pokemon?>? pokemones = null;
+            Player unused = new Player("Gaston", pokemones);
+        });
 
-        Assert.True(exceptionThrown, "Crear el player sin pokemons no tiro una excepcion");
+        Assert.That(ex.ParamName, Is.EqualTo("Un jugador no puede tener una lista de pokemons null"), "El parámetro de la excepción no coincide.");
     }
 
     /// <summary>
@@ -112,12 +106,12 @@ public class PlayerTest
         };
         List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
-        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
-        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
-        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
-        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
+        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
+        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
+        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
+        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
+        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);
@@ -156,12 +150,12 @@ public class PlayerTest
         };
         List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
-        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 0, attacks);
-        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 0, attacks);
-        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 0, attacks);
-        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 0, attacks);
-        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 0, attacks);
+        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
+        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 0, attacks);
+        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 0, attacks);
+        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 0, attacks);
+        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 0, attacks);
+        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 0, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);
