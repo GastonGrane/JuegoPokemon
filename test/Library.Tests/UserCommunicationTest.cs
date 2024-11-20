@@ -11,6 +11,7 @@ using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 using Library.GameLogic.Pokemon;
 
+#pragma warning disable SA1402 // Esta ocurre por definir el mock y los tests acá. está bien ignorarlo porque esta clase es únicamente para este archivo y nada más.
 
 namespace Library.Tests
 {
