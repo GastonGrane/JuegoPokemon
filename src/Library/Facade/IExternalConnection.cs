@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
+using Library.GameLogic;
 using Library.GameLogic.Players;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Facade;
 
@@ -75,7 +75,7 @@ public interface IExternalConnection
     /// <returns>
     /// El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
-    public string? ShowAttacksAndRecieveInput(Pokemon pokemon);
+    public string? ShowAttacksAndRecieveInput(Pokemon? pokemon);
 
     /// <summary>
     /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.

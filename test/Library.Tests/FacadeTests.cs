@@ -8,9 +8,8 @@ using System.Collections.ObjectModel;
 using Library.Facade;
 using Library.GameLogic;
 using Library.GameLogic.Players;
-using Library.GameLogic.Pokemon;
 
-namespace Library.Tests.Facade;
+namespace Library.Tests;
 
 #pragma warning disable SA1402 // Esta ocurre por definir el mock y los tests acá. está bien ignorarlo porque esta clase es únicamente para este archivo y nada más.
 
@@ -131,7 +130,7 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public string? ShowAttacksAndRecieveInput(Pokemon pokemon)
+    public string? ShowAttacksAndRecieveInput(Pokemon? pokemon)
     {
         this.ShowAttacksAndRecieveInputCalled = true;
 

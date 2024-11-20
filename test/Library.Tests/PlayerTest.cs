@@ -7,9 +7,8 @@
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Players;
-using Library.GameLogic.Pokemon;
 
-namespace Library.Tests.GameLogic;
+namespace Library.Tests;
 
 /// <summary>
 /// Test de Player.
@@ -49,14 +48,14 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon> pokemon = new List<Pokemon>();
+        List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
-        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
-        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
-        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
-        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
+        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
+        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
+        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
+        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
+        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);
@@ -84,7 +83,7 @@ public class PlayerTest
     [Test]
     public void PlayerSinPokemonsFalla()
     {
-        List<Pokemon> pokemones = new List<Pokemon>();
+        List<Pokemon?> pokemones = new List<Pokemon?>();
 
         bool exceptionThrown = false;
         try
@@ -111,14 +110,14 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon> pokemon = new List<Pokemon>();
+        List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
-        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
-        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
-        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
-        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
+        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
+        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 100, attacks);
+        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 100, attacks);
+        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 100, attacks);
+        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 100, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);
@@ -155,14 +154,14 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon> pokemon = new List<Pokemon>();
+        List<Pokemon?> pokemon = new List<Pokemon?>();
 
-        Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
-        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 0, attacks);
-        Pokemon p3 = new Pokemon("pokemon3", PokemonType.Bug, 0, attacks);
-        Pokemon p4 = new Pokemon("pokemon4", PokemonType.Bug, 0, attacks);
-        Pokemon p5 = new Pokemon("pokemon5", PokemonType.Bug, 0, attacks);
-        Pokemon p6 = new Pokemon("pokemon6", PokemonType.Bug, 0, attacks);
+        Pokemon? p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
+        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Bug, 0, attacks);
+        Pokemon? p3 = new Pokemon("pokemon3", PokemonType.Bug, 0, attacks);
+        Pokemon? p4 = new Pokemon("pokemon4", PokemonType.Bug, 0, attacks);
+        Pokemon? p5 = new Pokemon("pokemon5", PokemonType.Bug, 0, attacks);
+        Pokemon? p6 = new Pokemon("pokemon6", PokemonType.Bug, 0, attacks);
 
         pokemon.Add(p1);
         pokemon.Add(p2);

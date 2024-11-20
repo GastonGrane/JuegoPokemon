@@ -6,7 +6,6 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 
@@ -90,7 +89,7 @@ public class NormalAttackTests
     {
         NormalAttack normalAttack = new("Fury Swipes", 54, PokemonType.Normal, 80);
 
-        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
         Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");
         normalAttack.Use(target);
         Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");

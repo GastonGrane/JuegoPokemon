@@ -6,10 +6,10 @@
 
 using System.Collections.ObjectModel;
 using Library.Facade;
+using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
-using Library.GameLogic.Pokemon;
 
 #pragma warning disable SA1402 // Esta ocurre por definir el mock y los tests acá. está bien ignorarlo porque esta clase es únicamente para este archivo y nada más.
 
@@ -158,7 +158,7 @@ public class FakeExternalConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public string? ShowAttacksAndRecieveInput(Pokemon pokemon)
+    public string? ShowAttacksAndRecieveInput(Pokemon? pokemon)
     {
         if (this.AttackInputs.Count > 0)
         {

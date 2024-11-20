@@ -4,8 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic.Pokemon;
-
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -96,7 +94,7 @@ public class NormalAttack
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <returns>Un <see cref="AttackResult"/> con el daño causado y el estado del ataque.</returns>
-    public AttackResult Use(Pokemon.Pokemon target)
+    public AttackResult Use(Pokemon? target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 

@@ -6,7 +6,6 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Effects;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 

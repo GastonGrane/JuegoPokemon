@@ -4,8 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic.Pokemon;
-
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
@@ -81,5 +79,5 @@ public abstract class Attack
     /// </summary>
     /// <param name="target">El Pokémon objetivo al que se aplicará el ataque.</param>
     /// <returns>Un <see cref="AttackResult"/> con el resultado del ataque.</returns>
-    public abstract AttackResult? Use(Pokemon.Pokemon target);
+    public abstract AttackResult? Use(Pokemon target);
 }

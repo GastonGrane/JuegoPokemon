@@ -4,10 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Facade;
 
@@ -87,8 +87,8 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
-        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
+        Player p1 = new Player("Axel", new List<Pokemon?> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon?> { PokemonRegistry.GetPokemon("Rattata") });
         return new Game(p1, p2, externalConnection);
     }
 
@@ -156,13 +156,16 @@ public class Game
             return false;
         }
 
-        int oldHp = other.ActivePokemon.Health;
+        if (other.ActivePokemon != null)
+        {
+            int oldHp = other.ActivePokemon.Health;
 
-        // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
-        this.AttackResult = active.Attack(other, attackName);
+            // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
+            this.AttackResult = active.Attack(other, attackName);
 
-        // FIXME(Guzmán): Reportar mejor el resultado del ataque.
-        this.externalConnection.ReportAttackResult(oldHp, active, other);
+            // FIXME(Guzmán): Reportar mejor el resultado del ataque.
+            this.externalConnection.ReportAttackResult(oldHp, active, other);
+        }
 
         return true;
     }
@@ -278,7 +281,7 @@ public class Game
             return true;
         }
 
-        if (p.ActivePokemon.Health == 0)
+        if (p.ActivePokemon?.Health == 0)
         {
             this.externalConnection.PrintString($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
             this.ChangePokemon(p);

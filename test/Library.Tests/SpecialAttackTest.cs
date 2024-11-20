@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests;
 
@@ -23,7 +23,7 @@ public class SpecialAttackTest
     {
         SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
 
-        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
 
         specialAttack.Use(target);
         Assert.NotNull(target.ActiveEffect);
@@ -41,7 +41,7 @@ public class SpecialAttackTest
         SpecialAttack poisonSpecialAttack = new SpecialAttack("Spit", 10, PokemonType.Poison, 100, initialEffect);
         SpecialAttack paralysisSpecialAttack = new SpecialAttack("Thunder", 10, PokemonType.Electric, 100, new Paralysis());
 
-        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
 
         poisonSpecialAttack.Use(target);
         paralysisSpecialAttack.Use(target);
@@ -57,7 +57,7 @@ public class SpecialAttackTest
 {
     // Arrange
     SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
-    Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+    Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
 
     // Assert initial state
     Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible antes de utilizarse");
@@ -85,7 +85,7 @@ public class SpecialAttackTest
 {
     // Arrange
     SpecialAttack specialAttack = new("Trueno", 10, PokemonType.Electric, 100, new Paralysis());
-    Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
+    Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
 
     // Assert initial state
     Assert.That(specialAttack.Available, Is.True, "El ataque especial debe estar disponible antes de utilizarse");

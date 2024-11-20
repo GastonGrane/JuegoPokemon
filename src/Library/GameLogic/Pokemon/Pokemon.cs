@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
 
-namespace Library.GameLogic.Pokemon;
+namespace Library.GameLogic;
 
 /// <summary>
 /// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.
@@ -149,7 +149,7 @@ public class Pokemon
     /// </summary>
     /// <param name="target">Pokémon objetivo del ataque.</param>
     /// <param name="attackIdx">Índice del ataque en la lista de ataques del Pokémon.</param>
-    public void Attack(Pokemon target, int attackIdx)
+    public void Attack(Pokemon? target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         NormalAttack attack = this.GetAttack(attackIdx);
@@ -162,7 +162,7 @@ public class Pokemon
     /// <param name="target">Pokémon objetivo del ataque.</param>
     /// <param name="attackName">Nombre del ataque a utilizar.</param>
     /// <returns>Un <see cref="AttackResult"/> que contiene información sobre el resultado del ataque, incluyendo el daño causado y el estado del ataque.</returns>
-    public AttackResult? Attack(Pokemon target, string attackName)
+    public AttackResult? Attack(Pokemon? target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         NormalAttack attack = this.GetAttack(attackName);
@@ -257,7 +257,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private AttackResult? Attack(Pokemon target, Attacks.NormalAttack attack)
+    private AttackResult? Attack(Pokemon? target, Attacks.NormalAttack attack)
     {
         if (!this.Attacks.Contains(attack))
         {

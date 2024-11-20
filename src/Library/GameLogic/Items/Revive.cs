@@ -31,7 +31,7 @@ public class Revive : Item
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
     /// <returns>Un <see cref="ItemStatus"/> que indica el resultado del uso del ítem, en este caso, <see cref="ItemStatus.Revive"/>.</returns>
-    public override ItemStatus Use(Pokemon.Pokemon pokemon)
+    public override ItemStatus Use(Pokemon? pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(50);

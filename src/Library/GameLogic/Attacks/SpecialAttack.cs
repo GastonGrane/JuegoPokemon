@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
-using Library.GameLogic.Pokemon;
 
 namespace Library.GameLogic.Attacks;
 
@@ -49,7 +48,7 @@ public class SpecialAttack : NormalAttack
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <returns>Un <see cref="AttackResult"/> con el daño infligido y el estado del ataque.</returns>
-    public new AttackResult Use(Pokemon.Pokemon target)
+    public new AttackResult Use(Pokemon? target)
     {
         if (!this.Available)
         {

@@ -6,7 +6,6 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 
@@ -99,7 +98,7 @@ public class PokemonTests
         try
         {
             Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-            Pokemon p2 = new Pokemon("pokemon", PokemonType.Fire, 100, attacks);
+            Pokemon? p2 = new Pokemon("pokemon", PokemonType.Fire, 100, attacks);
             p.Attack(p2, "extra");
         }
         catch (ArgumentOutOfRangeException)
@@ -150,7 +149,7 @@ public class PokemonTests
         };
 
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
-        Pokemon p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
+        Pokemon? p2 = new Pokemon("pokemon2", PokemonType.Dragon, 100, attacks);
         p.Attack(p2, "Aqua Jet");
         p2.Heal(150);
 

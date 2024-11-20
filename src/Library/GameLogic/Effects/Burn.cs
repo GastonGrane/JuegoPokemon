@@ -34,7 +34,7 @@ public class Burn : IEffect
     /// </summary>
     /// <param name="target">El Pokémon al que se le aplicará el daño por quemadura.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-    public void UpdateEffect(Pokemon.Pokemon target)
+    public void UpdateEffect(Pokemon target)
     {
         if (target == null)
         {
@@ -49,7 +49,7 @@ public class Burn : IEffect
     /// </summary>
     /// <param name="target">El Pokémon del que se removerá el efecto.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="target"/> es <c>null</c>.</exception>
-    public void RemoveEffect(Pokemon.Pokemon target)
+    public void RemoveEffect(Pokemon target)
     {
         if (target == null)
         {

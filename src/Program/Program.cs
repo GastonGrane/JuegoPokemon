@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
-using Library.GameLogic.Pokemon;
 
 namespace Program
 {
@@ -20,7 +19,7 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            List<Pokemon> pokemons = new List<Pokemon>
+            List<Pokemon?> pokemons = new List<Pokemon?>
             {
                 PokemonRegistry.GetPokemon("Pikachu"),
                 PokemonRegistry.GetPokemon("Bulbasaur"),

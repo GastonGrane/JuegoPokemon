@@ -38,5 +38,5 @@ public abstract class Item
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el ítem.</param>
     /// <returns>El estado del ítem después de ser utilizado.</returns>
-    public abstract ItemStatus Use(Pokemon.Pokemon pokemon);
+    public abstract ItemStatus Use(Pokemon? pokemon);
 }

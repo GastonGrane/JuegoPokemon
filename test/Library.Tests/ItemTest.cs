@@ -7,7 +7,6 @@
 using Library.GameLogic;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Items;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 
@@ -23,7 +22,7 @@ internal sealed class ItemTest
     public void CanRevive()
     {
         // MaxHealth > 50
-        Pokemon p = PokemonRegistry.GetPokemon("Dragonite");
+        Pokemon? p = PokemonRegistry.GetPokemon("Dragonite");
         p.Damage(1000);
 
         Revive revive = new Revive();

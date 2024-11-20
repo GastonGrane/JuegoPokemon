@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
-using Library.GameLogic.Pokemon;
 
 namespace Library.Tests.GameLogic;
 
