@@ -20,11 +20,6 @@ namespace Library.GameLogic.Attacks;
 public class NormalAttack
 {
     /// <summary>
-    /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
-    /// </summary>
-    protected readonly IProbability Probabilidad;
-
-    /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="NormalAttack"/>.
     /// </summary>
     /// <param name="name">El nombre del ataque.</param>
@@ -123,6 +118,11 @@ public class NormalAttack
     /// Cantidad de turnos en los que el ataque no se ha encontrado disponible.
     /// </summary>
     public int AmountUnusedTurn { get; protected set; }
+
+    /// <summary>
+    /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+    /// </summary>
+    private protected IProbability Probabilidad { get; }
 
     /// <summary>
     /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo y con una probabilidad
