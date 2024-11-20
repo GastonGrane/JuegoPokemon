@@ -16,7 +16,7 @@ namespace Library.GameLogic.Attacks;
 /// </summary>
 public class SpecialAttack : NormalAttack
 {
-    private IEffect effect;
+    private readonly IEffect effect;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>.
@@ -30,15 +30,13 @@ public class SpecialAttack : NormalAttack
         : base(name, damage, attackType, precision)
     {
         this.effect = effect;
+        this.AmountUnusedTurn = 2; // Inicia con disponibilidad inmediata.
     }
 
     /// <summary>
     /// Constructor que copia los valores de una instancia de la clase <see cref="SpecialAttack"/>.
     /// </summary>
     /// <param name="attack">El ataque a copiar.</param>
-    /// <exception cref="ArgumentNullException">
-    /// Si <paramref name="attack"/> es <c>null</c>.
-    /// </exception>
     public SpecialAttack(SpecialAttack attack)
         : base(attack)
     {
@@ -50,7 +48,6 @@ public class SpecialAttack : NormalAttack
     /// activo, se le aplica el efecto de este ataque.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
-    /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     /// <returns>Un <see cref="AttackResult"/> con el daño infligido y el estado del ataque.</returns>
     public new AttackResult Use(Pokemon.Pokemon target)
     {
@@ -61,23 +58,28 @@ public class SpecialAttack : NormalAttack
 
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
+        // Calcular daño basado en ventaja.
         double multiplier = this.Type.Advantage(target.Type);
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
+        // Aplicar efecto si el Pokémon objetivo no tiene un efecto activo.
         if (target.ActiveEffect == null)
         {
             target.ApplyEffect(this.effect);
+            this.Available = false;
+            this.AmountUnusedTurn = 0;
             return new AttackResult(AttackStatus.EffectApplied, damage);
         }
 
+        // Si no aplica el efecto, igual se realiza el ataque.
         this.Available = false;
         this.AmountUnusedTurn = 0;
         return new AttackResult(AttackStatus.NoEffect, damage);
     }
 
     /// <summary>
-    /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
+    /// Actualiza el número de turnos que el ataque no ha estado disponible y lo habilita tras dos turnos.
     /// </summary>
     public override void UpdateTurn()
     {

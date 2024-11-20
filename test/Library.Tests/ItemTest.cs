@@ -77,7 +77,6 @@ internal sealed class ItemTest
         Assert.IsNull(p.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
     }
 
-
     /// <summary>
     /// Verifica que <see cref="TotalCure.Use(Pokemon)"/> lance una excepción
     /// <see cref="InvalidOperationException"/> si se intenta utilizar cuando el Pokémon
