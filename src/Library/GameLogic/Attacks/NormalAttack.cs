@@ -7,7 +7,8 @@
 namespace Library.GameLogic.Attacks;
 
 /// <summary>
-/// Representa un ataque básico en el juego. A diferencia de <see cref="SpecialAttack"/>.
+/// Representa un ataque básico en el juego. A diferencia de <see cref="SpecialAttack"/>,
+/// <see cref="NormalAttack"/> no utiliza efectos y solo inflige daño directo al Pokémon objetivo.
 /// </summary>
 /// <remarks>
 /// Esta clase cumple con SRP, al abarcar la funcionalidad de un único tipo de ataque, aquellos que únicamente producen daño.
@@ -93,8 +94,9 @@ public class NormalAttack
     /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
+    /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
     /// <returns>Un <see cref="AttackResult"/> con el daño causado y el estado del ataque.</returns>
-    public AttackResult Use(Pokemon? target)
+    public AttackResult Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 

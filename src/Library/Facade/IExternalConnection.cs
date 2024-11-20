@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
+
 using Library.GameLogic;
 using Library.GameLogic.Players;
 
@@ -41,20 +42,20 @@ public interface IExternalConnection
     /// </summary>
     /// <param name="p1">El primer jugador.</param>
     /// <param name="p2">El segundo jugador.</param>
-    public void PrintWelcome(Player? p1, Player? p2);
+    public void PrintWelcome(Player p1, Player p2);
 
     /// <summary>
     /// Imprime el mensaje de victoria para el primer jugador. Además, debería indicar que terminó la partida, y hacer algo al respecto.
     /// </summary>
     /// <param name="p1">El jugador ganador.</param>
     /// <param name="p2">El jugador perdedor.</param>
-    public void PrintPlayerWon(Player? p1, Player? p2);
+    public void PrintPlayerWon(Player p1, Player p2);
 
     /// <summary>
     /// Imprime la indicación del comienzo del turno del jugador 1.
     /// </summary>
     /// <param name="player">El jugador cuyo turno es.</param>
-    public void PrintTurnHeading(Player? player);
+    public void PrintTurnHeading(Player player);
 
     /// <summary>
     /// Le imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
@@ -75,7 +76,7 @@ public interface IExternalConnection
     /// <returns>
     /// El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
-    public string? ShowAttacksAndRecieveInput(Pokemon? pokemon);
+    public string? ShowAttacksAndRecieveInput(Pokemon pokemon);
 
     /// <summary>
     /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
@@ -84,15 +85,15 @@ public interface IExternalConnection
     /// <returns>
     /// El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
     /// </returns>
-    public int ShowChangePokemonMenu(Player? player);
+    public int ShowChangePokemonMenu(Player player);
 
     /// <summary>
     /// Le muestra al usuario el resultado que tuvo su ataque.
     /// </summary>
-    /// <param name="oldHp">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
+    /// <param name="oldHP">La vida del pokemon de <paramref name="defender"/> antes de ser atacado.</param>
     /// <param name="attacker">El jugador que atacó.</param>
     /// <param name="defender">El jugador que fue atacado.</param>
-    public void ReportAttackResult(int oldHp, Player? attacker, Player? defender);
+    public void ReportAttackResult(int oldHP, Player attacker, Player defender);
 
     /// <summary>
     /// Imprime el estado actual del ataque y del ítem utilizado durante el turno, y limpia los estados después de imprimirlos.
@@ -100,5 +101,5 @@ public interface IExternalConnection
     /// <param name="attacker">El jugador que realizó el ataque, si corresponde.</param>
     /// <param name="defender">El Pokémon activo del jugador defensor.</param>
     /// <param name="game">El estado actual del juego que contiene información del ataque e ítem.</param>
-    public void PrintStatuses(Player? attacker, Player? defender, Game? game);
+    public void PrintStatuses(Player attacker, Player defender, Game game);
 }

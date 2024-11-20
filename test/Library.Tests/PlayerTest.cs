@@ -8,7 +8,7 @@ using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Players;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de Player.
@@ -25,7 +25,7 @@ public class PlayerTest
         try
         {
 #pragma warning disable CS8625 // se le pasa null a propósito
-            Player unused = new Player("Gaston", null);
+            Player p = new Player("Gaston", null);
 #pragma warning restore CS8625
         }
         catch (ArgumentNullException)
@@ -48,7 +48,7 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon?> pokemon = new List<Pokemon?>();
+        List<Pokemon> pokemon = new List<Pokemon>();
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
@@ -67,7 +67,7 @@ public class PlayerTest
         bool exceptionThrown = false;
         try
         {
-            Player unused = new Player(string.Empty, pokemon);
+            Player p = new Player(string.Empty, pokemon);
         }
         catch (ArgumentException)
         {
@@ -78,18 +78,24 @@ public class PlayerTest
     }
 
     /// <summary>
-    /// Testea que se lanza una excepción si creamos un player sin pokémons.
+    /// Testea que de una excepcion si creamos un player sin pokemons.
     /// </summary>
     [Test]
     public void PlayerSinPokemonsFalla()
     {
-        var ex = Assert.Throws<ArgumentNullException>(() =>
-        {
-            List<Pokemon?>? pokemones = null;
-            Player unused = new Player("Gaston", pokemones);
-        });
+        List<Pokemon> pokemones = new List<Pokemon>();
 
-        Assert.That(ex.ParamName, Is.EqualTo("Un jugador no puede tener una lista de pokemons null"), "El parámetro de la excepción no coincide.");
+        bool exceptionThrown = false;
+        try
+        {
+            Player p = new Player("Gaston", pokemones);
+        }
+        catch (ArgumentException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Crear el player sin pokemons no tiro una excepcion");
     }
 
     /// <summary>
@@ -104,7 +110,7 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon?> pokemon = new List<Pokemon?>();
+        List<Pokemon> pokemon = new List<Pokemon>();
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 100, attacks);
@@ -148,7 +154,7 @@ public class PlayerTest
             NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
             NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
         };
-        List<Pokemon?> pokemon = new List<Pokemon?>();
+        List<Pokemon> pokemon = new List<Pokemon>();
 
         Pokemon p1 = new Pokemon("pokemon", PokemonType.Bug, 0, attacks);
         Pokemon p2 = new Pokemon("pokemon2", PokemonType.Bug, 0, attacks);

@@ -7,7 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de los metodos de NormalAttack.
@@ -37,7 +37,7 @@ public class NormalAttackTests
         try
         {
 #pragma warning disable CS8625 // se le pasa null a propósito
-            NormalAttack unused = new NormalAttack(null, 13, PokemonType.Bug, 100);
+            NormalAttack attack = new NormalAttack(null, 13, PokemonType.Bug, 100);
 #pragma warning restore CS8625
         }
         catch (ArgumentNullException)
@@ -57,7 +57,7 @@ public class NormalAttackTests
         bool exceptionThrown = false;
         try
         {
-            NormalAttack unused = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
+            NormalAttack lanzaRoca = new NormalAttack("Lanza Roca", -13, PokemonType.Bug, 100);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -76,9 +76,9 @@ public class NormalAttackTests
         var p1 = PokemonRegistry.GetPokemon("Squirtle");
         var p2 = PokemonRegistry.GetPokemon("Bulbasaur");
 
-        p1?.Attack(p2, "Water Gun");
-        Assert.That(p1?.Health, Is.EqualTo(p1?.MaxHealth));
-        Assert.That(p2?.Health, Is.LessThan(p2?.MaxHealth));
+        p1.Attack(p2, "Water Gun");
+        Assert.That(p1.Health, Is.EqualTo(p1.MaxHealth));
+        Assert.That(p2.Health, Is.LessThan(p2.MaxHealth));
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class NormalAttackTests
     {
         NormalAttack normalAttack = new("Fury Swipes", 54, PokemonType.Normal, 80);
 
-        Pokemon? target = PokemonRegistry.GetPokemon("Bulbasaur");
+        Pokemon target = PokemonRegistry.GetPokemon("Bulbasaur");
         Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");
         normalAttack.Use(target);
         Assert.That(normalAttack.Available, Is.True, "El ataque normal siempre está disponible");

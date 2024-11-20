@@ -23,7 +23,7 @@ public static class PokemonRegistry
     /// <remarks>
     /// Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
     /// </remarks>
-    private static readonly Dictionary<string, Pokemon> PokemonTemplates = new Dictionary<string, Pokemon>()
+    private static readonly Dictionary<string, Pokemon> PokemonTemplates = new()
     {
         {
             "Pikachu", new Pokemon("Pikachu", PokemonType.Electric, 35, new List<NormalAttack>
@@ -478,7 +478,7 @@ public static class PokemonRegistry
     /// <returns>
     /// Una copia del Pokémon cuyo nombre es <paramref name="name"/>.
     /// </returns>
-    public static Pokemon? GetPokemon(string name)
+    public static Pokemon GetPokemon(string name)
     {
         Pokemon p = PokemonTemplates[name];
         return new Pokemon(p);

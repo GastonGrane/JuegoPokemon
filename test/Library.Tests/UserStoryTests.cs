@@ -8,7 +8,7 @@ using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Players;
 
-namespace Library.Tests;
+namespace Library.Tests.Facade;
 
 /// <summary>
 /// Tests de las historias de usuario.
@@ -30,7 +30,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory2()
     {
-        Player p = new Player("Axel", new List<Pokemon?>
+        Player p = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -49,7 +49,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory3()
     {
-        Player p1 = new Player("Axel", new List<Pokemon?>
+        Player p1 = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -58,7 +58,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player p2 = new Player("Gastón", new List<Pokemon?>
+        Player p2 = new Player("Gastón", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Bulbasaur"),
             PokemonRegistry.GetPokemon("Metapod"),
@@ -67,13 +67,13 @@ internal sealed class UserStoryTests
         });
 
         Assert.That(p1.ActivePokemon.Health, Is.GreaterThan(0));
-        foreach (Pokemon? p in p1.Pokemons)
+        foreach (Pokemon p in p1.Pokemons)
         {
             Assert.That(p.Health, Is.GreaterThan(0));
         }
 
         Assert.That(p2.ActivePokemon.Health, Is.GreaterThan(0));
-        foreach (Pokemon? p in p2.Pokemons)
+        foreach (Pokemon p in p2.Pokemons)
         {
             Assert.That(p.Health, Is.GreaterThan(0));
         }
@@ -85,7 +85,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory4()
     {
-        Player p1 = new Player("Axel", new List<Pokemon?>
+        Player p1 = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -94,7 +94,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player? p2 = new Player("Gastón", new List<Pokemon?>
+        Player p2 = new Player("Gastón", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Bulbasaur"),
             PokemonRegistry.GetPokemon("Metapod"),
@@ -126,7 +126,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory6()
     {
-        Player p1 = new Player("Axel", new List<Pokemon?>
+        Player p1 = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -135,7 +135,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player? p2 = new Player("Gastón", new List<Pokemon?>
+        Player p2 = new Player("Gastón", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Bulbasaur"),
             PokemonRegistry.GetPokemon("Metapod"),
@@ -161,7 +161,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory7()
     {
-        Player p1 = new Player("Axel", new List<Pokemon?>
+        Player p1 = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -186,7 +186,7 @@ internal sealed class UserStoryTests
     [Test]
     public void UserStory8()
     {
-        Player p1 = new Player("Axel", new List<Pokemon?>
+        Player p1 = new Player("Axel", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Pikachu"),
             PokemonRegistry.GetPokemon("Squirtle"),
@@ -195,7 +195,7 @@ internal sealed class UserStoryTests
             PokemonRegistry.GetPokemon("Diglett"),
         });
 
-        Player? p2 = new Player("Gastón", new List<Pokemon?>
+        Player p2 = new Player("Gastón", new List<Pokemon>
         {
             PokemonRegistry.GetPokemon("Dragonite"),
             PokemonRegistry.GetPokemon("Bulbasaur"),

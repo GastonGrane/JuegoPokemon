@@ -24,7 +24,7 @@ public class Player
     /// </summary>
     /// <param name="name">El nombre del Jugador.</param>
     /// <param name="pokemons">La lista de los pokemons del jugador. No puede ser null, o con otras palabras debe ser non-null.</param>
-    public Player(string name, List<Pokemon?> pokemons)
+    public Player(string name, List<Pokemon> pokemons)
     {
         ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
         ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
@@ -68,7 +68,7 @@ public class Player
     /// <value>
     /// Esta lista tiene hasta 6 pokemons.
     /// </value>
-    public List<Pokemon?> Pokemons { get; }
+    public List<Pokemon> Pokemons { get; }
 
     /// <summary>
     /// Lista de items disponibles para el jugador.
@@ -81,7 +81,7 @@ public class Player
     /// <value>
     /// Debe ser una referencia a alguno de los pokemon en la lista del jugador.
     /// </value>
-    public Pokemon? ActivePokemon { get; private set; }
+    public Pokemon ActivePokemon { get; private set; }
 
     /// <summary>
     /// Cambia el pokemon que estaria en pantalla(<see cref="ActivePokemon"/>) del jugador.
@@ -93,7 +93,7 @@ public class Player
     /// <remarks>Si el <paramref name="newPokemon"/> no es encontrado en este jugador, no hacer nada.</remarks>
     public bool ChangePokemon(string newPokemon)
     {
-        Pokemon? pokemon = this.Pokemons.Find(pokemon => pokemon?.Name == newPokemon);
+        Pokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
 
         if (pokemon != null)
         {
@@ -135,10 +135,13 @@ public class Player
     /// <param name="attackName">El nombre del ataque a utlizar. Debe ser un ataque válido de <see cref="ActivePokemon"/>.</param>
     /// <exception cref="System.ArgumentNullException">Si <paramref name="other"/> es null.</exception>
     /// <returns>Un <see cref="AttackResult"/> que contiene información sobre el resultado del ataque, como el daño causado y el estado del ataque (crítico, normal, fallido, etc.).</returns>
-    public AttackResult? Attack(Player? other, string attackName)
+    /// <remarks>
+    /// Esto llama al metodo <see cref="Pokemon.Attack(Pokemon, string)"/>.
+    /// </remarks>
+    public AttackResult Attack(Player other, string attackName)
     {
         ArgumentNullException.ThrowIfNull(other, "No se puede atacar un jugador que es null");
-        AttackResult? attackResult = this.ActivePokemon?.Attack(other.ActivePokemon, attackName);
+        AttackResult attackResult = this.ActivePokemon.Attack(other.ActivePokemon, attackName);
         return attackResult;
     }
 
@@ -148,7 +151,7 @@ public class Player
     /// <returns><c>true</c> si todos los pokemon del jugador estan muertos, <c>false</c> en cualquier otro caso.</returns>
     public bool AllAreDead()
     {
-        return this.Pokemons.All(p => p?.Health == 0);
+        return this.Pokemons.All(p => p.Health == 0);
     }
 
     /// <summary>
@@ -156,7 +159,7 @@ public class Player
     /// </summary>
     /// <param name="target">El pokémon sobre el cual usar el item.</param>
     /// <param name="name">El nombre del item para utilizar.</param>
-    public void ApplyItem(Pokemon? target, string name)
+    public void ApplyItem(Pokemon target, string name)
     {
         if (!this.Pokemons.Contains(target))
         {
@@ -187,9 +190,9 @@ public class Player
     /// </summary>
     public void UpdateTurn()
     {
-        foreach (Pokemon? pok in this.Pokemons)
+        foreach (Pokemon pok in this.Pokemons)
         {
-            pok?.UpdateTurn();
+            pok.UpdateTurn();
         }
     }
 }

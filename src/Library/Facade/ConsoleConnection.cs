@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
@@ -34,7 +33,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public void PrintWelcome(Player? p1, Player? p2)
+    public void PrintWelcome(Player p1, Player p2)
     {
         ArgumentNullException.ThrowIfNull(p1, nameof(p1));
         ArgumentNullException.ThrowIfNull(p2, nameof(p2));
@@ -46,7 +45,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public void PrintPlayerWon(Player? p1, Player? p2)
+    public void PrintPlayerWon(Player p1, Player p2)
     {
         ArgumentNullException.ThrowIfNull(p1, nameof(p1));
         ArgumentNullException.ThrowIfNull(p2, nameof(p2));
@@ -55,7 +54,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public void PrintTurnHeading(Player? player)
+    public void PrintTurnHeading(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
@@ -112,11 +111,12 @@ public class ConsoleConnection : IExternalConnection
             }
 
             Console.WriteLine("Valor inválido ingresado, se esperaba un item del menú");
+            continue;
         }
     }
 
     /// <inheritdoc/>
-    public string? ShowAttacksAndRecieveInput(Pokemon? pokemon)
+    public string? ShowAttacksAndRecieveInput(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
@@ -175,26 +175,27 @@ public class ConsoleConnection : IExternalConnection
             }
 
             Console.WriteLine("Valor inválido ingresado, se esperaba un item del menú");
+            continue;
         }
     }
 
     /// <inheritdoc/>
-    public void ReportAttackResult(int oldHp, Player? attacker, Player? defender)
+    public void ReportAttackResult(int oldHP, Player attacker, Player defender)
     {
         ArgumentNullException.ThrowIfNull(attacker, nameof(attacker));
         ArgumentNullException.ThrowIfNull(defender, nameof(defender));
 
-        Pokemon? defendingPokemon = defender.ActivePokemon;
+        Pokemon defendingPokemon = defender.ActivePokemon;
         Console.WriteLine(
-            $"{attacker.ActivePokemon?.Name} atacó a {defendingPokemon?.Name}, haciéndole {oldHp - defendingPokemon?.Health} de daño, y dejándolo en {defendingPokemon?.Health}/{defendingPokemon?.MaxHealth}");
+            $"{attacker.ActivePokemon.Name} atacó a {defendingPokemon.Name}, haciéndole {oldHP - defendingPokemon.Health} de daño, y dejándolo en {defendingPokemon.Health}/{defendingPokemon.MaxHealth}");
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player? player)
+    public int ShowChangePokemonMenu(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
-        ReadOnlyCollection<Pokemon?> pokemons = player.Pokemons.AsReadOnly();
+        ReadOnlyCollection<Pokemon> pokemons = player.Pokemons.AsReadOnly();
         while (true)
         {
             Console.WriteLine("Seleccione un Pokémon");
@@ -203,9 +204,9 @@ public class ConsoleConnection : IExternalConnection
             int idx = 1;
 
             // FIXME(Guzmán): Esto sería algo como p.AttackAvailable, pero no está hecho eso.
-            foreach (Pokemon? pok in pokemons)
+            foreach (Pokemon pok in pokemons)
             {
-                Console.WriteLine($"{idx}: {pok?.Name} ({pok?.Type})");
+                Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
                 idx++;
             }
 
@@ -239,16 +240,17 @@ public class ConsoleConnection : IExternalConnection
 
             for (int i = 0; i < pokemons.Count; ++i)
             {
-                Pokemon? pok = pokemons[i];
+                Pokemon pok = pokemons[i];
 
                 // FIXME(Guzmán): Sensible o no a mayús.?
-                if (pok?.Name == input)
+                if (pok.Name == input)
                 {
                     return i;
                 }
             }
 
             Console.WriteLine("Valor inválido ingresado, se esperaba un item del menú");
+            continue;
         }
     }
 
@@ -258,10 +260,11 @@ public class ConsoleConnection : IExternalConnection
     /// <param name="attacker">El jugador que realizó el ataque.</param>
     /// <param name="defender">El jugador defensor cuyo Pokémon fue atacado.</param>
     /// <param name="game">El estado actual del juego, que contiene información del ataque e ítems utilizados.</param>
-    public void PrintStatuses(Player? attacker, Player? defender, Game? game)
+    public void PrintStatuses(Player attacker, Player defender, Game game)
     {
-        Debug.Assert(game?.AttackResult != null, "game.AttackResult != null");
-        switch (game.AttackResult.AttackStatus)
+        ArgumentNullException.ThrowIfNull(game, nameof(game));
+
+        switch (game.AttackResult?.AttackStatus)
         {
             case AttackStatus.CriticalHit:
                 Console.WriteLine(

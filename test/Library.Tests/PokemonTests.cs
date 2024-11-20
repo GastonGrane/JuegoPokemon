@@ -7,7 +7,7 @@
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
 
-namespace Library.Tests;
+namespace Library.Tests.GameLogic;
 
 /// <summary>
 /// Test de Pokemon y sus metodos.
@@ -31,7 +31,7 @@ public class PokemonTests
         bool exceptionThrown = false;
         try
         {
-            Pokemon unused = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -72,7 +72,7 @@ public class PokemonTests
         bool exceptionThrown = false;
         try
         {
-            Pokemon unused = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
+            Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
         }
         catch (ArgumentOutOfRangeException)
         {
