@@ -41,7 +41,7 @@ public class Player
         this.Pokemons = pokemons;
 
         // Nota de Guzmán: Esto es _una_ solución al problema. Lo ideal, creo yo, sería utilizar cantidades del item que vayan disminuyendo. Esto no lo implementé yo, entonces queda así.
-        this.Items = new List<IItem>
+        this.Items = new List<Item>
         {
             new Revive(),
 
@@ -72,7 +72,7 @@ public class Player
     /// <summary>
     /// Lista de items disponibles para el jugador.
     /// </summary>
-    public List<IItem> Items { get; }
+    public List<Item> Items { get; }
 
     /// <summary>
     /// Este atributo hace referencia al pokemon que estaria en pantalla. Esto se acutaliza con <see cref="ChangePokemon(string)"/>.
@@ -166,7 +166,7 @@ public class Player
         int idx = -1;
         for (int i = 0; i < this.Items.Count; ++i)
         {
-            IItem item = this.Items[i];
+            Item item = this.Items[i];
             if (item.Name == name)
             {
                 idx = i;
@@ -180,5 +180,16 @@ public class Player
 
         this.Items[idx].Use(target);
         this.Items.RemoveAt(idx); // Retiro el item utilizado.
+    }
+
+    /// <summary>
+    /// Esta función debe ser llamada una vez finalizado el turno del juego. Lo que hace es actualizar todo lo que deba actualizarse cada turno.
+    /// </summary>
+    public void UpdateTurn()
+    {
+        foreach (Pokemon pok in this.Pokemons)
+        {
+            pok.UpdateTurn();
+        }
     }
 }

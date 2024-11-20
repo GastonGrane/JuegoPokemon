@@ -25,17 +25,15 @@ public class Pokemon
 {
     /// <summary>
     /// El valor actual de salud del pokemon.
-    ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
     /// </summary>
     private int health;
 
     /// <summary>
     /// Lista de los distintos ataques con los que cuenta el pokemon.
-    ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
-    private List<Attack> attacks;
+    private List<NormalAttack> attacks;
 
     private IProbability probabilidad;
 
@@ -46,7 +44,7 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks)
+    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.NormalAttack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -70,7 +68,7 @@ public class Pokemon
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
     /// <param name="generador"> El random que utilizara el pokemon para sus ataques. </param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attack> attacks, IProbability generador)
+    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks, IProbability generador)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -165,7 +163,7 @@ public class Pokemon
     /// <summary>
     /// Lista de ataques disponibles para el Pokémon.
     /// </summary>
-    public ReadOnlyCollection<Attack> Attacks => this.attacks.AsReadOnly();
+    public ReadOnlyCollection<NormalAttack> Attacks => this.attacks.AsReadOnly();
 
     /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado.
@@ -175,7 +173,7 @@ public class Pokemon
     public void Attack(Pokemon target, int attackIdx)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = this.GetAttack(attackIdx);
+        NormalAttack attack = this.GetAttack(attackIdx);
         this.Attack(target, attack);
     }
 
@@ -187,7 +185,7 @@ public class Pokemon
     public void Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
-        Attack attack = this.GetAttack(attackName);
+        NormalAttack attack = this.GetAttack(attackName);
         this.Attack(target, attack);
     }
 
@@ -254,6 +252,19 @@ public class Pokemon
     }
 
     /// <summary>
+    ///  Esta función se llama una vez finalizado el turno del juego y lo que hace es actualizar los efectos del Pokemon y si los ataque se encuentran validos o no.
+    /// </summary>
+    public void UpdateTurn()
+    {
+        this.UpdateEffect();
+
+        foreach (NormalAttack attack in this.Attacks)
+        {
+            attack.UpdateTurn();
+        }
+    }
+
+    /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el ataque especificado.
     /// </summary>
     /// <param name="target">Pokémon objetivo al que se le aplicará el ataque.</param>
@@ -265,7 +276,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private bool Attack(Pokemon target, Attack attack)
+    private bool Attack(Pokemon target, Attacks.NormalAttack attack)
     {
         if (!this.Attacks.Contains(attack))
         {
@@ -283,7 +294,6 @@ public class Pokemon
             return true;
         }
 
-        this.UpdateEffect();
         return false;
     }
 
@@ -300,7 +310,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si <paramref name="attackName"/> no es el nombre de ningún ataque.
     /// </exception>
-    private Attack GetAttack(string attackName)
+    private NormalAttack GetAttack(string attackName)
     {
         // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)
@@ -308,7 +318,7 @@ public class Pokemon
             throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
         }
 
-        Attack attack;
+        NormalAttack attack;
         try
         {
             attack = this.Attacks.First(attack => attack.Name == attackName);
@@ -336,7 +346,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el índice <paramref name="attackIdx"/> está fuera del rango permitido (0-(cant. ataques - 1)).
     /// </exception>
-    private Attack GetAttack(int attackIdx)
+    private NormalAttack GetAttack(int attackIdx)
     {
         // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
         if (this.Attacks.Count == 0)

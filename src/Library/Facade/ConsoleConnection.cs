@@ -119,7 +119,7 @@ public class ConsoleConnection : IExternalConnection
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
-        ReadOnlyCollection<Attack> attacks = pokemon.Attacks;
+        ReadOnlyCollection<NormalAttack> attacks = pokemon.Attacks;
         while (true)
         {
             Console.WriteLine("Seleccione un ataque");
@@ -128,7 +128,7 @@ public class ConsoleConnection : IExternalConnection
             int idx = 1;
 
             // FIXME(Guzmán): Esto sería algo como p.AttackAvailable, pero no está hecho eso.
-            foreach (Attack attack in attacks)
+            foreach (NormalAttack attack in attacks)
             {
                 Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
                 idx++;
@@ -164,7 +164,7 @@ public class ConsoleConnection : IExternalConnection
 
             for (int i = 0; i < attacks.Count; ++i)
             {
-                Attack attack = attacks[i];
+                NormalAttack attack = attacks[i];
 
                 // FIXME(Guzmán): Sensible o no a mayús.?
                 if (attack.Name == input)
