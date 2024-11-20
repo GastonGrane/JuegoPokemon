@@ -102,7 +102,6 @@ public class ConsoleConnection : IExternalConnection
             {
                 string line = options[i];
 
-                // FIXME(Guzmán): Sensible o no a mayús.?
                 if (input == line)
                 {
                     return i;
@@ -119,7 +118,7 @@ public class ConsoleConnection : IExternalConnection
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
 
-        ReadOnlyCollection<NormalAttack> attacks = pokemon.Attacks;
+        ReadOnlyCollection<NormalAttack> attacks = pokemon.AvailableAttacks;
         while (true)
         {
             Console.WriteLine("Seleccione un ataque");
@@ -127,11 +126,10 @@ public class ConsoleConnection : IExternalConnection
             Console.WriteLine("0: Volver al menú anterior");
             int idx = 1;
 
-            // FIXME(Guzmán): Esto sería algo como p.AttackAvailable, pero no está hecho eso.
             foreach (NormalAttack attack in attacks)
             {
-                Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
-                idx++;
+                    Console.WriteLine($"{idx}: {attack.Name} ({attack.Type})");
+                    idx++;
             }
 
             string input = Console.ReadLine()!;
@@ -166,7 +164,6 @@ public class ConsoleConnection : IExternalConnection
             {
                 NormalAttack attack = attacks[i];
 
-                // FIXME(Guzmán): Sensible o no a mayús.?
                 if (attack.Name == input)
                 {
                     return input;
@@ -202,7 +199,6 @@ public class ConsoleConnection : IExternalConnection
             Console.WriteLine("0: Volver al menú anterior");
             int idx = 1;
 
-            // FIXME(Guzmán): Esto sería algo como p.AttackAvailable, pero no está hecho eso.
             foreach (Pokemon pok in pokemons)
             {
                 Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
@@ -241,7 +237,6 @@ public class ConsoleConnection : IExternalConnection
             {
                 Pokemon pok = pokemons[i];
 
-                // FIXME(Guzmán): Sensible o no a mayús.?
                 if (pok.Name == input)
                 {
                     return i;
