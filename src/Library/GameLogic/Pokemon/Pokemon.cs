@@ -25,12 +25,14 @@ public class Pokemon
 {
     /// <summary>
     /// El valor actual de salud del pokemon.
+    ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Health"/>.
     /// </summary>
     private int health;
 
     /// <summary>
     /// Lista de los distintos ataques con los que cuenta el pokemon.
+    ///
     /// El acceso a este valor será controlado por la propiedad <see cref="Attacks"/>.
     /// </summary>
     private List<NormalAttack> attacks;
@@ -44,7 +46,7 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.NormalAttack> attacks)
+    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -276,7 +278,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private bool Attack(Pokemon target, Attacks.NormalAttack attack)
+    private bool Attack(Pokemon target, NormalAttack attack)
     {
         if (!this.Attacks.Contains(attack))
         {

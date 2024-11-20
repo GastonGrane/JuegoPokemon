@@ -19,7 +19,10 @@ namespace Library.GameLogic.Attacks;
 /// </remarks>
 public class NormalAttack
 {
-    private static readonly Random Random = new Random();
+    /// <summary>
+    /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+    /// </summary>
+    protected readonly IProbability Probabilidad;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="NormalAttack"/>.
@@ -43,6 +46,34 @@ public class NormalAttack
         this.Type = type;
         this.Precision = precision;
         this.Available = true;
+        this.Probabilidad = new SystemRandom();
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="NormalAttack"/>.
+    /// </summary>
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de daño que genera.</param>
+    /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
+    /// <param name="precision">La precision del ataque (1-100).</param>
+    /// <param name="probabilidad">De tipo IProbability.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Lanzado si <paramref name="name"/> es <c>null</c>.
+    /// </exception>
+    /// <remarks>
+    /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
+    /// </remarks>
+    public NormalAttack(string name, int damage, PokemonType type, int precision, IProbability probabilidad)
+    {
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
+        ArgumentOutOfRangeException.ThrowIfNegative(damage, nameof(damage));
+        ArgumentNullException.ThrowIfNull(probabilidad);
+        this.Name = name;
+        this.Damage = damage;
+        this.Type = type;
+        this.Precision = precision;
+        this.Available = true;
+        this.Probabilidad = probabilidad;
     }
 
     /// <summary>
@@ -60,6 +91,7 @@ public class NormalAttack
         this.Type = attack.Type;
         this.Precision = attack.Precision;
         this.Available = true;
+        this.Probabilidad = attack.Probabilidad;
     }
 
     /// <summary>
@@ -93,7 +125,8 @@ public class NormalAttack
     public int AmountUnusedTurn { get; protected set; }
 
     /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo y con una probabilidad
+    /// de efectuarlo o no.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
@@ -105,29 +138,7 @@ public class NormalAttack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (Random.Next(10) < 1)
-        {
-            target.Damage((damage * 20) / 100);
-        }
-    }
-
-    /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo y con una probabilidad
-    /// de efectuarlo o no.
-    /// </summary>
-    /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
-    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar.</param>
-    /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
-    public virtual void Use(Pokemon target, IProbability probabilidad)
-    {
-        ArgumentNullException.ThrowIfNull(target, nameof(target));
-        ArgumentNullException.ThrowIfNull(probabilidad);
-
-        double multiplier = this.Type.Advantage(target.Type);
-        int damage = (int)(this.Damage * multiplier);
-        target.Damage(damage);
-
-        if (probabilidad.Chance(10))
+        if (this.Probabilidad.Chance(10))
         {
             target.Damage((damage * 20) / 100);
         }

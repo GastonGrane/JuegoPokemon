@@ -46,34 +46,6 @@ public class SpecialAttack : NormalAttack
     }
 
     /// <summary>
-    /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
-    /// activo, se le aplica el efecto de este ataque.
-    /// </summary>
-    /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
-    /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
-    public override void Use(Pokemon target)
-    {
-        if (!this.Available)
-        {
-            return;
-        }
-
-        ArgumentNullException.ThrowIfNull(target, nameof(target));
-
-        double multiplier = this.Type.Advantage(target.Type);
-        int damage = (int)(this.Damage * multiplier);
-        target.Damage(damage);
-
-        if (target.ActiveEffect == null)
-        {
-            target.ApplyEffect(this.effect);
-        }
-
-        this.Available = false;
-        this.AmountUnusedTurn = 0;
-    }
-
-    /// <summary>
     /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
     /// </summary>
     public override void UpdateTurn()
@@ -93,14 +65,18 @@ public class SpecialAttack : NormalAttack
     /// activo, se le aplica el efecto de este ataque con una probabilidad de efectuarlo o no.
     /// </summary>
     /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
-    /// <param name="probabilidad"> El tipo de aleatoriedad que queremos utilizar. </param>
-    public override void Use(Pokemon target, IProbability probabilidad)
+    public override void Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
         double multiplier = this.Type.Advantage(target.Type);
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
+
+        if (this.Probabilidad.Chance(10))
+        {
+            target.Damage((damage * 20) / 100);
+        }
 
         if (target.ActiveEffect == null)
         {
