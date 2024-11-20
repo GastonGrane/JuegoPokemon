@@ -27,7 +27,7 @@ internal sealed class ItemTest
 
         Revive revive = new Revive();
         revive.Use(p);
-        Assert.That(p.Health, Is.EqualTo(22)); // la mitad de 45 es 22,5 por lo cual tomamos 22 ya que es en int.
+        Assert.That(p.Health, Is.EqualTo(22));
     }
 
     /// <summary>

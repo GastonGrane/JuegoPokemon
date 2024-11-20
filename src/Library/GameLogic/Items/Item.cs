@@ -40,5 +40,11 @@ public abstract class Item
     /// Aplica el efecto del objeto en el Pokémon especificado.
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
+    /// /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="pokemon"/> es null.
+    /// </exception>
+    /// <exception cref="InvalidOperationException">
+    /// Si <paramref name="pokemon"/> cuando no es posible utilizar el Item en ese Pokemon.
+    /// </exception>
     public abstract void Use(Pokemon pokemon);
 }
