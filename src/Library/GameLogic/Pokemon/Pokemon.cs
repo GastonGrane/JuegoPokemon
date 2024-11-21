@@ -145,6 +145,26 @@ public class Pokemon
     public ReadOnlyCollection<NormalAttack> Attacks => this.attacks.AsReadOnly();
 
     /// <summary>
+    /// Evalúa que ataques estan disponibles y los retorna.
+    /// </summary>
+    public ReadOnlyCollection<NormalAttack> AvailableAttacks
+    {
+        get
+        {
+            List<NormalAttack> tempList = new();
+            foreach (NormalAttack attack in this.attacks)
+            {
+                if (attack.Available)
+                {
+                    tempList.Add(attack);
+                }
+            }
+
+            return tempList.AsReadOnly();
+        }
+    }
+
+    /// <summary>
     /// Realiza un ataque sobre el Pokémon objetivo utilizando el índice especificado.
     /// </summary>
     /// <param name="target">Pokémon objetivo del ataque.</param>
@@ -291,12 +311,6 @@ public class Pokemon
     /// </exception>
     private NormalAttack GetAttack(string attackName)
     {
-        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
-        if (this.Attacks.Count == 0)
-        {
-            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
-        }
-
         NormalAttack attack;
         try
         {
@@ -327,12 +341,6 @@ public class Pokemon
     /// </exception>
     private NormalAttack GetAttack(int attackIdx)
     {
-        // FIXME (Gaston): Este if me parece innecesario, ya que no se pueden crear pokemons sin ataques
-        if (this.Attacks.Count == 0)
-        {
-            throw new InvalidOperationException("Un pokemon sin ataques no puede atacar");
-        }
-
         if (attackIdx >= this.Attacks.Count || attackIdx < 0)
         {
             throw new ArgumentOutOfRangeException($"El índice del ataque no está entre 0..{this.Attacks.Count}");

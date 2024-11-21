@@ -98,11 +98,6 @@ public enum PokemonType
 [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:FileNameMustMatchTypeName", Justification = "This is an extension class")]
 public static class Calculate
 {
-    // FIXME: Este método actualmente asume que si el elemento defensor no está
-    // listado en las ventajas del atacante, el atacante debe ser normal
-    // contre ese elemento, pero podría ser valioso que sea explícito cuales
-    // son normales, y si no está explicitado en ninguna lista retornar -1
-
     /// <summary>
     /// Este determina la ventaja del Pokemon atacante, sobre el Pokemon atacado.
     /// </summary>
