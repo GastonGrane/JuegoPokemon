@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;

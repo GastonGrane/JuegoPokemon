@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 
 namespace Library.GameLogic.Players;

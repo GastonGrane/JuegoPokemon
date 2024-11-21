@@ -6,6 +6,7 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
 namespace Library.Tests.Facade;

@@ -9,7 +9,7 @@ using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Utilities;
 
-namespace Library.GameLogic;
+namespace Library.GameLogic.Entities;
 
 /// <summary>
 /// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.

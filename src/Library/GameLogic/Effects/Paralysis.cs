@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Security.Cryptography;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Effects;

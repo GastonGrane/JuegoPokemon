@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
 
 namespace Library.Tests.GameLogic;
 
