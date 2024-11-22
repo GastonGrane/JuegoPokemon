@@ -30,9 +30,18 @@ public class Revive : Item
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
+    /// <exception cref="InvalidOperationException">
+    /// Si <paramref name="pokemon"/> está vivo.
+    /// </exception>
     public override void Use(Pokemon pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-        pokemon.Heal(50);
+        if (pokemon.Health != 0)
+        {
+            throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
+        }
+
+        int cincPor = (pokemon.MaxHealth * 50) / 100;
+        pokemon.Heal(cincPor);
     }
 }
