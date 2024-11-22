@@ -44,7 +44,7 @@ public abstract class Item
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Si <paramref name="pokemon"/> cuando no es posible utilizar el Item en ese Pokemon.
+    /// Si no es posible utilizar el Item en <paramref name="pokemon"/>.
     /// </exception>
     public abstract void Use(Pokemon pokemon);
 }

@@ -41,10 +41,7 @@ public class Revive : Item
             throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
         }
 
-        if (pokemon.Health == 0)
-        {
-            int cincPor = pokemon.MaxHealth * 50 / 100;
-            pokemon.Heal(cincPor);
-        }
+        int cincPor = (pokemon.MaxHealth * 50) / 100;
+        pokemon.Heal(cincPor);
     }
 }
