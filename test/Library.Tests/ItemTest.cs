@@ -16,22 +16,35 @@ namespace Library.Tests.GameLogic;
 internal sealed class ItemTest
 {
     /// <summary>
-    /// Testea si el metodo Revive, lo revive con el 50 de HP.
+    /// Testea si el metodo Revive, lo revive con el 50% de su HP.
     /// </summary>
     [Test]
     public void CanRevive()
     {
-        // MaxHealth > 50
-        Pokemon p = PokemonRegistry.GetPokemon("Dragonite");
-        p.Damage(1000);
+        // La vida de Bulbasaur es de 45 al inicializarse (maxHealth)
+        Pokemon p = PokemonRegistry.GetPokemon("Bulbasaur");
+        p.Damage(100);
 
         Revive revive = new Revive();
         revive.Use(p);
-
-        Assert.That(p.Health, Is.EqualTo(50));
+        Assert.That(p.Health, Is.EqualTo(22));
     }
 
-    // FIXME: Hacer un test de revivir a un Pokémon vivo.
+    /// <summary>
+    /// Testea que no se pueda utilizar con pokemones que se encuentren vivos.
+    /// </summary>
+    [Test]
+    public void CantReviveALivePokemon()
+    {
+        // La vida de Bulbasaur es de 45 al inicializarse (maxHealth)
+        Pokemon p = PokemonRegistry.GetPokemon("Bulbasaur");
+        p.Damage(20);
+        Assert.That(p.Health, Is.GreaterThan(0));
+
+        Revive revive = new Revive();
+        var ex = Assert.Throws<InvalidOperationException>(() => revive.Use(p));
+        Assert.That(ex.Message, Is.EqualTo($"El Pokémon {p.Name} ya está vivo y no puede ser revivido."));
+    }
 
     /// <summary>
     /// Testea que falle el hecho de que pasemos como parametro algo null.

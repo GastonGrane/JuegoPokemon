@@ -41,5 +41,8 @@ public abstract class Item
     /// </summary>
     /// <param name="pokemon">El Pokémon en el que se usará el objeto.</param>
     /// <returns>El estado del ítem después de ser utilizado.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Si <paramref name="pokemon"/> es null.
+    /// </exception>
     public abstract ItemStatus Use(Pokemon pokemon);
 }
