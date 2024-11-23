@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;
@@ -172,6 +173,68 @@ public class ConsoleConnection : IExternalConnection
 
             Console.WriteLine("Valor inválido ingresado, se esperaba un item del menú");
             continue;
+        }
+    }
+
+    /// <inheritdoc/>
+    public string? ShowAItemsAndRecieveInput(Player player)
+    {
+        ArgumentNullException.ThrowIfNull(player, nameof(player));
+
+        List<Item> itemList = player.Items;
+        while (true)
+        {
+            Console.WriteLine("Seleccione un ítem");
+
+            Console.WriteLine("0: Volver al menú anterior");
+            int idx = 1;
+
+            foreach (Item item in itemList)
+            {
+                Console.WriteLine($"{idx}: {item.Name}");
+                idx++;
+            }
+
+            string input = Console.ReadLine()!;
+            int selection = -1;
+            CultureInfo culture = new CultureInfo("en_US");
+            try
+            {
+                selection = int.Parse(input, culture);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Opción inválida, se esperaba un número entre 0 y " + itemList.Count);
+                continue;
+            }
+
+            if (selection == 0)
+            {
+                return null;
+            }
+
+            if (selection != -1)
+            {
+                if (selection >= 1 && selection <= itemList.Count)
+                {
+                    return itemList[selection - 1].Name;
+                }
+
+                Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{itemList.Count}");
+                continue;
+            }
+
+            for (int i = 0; i < itemList.Count; ++i)
+            {
+                Item item = itemList[i];
+
+                if (item.Name.Equals(input, StringComparison.OrdinalIgnoreCase))
+                {
+                    return input;
+                }
+            }
+
+            Console.WriteLine("Valor inválido ingresado, se esperaba un ítem del menú");
         }
     }
 

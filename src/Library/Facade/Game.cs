@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;
@@ -141,9 +142,15 @@ public class Game
     /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
     private bool UseItem(Player active)
     {
-        this.externalConnection.PrintString("UseItem");
+        string? itemName = this.externalConnection.ShowAItemsAndRecieveInput(active);
+        foreach (Item item in active.Items)
+        {
+            if (item.Name == itemName)
+            {
+                item.Use(active.ActivePokemon);
+            }
+        }
 
-        // FIXME(Guzmán): No está hecho, no tengo ganas.
         return true;
     }
 
@@ -161,6 +168,7 @@ public class Game
         while (true)
         {
             int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
+            selection += 1;
             switch (selection)
             {
                 case 1:

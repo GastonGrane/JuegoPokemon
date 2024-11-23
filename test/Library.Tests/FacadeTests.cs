@@ -132,6 +132,12 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
+    public string? ShowAItemsAndRecieveInput(Player player)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc/>
     public int ShowChangePokemonMenu(Player player)
     {
         this.ShowChangePokemonMenuCalled = true;
