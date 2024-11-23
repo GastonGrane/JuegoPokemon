@@ -228,7 +228,7 @@ public class ConsoleConnection : IExternalConnection
             {
                 Item item = itemList[i];
 
-                if (item.Name.Equals(input, StringComparison.OrdinalIgnoreCase))
+                if (item.Name == input)
                 {
                     return input;
                 }
