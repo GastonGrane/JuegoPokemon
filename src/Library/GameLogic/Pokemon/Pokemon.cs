@@ -37,7 +37,10 @@ public class Pokemon
     /// </summary>
     private List<NormalAttack> attacks;
 
-    private IProbability probabilidad;
+    /// <summary>
+    /// Generador de números aleatorios que se utiliza para determinar la precisión del Pokémon.
+    /// </summary>
+    private IProbability precisionGen;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados.
@@ -62,7 +65,7 @@ public class Pokemon
         this.attacks = attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
-        this.probabilidad = new SystemRandom();
+        this.precisionGen = new SystemRandom();
     }
 
     /// <summary>
@@ -72,8 +75,8 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    /// <param name="generador">La fuenta de números que se utilizará para atacar.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks, IProbability generador)
+    /// <param name="precisionGen">La fuenta de números que se utilizará para atacar.</param>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks, IProbability precisionGen)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -86,7 +89,7 @@ public class Pokemon
         this.attacks = attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
-        this.probabilidad = generador;
+        this.precisionGen = precisionGen;
     }
 
     /// <summary>
@@ -110,7 +113,7 @@ public class Pokemon
         this.attacks = pokemon.attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
-        this.probabilidad = pokemon.probabilidad;
+        this.precisionGen = pokemon.precisionGen;
     }
 
     /// <summary>
@@ -293,7 +296,7 @@ public class Pokemon
             return false;
         }
 
-        if (this.probabilidad.Chance(attack.Precision))
+        if (this.precisionGen.Chance(attack.Precision))
         {
             attack.Use(target);
             return true;
