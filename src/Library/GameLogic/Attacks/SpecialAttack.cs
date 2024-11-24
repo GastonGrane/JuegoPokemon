@@ -48,7 +48,7 @@ public class SpecialAttack : NormalAttack
     /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
     /// activo, se le aplica el efecto de este ataque.
     /// </summary>
-    /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
+    /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
