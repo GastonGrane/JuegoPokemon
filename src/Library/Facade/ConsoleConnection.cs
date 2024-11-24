@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
+using Library.GameLogic.Entities;
 
 namespace Library.Tests.GameLogic;
 

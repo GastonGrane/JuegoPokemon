@@ -4,8 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 
 namespace Library.Tests.GameLogic;
