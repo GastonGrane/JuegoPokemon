@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Security.Cryptography;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Effects;
 
@@ -21,7 +22,7 @@ public class Paralysis : IEffect
     /// <summary>
     /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
     /// </summary>
-    private readonly RandomNumberGenerator random = RandomNumberGenerator.Create();
+    private readonly IProbability random;
 
     /// <summary>
     /// Inicializa una nueva instancia del efecto de parálisis con el estado activo.
@@ -29,6 +30,18 @@ public class Paralysis : IEffect
     public Paralysis()
     {
         this.IsExpired = false;
+        this.random = new SystemRandom();
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Paralysis"/> con un parametro <see cref="IProbability"/> para calcular
+    /// la probabilidad de si ese pokemon puede atacar o no, cada vez que se aplica el efecto.
+    /// </summary>
+    /// <param name="probabilidad"> De tipo IProbability. </param>
+    public Paralysis(IProbability probabilidad)
+    {
+        this.IsExpired = false;
+        this.random = probabilidad;
     }
 
     /// <summary>
@@ -49,9 +62,7 @@ public class Paralysis : IEffect
             throw new ArgumentNullException(nameof(target), "El Pokémon objetivo no puede ser null.");
         }
 
-        byte[] randomByte = new byte[1];
-        this.random.GetBytes(randomByte);
-        target.CanAttack = (randomByte[0] % 2) == 1; // 50% probabilidad de atacar o no
+        target.CanAttack = this.random.Chance(50); // 50% probabilidad de atacar o no
     }
 
     /// <summary>
