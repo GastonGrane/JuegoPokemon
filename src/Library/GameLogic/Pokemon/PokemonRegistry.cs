@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic;
 
@@ -46,14 +47,34 @@ public class PokemonRegistry
     }
 
     /// <summary>
+    /// Reinicia el valor del singleton.
+    /// </summary>
+    public static void ResetSingleton()
+    {
+        instance = null;
+    }
+
+    /// <summary>
     /// Inicializa <see cref="Instance"/> con los ataques predefinidos.
     /// </summary>
+    /// <remarks>
+    /// Todos los pokemon utilizan una instancia de <see cref="SystemRandom"/>.
+    /// Si es necesario cambiar esto utilice <see cref="InitSingleton(IProbability)"/>.
+    /// </remarks>
     public static void InitSingleton()
+    {
+        InitSingleton(new SystemRandom());
+    }
+
+    /// <summary>
+    /// Inicializa <see cref="Instance"/> con los ataques predefinidos.
+    /// </summary>
+    public static void InitSingleton(IProbability precisionGen)
     {
         Dictionary<string, Pokemon> pokemon = new();
         void Add(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks)
         {
-            pokemon.Add(name, new Pokemon(name, type, maxHealth, attacks));
+            pokemon.Add(name, new Pokemon(name, type, maxHealth, attacks, precisionGen));
         }
 
         // Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
