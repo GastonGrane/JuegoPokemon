@@ -63,7 +63,7 @@ public class SpecialAttack : NormalAttack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (this.Probabilidad.Chance(10))
+        if (this.CriticalGen.Chance(10))
         {
             target.Damage((damage * 20) / 100);
         }

@@ -41,7 +41,7 @@ public class NormalAttack
         this.Type = type;
         this.Precision = precision;
         this.Available = true;
-        this.Probabilidad = new SystemRandom();
+        this.CriticalGen = new SystemRandom();
     }
 
     /// <summary>
@@ -51,24 +51,21 @@ public class NormalAttack
     /// <param name="damage">La cantidad de daño que genera.</param>
     /// <param name="type">El <see cref="PokemonType"/> que va a definir el elemento del ataque.</param>
     /// <param name="precision">La precision del ataque (1-100).</param>
-    /// <param name="probabilidad">De tipo IProbability.</param>
+    /// <param name="criticalGen">Generador de probabilidad para determinar si el ataque es crítico.</param>
     /// <exception cref="ArgumentNullException">
     /// Lanzado si <paramref name="name"/> es <c>null</c>.
     /// </exception>
-    /// <remarks>
-    /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
-    /// </remarks>
-    public NormalAttack(string name, int damage, PokemonType type, int precision, IProbability probabilidad)
+    public NormalAttack(string name, int damage, PokemonType type, int precision, IProbability criticalGen)
     {
         ArgumentNullException.ThrowIfNull(name, nameof(name));
         ArgumentOutOfRangeException.ThrowIfNegative(damage, nameof(damage));
-        ArgumentNullException.ThrowIfNull(probabilidad);
+        ArgumentNullException.ThrowIfNull(criticalGen);
         this.Name = name;
         this.Damage = damage;
         this.Type = type;
         this.Precision = precision;
         this.Available = true;
-        this.Probabilidad = probabilidad;
+        this.CriticalGen = criticalGen;
     }
 
     /// <summary>
@@ -86,7 +83,7 @@ public class NormalAttack
         this.Type = attack.Type;
         this.Precision = attack.Precision;
         this.Available = true;
-        this.Probabilidad = attack.Probabilidad;
+        this.CriticalGen = attack.CriticalGen;
     }
 
     /// <summary>
@@ -120,9 +117,9 @@ public class NormalAttack
     public int AmountUnusedTurn { get; protected set; }
 
     /// <summary>
-    /// Generador de números aleatorios seguro para determinar si el Pokémon puede atacar.
+    /// Generador de números aleatorios para determinar si el ataque es crítico.
     /// </summary>
-    private protected IProbability Probabilidad { get; }
+    protected IProbability CriticalGen { get; }
 
     /// <summary>
     /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
@@ -137,7 +134,7 @@ public class NormalAttack
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
 
-        if (this.Probabilidad.Chance(10))
+        if (this.CriticalGen.Chance(10))
         {
             target.Damage((damage * 20) / 100);
         }
