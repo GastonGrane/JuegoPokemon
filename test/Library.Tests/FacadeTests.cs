@@ -7,6 +7,7 @@
 using System.Collections.ObjectModel;
 using Library.Facade;
 using Library.GameLogic;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Tests.Facade;
@@ -132,7 +133,7 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public string? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowAItemsAndRecieveInput(Player player)
     {
         throw new NotImplementedException();
     }

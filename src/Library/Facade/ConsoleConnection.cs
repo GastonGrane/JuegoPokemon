@@ -177,7 +177,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public string? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowAItemsAndRecieveInput(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
@@ -217,7 +217,7 @@ public class ConsoleConnection : IExternalConnection
             {
                 if (selection >= 1 && selection <= itemList.Count)
                 {
-                    return itemList[selection - 1].Name;
+                    return itemList[selection - 1];
                 }
 
                 Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{itemList.Count}");
@@ -230,7 +230,7 @@ public class ConsoleConnection : IExternalConnection
 
                 if (item.Name == input)
                 {
-                    return input;
+                    return item;
                 }
             }
 

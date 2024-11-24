@@ -142,15 +142,8 @@ public class Game
     /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
     private bool UseItem(Player active)
     {
-        string? itemName = this.externalConnection.ShowAItemsAndRecieveInput(active);
-        foreach (Item item in active.Items)
-        {
-            if (item.Name == itemName)
-            {
-                item.Use(active.ActivePokemon);
-            }
-        }
-
+        Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+        item.Use(active.ActivePokemon);
         return true;
     }
 
@@ -168,24 +161,23 @@ public class Game
         while (true)
         {
             int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
-            selection += 1;
             switch (selection)
             {
-                case 1:
+                case 0:
                     if (this.AttackPlayer(active, other))
                     {
                         return;
                     }
 
                     break;
-                case 2:
+                case 1:
                     if (this.ChangePokemon(active))
                     {
                         return;
                     }
 
                     break;
-                case 3:
+                case 2:
                     if (this.UseItem(active))
                     {
                         return;
