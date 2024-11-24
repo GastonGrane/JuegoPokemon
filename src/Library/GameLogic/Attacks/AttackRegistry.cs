@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;
 
@@ -29,6 +31,9 @@ public class AttackRegistry
     /// <summary>
     /// El singleton del registro.
     /// </summary>
+    /// <remarks>
+    /// Si la instancia no está inicializada, se inicializa con <see cref="InitSingleton()"/>.
+    /// </remarks>
     public static AttackRegistry Instance
     {
         get
@@ -43,20 +48,41 @@ public class AttackRegistry
     }
 
     /// <summary>
+    /// Reinicia el valor del singleton.
+    /// </summary>
+    public static void ResetSingleton()
+    {
+        instance = null;
+    }
+
+    /// <summary>
     /// Inicializa <see cref="Instance"/> con los ataques predefinidos.
     /// </summary>
+    /// <remarks>
+    /// Todos los ataques utilizan una instancia de <see cref="SystemRandom"/>.
+    /// Si es necesario cambiar esto utilice <see cref="InitSingleton(IProbability)"/>.
+    /// </remarks>
     public static void InitSingleton()
+    {
+        InitSingleton(new SystemRandom());
+    }
+
+    /// <summary>
+    /// Inicializa <see cref="Instance"/> con los ataques predefinidos.
+    /// </summary>
+    /// <param name="criticalGen">El generador para ataques críticos de todos los ataques.</param>
+    public static void InitSingleton(IProbability criticalGen)
     {
         Dictionary<string, NormalAttack> normalAttacks = new();
         void AddNormal(string name, int damage, PokemonType type, int precision)
         {
-            normalAttacks.Add(name, new NormalAttack(name, damage, type, precision));
+            normalAttacks.Add(name, new NormalAttack(name, damage, type, precision, criticalGen));
         }
 
         void AddSpecial<T>(string name, int damage, PokemonType type, int precision)
             where T : IEffect, new()
         {
-            normalAttacks.Add(name, new SpecialAttack(name, damage, type, precision, new T()));
+            normalAttacks.Add(name, new SpecialAttack(name, damage, type, precision, new T(), criticalGen));
         }
 
         // Nota de Guzmán: Estos ataques no son todos de Gen-1, y la mayoría tampoco corresponderían acá. Sin embargo, quiero entregar, así que acá van.

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.Facade;
-using Library.GameLogic;
+using Library.GameLogic.Entities;
 
 namespace Program
 {

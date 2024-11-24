@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
@@ -143,7 +143,7 @@ public class Game
     private bool UseItem(Player active)
     {
         Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
-        item.Use(active.ActivePokemon);
+        item?.Use(active.ActivePokemon);
         return true;
     }
 

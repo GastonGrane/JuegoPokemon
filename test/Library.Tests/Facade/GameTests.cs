@@ -1,12 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="FacadeTests.cs" company="Universidad Católica del Uruguay">
+// <copyright file="GameTests.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
 using Library.Facade;
-using Library.GameLogic;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
@@ -17,7 +17,7 @@ namespace Library.Tests.Facade;
 /// <summary>
 /// Tests de la fachada.
 /// </summary>
-internal sealed class FacadeTests
+internal sealed class GameTests
 {
     /// <summary>
     /// Test de la bienvenida al usuario.

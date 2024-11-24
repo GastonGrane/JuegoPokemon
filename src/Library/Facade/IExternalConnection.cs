@@ -5,8 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-
-using Library.GameLogic;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
