@@ -46,6 +46,9 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
+    /// <remarks>
+    /// Utilizando este constructor, se utiliza <see cref="SystemRandom"/> como fuente de aleatoriedad.
+    /// </remarks>
     public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
@@ -69,7 +72,7 @@ public class Pokemon
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    /// <param name="generador"> El random que utilizara el pokemon para sus ataques. </param>
+    /// <param name="generador">La fuenta de números que se utilizará para atacar.</param>
     public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks, IProbability generador)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));

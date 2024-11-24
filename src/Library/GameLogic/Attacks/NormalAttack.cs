@@ -125,8 +125,7 @@ public class NormalAttack
     private protected IProbability Probabilidad { get; }
 
     /// <summary>
-    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo y con una probabilidad
-    /// de efectuarlo o no.
+    /// Aplica el ataque normal al Pokémon objetivo, calculando el daño con base en la ventaja de tipo.
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>

@@ -9,11 +9,11 @@ using Library.GameLogic.Effects;
 namespace Library.GameLogic.Utilities;
 
 /// <summary>
-/// Clase que utilizamos para generar los numeros aleatorios en el programa principal, utilizando Random.
+/// Implementación de <see cref="IProbability"/> que genera números aleatorios, utilizando <see cref="Random"/>.
 /// </summary>
 /// <remarks>
-/// Todas las clases que utilizan esto cumplen con el principio DIP debido a que pasan de depender de la clase <see cref="Random"/>
-/// a depender de esta que es mas abstracta y permite cambiar como funciona la adquisicion denumeros aleatorios.
+/// Todas las clases que utilizan esto cumplen con el principio DIP debido a que pasan de depender de la clase concreta <see cref="Random"/>
+/// a depender de esta abstracción que permite cambiar cómo funciona la adquisición de números aleatorios.
 /// </remarks>
 public class SystemRandom : IProbability
 {

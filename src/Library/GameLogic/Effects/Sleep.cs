@@ -28,19 +28,19 @@ public class Sleep : IEffect
     /// </summary>
     public Sleep()
     {
-        this.turnsRemaining = new Random().Next(1, 5);
+        this.turnsRemaining = new SystemRandom().Number(1, 5);
         this.IsExpired = false;
     }
 
     /// <summary>
     /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
     /// </summary>
-    /// <param name="rondasaleatorias">El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
-    public Sleep(IProbability rondasaleatorias)
+    /// <param name="randomGen">El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
+    public Sleep(IProbability randomGen)
     {
-        ArgumentNullException.ThrowIfNull(rondasaleatorias, nameof(rondasaleatorias));
+        ArgumentNullException.ThrowIfNull(randomGen);
 
-        this.turnsRemaining = rondasaleatorias.Number(1, 5);
+        this.turnsRemaining = randomGen.Number(1, 5);
         this.IsExpired = false;
     }
 

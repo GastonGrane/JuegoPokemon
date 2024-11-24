@@ -45,25 +45,11 @@ public class SpecialAttack : NormalAttack
     }
 
     /// <summary>
-    /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
-    /// </summary>
-    public override void UpdateTurn()
-    {
-        if (!this.Available)
-        {
-            this.AmountUnusedTurn += 1;
-            if (this.AmountUnusedTurn >= 2)
-            {
-                this.Available = true;
-            }
-        }
-    }
-
-    /// <summary>
     /// Aplica el daño y el efecto especial al Pokémon objetivo. Si el Pokémon objetivo no tiene un efecto
-    /// activo, se le aplica el efecto de este ataque con una probabilidad de efectuarlo o no.
+    /// activo, se le aplica el efecto de este ataque.
     /// </summary>
     /// <param name="target"> El Pokémon objetivo que recibirá el daño. </param>
+    /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     public override void Use(Pokemon target)
     {
         if (!this.Available)
@@ -89,5 +75,20 @@ public class SpecialAttack : NormalAttack
 
         this.Available = false;
         this.AmountUnusedTurn = 0;
+    }
+
+    /// <summary>
+    /// Actualiza el número de turno en los que el ataque no ha estado disponible y lo pone disponible cuando ya pasaron 2 turnos.
+    /// </summary>
+    public override void UpdateTurn()
+    {
+        if (!this.Available)
+        {
+            this.AmountUnusedTurn += 1;
+            if (this.AmountUnusedTurn >= 2)
+            {
+                this.Available = true;
+            }
+        }
     }
 }
