@@ -206,12 +206,10 @@ internal sealed class UserStoryTests
         p1.Attack(p2, "Quick Attack");
         p1.Attack(p2, "Quick Attack");
         p1.Attack(p2, "Quick Attack");
-
         Assert.That(p2.ActivePokemon.Health, Is.EqualTo(0));
 
         p2.ApplyItem(p2.ActivePokemon, "Revive");
-
-        Assert.That(p2.ActivePokemon.Health, Is.EqualTo(50));
+        Assert.That(p2.ActivePokemon.Health, Is.EqualTo(p2.ActivePokemon.MaxHealth / 2));
     }
 
     /// <summary>

@@ -22,11 +22,11 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
-            NormalAttackRegistry.GetNormalAttack("Fusion Bolt"),
-            NormalAttackRegistry.GetNormalAttack("Sky Attack"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Fusion Bolt"),
+            AttackRegistry.GetNormalAttack("Sky Attack"),
         };
         bool exceptionThrown = false;
         try
@@ -49,9 +49,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
@@ -90,9 +90,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         bool exceptionThrown = false;
         try
@@ -117,9 +117,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
         };
         bool exceptionThrown = false;
         try
@@ -143,9 +143,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
         Pokemon p = new Pokemon("pokemon", PokemonType.Bug, 100, attacks);
