@@ -185,6 +185,8 @@ namespace Library.Tests
         public void PrintStatusesAttack(Player attacker, Player defender, TurnResult? turnResult)
         {
             ArgumentNullException.ThrowIfNull(turnResult, nameof(turnResult));
+            ArgumentNullException.ThrowIfNull(defender, nameof(defender));
+            ArgumentNullException.ThrowIfNull(attacker, nameof(attacker));
 
             switch (turnResult.AttackStatus)
             {
@@ -217,6 +219,7 @@ namespace Library.Tests
         public void PrintStatusesItem(Player attacker, TurnResult turnResult)
         {
             ArgumentNullException.ThrowIfNull(turnResult, nameof(turnResult));
+            ArgumentNullException.ThrowIfNull(attacker, nameof(attacker));
 
             switch (turnResult.ItemStatus)
             {

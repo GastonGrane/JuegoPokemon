@@ -123,11 +123,13 @@ internal sealed class ConnectionMock : IExternalConnection
         this.ReportAttackResultCalled = true;
     }
 
+    /// <inheritdoc/>
     public void PrintStatusesAttack(Player attacker, Player defender, TurnResult? turnResult)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/>
     public void PrintStatusesItem(Player attacker, TurnResult turnResult)
     {
         throw new NotImplementedException();
