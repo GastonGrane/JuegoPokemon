@@ -110,6 +110,57 @@ public class PokemonTests
     }
 
     /// <summary>
+    /// Testea que ocurra una excepcion si Pomeon ata con un indice de ataque inecistente.
+    /// </summary>
+    [Test]
+    public void PokemonAtacaConUnAtaqueInexisteIndiceFalla()
+    {
+        List<NormalAttack> attacks = new List<NormalAttack>()
+        {
+            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
+            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
+            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+        };
+
+        bool exceptionThrown = false;
+        try
+        {
+            Pokemon p = new Pokemon("Pokemon", PokemonType.Dragon, 100, attacks);
+            Pokemon p2 = new Pokemon("Pokemon", PokemonType.Ghost, 100, attacks);
+            p.Attack(p2, 4);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceptionThrown = true;
+        }
+
+        Assert.True(exceptionThrown, "Atacar con el ataque inexistente de un pokemon no genero una excepcion");
+    }
+
+    /// <summary>
+    /// Testea que funcione si un Pokemon ataca con un indice de ataque valido.
+    /// </summary>
+    [Test]
+    public void PokemonAtacaConUnAtacaIndiceValidoFunciona()
+    {
+        List<NormalAttack> attacks = new List<NormalAttack>()
+        {
+            NormalAttackRegistry.GetNormalAttack("Mega Drain"),
+            NormalAttackRegistry.GetNormalAttack("Poison Jab"),
+            NormalAttackRegistry.GetNormalAttack("Hurricane"),
+        };
+
+        Pokemon p = new Pokemon("Pokemon", PokemonType.Dragon, 100, attacks);
+        Pokemon p2 = new Pokemon("Pokemon", PokemonType.Ghost, 100, attacks);
+
+        p.Attack(p2, 0);
+        Assert.That(p2.Health, Is.EqualTo(60));
+
+        p.Attack(p2, 1);
+        Assert.That(p2.Health, Is.EqualTo(0));
+    }
+
+    /// <summary>
     /// Testea que ocurra un error si Pokemon se Cura con numeros negativos.
     /// </summary>
     [Test]
