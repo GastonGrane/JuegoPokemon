@@ -4,6 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Entities;
+using Library.GameLogic.Utilities;
+
 namespace Library.GameLogic.Effects;
 
 /// <summary>
@@ -26,7 +29,19 @@ public class Sleep : IEffect
     /// </summary>
     public Sleep()
     {
-        this.turnsRemaining = new Random().Next(1, 5);
+        this.turnsRemaining = new SystemRandom().Number(1, 5);
+        this.IsExpired = false;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia del efecto de sueño con una duración aleatoria entre 1 y 4 turnos.
+    /// </summary>
+    /// <param name="randomGen">El tipo de aleatoriedad que queremos utilizar, para cacluclar cuantas rondas duerme.</param>
+    public Sleep(IProbability randomGen)
+    {
+        ArgumentNullException.ThrowIfNull(randomGen);
+
+        this.turnsRemaining = randomGen.Number(1, 5);
         this.IsExpired = false;
     }
 

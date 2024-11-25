@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
+using Library.GameLogic.Utilities;
 
 namespace Library.GameLogic.Attacks;
 
@@ -25,8 +27,26 @@ public class SpecialAttack : NormalAttack
     /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
     /// <param name="precision">La precisión del ataque (1-100).</param>
     /// <param name="effect">El efecto del ataque.</param>
+    /// <remarks>
+    /// Este constructor lo utilizamos internamente para crear las caracteristicas de cada ataque.
+    /// </remarks>
     public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect)
         : base(name, damage, attackType, precision)
+    {
+        this.effect = effect;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="SpecialAttack"/>.
+    /// </summary>
+    /// <param name="name">El nombre del ataque.</param>
+    /// <param name="damage">La cantidad de daño que realiza.</param>
+    /// <param name="attackType">El <see cref="PokemonType"/> del ataque.</param>
+    /// <param name="precision">La precisión del ataque (1-100).</param>
+    /// <param name="effect">El efecto del ataque.</param>
+    /// <param name="criticalGen">Generador de probabilidad para determinar si el ataque es crítico.</param>
+    public SpecialAttack(string name, int damage, PokemonType attackType, int precision, IEffect effect, IProbability criticalGen)
+        : base(name, damage, attackType, precision, criticalGen)
     {
         this.effect = effect;
     }
@@ -63,6 +83,11 @@ public class SpecialAttack : NormalAttack
         double multiplier = this.Type.Advantage(target.Type);
         int damage = (int)(this.Damage * multiplier);
         target.Damage(damage);
+
+        if (this.CriticalGen.Chance(10))
+        {
+            target.Damage((damage * 20) / 100);
+        }
 
         if (target.ActiveEffect == null)
         {

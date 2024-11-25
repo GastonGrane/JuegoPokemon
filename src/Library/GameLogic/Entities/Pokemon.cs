@@ -7,8 +7,9 @@
 using System.Collections.ObjectModel;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Utilities;
 
-namespace Library.GameLogic;
+namespace Library.GameLogic.Entities;
 
 /// <summary>
 /// Representa una instancia de un Pokémon, con atributos específicos y ataques disponibles.
@@ -22,12 +23,6 @@ namespace Library.GameLogic;
 /// </remarks>
 public class Pokemon
 {
-    /// <summary>
-    /// Generador de random que ayuda a determinar la precision del ataque y si el mismo es critico o no.
-    /// </summary>
-    // Nota de Guzmán: Habría que mockear esto? Sí. Lo voy a hacer? No.
-    private static readonly Random Random = new Random();
-
     /// <summary>
     /// El valor actual de salud del pokemon.
     ///
@@ -43,13 +38,21 @@ public class Pokemon
     private List<NormalAttack> attacks;
 
     /// <summary>
+    /// Generador de números aleatorios que se utiliza para determinar la precisión del Pokémon.
+    /// </summary>
+    private IProbability precisionGen;
+
+    /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados.
     /// </summary>
     /// <param name="name">El nombre del Pokémon.</param>
     /// <param name="type">El tipo del Pokémon.</param>
     /// <param name="maxHealth">La salud máxima del Pokémon.</param>
     /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
-    public Pokemon(string name, PokemonType type, int maxHealth, List<Attacks.NormalAttack> attacks)
+    /// <remarks>
+    /// Utilizando este constructor, se utiliza <see cref="SystemRandom"/> como fuente de aleatoriedad.
+    /// </remarks>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks)
     {
         ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
         ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
@@ -62,6 +65,31 @@ public class Pokemon
         this.attacks = attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
+        this.precisionGen = new SystemRandom();
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Pokemon"/> con los valores proporcionados y el random que utilizara.
+    /// </summary>
+    /// <param name="name">El nombre del Pokémon.</param>
+    /// <param name="type">El tipo del Pokémon.</param>
+    /// <param name="maxHealth">La salud máxima del Pokémon.</param>
+    /// <param name="attacks">Lista de ataques disponibles para el Pokémon.</param>
+    /// <param name="precisionGen">La fuenta de números que se utilizará para atacar.</param>
+    public Pokemon(string name, PokemonType type, int maxHealth, List<NormalAttack> attacks, IProbability precisionGen)
+    {
+        ArgumentNullException.ThrowIfNull(attacks, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfZero(attacks.Count, nameof(attacks));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(attacks.Count, 4, nameof(attacks));
+
+        this.Name = name;
+        this.Type = type;
+        this.Health = maxHealth;
+        this.MaxHealth = maxHealth;
+        this.attacks = attacks;
+        this.ActiveEffect = null;
+        this.CanAttack = true;
+        this.precisionGen = precisionGen;
     }
 
     /// <summary>
@@ -85,6 +113,7 @@ public class Pokemon
         this.attacks = pokemon.attacks;
         this.ActiveEffect = null;
         this.CanAttack = true;
+        this.precisionGen = pokemon.precisionGen;
     }
 
     /// <summary>
@@ -289,7 +318,7 @@ public class Pokemon
             return new AttackResult(AttackStatus.HinderingEffect, 0);
         }
 
-        if (Random.Next(100) < attack.Precision)
+        if (this.precisionGen.Chance(attack.Precision))
         {
             AttackResult attackResult = attack.Use(target);
             return attackResult;

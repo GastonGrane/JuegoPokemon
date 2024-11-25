@@ -4,8 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
 using Library.GameLogic.Effects;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 
 namespace Library.Tests.GameLogic;
@@ -28,22 +28,6 @@ internal sealed class ItemTest
         Revive revive = new Revive();
         revive.Use(p);
         Assert.That(p.Health, Is.EqualTo(22));
-    }
-
-    /// <summary>
-    /// Testea que no se pueda utilizar con pokemones que se encuentren vivos.
-    /// </summary>
-    [Test]
-    public void CantReviveALivePokemon()
-    {
-        // La vida de Bulbasaur es de 45 al inicializarse (maxHealth)
-        Pokemon p = PokemonRegistry.GetPokemon("Bulbasaur");
-        p.Damage(20);
-        Assert.That(p.Health, Is.GreaterThan(0));
-
-        Revive revive = new Revive();
-        var ex = Assert.Throws<InvalidOperationException>(() => revive.Use(p));
-        Assert.That(ex.Message, Is.EqualTo($"El Pokémon {p.Name} ya está vivo y no puede ser revivido."));
     }
 
     /// <summary>

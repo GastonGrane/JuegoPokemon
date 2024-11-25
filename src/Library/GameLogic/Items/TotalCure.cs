@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Entities;
+
 namespace Library.GameLogic.Items;
 
 /// <summary>

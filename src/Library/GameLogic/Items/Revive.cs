@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Entities;
+
 namespace Library.GameLogic.Items;
 
 /// <summary>
@@ -38,7 +40,7 @@ public class Revive : Item
         {
             return ItemStatus.Empty;
         }
-        
+
         int cincPor = (pokemon.MaxHealth * 50) / 100;
         pokemon.Heal(cincPor);
         return ItemStatus.Revive;

@@ -4,8 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
