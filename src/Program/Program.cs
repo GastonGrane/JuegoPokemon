@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------
 
 using Library.Facade;
-using Library.GameLogic.Entities;
 using Library.Facade.Discord;
+using Library.GameLogic.Entities;
 
 namespace Program
 {
@@ -22,6 +22,7 @@ namespace Program
         public static void Main(string[] args)
         {
             ConsoleApp();
+
             // DiscordBot().GetAwaiter().GetResult();
         }
 
