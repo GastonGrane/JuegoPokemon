@@ -181,30 +181,41 @@ public class ConsoleConnection : IExternalConnection
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
-        List<Item> itemList = player.Items;
+        Dictionary<string, int> itemCant = new();
+        foreach (Item item in player.Items)
+        {
+            if (!itemCant.TryGetValue(item.Name, out int value))
+            {
+                value = 0;
+                itemCant[item.Name] = value;
+            }
+
+            itemCant[item.Name] = ++value;
+        }
+
         while (true)
         {
             Console.WriteLine("Seleccione un ítem");
-
             Console.WriteLine("0: Volver al menú anterior");
-            int idx = 1;
 
-            foreach (Item item in itemList)
+            int idx = 1;
+            List<Item> orderedItems = new();
+            foreach (var itemGroup in itemCant)
             {
-                Console.WriteLine($"{idx}: {item.Name}");
+                Console.WriteLine($"{idx}: {itemGroup.Key} (x{itemGroup.Value})");
+                orderedItems.Add(player.Items.First(i => i.Name == itemGroup.Key));
                 idx++;
             }
 
             string input = Console.ReadLine()!;
             int selection = -1;
-            CultureInfo culture = new CultureInfo("en_US");
             try
             {
-                selection = int.Parse(input, culture);
+                selection = int.Parse(input, CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 0 y " + itemList.Count);
+                Console.WriteLine("Opción inválida, ingrese un número válido.");
                 continue;
             }
 
@@ -213,28 +224,12 @@ public class ConsoleConnection : IExternalConnection
                 return null;
             }
 
-            if (selection != -1)
+            if (selection >= 1 && selection <= orderedItems.Count)
             {
-                if (selection >= 1 && selection <= itemList.Count)
-                {
-                    return itemList[selection - 1];
-                }
-
-                Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{itemList.Count}");
-                continue;
+                return orderedItems[selection - 1];
             }
 
-            for (int i = 0; i < itemList.Count; ++i)
-            {
-                Item item = itemList[i];
-
-                if (item.Name == input)
-                {
-                    return item;
-                }
-            }
-
-            Console.WriteLine("Valor inválido ingresado, se esperaba un ítem del menú");
+            Console.WriteLine($"Valor inválido. Ingrese un número entre 1 y {orderedItems.Count}.");
         }
     }
 
