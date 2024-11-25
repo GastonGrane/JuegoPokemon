@@ -96,10 +96,17 @@ public interface IExternalConnection
     public void ReportAttackResult(int oldHP, Player attacker, Player defender);
 
     /// <summary>
-    /// Imprime el estado actual del ataque y del ítem utilizado durante el turno, y limpia los estados después de imprimirlos.
+    /// Imprime el resumen de la partida relacionado con ataques, basado en el estado del turno.
     /// </summary>
-    /// <param name="attacker">El jugador que realizó el ataque, si corresponde.</param>
-    /// <param name="defender">El Pokémon activo del jugador defensor.</param>
-    /// <param name="game">El estado actual del juego que contiene información del ataque e ítem.</param>
-    public void PrintStatuses(Player attacker, Player defender, Game game);
+    /// <param name="attacker">El jugador que realizó el ataque.</param>
+    /// <param name="defender">El jugador defensor cuyo Pokémon fue atacado.</param>
+    /// <param name="turnResult">El resultado del turno actual.</param>
+    public void PrintStatusesAttack(Player attacker, Player defender, TurnResult? turnResult);
+
+    /// <summary>
+    /// Imprime el resumen de la partida relacionado con ítems, basado en el estado del turno.
+    /// </summary>
+    /// <param name="attacker">El jugador que utilizó el ítem.</param>
+    /// <param name="turnResult">El resultado del turno actual relacionado con el ítem.</param>
+    public void PrintStatusesItem(Player attacker, TurnResult turnResult);
 }

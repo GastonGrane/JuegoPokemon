@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Facade;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Utilities;
@@ -70,12 +71,12 @@ public class SpecialAttack : NormalAttack
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
-    /// <returns>Un <see cref="AttackResult"/> con el daño infligido y el estado del ataque.</returns>
-    public new AttackResult Use(Pokemon target)
+    /// <returns>Un <see cref="TurnResult"/> con el daño infligido y el estado del ataque.</returns>
+    public new TurnResult Use(Pokemon target)
     {
         if (!this.Available)
         {
-            return new AttackResult(AttackStatus.NotAvailable, 0);
+            return new TurnResult(AttackStatus.NotAvailable, 0);
         }
 
         ArgumentNullException.ThrowIfNull(target, nameof(target));
@@ -94,12 +95,12 @@ public class SpecialAttack : NormalAttack
             target.ApplyEffect(this.effect);
             this.Available = false;
             this.AmountUnusedTurn = 0;
-            return new AttackResult(AttackStatus.EffectApplied, damage);
+            return new TurnResult(AttackStatus.EffectApplied, damage);
         }
 
         this.Available = false;
         this.AmountUnusedTurn = 0;
-        return new AttackResult(AttackStatus.NoEffect, damage);
+        return new TurnResult(AttackStatus.NoEffect, damage);
     }
 
     /// <summary>

@@ -53,14 +53,9 @@ public class Game
     }
 
     /// <summary>
-    /// Comunica el item con el jugador por partida.
+    /// Comunica el Resultado de la partida.
     /// </summary>
-    public ItemResult? ItemResult { get; set; }
-
-    /// <summary>
-    /// Comunica el item con el jugador por partida.
-    /// </summary>
-    public AttackResult? AttackResult { get; set; }
+    public TurnResult? TurnResult { get; set; }
 
     /// <summary>
     /// Obtiene el primer jugador.
@@ -131,7 +126,14 @@ public class Game
             return;
         }
 
-        this.externalConnection.PrintStatuses(this.playerOne, this.playerTwo, this);
+        if (this.TurnResult?.AttackStatus != AttackStatus.Empty)
+        {
+            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+        }
+        else if (this.TurnResult.ItemStatus != ItemStatus.Empty)
+        {
+            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+        }
 
         this.PlayTurnP2();
         if (this.CheckDead(this.playerOne))
@@ -140,7 +142,14 @@ public class Game
             return;
         }
 
-        this.externalConnection.PrintStatuses(this.playerTwo, this.playerOne, this);
+        if (this.TurnResult?.AttackStatus != AttackStatus.Empty)
+        {
+            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+        }
+        else if (this.TurnResult.ItemStatus != ItemStatus.Empty)
+        {
+            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+        }
     }
 
     /// <summary>
@@ -159,7 +168,7 @@ public class Game
         int oldHP = other.ActivePokemon.Health;
 
         // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
-        this.AttackResult = active.Attack(other, attackName);
+        this.TurnResult = active.Attack(other, attackName);
 
         // FIXME(Guzmán): Reportar mejor el resultado del ataque.
         this.externalConnection.ReportAttackResult(oldHP, active, other);

@@ -31,8 +31,8 @@ namespace Library.Tests
             var connection = new FakeExternalConnection();
             var game = Game.CreateGame(new List<Pokemon>(), connection);
 
-            game.AttackResult = new AttackResult(AttackStatus.CriticalHit, 50);
-            connection.PrintStatuses(game.GetPlayerOne, game.GetPlayerTwo, game);
+            game.TurnResult = new TurnResult(AttackStatus.CriticalHit, 50);
+            connection.PrintStatusesAttack(game.GetPlayerOne, game.GetPlayerTwo, game.TurnResult);
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
@@ -49,8 +49,8 @@ namespace Library.Tests
             var connection = new FakeExternalConnection();
             var game = Game.CreateGame(new List<Pokemon>(), connection);
 
-            game.ItemResult = new ItemResult(ItemStatus.SuperPotion);
-            connection.PrintStatuses(game.GetPlayerOne, game.GetPlayerTwo, game);
+            game.TurnResult = new TurnResult(ItemStatus.SuperPotion);
+            connection.PrintStatusesAttack(game.GetPlayerOne, game.GetPlayerTwo, game.TurnResult);
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
@@ -67,8 +67,8 @@ namespace Library.Tests
             var connection = new FakeExternalConnection();
             var game = Game.CreateGame(new List<Pokemon>(), connection);
 
-            game.AttackResult = new AttackResult(AttackStatus.Miss, 0);
-            connection.PrintStatuses(game.GetPlayerOne, game.GetPlayerTwo, game);
+            game.TurnResult = new TurnResult(AttackStatus.Miss, 0);
+            connection.PrintStatusesAttack(game.GetPlayerOne, game.GetPlayerTwo, game.TurnResult);
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
@@ -85,8 +85,8 @@ namespace Library.Tests
             var connection = new FakeExternalConnection();
             var game = Game.CreateGame(new List<Pokemon>(), connection);
 
-            game.AttackResult = new AttackResult(AttackStatus.EffectApplied, 30);
-            connection.PrintStatuses(game.GetPlayerOne, game.GetPlayerTwo, game);
+            game.TurnResult = new TurnResult(AttackStatus.EffectApplied, 30);
+            connection.PrintStatusesAttack(game.GetPlayerOne, game.GetPlayerTwo, game.TurnResult);
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
@@ -162,7 +162,8 @@ namespace Library.Tests
         {
             if (this.MenuInputs?.Count > 0)
             {
-                return this.MenuInputs.Dequeue().ToString(CultureInfo.InvariantCulture); // Especifica el formato invariable
+                return this.MenuInputs.Dequeue()
+                    .ToString(CultureInfo.InvariantCulture); // Especifica el formato invariable
             }
 
             return null;
@@ -184,54 +185,57 @@ namespace Library.Tests
         }
 
         /// <inheritdoc/>
-        public void PrintStatuses(Player? attacker, Player? defender, Game? game)
+        public void PrintStatusesAttack(Player attacker, Player defender, TurnResult turnResult)
         {
-            if (game?.AttackResult != null)
-            {
-                switch (game.AttackResult.AttackStatus)
-                {
-                    case AttackStatus.CriticalHit:
-                        this.PrintedStrings.Add(
-                            $"¡Golpe crítico! {attacker?.ActivePokemon?.Name ?? "Un atacante desconocido"} atacó a {defender?.ActivePokemon?.Name ?? "un defensor desconocido"} causando {game.AttackResult.Damage} de daño.");
-                        break;
-                    case AttackStatus.NormalAttack:
-                        this.PrintedStrings.Add(
-                            $"{attacker?.ActivePokemon?.Name ?? "Un atacante desconocido"} atacó a {defender?.ActivePokemon?.Name ?? "un defensor desconocido"} causando {game.AttackResult.Damage} de daño.");
-                        break;
-                    case AttackStatus.Miss:
-                        this.PrintedStrings.Add(
-                            $"El ataque de {attacker?.ActivePokemon?.Name ?? "un atacante desconocido"} falló.");
-                        break;
-                    case AttackStatus.EffectApplied:
-                        this.PrintedStrings.Add(
-                            $"{attacker?.ActivePokemon?.Name ?? "Un atacante desconocido"} aplicó un efecto especial en {defender?.ActivePokemon?.Name ?? "un defensor desconocido"}.");
-                        break;
-                    default:
-                        this.PrintedStrings.Add("El ataque no tuvo efecto.");
-                        break;
-                }
-            }
+            ArgumentNullException.ThrowIfNull(turnResult, nameof(turnResult));
 
-            if (game?.ItemResult != null)
+            switch (turnResult.AttackStatus)
             {
-                switch (game.ItemResult.ItemStatus)
-                {
-                    case ItemStatus.SuperPotion:
-                        this.PrintedStrings.Add(
-                            $"{attacker?.Name ?? "Un jugador desconocido"} usó Super Poción en {attacker?.ActivePokemon?.Name ?? "un Pokémon desconocido"}.");
-                        break;
-                    case ItemStatus.Revive:
-                        this.PrintedStrings.Add(
-                            $"{attacker?.Name ?? "Un jugador desconocido"} usó Revivir en {attacker?.ActivePokemon?.Name ?? "un Pokémon desconocido"}.");
-                        break;
-                    case ItemStatus.TotalCure:
-                        this.PrintedStrings.Add(
-                            $"{attacker?.Name ?? "Un jugador desconocido"} usó Cura Total.");
-                        break;
-                    default:
-                        this.PrintedStrings.Add("No se utilizó ningún ítem.");
-                        break;
-                }
+                case AttackStatus.CriticalHit:
+                    this.PrintedStrings.Add(
+                        $"¡Golpe crítico! {attacker.ActivePokemon.Name} atacó a {defender.ActivePokemon.Name}, causando {turnResult.Damage} de daño.");
+                    break;
+
+                case AttackStatus.NormalAttack:
+                    this.PrintedStrings.Add(
+                        $"{attacker.ActivePokemon.Name} atacó a {defender.ActivePokemon.Name}, causando {turnResult.Damage} de daño.");
+                    break;
+
+                case AttackStatus.Miss:
+                    this.PrintedStrings.Add($"El ataque de {attacker.ActivePokemon.Name} falló.");
+                    break;
+
+                default:
+                    this.PrintedStrings.Add("Estado de ataque desconocido.");
+                    break;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void PrintStatusesItem(Player attacker, TurnResult turnResult)
+        {
+            ArgumentNullException.ThrowIfNull(turnResult, nameof(turnResult));
+
+            switch (turnResult.ItemStatus)
+            {
+                case ItemStatus.Revive:
+                    this.PrintedStrings.Add(
+                        $"{attacker.Name} usó Revive en {attacker.ActivePokemon.Name}. Vida actual: {attacker.ActivePokemon.Health}/{attacker.ActivePokemon.MaxHealth}");
+                    break;
+
+                case ItemStatus.SuperPotion:
+                    this.PrintedStrings.Add(
+                        $"{attacker.Name} usó Super Poción en {attacker.ActivePokemon.Name}. Vida actual: {attacker.ActivePokemon.Health}/{attacker.ActivePokemon.MaxHealth}");
+                    break;
+
+                case ItemStatus.TotalCure:
+                    this.PrintedStrings.Add(
+                        $"{attacker.Name} usó Cura Total en {attacker.ActivePokemon.Name}. Efectos negativos eliminados.");
+                    break;
+
+                default:
+                    this.PrintedStrings.Add("Estado de ítem desconocido.");
+                    break;
             }
         }
     }

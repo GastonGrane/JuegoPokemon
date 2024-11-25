@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Facade;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Utilities;
 
@@ -127,8 +128,8 @@ public class NormalAttack
     /// </summary>
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
-    /// <returns>Un <see cref="AttackResult"/> con el daño causado y el estado del ataque.</returns>
-    public AttackResult Use(Pokemon target)
+    /// <returns>Un <see cref="TurnResult"/> con el daño causado y el estado del ataque.</returns>
+    public TurnResult Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
@@ -140,10 +141,10 @@ public class NormalAttack
         {
             int criticalDamage = (damage * 20) / 100;
             target.Damage(criticalDamage);
-            return new AttackResult(AttackStatus.CriticalHit, criticalDamage);
+            return new TurnResult(AttackStatus.CriticalHit, criticalDamage);
         }
 
-        return new AttackResult(AttackStatus.NormalAttack, damage);
+        return new TurnResult(AttackStatus.NormalAttack, damage);
     }
 
     /// <summary>

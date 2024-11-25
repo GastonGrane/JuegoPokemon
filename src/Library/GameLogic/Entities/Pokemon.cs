@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
+using Library.Facade;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Effects;
 using Library.GameLogic.Utilities;
@@ -210,12 +211,12 @@ public class Pokemon
     /// </summary>
     /// <param name="target">Pokémon objetivo del ataque.</param>
     /// <param name="attackName">Nombre del ataque a utilizar.</param>
-    /// <returns>Un <see cref="AttackResult"/> que contiene información sobre el resultado del ataque, incluyendo el daño causado y el estado del ataque.</returns>
-    public AttackResult Attack(Pokemon target, string attackName)
+    /// <returns>Un <see cref="TurnResult"/> que contiene información sobre el resultado del ataque, incluyendo el daño causado y el estado del ataque.</returns>
+    public TurnResult Attack(Pokemon target, string attackName)
     {
         ArgumentNullException.ThrowIfNull(target, "No se puede atacar un pokemon que es null");
         NormalAttack attack = this.GetAttack(attackName);
-        AttackResult attackResult = this.Attack(target, attack);
+        TurnResult attackResult = this.Attack(target, attack);
         return attackResult;
     }
 
@@ -306,7 +307,7 @@ public class Pokemon
     /// <exception cref="ArgumentOutOfRangeException">
     /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
     /// </exception>
-    private AttackResult Attack(Pokemon target, Attacks.NormalAttack attack)
+    private TurnResult Attack(Pokemon target, Attacks.NormalAttack attack)
     {
         if (!this.Attacks.Contains(attack))
         {
@@ -315,17 +316,17 @@ public class Pokemon
 
         if (!this.CanAttack)
         {
-            return new AttackResult(AttackStatus.HinderingEffect, 0);
+            return new TurnResult(AttackStatus.HinderingEffect, 0);
         }
 
         if (this.precisionGen.Chance(attack.Precision))
         {
-            AttackResult attackResult = attack.Use(target);
+            TurnResult attackResult = attack.Use(target);
             return attackResult;
         }
 
         this.UpdateEffect();
-        return new AttackResult(AttackStatus.Miss, 0);
+        return new TurnResult(AttackStatus.Miss, 0);
     }
 
     /// <summary>

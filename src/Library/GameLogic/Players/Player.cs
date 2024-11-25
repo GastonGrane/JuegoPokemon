@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Facade;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
@@ -135,14 +136,14 @@ public class Player
     /// <param name="other">El jugador a atacar. Debe ser non-null.</param>
     /// <param name="attackName">El nombre del ataque a utlizar. Debe ser un ataque válido de <see cref="ActivePokemon"/>.</param>
     /// <exception cref="System.ArgumentNullException">Si <paramref name="other"/> es null.</exception>
-    /// <returns>Un <see cref="AttackResult"/> que contiene información sobre el resultado del ataque, como el daño causado y el estado del ataque (crítico, normal, fallido, etc.).</returns>
+    /// <returns>Un <see cref="TurnResult"/> que contiene información sobre el resultado del ataque, como el daño causado y el estado del ataque (crítico, normal, fallido, etc.).</returns>
     /// <remarks>
     /// Esto llama al metodo <see cref="Pokemon.Attack(Pokemon, string)"/>.
     /// </remarks>
-    public AttackResult Attack(Player other, string attackName)
+    public TurnResult Attack(Player other, string attackName)
     {
         ArgumentNullException.ThrowIfNull(other, "No se puede atacar un jugador que es null");
-        AttackResult attackResult = this.ActivePokemon.Attack(other.ActivePokemon, attackName);
+        TurnResult attackResult = this.ActivePokemon.Attack(other.ActivePokemon, attackName);
         return attackResult;
     }
 
