@@ -32,11 +32,11 @@ public class SuperPotion : Item
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
-    /// <returns>Un <see cref="ItemStatus"/> que indica el resultado del uso del ítem, en este caso, <see cref="ItemStatus.SuperPotion"/>.</returns>
-    public override ItemStatus Use(Pokemon? pokemon)
+    /// <returns>Un <see cref="Item"/> que indica el resultado del uso del ítem, en este caso, <see cref="ItemStatus.SuperPotion"/>.</returns>
+    public override Item Use(Pokemon? pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         pokemon.Heal(70);
-        return ItemStatus.SuperPotion;
+        return this;
     }
 }

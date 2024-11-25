@@ -46,5 +46,5 @@ public abstract class Item
     /// <exception cref="ArgumentNullException">
     /// Si <paramref name="pokemon"/> es null.
     /// </exception>
-    public abstract ItemStatus Use(Pokemon pokemon);
+    public abstract Item Use(Pokemon pokemon);
 }

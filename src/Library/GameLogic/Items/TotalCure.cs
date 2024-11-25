@@ -34,7 +34,7 @@ public class TotalCure : Item
     /// <param name="pokemon">El Pokémon al que se le aplicará la cura total.</param>
     /// <exception cref="ArgumentNullException">Lanzada si <paramref name="pokemon"/> es <c>null</c>.</exception>
     /// <returns>El estado del ítem después de ser utilizado.</returns>
-    public override ItemStatus Use(Pokemon pokemon)
+    public override Item Use(Pokemon? pokemon)
     {
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         if (pokemon.ActiveEffect == null)
@@ -43,6 +43,6 @@ public class TotalCure : Item
         }
 
         pokemon.RemoveEffect();
-        return ItemStatus.TotalCure;
+        return this;
     }
 }
