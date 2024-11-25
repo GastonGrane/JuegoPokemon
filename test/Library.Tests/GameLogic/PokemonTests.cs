@@ -117,9 +117,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>()
         {
-            NormalAttackRegistry.GetNormalAttack("Aqua Jet"),
-            NormalAttackRegistry.GetNormalAttack("Blaze Kick"),
-            NormalAttackRegistry.GetNormalAttack("Bullet Seed"),
+            AttackRegistry.GetNormalAttack("Aqua Jet"),
+            AttackRegistry.GetNormalAttack("Blaze Kick"),
+            AttackRegistry.GetNormalAttack("Bullet Seed"),
         };
 
         bool exceptionThrown = false;
@@ -145,9 +145,9 @@ public class PokemonTests
     {
         List<NormalAttack> attacks = new List<NormalAttack>()
         {
-            NormalAttackRegistry.GetNormalAttack("Mega Drain"),
-            NormalAttackRegistry.GetNormalAttack("Poison Jab"),
-            NormalAttackRegistry.GetNormalAttack("Hurricane"),
+            AttackRegistry.GetNormalAttack("Mega Drain"),
+            AttackRegistry.GetNormalAttack("Poison Jab"),
+            AttackRegistry.GetNormalAttack("Hurricane"),
         };
 
         Pokemon p = new Pokemon("Pokemon", PokemonType.Dragon, 100, attacks);
