@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-
 using Library.GameLogic.Entities;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;
@@ -77,6 +77,16 @@ public interface IExternalConnection
     /// El nombre del ataque que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
     public string? ShowAttacksAndRecieveInput(Pokemon pokemon);
+
+    /// <summary>
+    /// Le imprime la lista de items del player recibido, y le permite eligir una opción al usuario mediante un número o el nombre del item.
+    /// Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
+    /// </summary>
+    /// <param name="player">El pokemon cuyos item se elegirán.</param>
+    /// <returns>
+    /// El nombre del item que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
+    /// </returns>
+    public Item? ShowAItemsAndRecieveInput(Player player);
 
     /// <summary>
     /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
