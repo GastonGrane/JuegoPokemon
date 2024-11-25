@@ -151,6 +151,6 @@ internal sealed class ConnectionMock : IExternalConnection
     {
         this.ShowMenuAndReceiveInputCalled = true;
 
-        return 1; // que ataque
+        return 0; // que ataque
     }
 }
