@@ -143,7 +143,12 @@ public class Game
     private bool UseItem(Player active)
     {
         Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
-        item?.Use(active.ActivePokemon);
+        if (item == null)
+        {
+            return false;
+        }
+
+        item.Use(active.ActivePokemon);
         return true;
     }
 
