@@ -69,6 +69,7 @@ public class ConsoleConnection : IExternalConnection
         while (true)
         {
             Console.WriteLine(selectionText);
+
             int idx = 1;
             foreach (string line in options)
             {
@@ -85,7 +86,6 @@ public class ConsoleConnection : IExternalConnection
             }
             catch (FormatException)
             {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
             }
 
             if (selection != -1)
@@ -95,7 +95,7 @@ public class ConsoleConnection : IExternalConnection
                     return selection - 1;
                 }
 
-                Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{options.Count}");
+                Console.WriteLine($"Número inválido ingresado. Se esperaba un valor entre 1 y {options.Count}");
                 continue;
             }
 
