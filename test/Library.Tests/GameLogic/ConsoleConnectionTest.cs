@@ -13,7 +13,7 @@ namespace Library.Tests.Facade;
 /// <summary>
 /// Tests de la conexión a consola.
 /// </summary>
-internal sealed class ConsoleConnectionTests
+internal sealed class ConsoleConnectionTest
 {
     private TextWriter oldOut;
     private TextReader oldIn;
@@ -23,7 +23,7 @@ internal sealed class ConsoleConnectionTests
     /// <summary>
     /// Crea una instancia del test, redireccionando la consola.
     /// </summary>
-    public ConsoleConnectionTests()
+    public ConsoleConnectionTest()
     {
         this.ConsoleConnectionSetUp();
     }
