@@ -35,6 +35,16 @@ public class TurnResult
     }
 
     /// <summary>
+    /// Constructor vacio.
+    /// </summary>
+    public TurnResult()
+    {
+        this.Damage = 0;
+        this.AttackStatus = AttackStatus.Empty;
+        this.ItemStatus = ItemStatus.Empty;
+    }
+
+    /// <summary>
     /// Indica el estado del ítem que se utilizó en el juego.
     /// </summary>
     public ItemStatus ItemStatus { get; }

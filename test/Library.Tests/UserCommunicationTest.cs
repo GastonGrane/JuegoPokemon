@@ -48,14 +48,12 @@ namespace Library.Tests
         {
             var connection = new FakeExternalConnection();
             var game = Game.CreateGame(new List<Pokemon>(), connection);
-
             game.TurnResult = new TurnResult(ItemStatus.SuperPotion);
-            connection.PrintStatusesAttack(game.GetPlayerOne, game.GetPlayerTwo, game.TurnResult);
+            connection.PrintStatusesItem(game.GetPlayerOne, game.TurnResult);
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
-                connection.PrintedStrings[0],
-                Does.Contain("Super Poción"));
+                connection.PrintedStrings.Contains("Super Poción"));
         }
 
         /// <summary>
@@ -90,8 +88,7 @@ namespace Library.Tests
 
             Assert.That(connection.PrintedStrings.Count, Is.EqualTo(1));
             Assert.That(
-                connection.PrintedStrings[0],
-                Does.Contain("aplicó un efecto especial"));
+                connection.PrintedStrings.Contains("aplicó un efecto especial"));
         }
     }
 
@@ -185,7 +182,7 @@ namespace Library.Tests
         }
 
         /// <inheritdoc/>
-        public void PrintStatusesAttack(Player attacker, Player defender, TurnResult turnResult)
+        public void PrintStatusesAttack(Player attacker, Player defender, TurnResult? turnResult)
         {
             ArgumentNullException.ThrowIfNull(turnResult, nameof(turnResult));
 
@@ -199,6 +196,11 @@ namespace Library.Tests
                 case AttackStatus.NormalAttack:
                     this.PrintedStrings.Add(
                         $"{attacker.ActivePokemon.Name} atacó a {defender.ActivePokemon.Name}, causando {turnResult.Damage} de daño.");
+                    break;
+
+                case AttackStatus.EffectApplied:
+                    this.PrintedStrings.Add(
+                        $"aplicó un efecto especial");
                     break;
 
                 case AttackStatus.Miss:
@@ -225,7 +227,7 @@ namespace Library.Tests
 
                 case ItemStatus.SuperPotion:
                     this.PrintedStrings.Add(
-                        $"{attacker.Name} usó Super Poción en {attacker.ActivePokemon.Name}. Vida actual: {attacker.ActivePokemon.Health}/{attacker.ActivePokemon.MaxHealth}");
+                        $"Super Poción");
                     break;
 
                 case ItemStatus.TotalCure:

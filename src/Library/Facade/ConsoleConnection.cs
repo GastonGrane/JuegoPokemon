@@ -258,47 +258,49 @@ public class ConsoleConnection : IExternalConnection
     /// <param name="turnResult">El resultado del turno actual.</param>
     public void PrintStatusesAttack(Player attacker, Player defender, TurnResult? turnResult)
     {
-        Debug.Assert(turnResult != null, nameof(turnResult) + " != null");
-        switch (turnResult.AttackStatus)
+        if (turnResult != null)
         {
-            case AttackStatus.CriticalHit:
-                Console.WriteLine(
-                    $"¡Golpe crítico! {attacker?.ActivePokemon?.Name} atacó a {defender?.ActivePokemon?.Name}, causando {turnResult.Damage} de daño. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
-                break;
+            switch (turnResult.AttackStatus)
+            {
+                case AttackStatus.CriticalHit:
+                    Console.WriteLine(
+                        $"¡Golpe crítico! {attacker?.ActivePokemon?.Name} atacó a {defender?.ActivePokemon?.Name}, causando {turnResult.Damage} de daño. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
+                    break;
 
-            case AttackStatus.NormalAttack:
-                Console.WriteLine(
-                    $"{attacker?.ActivePokemon?.Name} atacó a {defender?.ActivePokemon?.Name}, causando {turnResult.Damage} de daño. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
-                break;
+                case AttackStatus.NormalAttack:
+                    Console.WriteLine(
+                        $"{attacker?.ActivePokemon?.Name} atacó a {defender?.ActivePokemon?.Name}, causando {turnResult.Damage} de daño. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
+                    break;
 
-            case AttackStatus.EffectApplied:
-                Console.WriteLine(
-                    $"{attacker?.ActivePokemon?.Name} aplicó un efecto especial a {defender?.ActivePokemon?.Name}. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
-                break;
+                case AttackStatus.EffectApplied:
+                    Console.WriteLine(
+                        $"{attacker?.ActivePokemon?.Name} aplicó un efecto especial a {defender?.ActivePokemon?.Name}. Vida restante: {defender?.ActivePokemon?.Health}/{defender?.ActivePokemon?.MaxHealth}.");
+                    break;
 
-            case AttackStatus.NoEffect:
-                Console.WriteLine(
-                    $"El ataque de {attacker?.ActivePokemon?.Name} no tuvo efecto sobre {defender?.ActivePokemon?.Name}.");
-                break;
+                case AttackStatus.NoEffect:
+                    Console.WriteLine(
+                        $"El ataque de {attacker?.ActivePokemon?.Name} no tuvo efecto sobre {defender?.ActivePokemon?.Name}.");
+                    break;
 
-            case AttackStatus.HinderingEffect:
-                Console.WriteLine(
-                    $"El ataque de {attacker?.ActivePokemon?.Name} fue bloqueado por un efecto en {defender?.ActivePokemon?.Name}.");
-                break;
+                case AttackStatus.HinderingEffect:
+                    Console.WriteLine(
+                        $"El ataque de {attacker?.ActivePokemon?.Name} fue bloqueado por un efecto en {defender?.ActivePokemon?.Name}.");
+                    break;
 
-            case AttackStatus.NotAvailable:
-                Console.WriteLine(
-                    $"El ataque de {attacker?.ActivePokemon?.Name} no está disponible.");
-                break;
+                case AttackStatus.NotAvailable:
+                    Console.WriteLine(
+                        $"El ataque de {attacker?.ActivePokemon?.Name} no está disponible.");
+                    break;
 
-            case AttackStatus.Miss:
-                Console.WriteLine(
-                    $"El ataque falló. Intenta de nuevo en tu próximo turno.");
-                break;
+                case AttackStatus.Miss:
+                    Console.WriteLine(
+                        $"El ataque falló. Intenta de nuevo en tu próximo turno.");
+                    break;
 
-            default:
-                Console.WriteLine("Estado de ataque desconocido.");
-                break;
+                default:
+                    Console.WriteLine("Estado de ataque desconocido.");
+                    break;
+            }
         }
     }
 

@@ -129,10 +129,12 @@ public class Game
         if (this.TurnResult?.AttackStatus != AttackStatus.Empty)
         {
             this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+            this.TurnResult = new TurnResult();
         }
         else if (this.TurnResult.ItemStatus != ItemStatus.Empty)
         {
-            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+            this.externalConnection.PrintStatusesItem(this.playerOne, this.TurnResult);
+            this.TurnResult = new TurnResult();
         }
 
         this.PlayTurnP2();
@@ -145,10 +147,12 @@ public class Game
         if (this.TurnResult?.AttackStatus != AttackStatus.Empty)
         {
             this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+            this.TurnResult = new TurnResult();
         }
         else if (this.TurnResult.ItemStatus != ItemStatus.Empty)
         {
-            this.externalConnection.PrintStatusesAttack(this.playerOne, this.playerTwo, this.TurnResult);
+            this.externalConnection.PrintStatusesItem(this.playerOne, this.TurnResult);
+            this.TurnResult = new TurnResult();
         }
     }
 
@@ -165,13 +169,13 @@ public class Game
             return false;
         }
 
-        int oldHP = other.ActivePokemon.Health;
+        int oldHp = other.ActivePokemon.Health;
 
         // Nunca va a tirar una excepción porque si llegó hasta acá, el nombre existe en la lista del Pokémon.
         this.TurnResult = active.Attack(other, attackName);
 
         // FIXME(Guzmán): Reportar mejor el resultado del ataque.
-        this.externalConnection.ReportAttackResult(oldHP, active, other);
+        this.externalConnection.ReportAttackResult(oldHp, active, other);
 
         return true;
     }
