@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="ConsoleConnectionTest.cs" company="Universidad Católica del Uruguay">
+// <copyright file="ConsoleConnectionTests.cs" company="Universidad Católica del Uruguay">
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Library.Tests.Facade;
 /// <summary>
 /// Tests de la conexión a consola.
 /// </summary>
-internal sealed class ConsoleConnectionTest
+internal sealed class ConsoleConnectionTests
 {
     private TextWriter oldOut;
     private TextReader oldIn;
@@ -23,7 +23,7 @@ internal sealed class ConsoleConnectionTest
     /// <summary>
     /// Crea una instancia del test, redireccionando la consola.
     /// </summary>
-    public ConsoleConnectionTest()
+    public ConsoleConnectionTests()
     {
         this.ConsoleConnectionSetUp();
     }
