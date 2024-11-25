@@ -25,7 +25,8 @@
     <!-- CA1303: Usar resource tables para localización -->
     <!-- CA5394: Random no es criptocráficamente seguro -->
     <!-- CA1848: LoggerMessage instead of LogInformation -->
-    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303;CA5394;CA1848</NoWarn>
+    <!-- CA2007: Call ConfigureAwait on a Task (por qué el modelo de async es tan malo?) -->
+    <NoWarn>$(NoWarn);SA1623;SA1642;CA1002;CA1303;CA5394;CA1848;CA2007</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -41,7 +41,6 @@ public class Bot : IBot, IDisposable
             GatewayIntents =
                 GatewayIntents.AllUnprivileged
                 | GatewayIntents.MessageContent,
-            /* | GatewayIntents.GuildMembers */
         };
 
         this.client = new DiscordSocketClient(config);
@@ -53,7 +52,7 @@ public class Bot : IBot, IDisposable
     {
         string discordToken = this.configuration["DiscordToken"] ?? throw new MissingFieldException("Falta el token");
 
-        this.logger.LogInformation("Iniciando el con token {Token}", discordToken);
+        this.logger.LogInformation("Iniciando el bot con token {Token}", discordToken);
 
         this.serviceProvider = services;
 

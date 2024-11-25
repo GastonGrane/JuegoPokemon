@@ -6,6 +6,7 @@
 
 using Library.Facade;
 using Library.GameLogic.Entities;
+using Library.Facade.Discord;
 
 namespace Program
 {
@@ -21,7 +22,7 @@ namespace Program
         public static void Main(string[] args)
         {
             ConsoleApp();
-            // DiscordBot();
+            // DiscordBot().GetAwaiter().GetResult();
         }
 
         private static void ConsoleApp()
@@ -38,9 +39,9 @@ namespace Program
             game.PlayGameTurn();
         }
 
-        private static void DiscordBot()
+        private static async Task DiscordBot()
         {
-            Library.Facade.Discord.BotLoader.LoadAsync().GetAwaiter().GetResult();
+            await BotLoader.LoadAsync();
         }
     }
 }

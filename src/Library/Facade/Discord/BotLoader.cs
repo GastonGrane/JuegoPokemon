@@ -41,7 +41,7 @@ public static class BotLoader
 
         IBot bot = serviceProvider.GetRequiredService<IBot>();
 
-        await bot.StartAsync(serviceProvider).ConfigureAwait(false);
+        await bot.StartAsync(serviceProvider);
 
         Console.WriteLine("Conectado a Discord. Presione 'q' para salir...");
 
@@ -55,7 +55,7 @@ public static class BotLoader
             }
 
             Console.WriteLine("\nFinalizado");
-            await bot.StopAsync().ConfigureAwait(false);
+            await bot.StopAsync();
 
             return;
         }
