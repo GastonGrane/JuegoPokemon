@@ -99,4 +99,13 @@ public class Sleep : IEffect
         this.IsExpired = true;
         target.CanAttack = true; // Restaura la capacidad de atacar
     }
+
+    /// <summary>
+    /// Get de *turnsRemaining* para poder obtener los turnnos pendiendes.
+    /// </summary>
+    /// <returns> wdv. </returns>
+    public int GetRemainingTurns()
+    {
+        return this.turnsRemaining;
+    }
 }
