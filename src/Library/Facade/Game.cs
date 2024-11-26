@@ -60,13 +60,15 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel",
+        Player p1 = new Player(
+            "Axel",
             new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
                 PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
             });
-        Player p2 = new Player("Sharon",
+        Player p2 = new Player(
+            "Sharon",
             new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
@@ -154,8 +156,6 @@ public class Game
     {
         while (true)
         {
-            try
-            {
                 Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
                 if (item == null)
                 {
@@ -177,22 +177,15 @@ public class Game
                 catch (ArgumentNullException ex)
                 {
                     // Si el Pokémon es nulo
-                    this.externalConnection.PrintString($"Error: {ex.Message}.");
+                    this.externalConnection.PrintString($"{ex.Message}.");
                     return false;
                 }
                 catch (InvalidOperationException ex)
                 {
                     // Si el Pokémon está vivo cuando no debería estarlo (por ejemplo, con Revive)
-                    this.externalConnection.PrintString($"Error: {ex.Message}.");
+                    this.externalConnection.PrintString($"{ex.Message}.");
                     return false;
                 }
-            }
-            catch (Exception ex)
-            {
-                // Capturar cualquier otra excepción inesperada
-                this.externalConnection.PrintString($"Ha ocurrido un error inesperado: {ex.Message}. Por favor, intente de nuevo.");
-                return false;
-            }
         }
     }
 
@@ -209,7 +202,8 @@ public class Game
     {
         while (true)
         {
-            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:",
+            int selection = this.externalConnection.ShowMenuAndReceiveInput(
+                "Elija su acción:",
                 new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
             switch (selection)
             {

@@ -269,7 +269,6 @@ public class ConsoleConnection : IExternalConnection
                     Console.WriteLine($"{idx}: {pok.Name} ({pok.Type}) (DEAD)");
                     idx++;
                 }
-
             }
 
             string input = Console.ReadLine()!;
