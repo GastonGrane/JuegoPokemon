@@ -1,7 +1,9 @@
 # Proyecto Programación 2 Grupo 1 - 2024
 ## JuegoPokemon
 
-¡Bienvenidos al repositorio del proyecto de Programación 2 del Grupo 1 para el corriente año! Este proyecto esta centrado en el desarrollo de un chatbot en Discord para jugar una batalla pokemon 1vs1.
+¡Bienvenidos al repositorio del proyecto de Programación 2 del Grupo 1 para el
+corriente año! Este proyecto implementa un chatbot en Discord para jugar una
+batalla Pokémon 1vs1.
 
 ## Integrantes del Equipo
 
@@ -12,11 +14,12 @@
 
 ## Descripción del Proyecto
 
-El objetivo principal de este proyecto es crear un chatbot que permita crear una batalla pokemon entre dos personas en un servido de Discord, para que puedan pasar un buen rato y divertirse con sus amplias funcionailidades.
+El objetivo principal de este proyecto es crear un chatbot que permita jugar
+una batalla pokemon entre dos personas en un servidor de Discord.
 
 ## Paso a paso de como utilizar el bot
 
-- 
+-
 
 ## Tecnologías Utilizadas
 
@@ -29,12 +32,17 @@ los datos de los Pokémon.
 
 ## Reflexión
 
--Desarrolar este programa en C# nos proporciono numerosos beneficios para nuestro aprendizaje en la programacion, no solo 
-aprendimos como debe ser un programa para que se pueda mantener a corto y largo plazo, sino que aprendimos a utilizar patrones
-y guias de diseño para nuestros futuros proyectos. Sumandole todo esto del codigo, aprendimos a como manejar Git y como trabajar 
-en equipo en base a la herramiento GitHub, a traves de sus PR, Branches, Commit, etc. Este proyecto y todo su camino hacia esta 
-entrega final nos enseño bastante de cuando y como se deberian hacer las cosas, si el dia de mañana no toca trabajar en un proyecto.
+- Desarrolar este programa en C# nos proporcionó numerosos beneficios para
+nuestro aprendizaje en la programacion, no solo aprendimos cómo debe ser un
+programa para que se pueda mantener a corto y largo plazo, sino que aprendimos
+a utilizar patrones y guias de diseño para nuestros futuros proyectos.
 
-Nos vamos muy contentos con todo este nuevo aprendizaje y con muchas ganas de seguir aprendiendo.
+- Además aprendimos cómo manejar Git y cómo utilizarlo a través de herramiento
+GitHub, a traves de PRs, Branches, Commits, y demás. Este proyecto y todo su
+camino hacia esta entrega final nos enseño bastante de cuando y como se
+deberian hacer las cosas, si el dia de mañana no toca trabajar en un proyecto.
+
+Nos vamos muy contentos con todo este nuevo aprendizaje y con muchas ganas de
+seguir aprendiendo.
 
 Muchas gracias!
