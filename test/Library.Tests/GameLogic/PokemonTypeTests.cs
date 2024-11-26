@@ -29,4 +29,26 @@ internal sealed class PokemonTypeTests
             }
         }
     }
+
+    /// <summary>
+    /// Si se pide la ventaja de un valor invailido hay una excepcion.
+    /// </summary>
+    [Test]
+    public void InvalidElementThrowsException()
+    {
+        PokemonType val1 = (PokemonType)100;
+        PokemonType val2 = PokemonType.Dragon;
+
+        bool exceprionThrown = false;
+        try
+        {
+            val1.Advantage(val2);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            exceprionThrown = true;
+        }
+
+        Assert.True(exceprionThrown, "No hubo excepcion al calcular la ventaja de valor invalido");
+    }
 }

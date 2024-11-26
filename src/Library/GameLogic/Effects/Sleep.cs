@@ -99,4 +99,14 @@ public class Sleep : IEffect
         this.IsExpired = true;
         target.CanAttack = true; // Restaura la capacidad de atacar
     }
+
+#pragma warning disable CA1024 // Me complica si lo pongo publico o con get y set
+    /// <summary>
+    /// Get de *turnsRemaining* para poder obtener los turnnos pendiendes.
+    /// </summary>
+    /// <returns> wdv. </returns>
+    public int GetRemainingTurns()
+    {
+        return this.turnsRemaining;
+    }
 }
