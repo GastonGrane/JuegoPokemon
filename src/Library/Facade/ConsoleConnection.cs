@@ -261,7 +261,7 @@ public class ConsoleConnection : IExternalConnection
             {
                 if (pok.Health != 0)
                 {
-                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
+                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type}) Live: {pok.Health}/{pok.MaxHealth}");
                     idx++;
                 }
                 else

@@ -29,7 +29,7 @@ namespace Program
             };
             IExternalConnection connection = new ConsoleConnection();
             Game game = Game.CreateGame(pokemons, connection);
-            game.PlayGameTurn();
+            game.Play();
         }
     }
 }

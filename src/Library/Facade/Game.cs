@@ -69,8 +69,8 @@ public class Game
         Player p2 = new Player("Sharon",
             new List<Pokemon>
             {
-                PokemonRegistry.GetPokemon("Rattata"), PokemonRegistry.GetPokemon("Pikachu"),
-                PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Metapod"),
+                PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
+                PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
             });
         return new Game(p1, p2, externalConnection);
     }
@@ -154,28 +154,45 @@ public class Game
     {
         while (true)
         {
-            Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
-            if (item == null)
+            try
             {
+                Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+                if (item == null)
+                {
+                    return false;
+                }
+
+                int numPok = this.externalConnection.ShowPokemonMenu(active);
+                if (numPok == -1)
+                {
+                    continue;
+                }
+
+                Pokemon pok = active.Pokemons[numPok];
+                try
+                {
+                    item.Use(pok);
+                    return true;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    // Si el Pokémon es nulo
+                    this.externalConnection.PrintString($"Error: {ex.Message}.");
+                    return false;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    // Si el Pokémon está vivo cuando no debería estarlo (por ejemplo, con Revive)
+                    this.externalConnection.PrintString($"Error: {ex.Message}.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Capturar cualquier otra excepción inesperada
+                this.externalConnection.PrintString($"Ha ocurrido un error inesperado: {ex.Message}. Por favor, intente de nuevo.");
                 return false;
             }
-
-            int numPok = this.externalConnection.ShowPokemonMenu(active);
-            if (numPok == -1)
-            {
-                continue;
-            }
-
-            Pokemon pok = active.Pokemons[numPok];
-            if (item is Revive && pok.Health < 0)
-            {
-                this.externalConnection.PrintString($"El Pokemon {pok}, ya está vivo y no puede ser revivido.");
-                continue;
-            }
-
-            item.Use(pok);
-            return true;
-            break;
         }
     }
 

@@ -26,7 +26,7 @@ public class Revive : Item
     }
 
     /// <summary>
-    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 puntos de salud.
+    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 porciento de su salud inicial.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
     /// <exception cref="ArgumentNullException">
@@ -37,24 +37,13 @@ public class Revive : Item
     /// </exception>
     public override void Use(Pokemon pokemon)
     {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-                if (pokemon.Health != 0)
-                {
-                    throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
-                }
+           ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
+           if (pokemon.Health != 0)
+           {
+               throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
+           }
 
-                int cincPor = (pokemon.MaxHealth * 50) / 100;
-                pokemon.Heal(cincPor);
-            }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("No es posible si el Pokemon es nullo. Intentelo de nuevo");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
-            }
+           int cincPor = (pokemon.MaxHealth * 50) / 100;
+           pokemon.Heal(cincPor);
     }
 }
