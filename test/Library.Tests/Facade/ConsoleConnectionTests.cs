@@ -262,8 +262,6 @@ internal sealed class ConsoleConnectionTests
         Assert.That(output, Does.Contain("Valor inválido ingresado, se esperaba un item del menú"));
     }
 
-// ====================================================
-
     /// <summary>
     /// .
     /// </summary>
