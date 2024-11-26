@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.ObjectModel;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
@@ -57,5 +58,16 @@ public class WaitingList
     public void AddPlayer(string name, List<Pokemon> pokemon)
     {
         this.waitingList.Add(new Player(name, pokemon));
+    }
+
+    /// <summary>
+    /// Retorna todos los jugadores esperando.
+    /// </summary>
+    /// <returns>
+    /// Una colección de todos los jugadores esperando.
+    /// </returns>
+    public ReadOnlyCollection<Player> GetWaiting()
+    {
+        return this.waitingList.AsReadOnly();
     }
 }

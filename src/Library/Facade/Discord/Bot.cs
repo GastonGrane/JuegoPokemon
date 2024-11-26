@@ -4,10 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Reflection;
+using System.Globalization;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Library.GameLogic.Entities;
+using Library.GameLogic.Players;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -22,7 +24,6 @@ public class Bot : IBot, IDisposable
     private readonly ILogger<Bot> logger;
     private readonly IConfiguration configuration;
     private readonly DiscordSocketClient client;
-    private readonly CommandService commands;
     private ServiceProvider? serviceProvider;
 
     /// <summary>
@@ -44,7 +45,6 @@ public class Bot : IBot, IDisposable
         };
 
         this.client = new DiscordSocketClient(config);
-        this.commands = new CommandService();
     }
 
     /// <inheritdoc/>
@@ -55,8 +55,6 @@ public class Bot : IBot, IDisposable
         this.logger.LogInformation("Iniciando el bot con token {Token}", discordToken);
 
         this.serviceProvider = services;
-
-        await this.commands.AddModulesAsync(Assembly.GetExecutingAssembly(), this.serviceProvider).ConfigureAwait(false);
 
         await this.client.LoginAsync(TokenType.Bot, discordToken).ConfigureAwait(false);
         await this.client.StartAsync().ConfigureAwait(false);
@@ -88,26 +86,46 @@ public class Bot : IBot, IDisposable
         if (dispose)
         {
             this.client.Dispose();
-            (this.commands as IDisposable).Dispose();
         }
     }
 
-    private async Task HandleCommandAsync(SocketMessage arg)
+    /// <summary>
+    /// Acepta un comando y llama al método correspondiente.
+    /// </summary>
+    /// <param name="socketMessage">El mensaje recibido.</param>
+    /// <returns>Un <see cref="Task"/> representando que se terminó el handling del mensaje.</returns>
+    private async Task HandleCommandAsync(SocketMessage socketMessage)
     {
-        if (arg is not SocketUserMessage message || message.Author.IsBot)
+        if (socketMessage is not SocketUserMessage userMessage || userMessage.Author.IsBot)
+        {
+            return;
+        }
+
+        if (socketMessage.Channel is IDMChannel)
         {
             return;
         }
 
         int position = 0;
-        bool messageIsCommand = message.HasCharPrefix('!', ref position);
+        bool messageIsCommand = userMessage.HasCharPrefix('!', ref position);
 
-        if (messageIsCommand)
+        if (!messageIsCommand)
         {
-            await this.commands.ExecuteAsync(
-                new SocketCommandContext(this.client, message),
-                position,
-                this.serviceProvider).ConfigureAwait(false);
+            return;
+        }
+
+        SocketCommandContext commandContext = new SocketCommandContext(this.client, userMessage);
+
+        CultureInfo culture = new CultureInfo("en_US");
+        switch (userMessage.Content.ToLower(culture).Split(' ')[0])
+        {
+            case "!join":
+                await BotCommands.AddToWaitingList(commandContext);
+                break;
+
+            case "!list":
+                await BotCommands.DisplayWaitingList(commandContext);
+                break;
         }
     }
 }
