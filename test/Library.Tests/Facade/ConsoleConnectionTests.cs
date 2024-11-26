@@ -52,7 +52,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método PrintString imprima correctamente el texto proporcionado en la consola.
     /// </summary>
     [Test]
     public void CanPrintString()
@@ -226,7 +226,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowAttacksAndRecieveInput permita seleccionar un ataque correctamente 
+    /// cuando se proporciona una entrada válida
     /// </summary>
     [Test]
     public void ShowAttackWithCorrectAttack()
@@ -244,7 +245,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowAttacksAndRecieveInput maneje entradas de índice incorrectas,
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]
     public void ShowAttacksWithIncorrectInputIndexRetriesAndThenWorks()
@@ -263,7 +265,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowAttacksAndRecieveInput maneje entradas de texto incorrectas,
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]
     public void ShowAttacksWithIncorrectInputTextRetriesAndThenWorks()
@@ -281,7 +284,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowAttacksAndRecieveInput funcione correctamente con un índice válido.
     /// </summary>
     [Test]
     public void ShowAttacksWithCorrectInputIndexWorks()
@@ -300,7 +303,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowAttacksAndRecieveInput devuelva null cuando el usuario selecciona "0" 
+    /// para volver al menú anterior.
     /// </summary>
     [Test]
     public void ShowAttacksWithInputZeroReturnsNull()
@@ -318,7 +322,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente 
+    /// utilizando un índice válido.
     /// </summary>
     [Test]
     public void ShowChangePokemonMenuWithCorrectInputIndexWorks()
@@ -344,7 +349,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente 
+    /// utilizando su nombre como entrada.
     /// </summary>
     [Test]
     public void ShowChangePokemonMenuWithCorrectInputTextWorks()
@@ -369,7 +375,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowChangePokemonMenu maneje entradas de texto incorrectas, 
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]
     public void ShowChangePokemonMenuWithIncorrectInputTextRetriesAndThenWorks()
@@ -394,7 +401,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowChangePokemonMenu devuelva -1 cuando el usuario selecciona "0" 
+    /// para volver al menú anterior.
     /// </summary>
     [Test]
     public void ShowChangePokemonMenuWithInputZeroReturnsMinusOne()
@@ -419,7 +427,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// .
+    /// Verifica que el método ShowChangePokemonMenu maneje índices fuera de rango, muestre mensajes de error 
+    /// y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]
     public void ShowChangePokemonMenuWithOutOfRangeIndexDisplaysErrorAndRetries()
