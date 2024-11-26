@@ -139,7 +139,7 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player player)
+    public int ShowPokemonMenu(Player player)
     {
         this.ShowChangePokemonMenuCalled = true;
 

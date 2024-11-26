@@ -37,13 +37,24 @@ public class Revive : Item
     /// </exception>
     public override void Use(Pokemon pokemon)
     {
-        ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
-        if (pokemon.Health != 0)
-        {
-            throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
-        }
+            try
+            {
+                ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
+                if (pokemon.Health != 0)
+                {
+                    throw new InvalidOperationException($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
+                }
 
-        int cincPor = (pokemon.MaxHealth * 50) / 100;
-        pokemon.Heal(cincPor);
+                int cincPor = (pokemon.MaxHealth * 50) / 100;
+                pokemon.Heal(cincPor);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("No es posible si el Pokemon es nullo. Intentelo de nuevo");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine($"El Pokémon {pokemon.Name} ya está vivo y no puede ser revivido.");
+            }
     }
 }

@@ -95,7 +95,7 @@ public interface IExternalConnection
     /// <returns>
     /// El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
     /// </returns>
-    public int ShowChangePokemonMenu(Player player);
+    public int ShowPokemonMenu(Player player);
 
     /// <summary>
     /// Le muestra al usuario el resultado que tuvo su ataque.

@@ -245,7 +245,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player player)
+    public int ShowPokemonMenu(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
@@ -259,12 +259,21 @@ public class ConsoleConnection : IExternalConnection
 
             foreach (Pokemon pok in pokemons)
             {
-                Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
-                idx++;
+                if (pok.Health != 0)
+                {
+                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
+                    idx++;
+                }
+                else
+                {
+                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type}) (DEAD)");
+                    idx++;
+                }
+
             }
 
             string input = Console.ReadLine()!;
-            int selection = -1;
+            int selection = 0;
             CultureInfo culture = new CultureInfo("en_US");
             try
             {

@@ -60,8 +60,18 @@ public class Game
     public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
     {
         // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
-        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
+        Player p1 = new Player("Axel",
+            new List<Pokemon>
+            {
+                PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
+                PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
+            });
+        Player p2 = new Player("Sharon",
+            new List<Pokemon>
+            {
+                PokemonRegistry.GetPokemon("Rattata"), PokemonRegistry.GetPokemon("Pikachu"),
+                PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Metapod"),
+            });
         return new Game(p1, p2, externalConnection);
     }
 
@@ -107,7 +117,7 @@ public class Game
         this.PlayTurnP2();
         if (this.CheckDead(this.playerOne))
         {
-            this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+            this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
             return;
         }
     }
@@ -142,14 +152,31 @@ public class Game
     /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
     private bool UseItem(Player active)
     {
-        Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
-        if (item == null)
+        while (true)
         {
-            return false;
-        }
+            Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+            if (item == null)
+            {
+                return false;
+            }
 
-        item.Use(active.ActivePokemon);
-        return true;
+            int numPok = this.externalConnection.ShowPokemonMenu(active);
+            if (numPok == -1)
+            {
+                continue;
+            }
+
+            Pokemon pok = active.Pokemons[numPok];
+            if (item is Revive && pok.Health < 0)
+            {
+                this.externalConnection.PrintString($"El Pokemon {pok}, ya está vivo y no puede ser revivido.");
+                continue;
+            }
+
+            item.Use(pok);
+            return true;
+            break;
+        }
     }
 
     /// <summary>
@@ -165,7 +192,8 @@ public class Game
     {
         while (true)
         {
-            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
+            int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:",
+                new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
             switch (selection)
             {
                 case 0:
@@ -217,15 +245,21 @@ public class Game
     {
         while (true)
         {
-            int idx = this.externalConnection.ShowChangePokemonMenu(p);
+            int idx = this.externalConnection.ShowPokemonMenu(p);
             if (idx == -1)
             {
                 return false;
             }
 
-            if (!p.ChangePokemon(idx))
+            if (p.ChangePokemon(idx) == false)
             {
-                this.externalConnection.PrintString("No se puede cambiar a utilizar el mismo Pokemon. Intente de nuevo");
+                this.externalConnection.PrintString(
+                    "No se puede cambiar a utilizar el mismo Pokemon. Intente de nuevo");
+            }
+            else if (p.ChangePokemon(idx) == null)
+            {
+                this.externalConnection.PrintString(
+                    "El Pokemon que seleccionó está muerto. Intente de nuevo");
             }
             else
             {
@@ -253,7 +287,8 @@ public class Game
 
         if (p.ActivePokemon.Health == 0)
         {
-            this.externalConnection.PrintString($"{p}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
+            this.externalConnection.PrintString(
+                $"{p.Name}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
             this.ChangePokemon(p);
             return false;
         }
