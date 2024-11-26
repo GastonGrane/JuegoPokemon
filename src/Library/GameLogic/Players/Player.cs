@@ -101,11 +101,6 @@ public class Player
             return true;
         }
 
-        if (pokemon.Health == 0)
-        {
-            
-        }
-
         return false;
     }
 
