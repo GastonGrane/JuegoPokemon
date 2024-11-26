@@ -109,7 +109,7 @@ internal sealed class EffectTests
     }
 
     /// <summary>
-    /// Verifica que el método UpdateEffect lance una excepción ArgumentNullException 
+    /// Verifica que el método UpdateEffect lance una excepción ArgumentNullException
     /// cuando el parámetro target es null.
     /// </summary>
     [Test]
@@ -133,7 +133,7 @@ internal sealed class EffectTests
     }
 
     /// <summary>
-    /// Verifica que el método RemoveEffect lance una excepción ArgumentNullException 
+    /// Verifica que el método RemoveEffect lance una excepción ArgumentNullException
     /// cuando el parámetro target es null.
     /// </summary>
     [Test]
@@ -157,7 +157,7 @@ internal sealed class EffectTests
     }
 
     /// <summary>
-    /// Verifica que el constructor de Paralysis(IProbability random), cuando se utiliza con SystemRandom, 
+    /// Verifica que el constructor de Paralysis(IProbability random), cuando se utiliza con SystemRandom,
     /// implemente correctamente una probabilidad del 50% para permitir que el Pokémon afectado ataque.
     /// </summary>
     [Test]

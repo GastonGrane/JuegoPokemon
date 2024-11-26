@@ -226,8 +226,8 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowAttacksAndRecieveInput permita seleccionar un ataque correctamente 
-    /// cuando se proporciona una entrada válida
+    /// Verifica que el método ShowAttacksAndRecieveInput permita seleccionar un ataque correctamente
+    /// cuando se proporciona una entrada válida.
     /// </summary>
     [Test]
     public void ShowAttackWithCorrectAttack()
@@ -303,7 +303,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowAttacksAndRecieveInput devuelva null cuando el usuario selecciona "0" 
+    /// Verifica que el método ShowAttacksAndRecieveInput devuelva null cuando el usuario selecciona "0"
     /// para volver al menú anterior.
     /// </summary>
     [Test]
@@ -322,7 +322,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente 
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente
     /// utilizando un índice válido.
     /// </summary>
     [Test]
@@ -349,7 +349,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente 
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente
     /// utilizando su nombre como entrada.
     /// </summary>
     [Test]
@@ -375,7 +375,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowChangePokemonMenu maneje entradas de texto incorrectas, 
+    /// Verifica que el método ShowChangePokemonMenu maneje entradas de texto incorrectas,
     /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]
@@ -401,7 +401,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowChangePokemonMenu devuelva -1 cuando el usuario selecciona "0" 
+    /// Verifica que el método ShowChangePokemonMenu devuelva -1 cuando el usuario selecciona "0"
     /// para volver al menú anterior.
     /// </summary>
     [Test]
@@ -427,7 +427,7 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
-    /// Verifica que el método ShowChangePokemonMenu maneje índices fuera de rango, muestre mensajes de error 
+    /// Verifica que el método ShowChangePokemonMenu maneje índices fuera de rango, muestre mensajes de error
     /// y permita al usuario reintentar hasta seleccionar correctamente.
     /// </summary>
     [Test]

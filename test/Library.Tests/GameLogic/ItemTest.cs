@@ -87,7 +87,7 @@ internal sealed class ItemTest
     }
 
     /// <summary>
-    /// Verifica que el objeto SuperPotion restaure correctamente la salud de un Pokémon 
+    /// Verifica que el objeto SuperPotion restaure correctamente la salud de un Pokémon
     /// cuando se utiliza con éxito.
     /// </summary>
     [Test]
