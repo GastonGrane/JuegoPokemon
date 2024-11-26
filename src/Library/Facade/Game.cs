@@ -186,9 +186,13 @@ public class Game
     /// <param name="active">El <see cref="Player"/> que va a usar items.</param>
     private bool UseItem(Player active)
     {
-        this.externalConnection.PrintString("UseItem");
+        Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+        if (item == null)
+        {
+            return false;
+        }
 
-        // FIXME(Guzmán): No está hecho, no tengo ganas.
+        item.Use(active.ActivePokemon);
         return true;
     }
 
@@ -208,21 +212,21 @@ public class Game
             int selection = this.externalConnection.ShowMenuAndReceiveInput("Elija su acción:", new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
             switch (selection)
             {
-                case 1:
+                case 0:
                     if (this.AttackPlayer(active, other))
                     {
                         return;
                     }
 
                     break;
-                case 2:
+                case 1:
                     if (this.ChangePokemon(active))
                     {
                         return;
                     }
 
                     break;
-                case 3:
+                case 2:
                     if (this.UseItem(active))
                     {
                         return;

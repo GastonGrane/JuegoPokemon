@@ -7,6 +7,7 @@
 using System.Collections.ObjectModel;
 using Library.Facade;
 using Library.GameLogic.Entities;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Tests.Facade;
@@ -143,6 +144,12 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
+    public Item? ShowAItemsAndRecieveInput(Player player)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc/>
     public int ShowChangePokemonMenu(Player player)
     {
         this.ShowChangePokemonMenuCalled = true;
@@ -155,6 +162,6 @@ internal sealed class ConnectionMock : IExternalConnection
     {
         this.ShowMenuAndReceiveInputCalled = true;
 
-        return 1; // que ataque
+        return 0; // que ataque
     }
 }

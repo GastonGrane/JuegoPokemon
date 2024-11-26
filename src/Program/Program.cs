@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.Facade;
 using Library.GameLogic.Entities;
 
 namespace Program
@@ -26,8 +27,9 @@ namespace Program
                 PokemonRegistry.GetPokemon("Charmander"),
                 PokemonRegistry.GetPokemon("Squirtle"),
             };
-
-            Console.WriteLine(PokemonRegistry.GetPokemon("Pikachu").Name);
+            IExternalConnection connection = new ConsoleConnection();
+            Game game = Game.CreateGame(pokemons, connection);
+            game.PlayGameTurn();
         }
     }
 }

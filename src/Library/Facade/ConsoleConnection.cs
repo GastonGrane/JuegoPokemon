@@ -70,6 +70,7 @@ public class ConsoleConnection : IExternalConnection
         while (true)
         {
             Console.WriteLine(selectionText);
+
             int idx = 1;
             foreach (string line in options)
             {
@@ -86,7 +87,6 @@ public class ConsoleConnection : IExternalConnection
             }
             catch (FormatException)
             {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
             }
 
             if (selection != -1)
@@ -96,7 +96,7 @@ public class ConsoleConnection : IExternalConnection
                     return selection - 1;
                 }
 
-                Console.WriteLine($"Valor inválido ingresado. Se esperaba un valor entre 1-{options.Count}");
+                Console.WriteLine($"Número inválido ingresado. Se esperaba un valor entre 1 y {options.Count}");
                 continue;
             }
 
@@ -174,6 +174,63 @@ public class ConsoleConnection : IExternalConnection
 
             Console.WriteLine("Valor inválido ingresado, se esperaba un item del menú");
             continue;
+        }
+    }
+
+    /// <inheritdoc/>
+    public Item? ShowAItemsAndRecieveInput(Player player)
+    {
+        ArgumentNullException.ThrowIfNull(player, nameof(player));
+
+        Dictionary<string, int> itemCant = new();
+        foreach (Item item in player.Items)
+        {
+            if (!itemCant.TryGetValue(item.Name, out int value))
+            {
+                value = 0;
+                itemCant[item.Name] = value;
+            }
+
+            itemCant[item.Name] = ++value;
+        }
+
+        while (true)
+        {
+            Console.WriteLine("Seleccione un ítem");
+            Console.WriteLine("0: Volver al menú anterior");
+
+            int idx = 1;
+            List<Item> orderedItems = new();
+            foreach (var itemGroup in itemCant)
+            {
+                Console.WriteLine($"{idx}: {itemGroup.Key} (x{itemGroup.Value})");
+                orderedItems.Add(player.Items.First(i => i.Name == itemGroup.Key));
+                idx++;
+            }
+
+            string input = Console.ReadLine()!;
+            int selection = -1;
+            try
+            {
+                selection = int.Parse(input, CultureInfo.InvariantCulture);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Opción inválida, ingrese un número válido.");
+                continue;
+            }
+
+            if (selection == 0)
+            {
+                return null;
+            }
+
+            if (selection >= 1 && selection <= orderedItems.Count)
+            {
+                return orderedItems[selection - 1];
+            }
+
+            Console.WriteLine($"Valor inválido. Ingrese un número entre 1 y {orderedItems.Count}.");
         }
     }
 
