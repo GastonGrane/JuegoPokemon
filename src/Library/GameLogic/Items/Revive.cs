@@ -38,7 +38,7 @@ public class Revive : Item
         ArgumentNullException.ThrowIfNull(pokemon, nameof(pokemon));
         if (pokemon.Health != 0)
         {
-            throw new InvalidOperationException("No puede revivir un pokemon que no este muerto.");
+            throw new InvalidOperationException("No puede revivir un pokemon que no esté muerto.");
         }
 
         int cincPor = (pokemon.MaxHealth * 50) / 100;

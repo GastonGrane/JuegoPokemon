@@ -31,6 +31,22 @@ internal sealed class ItemTest
     }
 
     /// <summary>
+    /// Testea que no se pueda utilizar con pokemones que se encuentren vivos.
+    /// </summary>
+    [Test]
+    public void CantReviveALivePokemon()
+    {
+        // La vida de Bulbasaur es de 45 al inicializarse (maxHealth)
+        Pokemon p = PokemonRegistry.GetPokemon("Bulbasaur");
+        p.Damage(20);
+        Assert.That(p.Health, Is.GreaterThan(0));
+
+        Revive revive = new Revive();
+        var ex = Assert.Throws<InvalidOperationException>(() => revive.Use(p));
+        Assert.That(ex.Message, Is.EqualTo("No puede revivir un pokemon que no esté muerto."));
+    }
+
+    /// <summary>
     /// Testea que falle el hecho de que pasemos como parametro algo null.
     /// </summary>
     [Test]

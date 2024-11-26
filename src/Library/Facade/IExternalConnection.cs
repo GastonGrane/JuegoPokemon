@@ -58,7 +58,7 @@ public interface IExternalConnection
     public void PrintTurnHeading(Player player);
 
     /// <summary>
-    /// e imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
+    /// Le imprime las opciones recibidas, y le permite eligir una opción al usuario mediante un número o el nombre de la opción.
     /// Si la opción ingresada fue inválida, este método deberá reintentar hasta lograr una entrada correcta.
     /// </summary>
     /// <param name="selectionText">El texto a mostrar para contextualizar las opciones. El texto se muestra antes de las mismas.</param>

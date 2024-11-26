@@ -129,7 +129,7 @@ public class NormalAttack
     /// <param name="target">El Pokémon objetivo que recibirá el daño.</param>
     /// <exception cref="ArgumentNullException">Lanzado si el Pokémon objetivo es <c>null</c>.</exception>
     /// <returns>Un <see cref="TurnResult"/> con el daño causado y el estado del ataque.</returns>
-    public TurnResult Use(Pokemon target)
+    public virtual TurnResult Use(Pokemon target)
     {
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 

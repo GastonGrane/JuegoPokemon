@@ -72,7 +72,7 @@ public class SpecialAttack : NormalAttack
     /// <param name="target">El Pokémon objetivo que recibirá el efecto especial.</param>
     /// <exception cref="ArgumentNullException">Se lanza si el Pokémon objetivo es <c>null</c>.</exception>
     /// <returns>Un <see cref="TurnResult"/> con el daño infligido y el estado del ataque.</returns>
-    public new TurnResult Use(Pokemon target)
+    public override TurnResult Use(Pokemon target)
     {
         if (!this.Available)
         {

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
 using Library.GameLogic.Attacks;
 using Library.GameLogic.Entities;

@@ -167,6 +167,12 @@ namespace Library.Tests
         }
 
         /// <inheritdoc/>
+        public Item? ShowAItemsAndRecieveInput(Player player)
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
         public int ShowChangePokemonMenu(Player? player)
         {
             return 0; // Simula siempre seleccionar el primer Pokémon.
