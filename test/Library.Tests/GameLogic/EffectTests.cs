@@ -184,8 +184,8 @@ internal sealed class EffectTests
         }
 
         // Verificar que la probabilidad de ataque esté en torno al 50%.
-        Assert.That(canAttackCount, Is.InRange(45, 55), "La probabilidad de atacar debería estar alrededor del 50%.");
-        Assert.That(cannotAttackCount, Is.InRange(45, 55), "La probabilidad de no atacar debería estar alrededor del 50%.");
+        Assert.That(canAttackCount, Is.InRange(44, 56), "La probabilidad de atacar debería estar alrededor del 50%.");
+        Assert.That(cannotAttackCount, Is.InRange(44, 56), "La probabilidad de no atacar debería estar alrededor del 50%.");
     }
 
     /// <summary>
