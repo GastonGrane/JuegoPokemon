@@ -64,21 +64,33 @@ public static class BotCommands
             bool parsed = true;
             foreach (var selection in dm.Content.Split(',').Select(s => s.Trim()))
             {
+                if (string.IsNullOrEmpty(selection))
+                {
+                    continue;
+                }
+
                 if (int.TryParse(selection, culture, out var pokemonIdx))
                 {
                     selected.Add(pokemonList[pokemonIdx]);
                     continue;
                 }
 
+                bool added = true;
                 foreach (Pokemon p in pokemonList)
                 {
                     if (p.Name.Equals(selection, StringComparison.OrdinalIgnoreCase))
                     {
                         selected.Add(p);
+                        break;
                     }
                 }
 
-                await dmChannel.SendMessageAsync($"El valor ingresado {selection} no es válido");
+                if (added)
+                {
+                    continue;
+                }
+
+                await dmChannel.SendMessageAsync($"El valor ingresado \"{selection}\" no es un pokémon");
                 parsed = false;
                 break;
             }
@@ -88,16 +100,16 @@ public static class BotCommands
                 continue;
             }
 
-            if (pokemonList.Count == 0 || pokemonList.Count > 6)
+            if (selected.Count == 0 || selected.Count > 6)
             {
-                await dmChannel.SendMessageAsync("Debe ingresar de 1 a 6 pokemon");
+                await dmChannel.SendMessageAsync($"Debe ingresar de 1 a 6 pokemon, ingresó {selected.Count}");
             }
 
             break;
         }
 
         string name = Helper.GetDisplayName(commandContext);
-        WaitingList.Instance.AddPlayer(name, pokemonList);
+        WaitingList.Instance.AddPlayer(name, selected);
         await dmChannel.SendMessageAsync("Fue añadido correctamente a la lista de espera");
         await commandContext.Channel.SendMessageAsync("Fue añadido correctamente a la lista de espera");
     }
@@ -111,7 +123,10 @@ public static class BotCommands
     {
         ArgumentNullException.ThrowIfNull(commandContext);
 
+        var waiting = WaitingList.Instance.GetWaiting();
+
         string output = string.Empty;
+        output += $"Hay {waiting.Count} jugadores en la lista de espera:\n";
         foreach (Player p in WaitingList.Instance.GetWaiting())
         {
             output += p.Name;

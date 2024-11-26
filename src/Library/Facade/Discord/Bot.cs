@@ -120,10 +120,13 @@ public class Bot : IBot, IDisposable
         switch (userMessage.Content.ToLower(culture).Split(' ')[0])
         {
             case "!join":
+                // this.logger.LogDebug("Got info request from user {User}", Helper.GetDisplayName(commandContext));
+                Console.WriteLine($"Got info request from user {Helper.GetDisplayName(commandContext)}");
                 await BotCommands.AddToWaitingList(commandContext);
                 break;
 
             case "!list":
+                Console.WriteLine($"Got list request from user {Helper.GetDisplayName(commandContext)}");
                 await BotCommands.DisplayWaitingList(commandContext);
                 break;
         }

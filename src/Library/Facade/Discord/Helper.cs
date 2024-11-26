@@ -62,14 +62,17 @@ public static class Helper
 
         while (true)
         {
-            var messages = await dmChannel.GetMessagesAsync(lastMessage, Direction.After).FlattenAsync();
-            if (messages == null || !messages.Any())
+            var messages = (await dmChannel.GetMessagesAsync(lastMessage, Direction.After).FlattenAsync()).ToList();
+            if (messages == null || messages.Count == 0)
             {
                 await Task.Delay(100);
                 continue;
             }
 
-            return messages.Select(m => m as IUserMessage).ToList();
+            // Logging? Qué es eso?
+            Console.WriteLine($"Got {messages.Count} messages");
+
+            return messages.OfType<IUserMessage>().ToList();
         }
     }
 }
