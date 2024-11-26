@@ -207,7 +207,14 @@ public class AttackRegistry
     public static NormalAttack GetNormalAttack(string name)
     {
         NormalAttack a = Instance.normalAttacks[name];
-        return new(a);
+        if (a is SpecialAttack special)
+        {
+            return new SpecialAttack(special);
+        }
+        else
+        {
+            return new NormalAttack(a);
+        }
     }
 
     /// <summary>

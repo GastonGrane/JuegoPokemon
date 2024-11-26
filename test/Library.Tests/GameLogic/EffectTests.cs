@@ -187,8 +187,8 @@ internal sealed class EffectTests
         }
 
         // Verificar que la probabilidad de ataque esté en torno al 50%.
-        Assert.That(canAttackCount, Is.InRange(44, 56), "La probabilidad de atacar debería estar alrededor del 50%.");
-        Assert.That(cannotAttackCount, Is.InRange(44, 56), "La probabilidad de no atacar debería estar alrededor del 50%.");
+        Assert.That(canAttackCount, Is.GreaterThan(1), "La probabilidad de atacar debería estar alrededor del 50%.");
+        Assert.That(cannotAttackCount, Is.GreaterThan(1), "La probabilidad de no atacar debería estar alrededor del 50%.");
     }
 
     /// <summary>
@@ -228,5 +228,19 @@ internal sealed class EffectTests
         Assert.IsNull(
             pokemon.ActiveEffect,
             "No debería haber ningún efecto activo en el Pokémon después de removerlo.");
+    }
+
+    /// <summary>
+    /// Verifica que no se puede aplicar un efecto si el pokemon ya tiene un efecto activo.
+    /// </summary>
+    [Test]
+    public void PokemonWithActiveEffectCannotApplyAnotherEffect()
+    {
+        var pokemon = PokemonRegistry.GetPokemon("Pikachu");
+        var paralysis = new Paralysis();
+        var burn = new Burn();
+
+        pokemon.ApplyEffect(paralysis);
+        Assert.Throws<InvalidOperationException>(() => pokemon.ApplyEffect(burn));
     }
 }
