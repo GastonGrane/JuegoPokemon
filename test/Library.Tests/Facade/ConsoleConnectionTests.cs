@@ -52,6 +52,19 @@ internal sealed class ConsoleConnectionTests
     }
 
     /// <summary>
+    /// Verifica que el método PrintString imprima correctamente el texto proporcionado en la consola.
+    /// </summary>
+    [Test]
+    public void CanPrintString()
+    {
+        this.conn.PrintString("hola");
+        this.consoleOutput.Flush();
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(output, Does.Contain("hola"));
+    }
+
+    /// <summary>
     /// Verifica que <see cref="ConsoleConnection.PrintWelcome(Player, Player)"/> imprime correctamente.
     /// </summary>
     [Test]
@@ -210,5 +223,232 @@ internal sealed class ConsoleConnectionTests
         Assert.That(output, Does.Contain(headerString));
         Assert.That(output, Does.Contain("Valor inválido ingresado, se esperaba un item del menú"));
         Assert.That(output, Does.Contain("2: Gaston"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowAttacksAndRecieveInput permita seleccionar un ataque correctamente
+    /// cuando se proporciona una entrada válida.
+    /// </summary>
+    [Test]
+    public void ShowAttackWithCorrectAttack()
+    {
+        Pokemon p = PokemonRegistry.GetPokemon("Pikachu");
+        StringReader input = new("Thunder Shock\n Quick Attack");
+        Console.SetIn(input);
+
+        string? result = this.conn.ShowAttacksAndRecieveInput(p);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo("Thunder Shock"));
+        Assert.That(output, Does.Contain("Seleccione un ataque"));
+        Assert.That(output, Does.Contain("1: Thunder Shock (Electric)"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowAttacksAndRecieveInput maneje entradas de índice incorrectas,
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
+    /// </summary>
+    [Test]
+    public void ShowAttacksWithIncorrectInputIndexRetriesAndThenWorks()
+    {
+        Pokemon bulbasaur = PokemonRegistry.GetPokemon("Bulbasaur");
+        StringReader input = new("5\n-1\n1\n"); // Secuencia: incorrect -> incorrecto -> correcto.
+        Console.SetIn(input);
+
+        string? result = this.conn.ShowAttacksAndRecieveInput(bulbasaur);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo("Tackle"));
+        Assert.That(output, Does.Contain("1: Tackle (Normal)"));
+        Assert.That(output, Does.Contain($"Valor inválido ingresado. Se esperaba un valor entre 1-{bulbasaur.AvailableAttacks.Count}"));
+        Assert.That(output, Does.Contain("Valor inválido ingresado, se esperaba un item del menú"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowAttacksAndRecieveInput maneje entradas de texto incorrectas,
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
+    /// </summary>
+    [Test]
+    public void ShowAttacksWithIncorrectInputTextRetriesAndThenWorks()
+    {
+        Pokemon pikachu = PokemonRegistry.GetPokemon("Pikachu");
+        StringReader input = new("InvalidAttack\nAnotherInvalid\nThunderbolt\n"); // Secuencia: incorrecto -> incorrecto -> correcto.
+        Console.SetIn(input);
+
+        string? result = this.conn.ShowAttacksAndRecieveInput(pikachu);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo("Thunderbolt"));
+        Assert.That(output, Does.Contain("Seleccione un ataque"));
+        Assert.That(output, Does.Contain("Valor inválido ingresado"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowAttacksAndRecieveInput funcione correctamente con un índice válido.
+    /// </summary>
+    [Test]
+    public void ShowAttacksWithCorrectInputIndexWorks()
+    {
+        Pokemon pikachu = PokemonRegistry.GetPokemon("Pikachu"); // Asume un método o acceso al Pokémon ya definido en el proyecto.
+        StringReader input = new("1\n");
+        Console.SetIn(input);
+
+        string? result = this.conn.ShowAttacksAndRecieveInput(pikachu);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo("Thunder Shock")); // Nombre del ataque esperado.
+        Assert.That(output, Does.Contain("Seleccione un ataque"));
+        Assert.That(output, Does.Contain("1: Thunder Shock (Electric)"));
+        Assert.That(output, Does.Not.Contain("Valor inválido ingresado"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowAttacksAndRecieveInput devuelva null cuando el usuario selecciona "0"
+    /// para volver al menú anterior.
+    /// </summary>
+    [Test]
+    public void ShowAttacksWithInputZeroReturnsNull()
+    {
+        Pokemon squirtle = PokemonRegistry.GetPokemon("Squirtle");
+        StringReader input = new("0\n");
+        Console.SetIn(input);
+
+        string? result = this.conn.ShowAttacksAndRecieveInput(squirtle);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.Null);
+        Assert.That(output, Does.Contain("Seleccione un ataque"));
+        Assert.That(output, Does.Contain("0: Volver al menú anterior"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente
+    /// utilizando un índice válido.
+    /// </summary>
+    [Test]
+    public void ShowChangePokemonMenuWithCorrectInputIndexWorks()
+    {
+        Player player = new Player("Axel", new List<Pokemon>
+        {
+            PokemonRegistry.GetPokemon("Pikachu"),
+            PokemonRegistry.GetPokemon("Squirtle"),
+            PokemonRegistry.GetPokemon("Articuno"),
+            PokemonRegistry.GetPokemon("Mew"),
+            PokemonRegistry.GetPokemon("Diglett"),
+        });
+        StringReader input = new("1\n");
+        Console.SetIn(input);
+
+        int result = this.conn.ShowChangePokemonMenu(player);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo(0)); // El índice 0 corresponde al primer Pokémon.
+        Assert.That(output, Does.Contain("Seleccione un Pokémon"));
+        Assert.That(output, Does.Contain("1: Pikachu (Electric)")); // Ajustar según el primer Pokémon del jugador.
+        Assert.That(output, Does.Not.Contain("Valor inválido ingresado"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowChangePokemonMenu permita seleccionar un Pokémon correctamente
+    /// utilizando su nombre como entrada.
+    /// </summary>
+    [Test]
+    public void ShowChangePokemonMenuWithCorrectInputTextWorks()
+    {
+        Player player = new Player("Axel", new List<Pokemon>
+        {
+            PokemonRegistry.GetPokemon("Pikachu"),
+            PokemonRegistry.GetPokemon("Squirtle"),
+            PokemonRegistry.GetPokemon("Articuno"),
+            PokemonRegistry.GetPokemon("Mew"),
+            PokemonRegistry.GetPokemon("Diglett"),
+        });
+        StringReader input = new("Pikachu\n");
+        Console.SetIn(input);
+
+        int result = this.conn.ShowChangePokemonMenu(player);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo(0)); // El índice 0 corresponde a "Pikachu"
+        Assert.That(output, Does.Contain("Seleccione un Pokémon"));
+        Assert.That(output, Does.Not.Contain("Valor inválido ingresado"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowChangePokemonMenu maneje entradas de texto incorrectas,
+    /// muestre mensajes de error y permita al usuario reintentar hasta seleccionar correctamente.
+    /// </summary>
+    [Test]
+    public void ShowChangePokemonMenuWithIncorrectInputTextRetriesAndThenWorks()
+    {
+        Player player = new Player("Axel", new List<Pokemon>
+        {
+            PokemonRegistry.GetPokemon("Pikachu"),
+            PokemonRegistry.GetPokemon("Squirtle"),
+            PokemonRegistry.GetPokemon("Articuno"),
+            PokemonRegistry.GetPokemon("Mew"),
+            PokemonRegistry.GetPokemon("Diglett"),
+        });
+        StringReader input = new("InvalidName\nAnotherInvalid\nArticuno\n"); // Secuencia: incorrecto -> incorrecto -> correcto.
+        Console.SetIn(input);
+
+        int result = this.conn.ShowChangePokemonMenu(player);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo(2));
+        Assert.That(output, Does.Contain("Seleccione un Pokémon"));
+        Assert.That(output, Does.Contain("Valor inválido ingresado, se esperaba un item del menú"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowChangePokemonMenu devuelva -1 cuando el usuario selecciona "0"
+    /// para volver al menú anterior.
+    /// </summary>
+    [Test]
+    public void ShowChangePokemonMenuWithInputZeroReturnsMinusOne()
+    {
+        Player player = new Player("Axel", new List<Pokemon>
+        {
+            PokemonRegistry.GetPokemon("Pikachu"),
+            PokemonRegistry.GetPokemon("Squirtle"),
+            PokemonRegistry.GetPokemon("Articuno"),
+            PokemonRegistry.GetPokemon("Mew"),
+            PokemonRegistry.GetPokemon("Diglett"),
+        });
+        StringReader input = new("0\n");
+        Console.SetIn(input);
+
+        int result = this.conn.ShowChangePokemonMenu(player);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo(-1)); // Retorno esperado para "volver al menú".
+        Assert.That(output, Does.Contain("Seleccione un Pokémon"));
+        Assert.That(output, Does.Contain("0: Volver al menú anterior"));
+    }
+
+    /// <summary>
+    /// Verifica que el método ShowChangePokemonMenu maneje índices fuera de rango, muestre mensajes de error
+    /// y permita al usuario reintentar hasta seleccionar correctamente.
+    /// </summary>
+    [Test]
+    public void ShowChangePokemonMenuWithOutOfRangeIndexDisplaysErrorAndRetries()
+    {
+        Player player = new Player("Axel", new List<Pokemon>
+        {
+            PokemonRegistry.GetPokemon("Pikachu"),
+            PokemonRegistry.GetPokemon("Squirtle"),
+            PokemonRegistry.GetPokemon("Articuno"),
+        });
+        StringReader input = new("8\n2\n"); // Secuencia: fuera de rango -> correcto.
+        Console.SetIn(input);
+
+        int result = this.conn.ShowChangePokemonMenu(player);
+        string output = this.consoleOutput.ToString();
+
+        Assert.That(result, Is.EqualTo(1));
+        Assert.That(output, Does.Contain($"Valor inválido ingresado. Se esperaba un valor entre 1-{player.Pokemons.Count}"));
+        Assert.That(output, Does.Contain("1: Pikachu (Electric)"));
+        Assert.That(output, Does.Contain("2: Squirtle (Water)"));
+        Assert.That(output, Does.Contain("3: Articuno (Ice)"));
     }
 }

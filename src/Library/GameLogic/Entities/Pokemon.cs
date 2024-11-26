@@ -309,11 +309,6 @@ public class Pokemon
     /// </exception>
     private TurnResult Attack(Pokemon target, Attacks.NormalAttack attack)
     {
-        if (!this.Attacks.Contains(attack))
-        {
-            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
-        }
-
         if (!this.CanAttack)
         {
             return new TurnResult(AttackStatus.HinderingEffect, 0);
