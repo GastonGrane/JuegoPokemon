@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
 namespace Library.Facade;
@@ -46,5 +47,15 @@ public class WaitingList
     public bool ContainsPlayer(string name)
     {
         return this.waitingList.Any(p => p.Name == name);
+    }
+
+    /// <summary>
+    /// Añade un un jugador.
+    /// </summary>
+    /// <param name="name">El nombre del jugador.</param>
+    /// <param name="pokemon">Los pokemon del jugador.</param>
+    public void AddPlayer(string name, List<Pokemon> pokemon)
+    {
+        this.waitingList.Add(new Player(name, pokemon));
     }
 }

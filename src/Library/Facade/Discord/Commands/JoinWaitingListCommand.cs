@@ -7,6 +7,7 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Library.GameLogic.Entities;
 
 namespace Library.Facade.Discord.Commands;
 
@@ -36,13 +37,32 @@ public class JoinWaitingListCommand : ModuleBase<SocketCommandContext>
 
     private async Task AddUser()
     {
-        string username = this.Context.User.GlobalName;
-        Console.WriteLine(username);
-        if (WaitingList.Instance.ContainsPlayer(this.Context.User.GlobalName))
+        ISocketMessageChannel channelSocket = this.Context.Channel;
+        SocketUser userSocket = this.Context.User;
+
+        if (WaitingList.Instance.ContainsPlayer(userSocket.GlobalName))
         {
-            await this.Context.Channel.SendMessageAsync("Ya estás en la lista de espera");
+            await channelSocket.SendMessageAsync("Ya estás en la lista de espera");
         }
 
-        await this.Context.Channel.SendMessageAsync("No estás en la lista de espera");
+        await channelSocket.SendMessageAsync("Añadiéndote a la lista de espera, mire sus mensajes");
+
+        string output = string.Empty;
+        int idx = 1;
+        foreach (var pokemon in PokemonRegistry.GetAllPokemon())
+        {
+            output += $"{idx} - {pokemon.Name} - {pokemon.Type}\n";
+            idx++;
+        }
+
+        while (true)
+        {
+            await userSocket.SendMessageAsync("Elija sus pokemon:");
+            await userSocket.SendMessageAsync(output);
+
+            string msg = await CommandHelper.WaitForUserMessage(this.Context, userSocket);
+            Console.WriteLine("Got here");
+            Console.WriteLine($"user sent {msg}");
+        }
     }
 }

@@ -75,4 +75,37 @@ public static class CommandHelper
 
         return null;
     }
+
+    /// <summary>
+    /// Espera a un mensaje del usuario y lo retorna.
+    /// </summary>
+    /// <param name="context">El contexto de ejecución.</param>
+    /// <param name="user">El socket con la información del usuario.</param>
+    /// <returns>Un task que retorna una string con el mensaje del usuario.</returns>
+    public static async Task<string> WaitForUserMessage(SocketCommandContext context, SocketUser user)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        var tcs = new TaskCompletionSource<string>();
+
+        context.Client.MessageReceived += MessageHandler;
+
+        Task MessageHandler(SocketMessage message)
+        {
+            Console.WriteLine(message.Content);
+
+            if (message.Author.Id == user.Id && message.Channel is SocketDMChannel)
+            {
+                tcs.SetResult(message.Content);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        Console.WriteLine("waiting...");
+        string output = await tcs.Task;
+        Console.WriteLine("waited...");
+        context.Client.MessageReceived -= MessageHandler;
+        return output;
+    }
 }
