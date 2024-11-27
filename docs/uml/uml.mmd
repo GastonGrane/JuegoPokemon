@@ -5,24 +5,27 @@ classDiagram
     class Pokemon {
       -int health
       -List~Attack~ attacks
+      -IProbability precisionGen
 
       +IEffect? ActiveEffect
       +string Name
-      +Type: PokemonType
+      +Type PokemonType
       +int MaxHealth
       +int Health
       +bool CanAttack
-      +ReadOnlyCollection~Attack~ Attacks
+      +ReadOnlyCollection~NormalAttack~ Attacks
+      +ReadOnlyCollection~NormalAttack~ AvailableAttacks
 
       +Pokemon(string name, PokemonType type, int maxHealth, List~Attack~ attacks)
+      +Pokemon(string name, PokemonType type, int maxHealth, List~Attack~ attacks, IProbability precisionGen)
       +Pokemon(Pokemon pokemon)
       +Attack(Pokemon target, int attackIdx) void
       +Attack(Pokemon target, string attackName) void
       +Heal(int health) void
       +Damage(int health) void
       +ApplyEffect(IEffect effect) void
-      +UpdateEffect(IEffect effect) void
-      +RemoveEffect(IEffect effect) void
+      +UpdateEffect() void
+      +RemoveEffect() void
       -Attack(Pokemon target, Attack attack) bool
       -GetAttack(string attackName) Attack
       -GetAttack(int attackIdx) Attack
@@ -31,6 +34,7 @@ classDiagram
     Pokemon "1" *-- "0..*" PokemonType
     Pokemon "1" *-- "1" IEffect
     Pokemon "1..4" o-- "1" Attack
+    Pokemon "1" *-- "0..*" IProbability
 
     <<enumeration>> PokemonType
     class PokemonType {
@@ -100,10 +104,6 @@ classDiagram
 
     <<abstract>> Attack
     class Attack {
-      +string Name
-      +int Damage
-      +PokemonType Type
-      +int Precision
 
       #Attack(string name, int damage, PokemonType type, int precision)
       #Attack(Attack attack)
@@ -116,108 +116,129 @@ classDiagram
       +int Damage
       +PokemonType Type
       +int Precision
+      +bool Available
+      +int AmountUnusedTurn
+      #IProbability CriticalGen
 
       #NormalAttack(string name, int damage, PokemonType type, int precision)
+      %% es rarísimo lo mal que queda.
+      #NormalAttack(string name, int damage, PokemonType type, int precision, IProbability criticalGen)
       #NormalAttack(NormalAttack normalAttack)
       +Use(Pokemon target)* void
+      +UpdateTurn()* void
     }
     NormalAttack "1" *-- "0..*" PokemonType
-    NormalAttack ..|> Attack
+    NormalAttack "1" *-- "0..*" IProbability
 
     class SpecialAttack {
       -IEffect effect
+
       +string Name
       +int Damage
       +PokemonType Type
       +int Precision
+      +bool Available
+      +int AmountUnusedTurn
+      #IProbability CriticalGen
 
-      #NormalAttack(string name, int damage, PokemonType type, int precision)
-      #NormalAttack(NormalAttack normalAttack)
+      #SpecialAttack(string name, int damage, PokemonType type, int precision, IEffect effect)
+      #SpecialAttack(string name, int damage, PokemonType type, int precision, IEffect effect, IProbability criticalGen)
+      #SpecialAttack(NormalAttack normalAttack)
       +Use(Pokemon target)* void
+      +UpdateTurn()* void
     }
     SpecialAttack "1" *-- "0..*" PokemonType
     SpecialAttack "1" *-- "1" IEffect
+    SpecialAttack "1" *-- "0..*" IProbability
     SpecialAttack ..|> Attack
 
 
     class Player {
       +string Name
       +List~Pokemon~ Pokemon
-      +List~IItem~ Pokemon
+      +List~Item~ Pokemon
       +Pokemon ActivePokemon
 
       +Player(string name, List~Pokemon~ pokemon)
       +Attack(Player other, string attackName) void
       +ChangePokemon(string newPokemon) bool
+      +ChangePokemon(int pokeIdx) bool
       +Attack(Player other, string attackName) bool
       +AllAreDead() bool
       +ApplyItem(Pokemon target, string name) void
+      +UpdateTurn() void
     }
     Player "6" o-- "0..1" Pokemon
-    Player "0..*" o-- "0..1" IItem
+    Player "0..*" o-- "0..1" Item
 
-    <<interface>> IItem
-    class IItem {
-      +string Name$
+    <<abstract>> Item
+    class Item {
+      +string Name
 
-      +Use(Pokemon pokemon) void
+      +Use(Pokemon pokemon)* void
     }
 
     class TotalCure {
-      +string Name$
+      +string Name
 
       +TotalCure()
-      +Use(Pokemon pokemon) void
+      +Use(Pokemon pokemon)* void
     }
-    TotalCure ..|> IItem
+    TotalCure ..|> Item
 
     class SuperPotion {
-      +string Name$
+      +string Name
 
       +SuperPotion()
-      +Use(Pokemon pokemon) void
+      +Use(Pokemon pokemon)* void
     }
-    SuperPotion ..|> IItem
+    SuperPotion ..|> Item
 
     class Revive {
-      +string Name$
+      +string Name
 
       +Revive()
-      +Use(Pokemon pokemon) void
+      +Use(Pokemon pokemon)* void
     }
-    Revive ..|> IItem
+    Revive ..|> Item
 
     class PokemonRegistry {
-      -Dictionary~string, Pokemon~ PokemonTemplates
+      -PokemonRegistry instance$
+      -Dictionary~string, Pokemon~ pokemon
 
+      +PokemonRegistry Instance$
+
+      +ResetSingleton() void$
+      +InitSingleton() void$
+      +InitSingleton(IProbability precisionGen) void$
       +GetPokemon(string name) Pokemon$
+      +GetAllPokemon() List~Pokemon~$
       +GetPokemonNamesAndTypes() List~string, PokemonType~$
     }
     Pokemon "0..*" --o "1" PokemonRegistry
 
-    class NormalAttackRegistry {
-      -Dictionary~string, NormalAttack~ NormalAttacks
+    class AttackRegistry {
+      -AttackRegistry instance$
+      -Dictionary~string, NormalAttack~ normalAttacks
 
-      +GetNormalAttack(string name) NormalAttack$
+      +AttackRegistry Instance$
+
+      +ResetSingleton() void$
+      +InitSingleton() void$
+      +InitSingleton(IProbability precisionGen) void$
+      +GetNormalAttack(string name) Pokemon$
+      +GetPokemonNamesAndTypes() List~string, PokemonType~$
       +GetAttackNamesAndTypes() List~string, PokemonType~$
     }
     Pokemon "0..*" --o "1" NormalAttackRegistry
-
-    class SpecialAttackRegistry {
-      -Dictionary~string, SpecialAttack~ SpecialAttacks
-
-      +GetPokemon(string name) SpecialAttack$
-      +GetAttackNamesAndTypes() List~string, PokemonType~$
-    }
-    Pokemon "0..*" --o "1" SpecialAttackRegistry
 
     class Game {
       -IExternalConnection externalConnection
       -Player playerOne
       -Player playerTwo
 
-      -Game(Player p1, Player p2, IExternalConnection externalConnection)
-      +CreateGame(List~Pokemon~, IExternalConnection externalConnection) Game$
+      +Game(Player p1, Player p2, IExternalConnection externalConnection)
+      +ShowWelcome() void
       +Play() void
       +PlayGameTurn() void
       -AttackPlayer(Player active, Player other) bool
@@ -238,9 +259,10 @@ classDiagram
       +PrintWelcome(Player p1, Player p2) void
       +PrintPlayerWon(Player p1, Player p2) void
       +PrintTurnHeading(Player player) void
-      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection~string` options) int
+      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection<string> options) int
       +ShowAttacksAndRecieveInput(Pokemon pokemon) string?
-      +ShowChangePokemonMenu(Player player) int
+      +ShowItemsAndRecieveInput(Player player) Item?
+      +ShowPokemonMenu(Player player) int
       +ReportAttackResult(int oldHP, Player attacker, Player defender) void
     }
 
@@ -249,9 +271,16 @@ classDiagram
       +PrintWelcome(Player p1, Player p2) void
       +PrintPlayerWon(Player p1, Player p2) void
       +PrintTurnHeading(Player player) void
-      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection~string` options) int
+      +ShowMenuAndReceiveInput(string selectionText, ReadOnlyCollection<string> options) int
       +ShowAttacksAndRecieveInput(Pokemon pokemon) string?
-      +ShowChangePokemonMenu(Player player) int
+      +ShowItemsAndRecieveInput(Player player) Item?
+      +ShowPokemonMenu(Player player) int
       +ReportAttackResult(int oldHP, Player attacker, Player defender) void
     }
     ConsoleConnection ..|> IExternalConnection
+
+    <<interface>> IProbability
+    class IProbability {
+      +Chance(int porcentaje) bool
+      +Number(int limInferior, int limSuperior) int
+    }
