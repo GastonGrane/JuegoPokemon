@@ -104,18 +104,23 @@ public class Player
     /// </summary>
     /// <param name="pokeIdx">El índice del pokemon por el cual quiere cambiar, este debe ser válido para su lista de pokemon.</param>
     /// <returns>
-    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior.
+    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior o esta muerto.
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Si <paramref name="pokeIdx"/> no es un índice en la lista.
     /// </exception>
-    public bool ChangePokemon(int pokeIdx)
+    public bool? ChangePokemon(int pokeIdx)
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(pokeIdx, this.Pokemons.Count, nameof(pokeIdx));
         ArgumentOutOfRangeException.ThrowIfLessThan(pokeIdx, 0, nameof(pokeIdx));
         if (this.Pokemons[pokeIdx] == this.ActivePokemon)
         {
             return false;
+        }
+
+        if (this.Pokemons[pokeIdx].Health == 0)
+        {
+            return null;
         }
 
         this.ActivePokemon = this.Pokemons[pokeIdx];
