@@ -95,6 +95,7 @@ public class Game
 
         if (!this.CheckDead(this.playerOne))
         {
+            this.PlayTurnP2();
             if (this.CheckDead(this.playerOne))
             {
                 this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
