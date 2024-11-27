@@ -22,12 +22,6 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            // ConsoleApp();
-            DiscordBot().GetAwaiter().GetResult();
-        }
-
-        private static void ConsoleApp()
-        {
             List<Pokemon> pokemons = new List<Pokemon>
             {
                 PokemonRegistry.GetPokemon("Pikachu"),
@@ -54,11 +48,6 @@ namespace Program
             IExternalConnection connection = new ConsoleConnection();
             Game game = new Game(p1, p2, connection);
             game.Play();
-        }
-
-        private static async Task DiscordBot()
-        {
-            await BotLoader.LoadAsync();
         }
     }
 }

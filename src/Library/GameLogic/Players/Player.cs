@@ -58,6 +58,11 @@ public class Player
     public string Name { get; }
 
     /// <summary>
+    /// asd.
+    /// </summary>
+    public int chance = 0;
+
+    /// <summary>
     /// La lista de pokemon del jugador.
     /// </summary>
     /// <value>
@@ -125,6 +130,28 @@ public class Player
 
         this.ActivePokemon = this.Pokemons[pokeIdx];
         return true;
+    }
+
+    /// <summary>
+    /// .
+    /// </summary>
+    /// <returns> La probabilidad de ganar.</returns>
+    public bool WinProbability()
+    {
+        foreach (var pokemon in this.Pokemons)
+        {
+            if (pokemon.Health != 0)
+            {
+                this.chance += 10;
+            }
+        }
+
+        if (this.chance > 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /// <summary>

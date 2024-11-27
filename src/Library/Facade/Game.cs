@@ -184,7 +184,7 @@ public class Game
         {
             int selection = this.externalConnection.ShowMenuAndReceiveInput(
                 "Elija su acción:",
-                new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
+                new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item", "Probabilidad de Ganar" }.AsReadOnly());
             switch (selection)
             {
                 case 0:
@@ -203,6 +203,13 @@ public class Game
                     break;
                 case 2:
                     if (this.UseItem(active))
+                    {
+                        return;
+                    }
+
+                    break;
+                case 3:
+                    if (this.WinProbability(active))
                     {
                         return;
                     }
@@ -228,6 +235,32 @@ public class Game
         this.PlayTurn(this.playerTwo, this.playerOne);
         this.playerTwo.UpdateTurn();
         this.externalConnection.EndTurn(this.playerTwo, this.playerOne);
+    }
+
+    /// <summary>
+    /// asd.
+    /// </summary>
+    /// <param name="p"> . </param>
+    /// <returns>asd .</returns>
+    public bool WinProbability(Player p)
+    {
+        bool salir = false;
+        while (!salir)
+        {
+            switch (p.WinProbability())
+            {
+                case true:
+                    this.externalConnection.PrintString($"Tienes un {p.chance} porciento de ganar");
+                    salir = true;
+                    break;
+                case false:
+                    this.externalConnection.PrintString($"Tiene muy pocas chances de ganar");
+                    salir = true;
+                    break;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
