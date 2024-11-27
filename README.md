@@ -17,9 +17,6 @@ batalla Pokémon 1vs1.
 El objetivo principal de este proyecto es crear un chatbot que permita jugar
 una batalla pokemon entre dos personas en un servidor de Discord.
 
-## Paso a paso de como utilizar el bot
-
--
 
 ## Tecnologías Utilizadas
 
@@ -37,10 +34,10 @@ nuestro aprendizaje en la programacion, no solo aprendimos cómo debe ser un
 programa para que se pueda mantener a corto y largo plazo, sino que aprendimos
 a utilizar patrones y guias de diseño para nuestros futuros proyectos.
 
-- Además aprendimos cómo manejar Git y cómo utilizarlo a través de herramiento
+- Además aprendimos cómo manejar Git y cómo utilizar las herramientas de 
 GitHub, a traves de PRs, Branches, Commits, y demás. Este proyecto y todo su
 camino hacia esta entrega final nos enseño bastante de cuando y como se
-deberian hacer las cosas, si el dia de mañana no toca trabajar en un proyecto.
+deberian hacer las cosas, si el dia de mañana nos toca trabajar con esta misma modalidad.
 
 Nos vamos muy contentos con todo este nuevo aprendizaje y con muchas ganas de
 seguir aprendiendo.
