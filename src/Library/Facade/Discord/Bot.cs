@@ -123,6 +123,7 @@ public class Bot : IBot, IDisposable
                 // this.logger.LogDebug("Got info request from user {User}", Helper.GetDisplayName(commandContext));
                 Console.WriteLine($"Got info request from user {Helper.GetDisplayName(commandContext)}");
                 await BotCommands.AddToWaitingList(commandContext);
+                await BotCommands.CheckIfEnoughPlayers(commandContext);
                 break;
 
             case "!list":

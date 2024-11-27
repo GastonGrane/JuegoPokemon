@@ -41,6 +41,17 @@ public class WaitingList
     }
 
     /// <summary>
+    /// Retorna todos los jugadores esperando.
+    /// </summary>
+    public ReadOnlyCollection<Player> Waiting
+    {
+        get
+        {
+            return this.waitingList.AsReadOnly();
+        }
+    }
+
+    /// <summary>
     /// Busca si existe un jugador cuyo nombre sea <paramref name="name"/>.
     /// </summary>
     /// <param name="name">El nombre del usuario que se busca.</param>
@@ -61,13 +72,12 @@ public class WaitingList
     }
 
     /// <summary>
-    /// Retorna todos los jugadores esperando.
+    /// Remueve el jugador de la lista de espera.
     /// </summary>
-    /// <returns>
-    /// Una colección de todos los jugadores esperando.
-    /// </returns>
-    public ReadOnlyCollection<Player> GetWaiting()
+    /// <param name="p">El jugador a remover.</param>
+    public void RemovePlayer(Player p)
     {
-        return this.waitingList.AsReadOnly();
+        this.waitingList.Remove(p);
     }
+
 }

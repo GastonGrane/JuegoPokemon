@@ -123,11 +123,11 @@ public static class BotCommands
     {
         ArgumentNullException.ThrowIfNull(commandContext);
 
-        var waiting = WaitingList.Instance.GetWaiting();
+        var waiting = WaitingList.Instance.Waiting;
 
         string output = string.Empty;
         output += $"Hay {waiting.Count} jugadores en la lista de espera:\n";
-        foreach (Player p in WaitingList.Instance.GetWaiting())
+        foreach (Player p in WaitingList.Instance.Waiting)
         {
             output += p.Name;
             output += " - ";
@@ -141,5 +141,46 @@ public static class BotCommands
         }
 
         await commandContext.Channel.SendMessageAsync(output);
+    }
+
+    /// <summary>
+    /// Revisa si hay suficientes jugadores en la lista de espera para iniciar una batalla, y si los hay, lo hace.
+    /// </summary>
+    /// <param name="commandContext">El contexto del comando.</param>
+    /// <returns>Un <see cref="Task"/> representando el estado de la determinación de si hacer batalla o no entre los jugadores.</returns>
+    public static async Task CheckIfEnoughPlayers(SocketCommandContext commandContext)
+    {
+        var players = WaitingList.Instance.Waiting.ToList();
+        if (players.Count < 2)
+        {
+            return;
+        }
+
+        Player p1 = players[0];
+        Player p2 = players[1];
+        WaitingList.Instance.RemovePlayer(p1);
+        WaitingList.Instance.RemovePlayer(p2);
+        await commandContext.Channel.SendMessageAsync($"Empezando una pelea entre {p1.Name} y {p2.Name}");
+
+        var p1User = Helper.GetUser(commandContext, p1.Name);
+        if (p1User == null)
+        {
+            await commandContext.Channel.SendMessageAsync($"Usuario {p1.Name} no encontrado");
+            return;
+        }
+
+        var p2User = Helper.GetUser(commandContext, p2.Name);
+        if (p2User == null)
+        {
+            await commandContext.Channel.SendMessageAsync($"Usuario {p2.Name} no encontrado");
+            return;
+        }
+
+        var p1Channel = await p1User.CreateDMChannelAsync();
+        var p2Channel = await p2User.CreateDMChannelAsync();
+
+        DiscordConnection conn = new(p1Channel, p2Channel);
+        Thread thread = new Thread(() => new Game(p1, p2, conn).Play());
+        thread.Start();
     }
 }

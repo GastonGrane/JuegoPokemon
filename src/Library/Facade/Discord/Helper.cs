@@ -75,4 +75,25 @@ public static class Helper
             return messages.OfType<IUserMessage>().ToList();
         }
     }
+
+    /// <summary>
+    /// Retorna un usuario que refiere al nombre pasado, o null si no lo hay.
+    /// </summary>
+    /// <param name="context">El contexto del comando.</param>
+    /// <param name="name">Nombre del usuario a buscar.</param>
+    public static SocketGuildUser? GetUser(SocketCommandContext context, string name)
+    {
+        foreach (SocketGuildUser user in context.Guild.Users)
+        {
+            if (user.Username == name
+                || user.DisplayName == name
+                || user.Nickname == name
+                || user.GlobalName == name)
+            {
+                return user;
+            }
+        }
+
+        return null;
+    }
 }
