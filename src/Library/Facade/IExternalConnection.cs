@@ -104,4 +104,11 @@ public interface IExternalConnection
     /// <param name="attacker">El jugador que atacó.</param>
     /// <param name="defender">El jugador que fue atacado.</param>
     public void ReportAttackResult(int oldHP, Player attacker, Player defender);
+
+    /// <summary>
+    /// Se llama al terminar el turno del jugador.
+    /// </summary>
+    /// <param name="p1">El primer jugador (del turno actual).</param>
+    /// <param name="p2">El segundo jugador.</param>
+    public void EndTurn(Player p1, Player p2);
 }

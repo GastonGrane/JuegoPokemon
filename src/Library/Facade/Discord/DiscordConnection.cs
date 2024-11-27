@@ -118,6 +118,12 @@ public class DiscordConnection : IExternalConnection
         Task.Run(() => this.ReportAttackResultInternal(oldHP, attacker, defender)).Wait();
     }
 
+    /// <inheritdoc/>
+    public void EndTurn(Player p1, Player p2)
+    {
+        this.currentTurnP1 = !this.currentTurnP1;
+    }
+
     private async Task<IMessage> ShowStringToCurrentPlayer(string str)
     {
         return await this.CurrentDM.SendMessageAsync(str);
