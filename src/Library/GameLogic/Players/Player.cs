@@ -189,7 +189,7 @@ public class Player
     /// <summary>
     /// Calcula la probabilidad de victoria de este jugador.
     ///
-    /// Esta probabilidad es entre 0-100, y ponder cantidad de Pokémon vivos, ítems disponibles y efectos afectando a los Pokémon.
+    /// Esta probabilidad es entre 0-100, y pondera cantidad de Pokémon vivos, ítems disponibles y efectos afectando a los Pokémon.
     /// </summary>
     /// <returns>Un entero representando la probabilidad de victoria.</returns>
     public int WinProbability()
@@ -207,7 +207,7 @@ public class Player
         total += (this.Items.Count * 30) / this.initialItemCount;
 
         // Efectos
-        // Le sumo los 10, y si encuentra uno que no se los saco.
+        // Le sumo los 10, y si encuentra uno que tiene un efecto se los saco.
         //
         // Nota: Se loopea dos veces por la lista de pokemon, una vez para los puntos de vida, y otra vez para los efectos. Esto es un poco ineficiente, pero no me importa porque queda más limpio.
         total += 10;
