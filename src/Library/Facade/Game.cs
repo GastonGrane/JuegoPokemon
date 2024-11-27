@@ -236,19 +236,18 @@ public class Game
                 return false;
             }
 
-            if (p.ChangePokemon(idx) == false)
+            switch (p.ChangePokemon(idx))
             {
-                this.externalConnection.PrintString(
-                    "No se puede cambiar a utilizar el mismo Pokemon. Intente de nuevo");
-            }
-            else if (p.ChangePokemon(idx) == null)
-            {
-                this.externalConnection.PrintString(
-                    "El Pokemon que seleccionó está muerto. Intente de nuevo");
-            }
-            else
-            {
-                return true;
+                case true:
+                    return true;
+                case false:
+                    this.externalConnection.PrintString(
+                        "No se puede cambiar a utilizar el mismo Pokemon. Intente de nuevo");
+                    break;
+                case null:
+                    this.externalConnection.PrintString(
+                        "El Pokemon que seleccionó está muerto. Intente de nuevo");
+                    break;
             }
         }
     }
