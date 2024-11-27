@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Runtime.CompilerServices;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 
@@ -41,7 +42,6 @@ public class Player
         {
             new Revive(),
 
-            new SuperPotion(),
             new SuperPotion(),
             new SuperPotion(),
             new SuperPotion(),
@@ -144,6 +144,19 @@ public class Player
             {
                 this.chance += 10;
             }
+
+            
+        }
+
+        if (this.Items.Count == 6)
+        {
+            this.chance += 30;
+        }
+        else
+        {
+            int cuantosItemsTengo = this.Items.Count;
+
+            this.chance += (cuantosItemsTengo * 30) / 6;
         }
 
         if (this.chance > 0)
