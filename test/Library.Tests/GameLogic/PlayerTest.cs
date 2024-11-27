@@ -6,7 +6,9 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Effects;
 using Library.GameLogic.Entities;
+using Library.GameLogic.Items;
 using Library.GameLogic.Players;
 
 namespace Library.Tests.GameLogic;
@@ -327,5 +329,46 @@ public class PlayerTest
         Assert.That(p.ActivePokemon, Is.EqualTo(pikachu));
         Assert.That(p.ChangePokemon("Squirtle"), Is.False);
         Assert.That(p.ActivePokemon, Is.EqualTo(pikachu));
+    }
+
+    /// <summary>
+    /// .
+    /// </summary>
+    [Test]
+    public void CanWinProbability()
+    {
+        Player p1 = new Player(
+            "Axel",
+            new List<Pokemon>
+            {
+                PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
+                PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
+            });
+        Player p2 = new Player(
+            "Sharon",
+            new List<Pokemon>
+            {
+                PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
+            });
+
+        p1.WinProbability();
+        Assert.That(p1.Chance, Is.EqualTo(80));
+
+        p2.WinProbability();
+        Assert.That(p2.Chance, Is.EqualTo(60));
+
+        p2.ActivePokemon.ApplyEffect(new Sleep());
+        p2.WinProbability();
+        Assert.That(p2.Chance, Is.EqualTo(50));
+
+        p2.ActivePokemon.RemoveEffect();
+        p2.ActivePokemon.Damage(40);
+        SuperPotion revive = new SuperPotion();
+        revive.Use(p2.ActivePokemon);
+        p2.WinProbability();
+
+        // Me tendria que dar 55(20 pokemon, 10 todos sanos, 25 regla de 3 por haber utilizado una pocion y ya no es 30)
+        // este test, pero en el programa principal, los items no bajan cuando los uso.
+        Assert.That(p2.Chance, Is.EqualTo(60));
     }
 }
