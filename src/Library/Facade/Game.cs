@@ -83,18 +83,23 @@ public class Game
     /// </summary>
     public void PlayGameTurn()
     {
-        this.PlayTurnP1();
-        if (this.CheckDead(this.playerTwo))
+        if (!this.CheckDead(this.playerTwo))
         {
-            this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
-            return;
+            this.PlayTurnP1();
+            if (this.CheckDead(this.playerTwo))
+            {
+                this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+                return;
+            }
         }
 
-        this.PlayTurnP2();
-        if (this.CheckDead(this.playerOne))
+        if (!this.CheckDead(this.playerOne))
         {
-            this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
-            return;
+            if (this.CheckDead(this.playerOne))
+            {
+                this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
+                return;
+            }
         }
     }
 
@@ -272,8 +277,13 @@ public class Game
         if (p.ActivePokemon.Health == 0)
         {
             this.externalConnection.PrintString(
-                $"{p.Name}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
-            this.ChangePokemon(p);
+                $"{p.Name}, su Pokémon ha muerto, elija otro Pokémon para continuar el juego.");
+
+            while (!this.ChangePokemon(p))
+            {
+                this.externalConnection.PrintString("Debe seleccionar una opcion válida para continuar.");
+            }
+
             return false;
         }
 
