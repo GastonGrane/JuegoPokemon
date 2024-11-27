@@ -6,6 +6,7 @@
 
 using Library.GameLogic.Effects;
 using Library.GameLogic.Entities;
+using Library.GameLogic.Utilities;
 
 namespace Library.Tests.GameLogic;
 
@@ -86,6 +87,111 @@ internal sealed class EffectTests
     }
 
     /// <summary>
+    /// Verifica que el constructor Sleep(IProbability randomGen) inicialice correctamente los turnos restantes
+    /// utilizando un generador de números aleatorios controlado.
+    /// </summary>
+    [Test]
+    public void SleepConstructorWithSystemRandomGeneratesTurnsWithinRange()
+    {
+        // Crear una lista para almacenar múltiples instancias del efecto Sleep.
+        List<int> generatedDurations = new List<int>();
+
+        // Crear varias instancias de Sleep y registrar los turnos generados.
+        // Repetimos varias veces para cubrir rangos.
+        for (int i = 0; i < 100; i++)
+        {
+            Sleep sleepEffect = new Sleep(new SystemRandom());
+            Assert.IsFalse(sleepEffect.IsExpired, "El efecto no debería estar expirado al ser creado.");
+            generatedDurations.Add(sleepEffect.GetRemainingTurns()); // Método helper para obtener los turnos.
+        }
+
+        Assert.That(generatedDurations, Has.All.InRange(1, 4), "Todos los turnos generados deben estar entre 1 y 4.");
+    }
+
+    /// <summary>
+    /// Verifica que el método UpdateEffect lance una excepción ArgumentNullException
+    /// cuando el parámetro target es null.
+    /// </summary>
+    [Test]
+    public void UpdateEffectShouldThrowArgumentNullExceptionWhenTargetIsNull()
+    {
+        var effect1 = new Sleep();
+        var effect2 = new Paralysis();
+        var effect3 = new Burn();
+        var effect4 = new Poison();
+
+        // Verificar que se lance ArgumentNullException cuando target es null.
+        var ex1 = Assert.Throws<ArgumentNullException>(() => effect1.UpdateEffect(null!));
+        var ex2 = Assert.Throws<ArgumentNullException>(() => effect2.UpdateEffect(null!));
+        var ex3 = Assert.Throws<ArgumentNullException>(() => effect3.UpdateEffect(null!));
+        var ex4 = Assert.Throws<ArgumentNullException>(() => effect4.UpdateEffect(null!));
+
+        Assert.That(ex1.ParamName, Is.EqualTo("target"));
+        Assert.That(ex2.ParamName, Is.EqualTo("target"));
+        Assert.That(ex3.ParamName, Is.EqualTo("target"));
+        Assert.That(ex4.ParamName, Is.EqualTo("target"));
+    }
+
+    /// <summary>
+    /// Verifica que el método RemoveEffect lance una excepción ArgumentNullException
+    /// cuando el parámetro target es null.
+    /// </summary>
+    [Test]
+    public void RemoveEffectShouldThrowArgumentNullExceptionWhenTargetIsNull()
+    {
+        var effect1 = new Sleep();
+        var effect2 = new Paralysis();
+        var effect3 = new Burn();
+        var effect4 = new Poison();
+
+        // Verificar que se lance ArgumentNullException cuando target es null.
+        var ex1 = Assert.Throws<ArgumentNullException>(() => effect1.RemoveEffect(null!));
+        var ex2 = Assert.Throws<ArgumentNullException>(() => effect2.RemoveEffect(null!));
+        var ex3 = Assert.Throws<ArgumentNullException>(() => effect3.RemoveEffect(null!));
+        var ex4 = Assert.Throws<ArgumentNullException>(() => effect4.RemoveEffect(null!));
+
+        Assert.That(ex1.ParamName, Is.EqualTo("target"));
+        Assert.That(ex2.ParamName, Is.EqualTo("target"));
+        Assert.That(ex3.ParamName, Is.EqualTo("target"));
+        Assert.That(ex4.ParamName, Is.EqualTo("target"));
+    }
+
+    /// <summary>
+    /// Verifica que el constructor de Paralysis(IProbability random), cuando se utiliza con SystemRandom,
+    /// implemente correctamente una probabilidad del 50% para permitir que el Pokémon afectado ataque.
+    /// </summary>
+    [Test]
+    public void ParalysisConstructorWithSystemRandomShouldAllowAttackWith50PercentChance()
+    {
+        var paralysisEffect = new Paralysis(new SystemRandom());
+
+        Pokemon pokemon = PokemonRegistry.GetPokemon("Pikachu");
+        pokemon.ApplyEffect(paralysisEffect);
+
+        // Ejecutar el efecto varias veces y cuenta cuántas veces el Pokémon puede atacar.
+        int canAttackCount = 0;
+        int cannotAttackCount = 0;
+
+        // Repetimos varias veces para cubrir el 50% de probabilidad.
+        for (int i = 0; i < 100; i++)
+        {
+            paralysisEffect.UpdateEffect(pokemon);
+            if (pokemon.CanAttack)
+            {
+                canAttackCount++;
+            }
+            else
+            {
+                cannotAttackCount++;
+            }
+        }
+
+        // Verificar que la probabilidad de ataque esté en torno al 50%.
+        Assert.That(canAttackCount, Is.GreaterThan(1), "La probabilidad de atacar debería estar alrededor del 50%.");
+        Assert.That(cannotAttackCount, Is.GreaterThan(1), "La probabilidad de no atacar debería estar alrededor del 50%.");
+    }
+
+    /// <summary>
     /// Verifica que el efecto de parálisis permita atacar y no atacar al menos una vez cada uno,
     /// y que el efecto expire al removerlo explícitamente.
     /// </summary>
@@ -122,5 +228,19 @@ internal sealed class EffectTests
         Assert.IsNull(
             pokemon.ActiveEffect,
             "No debería haber ningún efecto activo en el Pokémon después de removerlo.");
+    }
+
+    /// <summary>
+    /// Verifica que no se puede aplicar un efecto si el pokemon ya tiene un efecto activo.
+    /// </summary>
+    [Test]
+    public void PokemonWithActiveEffectCannotApplyAnotherEffect()
+    {
+        var pokemon = PokemonRegistry.GetPokemon("Pikachu");
+        var paralysis = new Paralysis();
+        var burn = new Burn();
+
+        pokemon.ApplyEffect(paralysis);
+        Assert.Throws<InvalidOperationException>(() => pokemon.ApplyEffect(burn));
     }
 }

@@ -78,15 +78,29 @@ internal sealed class ItemTest
         var p = PokemonRegistry.GetPokemon("Pikachu");
         var totalCure = new TotalCure();
 
-        // Arrange
         var poisonEffect = new Poison();
         p.ApplyEffect(poisonEffect);
 
-        // Act
         totalCure.Use(p);
 
-        // Assert
         Assert.IsNull(p.ActiveEffect, "TotalCure debería haber eliminado el efecto activo.");
+    }
+
+    /// <summary>
+    /// Verifica que el objeto SuperPotion restaure correctamente la salud de un Pokémon
+    /// cuando se utiliza con éxito.
+    /// </summary>
+    [Test]
+    public void UseSuperPotionSuccessfully()
+    {
+        var p = PokemonRegistry.GetPokemon("Wigglytuff");
+        var superpotion = new SuperPotion();
+
+        p.Damage(100);
+
+        superpotion.Use(p);
+
+        Assert.That(p.Health, Is.EqualTo(110));
     }
 
     /// <summary>
