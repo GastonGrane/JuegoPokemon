@@ -314,6 +314,13 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
+    public void ShowWinProbability(Player p1, Player p2)
+    {
+        Console.WriteLine($"La probabilidad de {p1.Name} de ganar es {p1.WinProbability()}");
+        Console.WriteLine($"La probabilidad de {p2.Name} de ganar es {p2.WinProbability()}");
+    }
+
+    /// <inheritdoc/>
     public void EndTurn(Player p1, Player p2)
     {
     }

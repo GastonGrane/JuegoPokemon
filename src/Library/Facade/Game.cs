@@ -93,6 +93,8 @@ public class Game
             }
         }
 
+        this.externalConnection.ShowWinProbability(this.playerOne, this.playerTwo);
+
         if (!this.CheckDead(this.playerOne))
         {
             this.PlayTurnP2();
@@ -102,6 +104,8 @@ public class Game
                 return;
             }
         }
+
+        this.externalConnection.ShowWinProbability(this.playerOne, this.playerTwo);
     }
 
     /// <summary>

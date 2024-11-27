@@ -106,6 +106,13 @@ public interface IExternalConnection
     public void ReportAttackResult(int oldHP, Player attacker, Player defender);
 
     /// <summary>
+    /// Se llama para reportar el estado de los jugadores (probabilida de victoria).
+    /// </summary>
+    /// <param name="p1">El primer jugador.</param>
+    /// <param name="p2">El segundo jugador.</param>
+    public void ShowWinProbability(Player p1, Player p2);
+
+    /// <summary>
     /// Se llama al terminar el turno del jugador.
     /// </summary>
     /// <param name="p1">El primer jugador (del turno actual).</param>

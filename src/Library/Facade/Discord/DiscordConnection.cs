@@ -126,6 +126,12 @@ public class DiscordConnection : IExternalConnection
         this.currentTurnP1 = !this.currentTurnP1;
     }
 
+    /// <inheritdoc/>
+    public void ShowWinProbability(Player p1, Player p2)
+    {
+        Console.WriteLine("DiscordConnection.ShowWinProbability not implemented");
+    }
+
     private async Task<IMessage> ShowStringToCurrentPlayer(string str)
     {
         return await this.CurrentDM.SendMessageAsync(str);
