@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Runtime.CompilerServices;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 
@@ -60,7 +59,7 @@ public class Player
     /// <summary>
     /// asd.
     /// </summary>
-    public int chance = 0;
+    public int Chance;
 
     /// <summary>
     /// La lista de pokemon del jugador.
@@ -138,13 +137,23 @@ public class Player
     /// <returns> La probabilidad de ganar.</returns>
     public bool WinProbability()
     {
-        int pokemonTotalesSanos = 0;
+        int pokemonesVivos = 0;
 
+        foreach (var pokemonvivo in this.Pokemons)
+        {
+            if (pokemonvivo.Health != 0)
+            {
+                pokemonesVivos += 1;
+            }
+        }
+
+        int pokemonTotalesSanos = 0;
+        this.Chance = 0;
         foreach (var pokemon in this.Pokemons)
         {
             if (pokemon.Health != 0)
             {
-                this.chance += 10;
+                this.Chance += 10;
             }
 
             if (pokemon.ActiveEffect == null || pokemon.ActiveEffect.IsExpired)
@@ -152,24 +161,24 @@ public class Player
                 pokemonTotalesSanos += 1;
             }
 
-            if (pokemonTotalesSanos == this.Pokemons.Count)
+            if (pokemonTotalesSanos == pokemonesVivos)
             {
-                this.chance += 10;
+                this.Chance += 10;
             }
         }
 
         if (this.Items.Count == 6)
         {
-            this.chance += 30;
+            this.Chance += 30;
         }
         else
         {
             int cuantosItemsTengo = this.Items.Count;
 
-            this.chance += (cuantosItemsTengo * 30) / 6;
+            this.Chance += Convert.ToInt32((cuantosItemsTengo * 30) / 6);
         }
 
-        if (this.chance > 0)
+        if (this.Chance > 0)
         {
             return true;
         }

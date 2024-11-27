@@ -250,7 +250,7 @@ public class Game
             switch (p.WinProbability())
             {
                 case true:
-                    this.externalConnection.PrintString($"Tienes un {p.chance} porciento de ganar");
+                    this.externalConnection.PrintString($"Tienes un {p.Chance} porciento de ganar");
                     salir = true;
                     break;
                 case false:
