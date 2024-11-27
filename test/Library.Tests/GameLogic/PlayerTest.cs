@@ -348,7 +348,7 @@ public class PlayerTest
                     PokemonRegistry.GetPokemon("Wartortle"),
                 });
 
-        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(100));
+        Assert.That(p.WinProbability(), Is.EqualTo(100));
     }
 
     /// <summary>
@@ -386,7 +386,7 @@ public class PlayerTest
         player.ApplyItem(mew, "Revive");
         mew.Damage(1000);
 
-        Assert.That(player.ProbabilidadDeVictoria(), Is.EqualTo(0));
+        Assert.That(player.WinProbability(), Is.EqualTo(0));
     }
 
     /// <summary>
@@ -408,7 +408,7 @@ public class PlayerTest
 
         squirtle.Damage(22);
 
-        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(65));
+        Assert.That(p.WinProbability(), Is.EqualTo(65));
     }
 
     /// <summary>
@@ -433,6 +433,6 @@ public class PlayerTest
         p.ApplyItem(squirtle, "Super Potion");
         p.ApplyItem(squirtle, "Super Potion");
 
-        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(91));
+        Assert.That(p.WinProbability(), Is.EqualTo(91));
     }
 }

@@ -192,7 +192,7 @@ public class Player
     /// Esta probabilidad es entre 0-100, y ponder cantidad de Pokémon vivos, ítems disponibles y efectos afectando a los Pokémon.
     /// </summary>
     /// <returns>Un entero representando la probabilidad de victoria.</returns>
-    public int ProbabilidadDeVictoria()
+    public int WinProbability()
     {
         int total = 0;
 
