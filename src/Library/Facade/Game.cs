@@ -83,18 +83,23 @@ public class Game
     /// </summary>
     public void PlayGameTurn()
     {
-        this.PlayTurnP1();
-        if (this.CheckDead(this.playerTwo))
+        if (!this.CheckDead(this.playerTwo))
         {
-            this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
-            return;
+            this.PlayTurnP1();
+            if (this.CheckDead(this.playerTwo))
+            {
+                this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+                return;
+            }
         }
 
-        this.PlayTurnP2();
-        if (this.CheckDead(this.playerOne))
+        if (!this.CheckDead(this.playerOne))
         {
-            this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
-            return;
+            if (this.CheckDead(this.playerOne))
+            {
+                this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
+                return;
+            }
         }
     }
 
