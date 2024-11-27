@@ -28,14 +28,9 @@ public class Player
     {
         ArgumentException.ThrowIfNullOrEmpty(name, "Un jugador no puede inicializarse con el nombre null o vacio");
         ArgumentNullException.ThrowIfNull(pokemons, "Un jugador no puede tener una lista de pokemons null");
-        if (pokemons.Count > 6)
+        if (pokemons.Count > 6 || pokemons.Count == 0)
         {
-            throw new ArgumentException("Este player tiene mas de 6 pokemons");
-        }
-
-        if (pokemons.Count == 0)
-        {
-            throw new ArgumentException("Player no puede tener 0 pokemones");
+            throw new ArgumentOutOfRangeException(nameof(pokemons), $"Player debe tener de 1 a 6 pokemones, se le dio {pokemons.Count}");
         }
 
         this.Name = name;
@@ -95,13 +90,13 @@ public class Player
     {
         Pokemon? pokemon = this.Pokemons.Find(pokemon => pokemon.Name == newPokemon);
 
-        if (pokemon != null)
+        if (pokemon == null || pokemon == this.ActivePokemon)
         {
-            this.ActivePokemon = pokemon;
-            return true;
+            return false;
         }
 
-        return false;
+        this.ActivePokemon = pokemon;
+        return true;
     }
 
     /// <summary>
@@ -109,18 +104,23 @@ public class Player
     /// </summary>
     /// <param name="pokeIdx">El índice del pokemon por el cual quiere cambiar, este debe ser válido para su lista de pokemon.</param>
     /// <returns>
-    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior.
+    /// <c>true</c> si se cambió de Pokemon, <c>false</c> si el Pokemon nuevo era el mismo que el anterior o esta muerto.
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Si <paramref name="pokeIdx"/> no es un índice en la lista.
     /// </exception>
-    public bool ChangePokemon(int pokeIdx)
+    public bool? ChangePokemon(int pokeIdx)
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(pokeIdx, this.Pokemons.Count, nameof(pokeIdx));
         ArgumentOutOfRangeException.ThrowIfLessThan(pokeIdx, 0, nameof(pokeIdx));
         if (this.Pokemons[pokeIdx] == this.ActivePokemon)
         {
             return false;
+        }
+
+        if (this.Pokemons[pokeIdx].Health == 0)
+        {
+            return null;
         }
 
         this.ActivePokemon = this.Pokemons[pokeIdx];

@@ -25,9 +25,13 @@ internal sealed class GameTests
     [Test]
     public void TestWelcome()
     {
+        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
         ConnectionMock mock = new();
-        Game game = Game.CreateGame(PokemonRegistry.GetAllPokemon(), mock);
+        Game game = new Game(p1, p2, mock);
+
         game.ShowWelcome();
+
         Assert.True(mock.PrintWelcomeCalled, "Welcome was not called");
     }
 
@@ -37,12 +41,16 @@ internal sealed class GameTests
     [Test]
     public void TestPlayTurn()
     {
+        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
         ConnectionMock mock = new();
-        Game game = Game.CreateGame(PokemonRegistry.GetAllPokemon(), mock);
+        Game game = new Game(p1, p2, mock);
+
         game.ShowWelcome();
+        game.PlayGameTurn();
+
         Assert.True(mock.PrintWelcomeCalled, "Welcome was not called");
 
-        game.PlayGameTurn();
         Assert.True(mock.PrintTurnHeadingCalled, "Turn heading was not called");
         Assert.True(mock.ReportAttackResultCalled, "Report attack result was not called");
         Assert.True(mock.PrintPlayerWonCalled, "Print player won was not called");
@@ -133,13 +141,13 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public Item? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowItemsAndRecieveInput(Player player)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player player)
+    public int ShowPokemonMenu(Player player)
     {
         this.ShowChangePokemonMenuCalled = true;
 

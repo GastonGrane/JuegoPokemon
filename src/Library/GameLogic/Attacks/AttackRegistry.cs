@@ -177,7 +177,7 @@ public class AttackRegistry
         AddSpecial<Poison>("Poison Fang", 50, PokemonType.Poison, 100);
         AddSpecial<Poison>("Poison Powder", 0, PokemonType.Poison, 75);
         AddSpecial<Poison>("Poison Sting", 15, PokemonType.Poison, 100);
-        AddSpecial<Sleep>("Psystrike", 100, PokemonType.Psychic, 100);
+        AddSpecial<Sleep>("Psystrike", 10, PokemonType.Psychic, 100);
         AddSpecial<Paralysis>("Screech", 0, PokemonType.Normal, 85);
         AddSpecial<Sleep>("Sing", 0, PokemonType.Normal, 55);
         AddSpecial<Sleep>("Sleep Powder", 0, PokemonType.Grass, 75);
@@ -207,7 +207,14 @@ public class AttackRegistry
     public static NormalAttack GetNormalAttack(string name)
     {
         NormalAttack a = Instance.normalAttacks[name];
-        return new(a);
+        if (a is SpecialAttack special)
+        {
+            return new SpecialAttack(special);
+        }
+        else
+        {
+            return new NormalAttack(a);
+        }
     }
 
     /// <summary>

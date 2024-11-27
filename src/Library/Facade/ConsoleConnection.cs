@@ -142,7 +142,6 @@ public class ConsoleConnection : IExternalConnection
             }
             catch (FormatException)
             {
-                Console.WriteLine("Opción inválida, se esperaba un número entre 1 y 2");
             }
 
             if (selection == 0)
@@ -177,7 +176,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public Item? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowItemsAndRecieveInput(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
@@ -245,7 +244,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public int ShowChangePokemonMenu(Player player)
+    public int ShowPokemonMenu(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 
@@ -259,8 +258,16 @@ public class ConsoleConnection : IExternalConnection
 
             foreach (Pokemon pok in pokemons)
             {
-                Console.WriteLine($"{idx}: {pok.Name} ({pok.Type})");
-                idx++;
+                if (pok.Health != 0)
+                {
+                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type}) HP: {pok.Health}/{pok.MaxHealth}");
+                    idx++;
+                }
+                else
+                {
+                    Console.WriteLine($"{idx}: {pok.Name} ({pok.Type}) (DEAD)");
+                    idx++;
+                }
             }
 
             string input = Console.ReadLine()!;

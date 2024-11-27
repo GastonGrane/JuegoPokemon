@@ -7,6 +7,7 @@
 using Library.Facade;
 using Library.Facade.Discord;
 using Library.GameLogic.Entities;
+using Library.GameLogic.Players;
 
 namespace Program
 {
@@ -35,9 +36,25 @@ namespace Program
                 PokemonRegistry.GetPokemon("Charmander"),
                 PokemonRegistry.GetPokemon("Squirtle"),
             };
+
+            Player p1 = new Player(
+                "Axel",
+                new List<Pokemon>
+                {
+                    PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
+                    PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
+                });
+            Player p2 = new Player(
+                "Sharon",
+                new List<Pokemon>
+                {
+                    PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
+                    PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
+                });
+
             IExternalConnection connection = new ConsoleConnection();
-            Game game = Game.CreateGame(pokemons, connection);
-            game.PlayGameTurn();
+            Game game = new Game(p1, p2, connection);
+            game.Play();
         }
 
         private static async Task DiscordBot()

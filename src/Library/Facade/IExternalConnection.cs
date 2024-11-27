@@ -86,7 +86,7 @@ public interface IExternalConnection
     /// <returns>
     /// El nombre del item que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
-    public Item? ShowAItemsAndRecieveInput(Player player);
+    public Item? ShowItemsAndRecieveInput(Player player);
 
     /// <summary>
     /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
@@ -95,7 +95,7 @@ public interface IExternalConnection
     /// <returns>
     /// El índice en la lista de Pokemon del Pokemon que se eligió. <c>0</c>indica que el usuario quiere volver.
     /// </returns>
-    public int ShowChangePokemonMenu(Player player);
+    public int ShowPokemonMenu(Player player);
 
     /// <summary>
     /// Le muestra al usuario el resultado que tuvo su ataque.

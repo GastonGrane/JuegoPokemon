@@ -301,16 +301,8 @@ public class Pokemon
     /// <c>true</c> si la precision del ataque fue exitoso y el daño fue aplicado al Pokémon objetivo;
     /// <c>false</c> si el ataque falló.
     /// </returns>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Lanzada si el ataque especificado no se encuentra dentro de la lista <see cref="Attacks"/> del Pokémon que ataca.
-    /// </exception>
     private bool Attack(Pokemon target, NormalAttack attack)
     {
-        if (!this.Attacks.Contains(attack))
-        {
-            throw new ArgumentOutOfRangeException($"Este pokemon no tiene el ataque {attack.Name}");
-        }
-
         if (!this.CanAttack)
         {
             return false;
