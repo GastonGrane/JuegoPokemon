@@ -26,7 +26,7 @@ public class Revive : Item
     }
 
     /// <summary>
-    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 porciento de su salud inicial.
+    /// Aplica el efecto del objeto Revive en el Pokémon especificado, restaurando 50 porciento de su vida total.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el Revive.</param>
     /// <exception cref="ArgumentNullException">
