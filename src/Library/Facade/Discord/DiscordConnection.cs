@@ -101,7 +101,9 @@ public class DiscordConnection : IExternalConnection
     /// <inheritdoc/>
     public Item? ShowItemsAndRecieveInput(Player player)
     {
-        throw new NotImplementedException("ShowItemsAndRecieveInput");
+        Task<Item?> t = Task.Run(() => this.ShowItemsAndRecieveInputInternal(player));
+        t.Wait();
+        return t.Result;
     }
 
     /// <inheritdoc/>
