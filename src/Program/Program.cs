@@ -22,9 +22,8 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            ConsoleApp();
-
-            // DiscordBot().GetAwaiter().GetResult();
+            // ConsoleApp();
+            DiscordBot().GetAwaiter().GetResult();
         }
 
         private static void ConsoleApp()

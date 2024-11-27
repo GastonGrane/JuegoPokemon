@@ -79,5 +79,4 @@ public class WaitingList
     {
         this.waitingList.Remove(p);
     }
-
 }

@@ -81,8 +81,11 @@ public static class Helper
     /// </summary>
     /// <param name="context">El contexto del comando.</param>
     /// <param name="name">Nombre del usuario a buscar.</param>
+    /// <returns>Referencia al usuario que corresponde al nombre.</returns>
     public static SocketGuildUser? GetUser(SocketCommandContext context, string name)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         foreach (SocketGuildUser user in context.Guild.Users)
         {
             if (user.Username == name

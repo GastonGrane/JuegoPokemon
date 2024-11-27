@@ -150,6 +150,8 @@ public static class BotCommands
     /// <returns>Un <see cref="Task"/> representando el estado de la determinación de si hacer batalla o no entre los jugadores.</returns>
     public static async Task CheckIfEnoughPlayers(SocketCommandContext commandContext)
     {
+        ArgumentNullException.ThrowIfNull(commandContext);
+
         var players = WaitingList.Instance.Waiting.ToList();
         if (players.Count < 2)
         {
@@ -178,6 +180,9 @@ public static class BotCommands
 
         var p1Channel = await p1User.CreateDMChannelAsync();
         var p2Channel = await p2User.CreateDMChannelAsync();
+
+        await p1Channel.SendMessageAsync("La batalla está empezando...");
+        await p2Channel.SendMessageAsync("La batalla está empezando...");
 
         DiscordConnection conn = new(p1Channel, p2Channel);
         Thread thread = new Thread(() => new Game(p1, p2, conn).Play());
