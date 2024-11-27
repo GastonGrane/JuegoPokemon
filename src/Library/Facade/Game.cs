@@ -218,6 +218,7 @@ public class Game
         this.externalConnection.PrintTurnHeading(this.playerOne);
         this.PlayTurn(this.playerOne, this.playerTwo);
         this.playerOne.UpdateTurn();
+        this.externalConnection.EndTurn(this.playerOne, this.playerTwo);
     }
 
     // Ejecuta el turno del segundo jugador
@@ -226,6 +227,7 @@ public class Game
         this.externalConnection.PrintTurnHeading(this.playerTwo);
         this.PlayTurn(this.playerTwo, this.playerOne);
         this.playerTwo.UpdateTurn();
+        this.externalConnection.EndTurn(this.playerTwo, this.playerOne);
     }
 
     /// <summary>

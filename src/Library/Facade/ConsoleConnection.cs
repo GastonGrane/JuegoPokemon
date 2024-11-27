@@ -312,4 +312,9 @@ public class ConsoleConnection : IExternalConnection
             continue;
         }
     }
+
+    /// <inheritdoc/>
+    public void EndTurn(Player p1, Player p2)
+    {
+    }
 }

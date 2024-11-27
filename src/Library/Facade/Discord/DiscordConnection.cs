@@ -101,7 +101,9 @@ public class DiscordConnection : IExternalConnection
     /// <inheritdoc/>
     public Item? ShowItemsAndRecieveInput(Player player)
     {
-        throw new NotImplementedException("ShowItemsAndRecieveInput");
+        Task<Item?> t = Task.Run(() => this.ShowItemsAndRecieveInputInternal(player));
+        t.Wait();
+        return t.Result;
     }
 
     /// <inheritdoc/>
@@ -116,6 +118,12 @@ public class DiscordConnection : IExternalConnection
     public void ReportAttackResult(int oldHP, Player attacker, Player defender)
     {
         Task.Run(() => this.ReportAttackResultInternal(oldHP, attacker, defender)).Wait();
+    }
+
+    /// <inheritdoc/>
+    public void EndTurn(Player p1, Player p2)
+    {
+        this.currentTurnP1 = !this.currentTurnP1;
     }
 
     private async Task<IMessage> ShowStringToCurrentPlayer(string str)
