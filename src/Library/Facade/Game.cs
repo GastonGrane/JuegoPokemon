@@ -75,6 +75,7 @@ public class Game
         while (inGame)
         {
             this.PlayGameTurn();
+            inGame = false;
         }
     }
 
@@ -83,23 +84,28 @@ public class Game
     /// </summary>
     public void PlayGameTurn()
     {
-        if (!this.CheckDead(this.playerTwo))
-        {
-            this.PlayTurnP1();
-            if (this.CheckDead(this.playerTwo))
-            {
-                this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
-                return;
-            }
-        }
+        bool gameEnd = false;
 
-        if (!this.CheckDead(this.playerOne))
+        while (!gameEnd)
         {
-            this.PlayTurnP2();
-            if (this.CheckDead(this.playerOne))
+            if (!this.CheckDead(this.playerTwo))
             {
-                this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
-                return;
+                this.PlayTurnP1();
+                if (this.CheckDead(this.playerTwo))
+                {
+                    this.externalConnection.PrintPlayerWon(this.playerOne, this.playerTwo);
+                    gameEnd = true;
+                }
+            }
+
+            if (!this.CheckDead(this.playerOne))
+            {
+                this.PlayTurnP2();
+                if (this.CheckDead(this.playerOne))
+                {
+                    this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
+                    gameEnd = true;
+                }
             }
         }
     }
