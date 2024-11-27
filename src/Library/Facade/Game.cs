@@ -130,7 +130,7 @@ public class Game
     {
         while (true)
         {
-            Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+            Item? item = this.externalConnection.ShowItemsAndRecieveInput(active);
             if (item == null)
             {
                 return false;

@@ -176,7 +176,7 @@ public class ConsoleConnection : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public Item? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowItemsAndRecieveInput(Player player)
     {
         ArgumentNullException.ThrowIfNull(player, nameof(player));
 

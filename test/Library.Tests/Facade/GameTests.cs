@@ -141,7 +141,7 @@ internal sealed class ConnectionMock : IExternalConnection
     }
 
     /// <inheritdoc/>
-    public Item? ShowAItemsAndRecieveInput(Player player)
+    public Item? ShowItemsAndRecieveInput(Player player)
     {
         throw new NotImplementedException();
     }

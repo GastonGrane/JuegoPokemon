@@ -86,7 +86,7 @@ public interface IExternalConnection
     /// <returns>
     /// El nombre del item que eligió el usuario, o <c>null</c> si el usuario se arrepintió y quiso volver atrás.
     /// </returns>
-    public Item? ShowAItemsAndRecieveInput(Player player);
+    public Item? ShowItemsAndRecieveInput(Player player);
 
     /// <summary>
     /// Le muestra al usuario la lista de Pokemon, y le permite elegir uno. Además, le indica una opción para arrepentirse y no cambiar de Pokémon.
