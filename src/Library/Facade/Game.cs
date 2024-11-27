@@ -146,6 +146,7 @@ public class Game
             try
             {
                 item.Use(pok);
+                active.Items.Remove(item);
                 return true;
             }
             catch (ArgumentNullException ex)
