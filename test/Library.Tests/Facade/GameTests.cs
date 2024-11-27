@@ -161,4 +161,9 @@ internal sealed class ConnectionMock : IExternalConnection
 
         return 0; // que ataque
     }
+
+    /// <inheritdoc/>
+    public void EndTurn(Player p1, Player p2)
+    {
+    }
 }
