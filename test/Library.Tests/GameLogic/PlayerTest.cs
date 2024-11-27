@@ -6,6 +6,7 @@
 
 using Library.GameLogic;
 using Library.GameLogic.Attacks;
+using Library.GameLogic.Effects;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
@@ -327,5 +328,111 @@ public class PlayerTest
         Assert.That(p.ActivePokemon, Is.EqualTo(pikachu));
         Assert.That(p.ChangePokemon("Squirtle"), Is.False);
         Assert.That(p.ActivePokemon, Is.EqualTo(pikachu));
+    }
+
+    /// <summary>
+    /// Testea que la probabilida de victoria de un jugador con todo es 100.
+    /// </summary>
+    [Test]
+    public void PlayerConTodoTieneProbabilidadDeVictoria100()
+    {
+        Player p = new Player(
+                "Axel",
+                new()
+                {
+                    PokemonRegistry.GetPokemon("Pikachu"),
+                    PokemonRegistry.GetPokemon("Squirtle"),
+                    PokemonRegistry.GetPokemon("Bulbasaur"),
+                    PokemonRegistry.GetPokemon("Raichu"),
+                    PokemonRegistry.GetPokemon("Ivysaur"),
+                    PokemonRegistry.GetPokemon("Wartortle"),
+                });
+
+        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(100));
+    }
+
+    /// <summary>
+    /// Testea que la probabilida de victoria de un jugador con todo es 100.
+    /// </summary>
+    [Test]
+    public void PlayerSinNadaTienePuntaje0()
+    {
+        Pokemon mew = PokemonRegistry.GetPokemon("Mew");
+        Poison poison = new Poison();
+        Player player = new Player(
+                "Gastón",
+                new()
+                {
+                    mew,
+                });
+
+        // Uso todas los items
+        player.ApplyItem(mew, "Super Potion");
+        player.ApplyItem(mew, "Super Potion");
+        player.ApplyItem(mew, "Super Potion");
+        player.ApplyItem(mew, "Super Potion");
+
+        // Debe tener un efecto para usar total cure
+        mew.ApplyEffect(poison);
+        player.ApplyItem(mew, "Total Cure");
+        mew.ApplyEffect(poison);
+        player.ApplyItem(mew, "Total Cure");
+
+        // Lo dejo con un efecto para sacar esos 10 puntos.
+        mew.ApplyEffect(poison);
+
+        // Lo mato, revivo y mato de nuevo
+        mew.Damage(1000);
+        player.ApplyItem(mew, "Revive");
+        mew.Damage(1000);
+
+        Assert.That(player.ProbabilidadDeVictoria(), Is.EqualTo(0));
+    }
+
+    /// <summary>
+    /// Testea que la probabilida de victoria de un jugador con menos Pokemon, pero todo demás normal, es lo correcto.
+    /// </summary>
+    [Test]
+    public void PlayerConMenosPokemonYPokemonDañadoTieneMenosPuntaje()
+    {
+        // squirtle tiene una vida redonda.
+        Pokemon squirtle = PokemonRegistry.GetPokemon("Squirtle");
+        Player p = new Player(
+                "Sharon",
+                new()
+                {
+                    PokemonRegistry.GetPokemon("Pikachu"),
+                    squirtle,
+                    PokemonRegistry.GetPokemon("Bulbasaur"),
+                });
+
+        squirtle.Damage(22);
+
+        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(65));
+    }
+
+    /// <summary>
+    /// Testea que la probabilida de victoria de un jugador que haya usado sus items es menor.
+    /// </summary>
+    [Test]
+    public void PlayerConMenosItemsTieneMenosPuntaje()
+    {
+        Pokemon squirtle = PokemonRegistry.GetPokemon("Squirtle");
+        Player p = new Player(
+                "Guzmán",
+                new()
+                {
+                    PokemonRegistry.GetPokemon("Pikachu"),
+                    PokemonRegistry.GetPokemon("Raichu"),
+                    squirtle,
+                    PokemonRegistry.GetPokemon("Bulbasaur"),
+                    PokemonRegistry.GetPokemon("Ivysaur"),
+                    PokemonRegistry.GetPokemon("Venusaur"),
+                });
+
+        p.ApplyItem(squirtle, "Super Potion");
+        p.ApplyItem(squirtle, "Super Potion");
+
+        Assert.That(p.ProbabilidadDeVictoria(), Is.EqualTo(91));
     }
 }

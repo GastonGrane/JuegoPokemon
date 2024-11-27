@@ -199,15 +199,16 @@ public class Player
         // Pokémon
         foreach (Pokemon pokemon in this.Pokemons)
         {
-            int points = (int)((double)pokemon.Health / pokemon.MaxHealth) * 10;
+            int points = (pokemon.Health * 10) / pokemon.MaxHealth;
             total += points;
         }
 
         // Items
-        total += (int)((double)this.Items.Count / this.initialItemCount) * 30;
+        total += (this.Items.Count * 30) / this.initialItemCount;
 
         // Efectos
         // Le sumo los 10, y si encuentra uno que no se los saco.
+        //
         // Nota: Se loopea dos veces por la lista de pokemon, una vez para los puntos de vida, y otra vez para los efectos. Esto es un poco ineficiente, pero no me importa porque queda más limpio.
         total += 10;
         foreach (Pokemon pokemon in this.Pokemons)
