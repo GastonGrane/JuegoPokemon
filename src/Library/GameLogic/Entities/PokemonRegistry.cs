@@ -79,7 +79,7 @@ public class PokemonRegistry
         }
 
         // Estos son los primero 40 y algo, y algunos al final que quería poner porque eran piola.
-        Add("Pikachu", PokemonType.Electric, 100, new List<NormalAttack>
+        Add("Pikachu", PokemonType.Electric, 35, new List<NormalAttack>
         {
             AttackRegistry.GetNormalAttack("Thunder Shock"),
             AttackRegistry.GetNormalAttack("Quick Attack"),
