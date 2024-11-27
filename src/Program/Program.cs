@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using Library.Facade;
+using Library.Facade.Discord;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Players;
 
@@ -20,6 +21,12 @@ namespace Program
         /// </summary>
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
+        {
+            // ConsoleApp();
+            DiscordBot().GetAwaiter().GetResult();
+        }
+
+        private static void ConsoleApp()
         {
             List<Pokemon> pokemons = new List<Pokemon>
             {
@@ -47,6 +54,11 @@ namespace Program
             IExternalConnection connection = new ConsoleConnection();
             Game game = new Game(p1, p2, connection);
             game.Play();
+        }
+
+        private static async Task DiscordBot()
+        {
+            await BotLoader.LoadAsync();
         }
     }
 }
