@@ -156,36 +156,36 @@ public class Game
     {
         while (true)
         {
-                Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
-                if (item == null)
-                {
-                    return false;
-                }
+            Item? item = this.externalConnection.ShowAItemsAndRecieveInput(active);
+            if (item == null)
+            {
+                return false;
+            }
 
-                int numPok = this.externalConnection.ShowPokemonMenu(active);
-                if (numPok == -1)
-                {
-                    continue;
-                }
+            int numPok = this.externalConnection.ShowPokemonMenu(active);
+            if (numPok == -1)
+            {
+                continue;
+            }
 
-                Pokemon pok = active.Pokemons[numPok];
-                try
-                {
-                    item.Use(pok);
-                    return true;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    // Si el Pokémon es nulo
-                    this.externalConnection.PrintString($"{ex.Message}.");
-                    return false;
-                }
-                catch (InvalidOperationException ex)
-                {
-                    // Si el Pokémon está vivo cuando no debería estarlo (por ejemplo, con Revive)
-                    this.externalConnection.PrintString($"{ex.Message}.");
-                    return false;
-                }
+            Pokemon pok = active.Pokemons[numPok];
+            try
+            {
+                item.Use(pok);
+                return true;
+            }
+            catch (ArgumentNullException ex)
+            {
+                // Si el Pokémon es nulo
+                this.externalConnection.PrintString($"{ex.Message}.");
+                return false;
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Si el Pokémon está vivo cuando no debería estarlo (por ejemplo, con Revive)
+                this.externalConnection.PrintString($"{ex.Message}.");
+                return false;
+            }
         }
     }
 
