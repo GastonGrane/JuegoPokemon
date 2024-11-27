@@ -43,38 +43,12 @@ public class Game
     /// </summary>
     /// <param name="p1">El primer jugador <see cref="playerOne"/>.</param>
     /// <param name="p2">El segundo jugador <see cref="playerTwo"/>.</param>
-    /// <param name="externalConnection">La conección con el servicio externo.</param>
-    private Game(Player p1, Player p2, IExternalConnection externalConnection)
+    /// <param name="externalConnection">La conexión con el servicio externo.</param>
+    public Game(Player p1, Player p2, IExternalConnection externalConnection)
     {
         this.playerOne = p1;
         this.playerTwo = p2;
         this.externalConnection = externalConnection;
-    }
-
-    /// <summary>
-    /// Crea un nuevo juego con jugadores predefinidos.
-    /// </summary>
-    /// <param name="pokemon">Una lista de <see cref="Pokemon"/> para usar en el juego.</param>
-    /// <returns>Una nueva instancia de <see cref="Game"/> que es hard-coded.</returns>
-    /// <param name="externalConnection">La conección con el servicio externo.</param>
-    public static Game CreateGame(List<Pokemon> pokemon, IExternalConnection externalConnection)
-    {
-        // Por ahora es hard-coded, porque es más importante jugar al juego, y no ver el proceso de crearlo
-        Player p1 = new Player(
-            "Axel",
-            new List<Pokemon>
-            {
-                PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
-                PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
-            });
-        Player p2 = new Player(
-            "Sharon",
-            new List<Pokemon>
-            {
-                PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
-                PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
-            });
-        return new Game(p1, p2, externalConnection);
     }
 
     /// <summary>
