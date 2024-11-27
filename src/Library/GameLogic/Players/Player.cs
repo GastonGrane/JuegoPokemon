@@ -19,6 +19,8 @@ namespace Library.GameLogic.Players;
 /// </remarks>
 public class Player
 {
+    private int initialItemCount;
+
     /// <summary>
     /// Crea una instancia del jugador con su lista de los pokemons.
     /// </summary>
@@ -49,6 +51,7 @@ public class Player
             new TotalCure(),
             new TotalCure(),
         };
+        this.initialItemCount = this.Items.Count;
         this.ActivePokemon = pokemons[0];
     }
 
@@ -181,6 +184,42 @@ public class Player
 
         this.Items[idx].Use(target);
         this.Items.RemoveAt(idx); // Retiro el item utilizado.
+    }
+
+    /// <summary>
+    /// Calcula la probabilidad de victoria de este jugador.
+    ///
+    /// Esta probabilidad es entre 0-100, y ponder cantidad de Pokémon vivos, ítems disponibles y efectos afectando a los Pokémon.
+    /// </summary>
+    /// <returns>Un entero representando la probabilidad de victoria.</returns>
+    public int ProbabilidadDeVictoria()
+    {
+        int total = 0;
+
+        // Pokémon
+        foreach (Pokemon pokemon in this.Pokemons)
+        {
+            int points = (int)((double)pokemon.Health / pokemon.MaxHealth) * 10;
+            total += points;
+        }
+
+        // Items
+        total += (int)((double)this.Items.Count / this.initialItemCount) * 30;
+
+        // Efectos
+        // Le sumo los 10, y si encuentra uno que no se los saco.
+        // Nota: Se loopea dos veces por la lista de pokemon, una vez para los puntos de vida, y otra vez para los efectos. Esto es un poco ineficiente, pero no me importa porque queda más limpio.
+        total += 10;
+        foreach (Pokemon pokemon in this.Pokemons)
+        {
+            if (pokemon.ActiveEffect != null)
+            {
+                total -= 10;
+                break;
+            }
+        }
+
+        return total;
     }
 
     /// <summary>
