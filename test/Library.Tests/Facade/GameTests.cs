@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
 using System.Collections.ObjectModel;
 using Library.Facade;
 using Library.GameLogic.Entities;
@@ -55,6 +56,40 @@ internal sealed class GameTests
         Assert.True(mock.ReportAttackResultCalled, "Report attack result was not called");
         Assert.True(mock.PrintPlayerWonCalled, "Print player won was not called");
     }
+
+    /// <summary>
+    /// Test si ambos jugadores tienen la misma ventaja.
+    /// </summary>
+    [Test]
+    public void AdvantageEqual()
+    {
+        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata") });
+        ConnectionMock mock = new();
+        Game game = new Game(p1, p2, mock);
+
+        game.AdvantagesToWin(p1, p2);
+
+        Assert.True(mock.PrintStringCalled);
+        Assert.That(mock.PrintStringCalledStr, Is.EqualTo("Los jugadores tienen la misma probabilidad de ganar, ambos con un 50,000000000000036% de probabilidad."));
+    }
+
+    /// <summary>
+    /// Test de si uno de los jugadores tiene mas ventaja.
+    /// </summary>
+    [Test]
+    public void AdvantageOne()
+    {
+        Player p1 = new Player("Axel", new List<Pokemon> { PokemonRegistry.GetPokemon("Pikachu") });
+        Player p2 = new Player("Sharon", new List<Pokemon> { PokemonRegistry.GetPokemon("Rattata"), PokemonRegistry.GetPokemon("Pikachu") });
+        ConnectionMock mock = new();
+        Game game = new Game(p1, p2, mock);
+
+        game.AdvantagesToWin(p1, p2);
+
+        Assert.True(mock.PrintStringCalled);
+        Assert.That(mock.PrintStringCalledStr, Is.EqualTo($"El jugados Sharon es el que tiene mas provabilidades de ganar con una ventaja de el 60,00000000000004%."));
+    }
 }
 
 /// <summary>
@@ -71,6 +106,11 @@ internal sealed class ConnectionMock : IExternalConnection
     /// Si el método PrintString se llamó.
     /// </summary>
     public bool PrintStringCalled { get; private set; }
+
+    /// <summary>
+    /// Si el método PrintString se llamó.
+    /// </summary>
+    public string? PrintStringCalledStr { get; private set; }
 
     /// <summary>
     /// Si el método PrintTurnHeading se llamó.
@@ -112,12 +152,19 @@ internal sealed class ConnectionMock : IExternalConnection
     public void PrintString(string str)
     {
         this.PrintStringCalled = true;
+        this.PrintStringCalledStr = str;
     }
 
     /// <inheritdoc/>
     public void PrintTurnHeading(Player player)
     {
         this.PrintTurnHeadingCalled = true;
+    }
+
+    /// <inheritdoc cref="ConnectionMock.PrintString(string)" />
+    public void PrintString(ICollection str)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc/>

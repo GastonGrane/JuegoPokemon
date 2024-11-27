@@ -22,8 +22,9 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            // ConsoleApp();
-            DiscordBot().GetAwaiter().GetResult();
+            ConsoleApp();
+
+            // DiscordBot().GetAwaiter().GetResult();
         }
 
         private static void ConsoleApp()
@@ -40,15 +41,15 @@ namespace Program
                 "Axel",
                 new List<Pokemon>
                 {
-                    PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
-                    PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
+                    PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"), PokemonRegistry.GetPokemon("Bulbasaur"),
+                    PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"), PokemonRegistry.GetPokemon("Squirtle"),
                 });
             Player p2 = new Player(
                 "Sharon",
                 new List<Pokemon>
                 {
-                    PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
-                    PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
+                    PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"), PokemonRegistry.GetPokemon("Charmander"),
+                    PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"), PokemonRegistry.GetPokemon("Bulbasaur"),
                 });
 
             IExternalConnection connection = new ConsoleConnection();

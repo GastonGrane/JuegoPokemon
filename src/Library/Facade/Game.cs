@@ -93,6 +93,8 @@ public class Game
             }
         }
 
+        this.AdvantagesToWin(this.playerOne, this.playerTwo);
+
         if (!this.CheckDead(this.playerOne))
         {
             this.PlayTurnP2();
@@ -101,6 +103,80 @@ public class Game
                 this.externalConnection.PrintPlayerWon(this.playerTwo, this.playerOne);
                 return;
             }
+        }
+
+        this.AdvantagesToWin(this.playerOne, this.playerTwo);
+    }
+
+    /// <summary>
+    /// Calculala que jugador tiene ventaja para ganar.
+    /// </summary>
+    /// <param name="playerone">El <see cref="Player"/> que va a ser evaludo primero.</param>
+    /// <param name="playertwo">El <see cref="Player"/> que va a ser evaludo segundo.</param>
+    public void AdvantagesToWin(Player playerone, Player playertwo)
+    {
+        // Lista de jugadores para recorrerlos con un foreach y asi no repetir codigo.
+        List<Player> players = new List<Player>
+        {
+            playerone,
+            playertwo,
+        };
+
+        // Variables Auxiliares para llevar el conteo.
+        double advantagePointsAux = 0; // Guarda la ventaja mas alta o la comun entre los dos jugadores.
+        Player playerwithadvantage = null!; // Guarda el jugador con la ventaja mas alta.
+
+        // Foreach que recorre los jugadores.
+        foreach (Player player in players)
+        {
+            double advantagePoints = 0; // Se va incrementado dependiendo los puntos que el jugador consiga.
+
+            // Foreach que recorre los pokemones del jugador y divide lo que tiene de vida, cada pokemon vale 10 (si tiene el 100% de vida).
+            foreach (Pokemon pokemon in player.Pokemons)
+            {
+                advantagePoints += (pokemon.Health / pokemon.MaxHealth) * 10;
+            }
+
+            // Foreach que recorre los Items para saber cuantos tiene ya que cada uno vale 30/7 (4.28571428571429).
+            foreach (Item item in player.Items)
+            {
+                advantagePoints += 4.28571428571429;
+            }
+
+            // Numero de pokemones con efecto.
+            int auxeffect = 0;
+
+            // Foreach que recorre los Pokemons y suma 1 si no tiene un efecto, si el numero de pokemones sin efecto es igual a el numero de pokemones se le suma 10 puntos.
+            foreach (Pokemon pokemon in player.Pokemons)
+            {
+                if (pokemon.ActiveEffect == null)
+                {
+                    auxeffect += 1;
+                }
+
+                if (auxeffect == player.Pokemons.Count)
+                {
+                    advantagePoints += 10;
+                }
+            }
+
+            // Esto usa una variable auxiliar para dejar guardado los valores del primer jugador y si el segundo es mayor se retorna ese, en caso contrario se retorna el primero.
+            if (advantagePoints > advantagePointsAux)
+            {
+                playerwithadvantage = player;
+                advantagePointsAux = advantagePoints;
+            }// Si los dos son iguales imprime.
+            else if (advantagePoints == advantagePointsAux)
+            {
+                this.externalConnection.PrintString($"Los jugadores tienen la misma probabilidad de ganar, ambos con un {advantagePointsAux}% de probabilidad.");
+                playerwithadvantage = null!; // La pongo null para no imprimir si los dos jugadores son iguales y si son diferentes.
+            }
+        }
+
+        // Aca evaluo para no imprimir las dos.
+        if (playerwithadvantage != null)
+        {
+            this.externalConnection.PrintString($"El jugados {playerwithadvantage.Name} es el que tiene mas provabilidades de ganar con una ventaja de el {advantagePointsAux}%.");
         }
     }
 
