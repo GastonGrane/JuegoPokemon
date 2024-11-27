@@ -268,6 +268,11 @@ public class Pokemon
         {
             this.RemoveEffect();
         }
+        else if (this.ActiveEffect != null)
+        {
+            IEffect act = this.ActiveEffect;
+            act.UpdateEffect(this);
+        }
     }
 
     /// <summary>
