@@ -138,6 +138,8 @@ public class Player
     /// <returns> La probabilidad de ganar.</returns>
     public bool WinProbability()
     {
+        int pokemonTotalesSanos = 0;
+
         foreach (var pokemon in this.Pokemons)
         {
             if (pokemon.Health != 0)
@@ -145,7 +147,15 @@ public class Player
                 this.chance += 10;
             }
 
-            
+            if (pokemon.ActiveEffect == null || pokemon.ActiveEffect.IsExpired)
+            {
+                pokemonTotalesSanos += 1;
+            }
+
+            if (pokemonTotalesSanos == this.Pokemons.Count)
+            {
+                this.chance += 10;
+            }
         }
 
         if (this.Items.Count == 6)
