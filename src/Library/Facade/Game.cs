@@ -272,8 +272,13 @@ public class Game
         if (p.ActivePokemon.Health == 0)
         {
             this.externalConnection.PrintString(
-                $"{p.Name}, su Pokemon ha muerto, elija otro Pokemon para continuar el juego");
-            this.ChangePokemon(p);
+                $"{p.Name}, su Pokémon ha muerto, elija otro Pokémon para continuar el juego.");
+
+            while (!this.ChangePokemon(p))
+            {
+                this.externalConnection.PrintString("Debe seleccionar una opcion válida para continuar.");
+            }
+
             return false;
         }
 
