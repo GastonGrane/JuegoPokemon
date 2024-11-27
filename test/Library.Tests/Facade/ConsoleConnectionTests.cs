@@ -339,7 +339,7 @@ internal sealed class ConsoleConnectionTests
         StringReader input = new("1\n");
         Console.SetIn(input);
 
-        int result = this.conn.ShowChangePokemonMenu(player);
+        int result = this.conn.ShowPokemonMenu(player);
         string output = this.consoleOutput.ToString();
 
         Assert.That(result, Is.EqualTo(0)); // El índice 0 corresponde al primer Pokémon.
@@ -366,7 +366,7 @@ internal sealed class ConsoleConnectionTests
         StringReader input = new("Pikachu\n");
         Console.SetIn(input);
 
-        int result = this.conn.ShowChangePokemonMenu(player);
+        int result = this.conn.ShowPokemonMenu(player);
         string output = this.consoleOutput.ToString();
 
         Assert.That(result, Is.EqualTo(0)); // El índice 0 corresponde a "Pikachu"
@@ -392,7 +392,7 @@ internal sealed class ConsoleConnectionTests
         StringReader input = new("InvalidName\nAnotherInvalid\nArticuno\n"); // Secuencia: incorrecto -> incorrecto -> correcto.
         Console.SetIn(input);
 
-        int result = this.conn.ShowChangePokemonMenu(player);
+        int result = this.conn.ShowPokemonMenu(player);
         string output = this.consoleOutput.ToString();
 
         Assert.That(result, Is.EqualTo(2));
@@ -418,7 +418,7 @@ internal sealed class ConsoleConnectionTests
         StringReader input = new("0\n");
         Console.SetIn(input);
 
-        int result = this.conn.ShowChangePokemonMenu(player);
+        int result = this.conn.ShowPokemonMenu(player);
         string output = this.consoleOutput.ToString();
 
         Assert.That(result, Is.EqualTo(-1)); // Retorno esperado para "volver al menú".
@@ -442,7 +442,7 @@ internal sealed class ConsoleConnectionTests
         StringReader input = new("8\n2\n"); // Secuencia: fuera de rango -> correcto.
         Console.SetIn(input);
 
-        int result = this.conn.ShowChangePokemonMenu(player);
+        int result = this.conn.ShowPokemonMenu(player);
         string output = this.consoleOutput.ToString();
 
         Assert.That(result, Is.EqualTo(1));

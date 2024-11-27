@@ -271,7 +271,7 @@ public class ConsoleConnection : IExternalConnection
             }
 
             string input = Console.ReadLine()!;
-            int selection = 0;
+            int selection = -1;
             CultureInfo culture = new CultureInfo("en_US");
             try
             {
