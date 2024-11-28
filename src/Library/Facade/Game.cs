@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Diagnostics;
 using Library.GameLogic.Entities;
 using Library.GameLogic.Items;
 using Library.GameLogic.Players;
@@ -184,7 +185,7 @@ public class Game
         {
             int selection = this.externalConnection.ShowMenuAndReceiveInput(
                 "Elija su acción:",
-                new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item" }.AsReadOnly());
+                new List<string> { "Atacar", "Cambiar de Pokémon", "Usar un item", "Probabilidad de Ganar" }.AsReadOnly());
             switch (selection)
             {
                 case 0:
@@ -203,6 +204,14 @@ public class Game
                     break;
                 case 2:
                     if (this.UseItem(active))
+                    {
+                        return;
+                    }
+
+                    break;
+                case 3:
+                    // en cada turno el jugador puede ver su probabilidad de ganar sin perder el turno.
+                    if (this.ProbabilidadGanar(active, other))
                     {
                         return;
                     }
@@ -290,6 +299,12 @@ public class Game
             return false;
         }
 
+        return false;
+    }
+
+    public bool ProbabilidadGanar(Player active, Player other)
+    {
+        this.externalConnection.PosibilityWin(active, other);
         return false;
     }
 }

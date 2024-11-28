@@ -22,43 +22,32 @@ namespace Program
         /// <param name="args">Argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
-            // ConsoleApp();
-            DiscordBot().GetAwaiter().GetResult();
-        }
-
-        private static void ConsoleApp()
-        {
-            List<Pokemon> pokemons = new List<Pokemon>
-            {
-                PokemonRegistry.GetPokemon("Pikachu"),
-                PokemonRegistry.GetPokemon("Bulbasaur"),
-                PokemonRegistry.GetPokemon("Charmander"),
-                PokemonRegistry.GetPokemon("Squirtle"),
-            };
-
-            Player p1 = new Player(
-                "Axel",
-                new List<Pokemon>
+                List<Pokemon> pokemons = new List<Pokemon>
                 {
-                    PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
-                    PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
-                });
-            Player p2 = new Player(
-                "Sharon",
-                new List<Pokemon>
-                {
-                    PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
-                    PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
-                });
+                    PokemonRegistry.GetPokemon("Pikachu"),
+                    PokemonRegistry.GetPokemon("Bulbasaur"),
+                    PokemonRegistry.GetPokemon("Charmander"),
+                    PokemonRegistry.GetPokemon("Squirtle"),
+                };
 
-            IExternalConnection connection = new ConsoleConnection();
-            Game game = new Game(p1, p2, connection);
-            game.Play();
-        }
+                Player p1 = new Player(
+                    "Axel",
+                    new List<Pokemon>
+                    {
+                        PokemonRegistry.GetPokemon("Pikachu"), PokemonRegistry.GetPokemon("Ivysaur"),
+                        PokemonRegistry.GetPokemon("Metapod"), PokemonRegistry.GetPokemon("Charmander"),
+                    });
+                Player p2 = new Player(
+                    "Sharon",
+                    new List<Pokemon>
+                    {
+                        PokemonRegistry.GetPokemon("Mewtwo"), PokemonRegistry.GetPokemon("Golbat"),
+                        PokemonRegistry.GetPokemon("Charmeleon"), PokemonRegistry.GetPokemon("Oddish"),
+                    });
 
-        private static async Task DiscordBot()
-        {
-            await BotLoader.LoadAsync();
+                IExternalConnection connection = new ConsoleConnection();
+                Game game = new Game(p1, p2, connection);
+                game.Play();
+            }
         }
     }
-}
