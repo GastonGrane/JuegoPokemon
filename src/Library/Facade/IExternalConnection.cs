@@ -106,6 +106,13 @@ public interface IExternalConnection
     public void ReportAttackResult(int oldHP, Player attacker, Player defender);
 
     /// <summary>
+    /// Da la probabilidad de ganar de un jugador y lo compara con la del otro.
+    /// </summary>
+    /// <param name="active"></param> el jugador que esta solicitando ver la probabilidad.
+    /// <param name="other"></param> el contrincante del jugador
+    public void PosibilityWin(Player active, Player other);
+
+    /// <summary>
     /// Se llama al terminar el turno del jugador.
     /// </summary>
     /// <param name="p1">El primer jugador (del turno actual).</param>

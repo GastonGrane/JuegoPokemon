@@ -114,6 +114,10 @@ public class DiscordConnection : IExternalConnection
         return t.Result;
     }
 
+    public void PosibilityWin(Player active, Player other)
+    {
+    }
+
     /// <inheritdoc/>
     public void ReportAttackResult(int oldHP, Player attacker, Player defender)
     {

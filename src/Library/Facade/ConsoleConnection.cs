@@ -313,6 +313,14 @@ public class ConsoleConnection : IExternalConnection
         }
     }
 
+    
+    public void PosibilityWin(Player active, Player other)
+    {
+        int probGanarActive = active.ProbabilidadDeGanar();
+        int probGanarOther = other.ProbabilidadDeGanar();
+        Console.WriteLine($"Tu probabilidad de ganar es de {probGanarActive} y la de {other.Name} es de {probGanarOther}");
+    }
+
     /// <inheritdoc/>
     public void EndTurn(Player p1, Player p2)
     {

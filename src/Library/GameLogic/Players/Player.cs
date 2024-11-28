@@ -193,4 +193,37 @@ public class Player
             pok.UpdateTurn();
         }
     }
+
+    /// <summary>
+    /// Ve la probabilidad que tiene de ganar el jugador acorde a la cantidad de pokemones vivos, items utilizados y si algun pokemon esta afectado o no.
+    /// </summary>
+    /// <returns></returns>
+    public int ProbabilidadDeGanar()
+    {
+        int probGanar = 0;
+        bool pokAfectado = false;
+        foreach (Pokemon pok in this.Pokemons)
+        {
+            if (pok.Health != 0)
+            {
+                probGanar += 10;
+            }
+
+            if (pok.ActiveEffect != null)
+            {
+                pokAfectado = true;
+            }
+        }
+
+        int cantItem = this.Items.Count;
+        int probItem = cantItem * 30 / 7; // el juego siemple inicializa a los jugadores con 7 items ( 1 revive, 4 superPotion, 2 totalCure)
+
+        probGanar += probItem;
+        if (pokAfectado == false)
+        {
+            probGanar += 10;
+        }
+
+        return probGanar;
+    }
 }
