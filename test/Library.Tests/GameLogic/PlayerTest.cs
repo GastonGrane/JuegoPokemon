@@ -363,12 +363,11 @@ public class PlayerTest
 
         p2.ActivePokemon.RemoveEffect();
         p2.ActivePokemon.Damage(40);
-        SuperPotion revive = new SuperPotion();
-        revive.Use(p2.ActivePokemon);
+        p2.ApplyItem(p2.ActivePokemon, "Super Potion");
         p2.WinProbability();
 
         // Me tendria que dar 55(20 pokemon, 10 todos sanos, 25 regla de 3 por haber utilizado una pocion y ya no es 30)
         // este test, pero en el programa principal, los items no bajan cuando los uso.
-        Assert.That(p2.Chance, Is.EqualTo(60));
+        Assert.That(p2.Chance, Is.EqualTo(55));
     }
 }
