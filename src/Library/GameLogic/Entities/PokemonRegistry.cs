@@ -30,7 +30,7 @@ public class PokemonRegistry
         this.pokemon = pokemon;
     }
 
-    // Prueba de GitHub
+    // Prueba de GitHub nuevamente
 
     /// <summary>
     /// El singleton del registro.
